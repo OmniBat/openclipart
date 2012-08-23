@@ -70,7 +70,7 @@ function human_date($date) {
 }
 
 function get_time() {
-    return (float)array_sum(explode(' ',microtime()));
+    return (float)array_sum(explode(' ', microtime()));
 }
 
 // calulate number from $min to 100 for $max, used for tag cloud
@@ -113,4 +113,12 @@ function query_sring($array) {
         $result[] = "$k=$v";
     }
     return implode('&', $result);
+}
+
+function get($array, $name, $default) {
+    if (isset($array[$name])) {
+        return $array[$name];
+    } else {
+        return $default;
+    }
 }

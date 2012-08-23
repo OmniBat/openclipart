@@ -38,7 +38,7 @@ class Database {
     function escape($string) {
         return $this->conn->real_escape_string($string);
     }
-    function query($string) {
+    function query($query) {
         $ret = $this->conn->query($query);
         if (!$ret) {
             throw new DatabaseException($this->conn->error);
@@ -48,6 +48,9 @@ class Database {
     function get_array($query) {
         $result = array();
         $ret = $this->query($query);
+        if ($ret->num_rows == 0) {
+            return $result;
+        }
         while ($row = $ret->fetch_assoc()) {
             $result[] = $row;
         }
@@ -62,8 +65,10 @@ class Database {
         return $result;
     }
     function get_assoc($query) {
-        $result = array();
         $ret = $this->query($query);
+        if ($ret->num_rows == 0) {
+            return array();
+        }
         $result = $ret->fetch_assoc();
         $ret->close();
         return $result;
@@ -71,6 +76,9 @@ class Database {
     function get_column($query) {
         $result = array();
         $ret = $this->query($query);
+        if ($ret->num_rows == 0) {
+            return $result;
+        }
         while ($row = $ret->fetch_row()) {
             $result[] = $row[0];
         }
@@ -84,7 +92,7 @@ class Database {
         $ret->close();
         return $result[0];
     }
-    function __call($method, $argv) {
-        return call_user_func_array(array($this->conn, $method), $argv);
+    function __call($name, $argv) {
+        return call_user_func_array(array($this->conn, $name), $argv);
     }
 }

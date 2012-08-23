@@ -76,7 +76,7 @@ INSERT IGNORE INTO openclipart_clipart_tags SELECT id, (SELECT id FROM openclipa
 
 -- TAG COLLECTIONS
 
-CREATE TABLE tag_collection(id INTEGER NOT NULL auto_increment, name VARCHAR(255), creator INTEGER DEFAULT NULL, created DATETIME, PRIMARY KEY(id), FOREIGN KEY(creator) REFERENCES openclipart_users(id));
+CREATE TABLE tag_collection(id INTEGER NOT NULL auto_increment, name VARCHAR(255), creator INTEGER DEFAULT NULL, created DATETIME, last_archive_date DATETIME DEFAULT NULL, PRIMARY KEY(id), FOREIGN KEY(creator) REFERENCES openclipart_users(id));
 
 CREATE TABLE tag_collection_tag(tag INTEGER NOT NULL, collection INTEGER NOT NULL, added DATETIME, PRIMARY KEY(tag, collection), FOREIGN KEY(tag) REFERENCES openclipart_tags(id), FOREIGN KEY(collection) REFERENCES tag_collection(id));
 

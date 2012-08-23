@@ -23,110 +23,252 @@
 require_once('Slim/Slim/Slim.php');
 require_once('Database.php');
 require_once('ArrayObjectFacade.php');
+require_once('nwexceptions.php');
+require_once('Restrict.php');
 
 
-class System {
-    private $user_id;
-    private $user_name;
-    private $groups;
+class SystemException extends Exception { }
+// internal Exception
+class AuthorizationException extends Exception { }
+// user handler exception
+class LoginException extends Exception { }
+
+
+Class SystemFunctions {
+    function __construct($system) {
+        $this->system = $system;
+    }
+    function create_group($group) {
+        //
+    }
+    function add_to_group($user, $group) {
+        //
+    }
+    function disguise($id) {
+        $this->system->__authorize("id = " . intval($id));
+    }
+}
+
+
+final class System {
+    public $groups;
     private $original_config;
     public $config;
-    private $nsfw;
     public $db;
     public $GET;
-    function __construct($arg) {
+    private $db_prefix;
+    private $rest_user_data;
+    function __construct($args) {
         session_start();
         $this->slim = new Slim();
-        if (is_callable($arg)) {
-            $arg = $arg();
+        if (is_callable($args)) {
+            $args = $args();
         }
-        if (gettype($arg) !== 'array') {
+        if (gettype($args) !== 'array') {
             throw new Exception("System Argument need to be an array " .
                                 "or a function that return an array");
         }
-        $this->db = new Database($arg['db_host'],
-                                 $arg['db_user'],
-                                 $arg['db_pass'],
-                                 $arg['db_name']);
-        if (isset($_SESSION['userid'])) {
-            // get user from database
-        }
-        // TODO: select user groups
+        $this->db = new Database($args['db_host'],
+                                 $args['db_user'],
+                                 $args['db_pass'],
+                                 $args['db_name']);
         $this->groups = array();
-        //query paramters that will be forward to urls
-        $redirect =  'redirect=' . $arg['root'] .
-            urlencode($_SERVER['REQUEST_URI']);
-        if (isset($arg['forward_query_list'])) {
-            $forward = filter_pair($_GET, function($k, $v) use($arg) {
-                return in_array($k, $arg['forward_query_list']);
-            });
-            if (!empty($forward)) {
-                $arg['forward_query'] = '?' . query_sring($forward);
-                $arg['redirect'] = '&' . $redirect;
-            } else {
-                $arg['redirect'] = '?' . $redirect;
+        $this->db_prefix = $args['db_prefix'];
+        $this->rest_user_data = array();
+        // restor from session
+        if (isset($_SESSION['userid'])) {
+            try {
+                // sanity check
+                $id = intval($_SESSION['userid']);
+                $this->__authorize("id = $id");
+                $args['userid'] = $id;
+            } catch (AuthorizationException $e) {
+                session_destroy();
+                throw new SystemException("Invalid UserID in Session");
             }
+        }
+        //query paramters that will be forward to urls
+        // TODO: this is Template specific code should be in different place
+        $clean_uri = $_SERVER['SCRIPT_URL'];
+        if (($forward = $this->get_forward_args()) != array()) {
+            $args['forward_query'] = '?' . query_sring($forward);
+            $args['redirect'] = '&';
+            $clean_uri .= $args['forward_query'];
         } else {
-            $arg['redirect'] = '?' . $redirect;
+            $args['redirect'] = '?';
         }
-        $this->original_config = $arg;
+        // for login url
+        $args['redirect'] .= 'redirect=' . $args['root'] . urlencode($clean_uri);
         if ($this->can_overwrite_config()) {
-            $arg = array_merge($arg, normalized_get_array());
+            $args = array_merge($args, normalized_get_array());
         }
-        $this->config = new ArrayObjectFacade($arg);
+        $this->config_array = $args;
+        $this->config = new ArrayObjectFacade($args);
         $this->GET = new ArrayObjectFacade(normalized_get_array());
-        if ($this->can_overwrite_user() && $this->config->exists('user')) {
-            // disguise as user
+        if (isset($this->config->permissions)) {
+            // restrict access to functions
+            $silent = array('disguise');
+            if (isset($this->config->permissions['silent'])) {
+                $silent = array_merge($silent,
+                                      $this->config->permissions['silent']);
+            }
+            $this->functions = new Restrict(new SystemFunctions($this),
+                                            $this->config->permissions['access'],
+                                            $this->groups,
+                                            $silent);
+        }
+        // act as user
+        if (isset($this->config->user)) {
+            $this->disguise($this->config->user);
+        }
+        // setup JSON-RPC
+        $root_dir = $this->config->root_directory;
+        $this->post('/rpc/:name', function($name) use ($root_dir) {
+            $filename = $root_dir . "/rpc/".$name.".php";
+            require('libs/json-rpc/json-rpc.php');
+            if (class_exists($name)) {
+                handle_json_rpc(new $name());
+            } else {
+                if (file_exists($filename)) {
+                    require_once($filename);
+                    handle_json_rpc(new $name());
+                } else {
+                    $msg = "ERROR: service `$name' not found";
+                    echo json_encode(array(
+                        "error" => array("code" => 108, "message" => $msg)
+                    ));
+                }
+            }
+        });
+        /*
+        $this->add(new Slim_Middleware_SessionCookie(array(
+            'expires' => '60 minutes',
+            'path' => '/',
+            'domain' => $_SERVER['HTTP_HOST'],
+            'secure' => false,
+            'httponly' => false,
+            'name' => 'ocal_session',
+            'secret' => $this->config->session_secret,
+            'cipher' => MCRYPT_RIJNDAEL_256,
+            'cipher_mode' => MCRYPT_MODE_CBC
+        )));
+        */
+    }
+    function is($group) {
+        return in_array($group, $this->groups);
+    }
+    // SystemFunctions class need this function for disguise php have not friend
+    function __authorize($where = null) {
+        if ($where == null || $where == '') {
+            throw new Exception("where argument to authorize private method " .
+                                "can't be null or empty");
+        }
+        $table = $this->db_prefix . '_users';
+        $query = "SELECT * FROM $table WHERE $where";
+        $db_user = $this->db->get_assoc($query);
+        if (empty($db_user)) {
+            throw new AuthorizationException("Where '$where' is invalid");
+        }
+        /*
+        $this->rest_user_data = filter_pair($db_user, function($k, $v) {
+            return $k != 'password';
+        });
+        */
+        $this->rest_user_data = $db_user;
+        $this->groups = $this->fetch_groups(intval($this->id));
+    }
+    private function fetch_groups($user) {
+        $query = "SELECT name FROM openclipart_user_groups INNER JOIN openclipart_groups ON id = user_group WHERE user = " . $user;
+        return $this->db->get_array($query);
+    }
+    function get_forward_args() {
+        if (isset($this->original_config['forward_query_list'])) {
+            $forward = $this->original_config['forward_query_list'];
+            return filter_pair($_GET, function($k, $v) use ($forward){
+                return in_array($k, $forward);
+            });
+        } else {
+            return array();
         }
     }
-    // can change to admin && developer
-    // this user can act as other users using query string "user=<ID>"
-    // so it can test how the site work for this other user
-    function can_overwrite_user() {
-        return $this->is_admin();
+    function login($username, $password) {
+        $table = $this->config->db_prefix . '_users';
+        $username = $this->db->escape($username);
+        $password = $this->db->escape($password);
+        $where = "username = '$username'";// AND password = md5(md5('$password'))";
+        try {
+            $this->__authorize($where);
+        } catch (AuthorizationException $e) {
+            throw new LoginException("Invalid Username");
+        }
+        if ($this->password != md5(md5($password))) {
+            throw new LoginException("Invalid Password");
+        }
+        $_SESSION['userid'] = $this->id;
+    }
+    function __get($name) {
+        //throw new Exception("Name $name not found");
+        if (in_array($name, array_keys($this->rest_user_data))) {
+            return $this->rest_user_data[$name];
+        } else {
+            throw new Exception("'" . get_class($this) . "' have no $name " .
+                                "property ");
+        }
+    }
+    function logout() {
+        unset($_SESSION['userid']);
+        session_destroy();
+        $this->rest_user_data = array();
     }
     function can_overwrite_config() {
         return $this->is_admin();
     }
     // this user can set data passed to mustache via query string
-    function can_overwrite_mustache() {
+    function can_overwrite() {
         return $this->is_admin();
     }
     function nsfw() {
+        //act as logged
+        return $this->config->get('nsfw', true);
         if ($this->is_logged()) {
             return $this->config->get('nsfw', $this->nfsw);
         } else {
             return true;
         }
     }
+    function overwrite_data() {
+        if ($this->can_overwrite()) {
+            return normalized_get_array();
+        } else {
+            return array();
+        }
+    }
+    function globals() {
+        return array_merge($this->config_array, $this->rest_user_data);
+    }
     function track() {
         return $this->GET->get('track', true);
     }
-    function config_array() {
-        return $this->original_config;
-    }
-    function login($username, $password) {
-        //$this->db->
-    }
     function is_logged() {
-        return $this->user_id != null;
-    }
-    function get_user_id() {
-        return $this->user_id;
+        return isset($this->id) && is_numeric($this->id);
     }
     function is_admin() {
         //debug
         return true;
-        return $this->is_logged() && in_array('admin', $this->groups);
+        return $this->is_logged() && $this->is('admin');
     }
-    function get_user_name() {
-        return $this->user_name;
-    }
-
-    function is_librarian() {
-        return $this->is_logged() && in_array('librarian', $this->groups);
+    function exception($handler) {
+        $this->error = $handler;
     }
     function __call($method, $argv) {
-        return call_user_func_array(array($this->slim, $method), $argv);
+        // $ret instanceof Template
+        // return $ret->render();
+        try {
+            return call_user_func_array(array($this->slim, $method), $argv);
+        } catch (Exception $e) {
+            if (isset($this->error)) {
+                call_user_func($this->error, $e->getTraceAsString());
+            }
+        }
     }
 }
