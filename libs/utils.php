@@ -122,3 +122,11 @@ function get($array, $name, $default) {
         return $default;
     }
 }
+
+function get_object_methods($object) {
+    return gettype($object) == 'object' ? get_class_methods(get_class($object)) : array();
+}
+
+function have_method($object, $method) {
+    return in_array($method, get_object_methods($object));
+}

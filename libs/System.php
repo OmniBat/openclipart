@@ -50,7 +50,7 @@ Class SystemFunctions {
 }
 
 
-final class System {
+final class System extends Slim {
     public $groups;
     private $original_config;
     public $config;
@@ -59,8 +59,8 @@ final class System {
     private $db_prefix;
     private $rest_user_data;
     function __construct($args) {
+        Slim::__construct();
         session_start();
-        $this->slim = new Slim();
         if (is_callable($args)) {
             $args = $args();
         }
@@ -154,6 +154,39 @@ final class System {
         )));
         */
     }
+    private function auto_render_fun($callable) {
+        $app = $this;
+        return function() use ($callable, $app) {
+            $args = func_get_args();
+                $ret = call_user_func_array($callable, $args);
+                // TODO: maybe cast to string (string)$ret it will call __toString()
+                //       without Template check, it will be more generic
+                if ($ret instanceof Template) {
+                    //render Template - Slim ignore return value
+                    $app->response()->body($ret->render());
+                }
+        };
+    }
+    // patch over callable so closure can return instance of Template
+    protected function mapRoute($args) {
+        $last = count($args)-1;
+        $args[$last] = $this->auto_render_fun($args[$last]);
+        return Slim::mapRoute($args);
+    }
+    public function notFound($callable = null) {
+        if (!is_null(($callable))) {
+            $this->router->notFound($this->auto_render_fun($callable));
+        } else {
+            $customNotFoundHandler = $this->router->notFound();
+            if (is_callable($customNotFoundHandler)) {
+                call_user_func($customNotFoundHandler);
+            } else {
+                call_user_func(array($this, 'defaultNotFound'));
+            }
+            $this->response->status(404);
+            $this->stop();
+        }
+    }
     function is($group) {
         return in_array($group, $this->groups);
     }
@@ -199,9 +232,11 @@ final class System {
         try {
             $this->__authorize($where);
         } catch (AuthorizationException $e) {
+            $this->rest_user_data = array();
             throw new LoginException("Invalid Username");
         }
         if ($this->password != md5(md5($password))) {
+            $this->rest_user_data = array();
             throw new LoginException("Invalid Password");
         }
         $_SESSION['userid'] = $this->id;
@@ -263,12 +298,13 @@ final class System {
     function __call($method, $argv) {
         // $ret instanceof Template
         // return $ret->render();
-        try {
+        /*if (have_method($this->slim, $method)) {
             return call_user_func_array(array($this->slim, $method), $argv);
-        } catch (Exception $e) {
-            if (isset($this->error)) {
-                call_user_func($this->error, $e->getTraceAsString());
-            }
+        } else*/
+        if (have_method($this->functions, $method)) {
+            return call_user_func_array(array($this->functions, $method), $argv);
+        } else {
+            throw new BadMethodCallException("Can't call method '$method'");
         }
     }
 }

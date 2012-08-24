@@ -72,7 +72,7 @@ class Template implements Renderable {
             $data = array();
             foreach ($user_data as $name => $value) {
                 if (isset($overwrite[$name])) {
-                    $data[$name] = $get_array[$name];
+                    $data[$name] = $overwrite[$name];
                 } else if (gettype($value) == 'array') {
                     $data[$name] = array();
                     $template = false;

@@ -84,8 +84,22 @@ $app = new System(function() {
         // desc     for sort true or false
         // lang     for translation system
         'forward_query_list' => array(
+            // TODO strip tags. or if Regex not match then ignore
+            // nsfw = /true|false/
             'nsfw', 'track', 'user', 'size', 'token', 'sort', 'desc', 'lang'
         ),
+        /*
+        'forward_query_list' => array(
+            'nsfw' => '/^(true|false)$/i',
+            'track' => '/^(true|false)$/i',
+            'user' => '/^[0-9]+$/',
+            'size' => '/^[0-9]+(px|%)?$/i',
+            'token' => '/^[0-9a-f]+$/i',
+            'sort' => '/^(name|date|download|favorites)$/i',
+            'desc' => '/^(true|false)$/i',
+            'lang' => '/^(pl|es|js|de|zh)$/i'
+        ),
+        */
         'nsfw_image' => array(
             'user' => 'h0us3s',
             'filename' => 'h0us3s_Signs_Hazard_Warning_1'
@@ -123,6 +137,14 @@ function get_trace($exception) {
     }, $exception->getTrace());
 }
 
+function exception_string($exception) {
+    global $app;
+    return get_class($exception) . " " . $exception->getMessage() . " in file " .
+        str_replace($app->config->root_directory, '', $exception->getFile()) .
+        ' at ' . $exception->getLine();
+
+}
+
 
 class NiceExceptions extends Slim_Middleware_PrettyExceptions {
     protected function renderBody(&$env, $exception) {
@@ -131,7 +153,7 @@ class NiceExceptions extends Slim_Middleware_PrettyExceptions {
             return array('content' => new Template('exception', function() use ($exception) {
                 global $app;
                 return array(
-                    'code' => $exception->getCode(),
+                    'name' => get_class($exception),
                     'message' => $exception->getMessage(),
                     'file' => str_replace($app->config->root_directory,
                                           '',
@@ -155,15 +177,19 @@ $app->get("/throw-exception", function() use ($app) {
     return $array['x'];
 });
 
+$app->get("/foo", function() {
+    return new Template('main', function() {
+        return array('content' => 'hello');
+    });
+});
 
 
 $app->notFound(function () use ($app) {
     $response = $app->response();
     $response['Content-Type'] = 'text/html'; // handlers can change it like /image
-    $main = new Template('main', function() {
+    return new Template('main', function() {
         return array('content' => new Template('error_404', null));
     });
-    echo $main->render();
 });
 
 $app->error(function(Exception $e) {
@@ -177,12 +203,10 @@ $app->map('/login', function() use ($app) {
     $error = null;
     if (isset($_POST['login']) && isset($_POST['password'])) {
         $redirect = isset($app->GET->redirect) ? $app->GET->redirect : $app->config->root;
+        // TODO: redirect don't work
         try {
             $app->login($_POST['login'], $_POST['password']);
-            if (isset($app->GET->redirect)) {
-                $app->redirect($app->GET->redirect);
-            }
-            echo "Logedd";
+            $app->redirect($redirect);
             return;
         } catch (LoginException $e) {
             $error = $e->getMessage();
@@ -448,6 +472,7 @@ $app->error(function($msg) use ($app) {
  */
 $app->get('/test', function() {
     global $app;
+    $app->xx();
     echo isset($_GET['lang']) ? $_GET['lang'] : 'undefined';
     $response = $app->response();
     $response['Content-Type'] = 'text/plain';
