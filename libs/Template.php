@@ -28,7 +28,12 @@ class TemplateException extends Exception {
     }
 }
 
-class Template {
+interface Renderable {
+    function render();
+}
+
+
+class Template implements Renderable {
     function __construct($name, $data_privider) {
         global $indent;
         $this->name = $name;
@@ -41,16 +46,14 @@ class Template {
     }
     function render() {
         global $app, $indent;
-        $get_array = normalized_get_array();
         $start_time = get_time();
         $mustache = new Mustache_Engine(array(
             'escape' => function($val) { return $val; }
         ));
-        $config = $app->config_array();
+        $overwrite = $app->overwrite_data();
+        $global = $app->globals();
         if ($this->user_data === null) {
-            if ($app->can_overwrite_mustache()) {
-                $data = array_merge($config, $get_array);
-            }
+            $data = array_merge($global, $overwrite);
             return $mustache->render($this->template, $data);
         } else {
             $user_data = $this->user_data;
@@ -68,7 +71,7 @@ class Template {
             }
             $data = array();
             foreach ($user_data as $name => $value) {
-                if ($app->can_overwrite_mustache() && isset($get_array[$name])) {
+                if (isset($overwrite[$name])) {
                     $data[$name] = $get_array[$name];
                 } else if (gettype($value) == 'array') {
                     $data[$name] = array();
@@ -94,10 +97,10 @@ class Template {
             }
             $end_time = sprintf("%.4f", (get_time()-$start_time));
             $time = "<!-- Time: $end_time seconds -->";
-            $data = array_merge($config,
+            $data = array_merge($global,
                                 array('load_time' => $time),
                                 $data,
-                                $app->can_overwrite_mustache() ? $get_array : array());
+                                $overwrite);
             return $mustache->render($this->template, $data);
             /* it show begin before Doctype
             if (DEBUG) {
@@ -109,5 +112,8 @@ class Template {
             }
             */
         }
+    }
+    function __toString() {
+        return $this->render();
     }
 }

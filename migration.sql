@@ -29,7 +29,7 @@ INSERT INTO openclipart_clipart(id, filename, title, description, owner, sha1, d
 
 
 -- USERS
-CREATE TABLE openclipart_users(id integer NOT NULL auto_increment, username varchar(255) UNIQUE, password varchar(60), full_name varchar(255), country varchar(255), email varchar(255), avatar integer, homepage varchar(255), creation_date datetime, notify boolean, nsfw_filter boolean, rand_key varchar(40), PRIMARY KEY(id), FOREIGN KEY(user_group) REFERENCES openclipart_users_groups(id), FOREIGN KEY(avatar) REFERENCES openclipart_clipart(id));
+CREATE TABLE openclipart_users(id integer NOT NULL auto_increment, username varchar(255) UNIQUE, password varchar(60), full_name varchar(255), country varchar(255), email varchar(255), avatar integer, homepage varchar(255), creation_date datetime, notify boolean, nsfw_filter boolean, token varchar(40), token_expiration datetime default null, PRIMARY KEY(id), FOREIGN KEY(avatar) REFERENCES openclipart_clipart(id));
 
 -- copy non duplicate aiki_users
 
@@ -73,6 +73,12 @@ CREATE TABLE openclipart_clipart_tags(clipart integer NOT NULL, tag integer NOT 
 INSERT INTO openclipart_tags(name) VALUES('nsfw');
 
 INSERT IGNORE INTO openclipart_clipart_tags SELECT id, (SELECT id FROM openclipart_tags WHERE name = 'nsfw') FROM ocal_files where nsfw = 1;
+
+-- TAG COLLECTIONS
+
+CREATE TABLE tag_collection(id INTEGER NOT NULL auto_increment, name VARCHAR(255), creator INTEGER DEFAULT NULL, created DATETIME, last_archive_date DATETIME DEFAULT NULL, PRIMARY KEY(id), FOREIGN KEY(creator) REFERENCES openclipart_users(id));
+
+CREATE TABLE tag_collection_tag(tag INTEGER NOT NULL, collection INTEGER NOT NULL, added DATETIME, PRIMARY KEY(tag, collection), FOREIGN KEY(tag) REFERENCES openclipart_tags(id), FOREIGN KEY(collection) REFERENCES tag_collection(id));
 
 
 -- GROUPS

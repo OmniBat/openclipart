@@ -1,23 +1,25 @@
-<div id="signin">
-	<h2>Login to OpenClipArt</h2>
-	<span>(*Fields are case sensitive)</span><br/><br/>
-	<form method='post'>
-		<div>
-			<table border="0">
-				<tbody>
-					<tr>
-						<td><b>User:</b></td>
-						<td><input class="input" type="text" name="username" dir=""/></td>
-					</tr>
-					<tr>
-						<td><b>Password:</b></td>
-						<td><input class="input" type="password" name="password" dir=""/></td>
-					</tr>
-					<tr>
-						<td><input class="button" type="submit" name="submit" value="Sign in"/><br /><br /><a href='/resetpassword'>Lost Password?</a> | <a href='/register'>New User?</a></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</form>
+<div id="login-form">
+  <h2>Login</h2>
+  <p>(*Fields are case sensitive)</p>
+  {{#error}}
+    <p class="error">{{errror}}</p>
+  {{/error}}
+  <form action="/login" method="POST">
+    <div class="field">
+      <label for="login">Login:</label>
+      <input id="login" name="login" value="{{login}}"/>
+	</div>
+	<div class="field">
+	  <label for="password">Passoword:</label>
+      <input id="password" type="password" name="password"/>
+	</div>
+    <div>
+      <input class="button" type="submit" name="submit" value="Login"/>
+    </div>
+    <div id="action-links">
+      <a href="/reset-password">Lost Password?</a>
+      |
+      <a href="/register">Register</a>
+    </div>
+  </form>
 </div>

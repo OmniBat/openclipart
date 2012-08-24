@@ -77,6 +77,7 @@
                 <li><a title="Request Page" href="{{root}}/request">Request</a></li>
                 -->
                 <li><a title="How can you help our project" href="{{root}}/participate">Participate</a></li>
+                <li><a title="IRC #openclipart Channel interface" href="{{root}}/chat">Chat</a></li>
                 <li><a title="About Open Clipart Library" href="{{root}}/about">About</a></li>
                 <li class="launchpad bugs"><a title="Got API?" href="{{root}}/docs/api">Need API?</a></li>
                 <li class="launchpad"><a title="Bugs?" href="http://bugs.launchpad.net/openclipart">Found Bugs?</a></li>

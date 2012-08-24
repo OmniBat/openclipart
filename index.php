@@ -29,8 +29,10 @@ require_once('libs/Template.php');
 require_once('libs/System.php');
 require_once('libs/Clipart.php');
 
-/* TODO: logs (using slim) and cache in Template::render
- *
+/* TODO: logs (using slim) - same as apacha with gzip and numbering
+ *                           cache all exceptions and log them
+ *       cache in Template::render
+ *          {{%cache_time:week}}  mustache pragma
  *
  *
  */
@@ -38,24 +40,52 @@ require_once('libs/Clipart.php');
 $app = new System(function() {
     /*
      *  System config need those variables
-     *  db_user, db_host, db_pass, db_name
+     *  db_user, db_host, db_pass, db_name (they are taken from config.json
+     *  the file is disabled by .htaccess)
      */
     $config = get_object_vars(json_decode(file_get_contents('config.json')));
     $protocol = (isset($_SERVER['HTTPS'])) ? 'https' : 'http';
     return array_merge($config, array(
         'root' => $protocol . '://' . $_SERVER['HTTP_HOST'],
-        'root_directory' => $_SERVER['DOCUMENT_ROOT'], // dirname(__FILE__),
+        'root_directory' => $_SERVER['DOCUMENT_ROOT'],
+        'db_prefix' => 'openclipart',
         'tag_limit' => 100,
         'top_artist_last_month_limit' => 10,
         'home_page_thumbs_limit' => 8,
         'home_page_collections_limit' => 5,
         'home_page_news_limit' => 3,
-        'bitmap_resolution_limit' => 3840,
+        'bitmap_resolution_limit' => 3840, // number from old javascript
         'google_analytics' => false,
+        // permission to functions in
+        'permissions' => array(
+            // JSON-RPC permissions
+            'rpc' => array(
+                'Admin' => array('admin')
+            ),
+            'access' => array(
+                'disguise' => array('admin', 'developer'),
+                'add_to_group' => array('admin'),
+            ),
+            // disguise fun is silent by default - executed in System constructor
+            'silent' => array(),
+            'disabled' => array()
+        ),
         'show_facebook' => false,
         'debug' => true,
-        //user for admin only; track - initialy to disable download count in edit button
-        'forward_query_list' => array('nsfw', 'track', 'user'),
+        // user     disguise as this user
+        // track    initialy to disable download count in edit button
+        //          can be use in different places
+        // size     thumbail_size
+        // token    you can browse site without cookies and php sessions
+        //          using token in url, token will be send for users that forget
+        //          passwords
+        //          if token_expiration in database is null the time is infinite
+        // sort     download, favorites, date
+        // desc     for sort true or false
+        // lang     for translation system
+        'forward_query_list' => array(
+            'nsfw', 'track', 'user', 'size', 'token', 'sort', 'desc', 'lang'
+        ),
         'nsfw_image' => array(
             'user' => 'h0us3s',
             'filename' => 'h0us3s_Signs_Hazard_Warning_1'
@@ -67,9 +97,69 @@ $app = new System(function() {
     ));
 });
 
+
+function get_trace($exception) {
+    $i = 0;
+    return array_map(function($array) use (&$i) {
+        global $app;
+        $args = implode(', ', array_map(function($arg) {
+            $type = gettype($arg);
+            return $type == 'object' ? get_class($arg) : $type;
+        }, $array['args']));
+        $result = sprintf('%3d: ', $i++);
+        if (isset($array['class']) && isset($array['type'])) {
+            $result .= $array['class'] . $array['type'];
+        }
+        $result .= $array['function'] . '(' . $args . ')';
+        if (isset($array['file'])) {
+            $result .= ' in ' . str_replace($app->config->root_directory,
+                                            '',
+                                            $array['file']);
+        }
+        if (isset($array['line'])) {
+            $result .= ' at ' . $array['line'];
+        }
+        return $result;
+    }, $exception->getTrace());
+}
+
+
+class NiceExceptions extends Slim_Middleware_PrettyExceptions {
+    protected function renderBody(&$env, $exception) {
+        global $app;
+        $main = new Template('main', function() use ($exception) {
+            return array('content' => new Template('exception', function() use ($exception) {
+                global $app;
+                return array(
+                    'code' => $exception->getCode(),
+                    'message' => $exception->getMessage(),
+                    'file' => str_replace($app->config->root_directory,
+                                          '',
+                                          $exception->getFile()),
+                    'line' => $exception->getLine(),
+                    'trace' => implode("\n", get_trace($exception)) //->getTraceAsString()
+                );
+            }));
+        });
+        return $main->render();
+    }
+}
+
+
+
+$app->add(new NiceExceptions());
+
+
+$app->get("/throw-exception", function() use ($app) {
+    $array = array();
+    return $array['x'];
+});
+
+
+
 $app->notFound(function () use ($app) {
     $response = $app->response();
-    $response['Content-Type'] = 'text/html';
+    $response['Content-Type'] = 'text/html'; // handlers can change it like /image
     $main = new Template('main', function() {
         return array('content' => new Template('error_404', null));
     });
@@ -80,17 +170,58 @@ $app->error(function(Exception $e) {
     echo 'error';
 });
 
-$app->post('/login', function() use ($app) {
-    if (is_set($_POST['login']) && is_set($_POST['password'])) {
 
+//TODO: Wrapp echo $main->render();
+
+$app->map('/login', function() use ($app) {
+    $error = null;
+    if (isset($_POST['login']) && isset($_POST['password'])) {
+        $redirect = isset($app->GET->redirect) ? $app->GET->redirect : $app->config->root;
+        try {
+            $app->login($_POST['login'], $_POST['password']);
+            if (isset($app->GET->redirect)) {
+                $app->redirect($app->GET->redirect);
+            }
+            echo "Logedd";
+            return;
+        } catch (LoginException $e) {
+            $error = $e->getMessage();
+        }
+    }
+    $main = new Template('main', function() use ($error) {
+        return array(
+            'content' => array(new Template('login', function() use ($error) {
+                return array(
+                    // fill login on second attempt
+                    'login' => isset($_POST['login']) ? $_POST['login'] : '',
+                    'error' => $error
+                );
+            }))
+        );
+    });
+    echo $main->render();
+})->via('GET', 'POST');
+
+$app->get("/logout", function() {
+    global $app;
+    $app->logout();
+    if (isset($app->GET->redirect)) {
+        $app->redirect($app->GET->redirect);
+    } else {
+        $main = new Template('main', function() {
+            return array(
+                'content' => '<p>You are now logged out</p>'
+            );
+        });
+        echo $main->render();
     }
 });
-$app->get('/login', function() use ($app) {
-    echo 'redirect to ' . $app->GET->redirect;
-});
 
-$app->get("/register", function() use ($app) {
-
+$app->get("/chat", function() {
+    $main = new Template('main', function() {
+        return array('content' => array(new Template('chat', null)));
+    });
+    echo $main->render();
 });
 
 $app->get("/detail/:id/:link", function($id, $link) use ($app) {
@@ -219,25 +350,7 @@ $app->get('/', function() {
     echo $main->render();
 });
 
-$app->get('/test', function() {
-    global $app;
-    $response = $app->response();
-    $response['Content-Type'] = 'text/plain';
-    print_r($_SERVER) . "\n";
-    echo $_SERVER['REQUEST_URI'] . "\n";
-    echo 'nsfw: ' . $app->nsfw() ? 'true' : 'false';
-    echo "\n";
-    echo (empty($_GET) ? 'true' : 'false') . "\n";
-    return;
-    $main = new Template('test', function() {
-        return array('foo' => function($query) {
-            global $app;
-            $array = $app->db->get_array($query);
-            return implode(' | ', $array[0]);
-        });
-    });
-    echo $main->render();
-});
+
 
 $app->get('/clipart/:id/:link', function($id, $link) {
     $main = new Template('main', function() {
@@ -254,7 +367,7 @@ $app->get('/clipart/:id/:link', function($id, $link) {
 
 
 // routing /people/*.svg
-$app->get('/download/:user/:filename', function($user, $filename) {
+$app->get('/download/svg/:user/:filename', function($user, $filename) {
     global $app;
     $clipart = new Clipart($user, $filename);
     if (!$clipart->exists($svg) || $clipart->size() == 0) {
@@ -321,33 +434,115 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
     }
 });
 
+$app->error(function($msg) use ($app) {
+    $response = $app->response();
+    $response['Content-Type'] = 'text/plain';
+    $main = new Template('main', function() {
+        return array('content' => $msg);
+    });
+    return $main->render();
+});
+/*
+  $response = $app->response();
+  $response->body($main->render());
+ */
+$app->get('/test', function() {
+    global $app;
+    echo isset($_GET['lang']) ? $_GET['lang'] : 'undefined';
+    $response = $app->response();
+    $response['Content-Type'] = 'text/plain';
+    print_r($_SERVER) . "\n";
+    echo $_SERVER['REQUEST_URI'] . "\n";
+    echo 'nsfw: ' . $app->nsfw() ? 'true' : 'false';
+    echo "\n";
+    echo (empty($_GET) ? 'true' : 'false') . "\n";
+    return "xxx";
+    $main = new Template('test', function() {
+        return array('foo' => function($query) {
+            global $app;
+            $array = $app->db->get_array($query);
+            return implode(' | ', $array[0]);
+        });
+    });
+    echo $main->render();
+}); //->conditions(array('name' => '[0-9]*'));
+
+$app->post("/notify-librarians-admins", function() {
+    
+});
+
 // TODO: rpc permission system
 /*
 class Foo extends LibrarianPermission {
 
 }
 */
-$app->post('/rpc/:name', function($name) use ($app) {
-    $filename = $app->config->root_directory . "/rpc/".$name.".php";
-    require('libs/json-rpc/json-rpc.php');
-    if (class_exists($name)) {
-        handle_json_rpc(new $name());
-    } else {
-        if (file_exists($filename)) {
-            require_once($filename);
-            handle_json_rpc(new $name());
-        } else {
-            $msg = "ERROR: service `$name' not found";
-            echo json_encode(array(
-                "error" => array("code" => 108, "message" => $msg)
-            ));
+
+$app->get('/download/collection/:name', function($name) {
+    global $app;
+    // name exists
+    // check last count in field
+    // check count using join    - can be in one query
+    // if different create new archive
+    $zip = new ZipArchive();
+    // SQL for tag_collection info along with max date (JOIN GROUP BY)
+    //$last_date =
+    $collection = $app->db->get_row($query);
+    $base = $app->config->root_directory . '/collections/' . $name . '-';
+    // remove old collection archive
+    if ($collection['last_archive_date'] != $collection['last_date']) {
+        unlink($base . $collection['last_archive_date'] . '.zip');
+        $zip_filename = $base . $collection['last_date'] . '.zip';
+        $res = $zip->open($zip_filename, ZipArchive::CREATE);
+        if (!$res) {
+            throw new Exception("Can't create zip archive");
         }
+        $zip->setArchiveComment("Open Clipart Library '$name' collection.");
+        $archive = array();
+        $dirs = array();
+        foreach ($app->db->get_array($query) as $row) {
+            $dir = $row['tag'];
+            $local_filename =  $dir . '/' . $row['filename'];
+            if (!in_array($dir, $dirs)) {
+                if (!$zip->addEmptyDir($dir)) {
+                    throw new Exception("Couldn't create directory '$dir' in".
+                                        " zip file");
+                }
+                $dirs[] = $row['tag'];
+            }
+            
+            if (array_key_exists($row['filename'], $archive)) {
+                $i = ++$archive[$row['filename']];
+                $local_filename = preg_replace("/\.svg$/",
+                                               "_$i.svg",
+                                               $local_filename);
+            } else {
+                $archive[$row['filename']] = 1;
+            }
+            $in_archive[] = $row['filename'];
+            $filename = $app->config->root_directory . '/people/' .
+                $row['user'] . '/' . $row['filename'];
+            if (!$zip->addFile($filename, $local_filename)) {
+                throw new Exception("Couldn't add file '$local_filename' to ".
+                                    "the archive");
+            }
+        }
+        $zip->close();
+    } else {
+        $zip_filename = $base . $collection['last_archive_date'] . '.zip';
+    }
+    if (!file_exists($zip_filename)) {
+        $app->notFound();
+    } else {
+        // stream the archive
+        $response = $app->response();
+        $response['Content-Type'] = 'application/octet-stream';
+        echo file_get_contents($zip_filename);
     }
 });
 
+
+
 $app->run();
-
-
-
 
 ?>

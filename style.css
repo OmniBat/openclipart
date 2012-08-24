@@ -1349,3 +1349,35 @@ ul.img-actions {padding-top: 5px; padding-bottom: 12px;}
     padding: 10px;
     margin-left: -20px;
 }
+
+pre {
+    word-wrap: break-word;
+}
+#login-form .field input {
+    border: 1px solid #C3C3C3;
+    text-align: left;
+    background: ghostWhite;
+    padding: 2px;
+}
+#login-form .field label {
+    font-weight: bold;
+    width: 70px;
+    float: left;
+    display: block;
+    margin-top: 6px;
+}
+#login-form .button, #login-form #action-links {
+    margin-left: 70px;
+}
+#login-form #action-links {
+    margin-top: 10px;
+}
+#chat {
+    text-align: center;
+}
+#chat iframe {
+    border: 1px solid black
+}
+#chat h2, #chat p {
+    text-align: left;
+}

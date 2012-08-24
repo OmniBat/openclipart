@@ -29,12 +29,12 @@ class ArrayObjectFacade {
         }
     }
     function get($name, $default=null) {
-        return $this->exists($name) ? $this->data[$name] : $default;
+        return isset($this->$name) ? $this->$name : $default;
     }
     function __get($name) {
         return $this->data[$name];
     }
-    function exists($name) {
+    function __isset($name) {
         return in_array($name, array_keys($this->data));
     }
 }

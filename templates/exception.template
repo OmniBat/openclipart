@@ -1,0 +1,5 @@
+<div>
+  <div>Error {{code}}: <strong>{{message}}</strong> in file <strong>{{file}}</strong> at line <strong>{{line}}</strong></div>
+  <h2>Stack Trace</h2>
+  <pre>{{trace}}</pre>
+</div>
