@@ -1372,3 +1372,12 @@ pre {
 #login-form #action-links {
     margin-top: 10px;
 }
+#chat {
+    text-align: center;
+}
+#chat iframe {
+    border: 1px solid black
+}
+#chat h2, #chat p {
+    text-align: left;
+}

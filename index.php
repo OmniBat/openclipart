@@ -98,10 +98,37 @@ $app = new System(function() {
 });
 
 
+function get_trace($exception) {
+    $i = 0;
+    return array_map(function($array) use (&$i) {
+        global $app;
+        $args = implode(', ', array_map(function($arg) {
+            $type = gettype($arg);
+            return $type == 'object' ? get_class($arg) : $type;
+        }, $array['args']));
+        $result = sprintf('%3d: ', $i++);
+        if (isset($array['class']) && isset($array['type'])) {
+            $result .= $array['class'] . $array['type'];
+        }
+        $result .= $array['function'] . '(' . $args . ')';
+        if (isset($array['file'])) {
+            $result .= ' in ' . str_replace($app->config->root_directory,
+                                            '',
+                                            $array['file']);
+        }
+        if (isset($array['line'])) {
+            $result .= ' at ' . $array['line'];
+        }
+        return $result;
+    }, $exception->getTrace());
+}
+
+
 class NiceExceptions extends Slim_Middleware_PrettyExceptions {
     protected function renderBody(&$env, $exception) {
+        global $app;
         $main = new Template('main', function() use ($exception) {
-            return array('content' => new Template('Exception', function() use ($exception) {
+            return array('content' => new Template('exception', function() use ($exception) {
                 global $app;
                 return array(
                     'code' => $exception->getCode(),
@@ -110,7 +137,7 @@ class NiceExceptions extends Slim_Middleware_PrettyExceptions {
                                           '',
                                           $exception->getFile()),
                     'line' => $exception->getLine(),
-                    'trace' => $exception->getTraceAsString()
+                    'trace' => implode("\n", get_trace($exception)) //->getTraceAsString()
                 );
             }));
         });
@@ -122,6 +149,11 @@ class NiceExceptions extends Slim_Middleware_PrettyExceptions {
 
 $app->add(new NiceExceptions());
 
+
+$app->get("/throw-exception", function() use ($app) {
+    $array = array();
+    return $array['x'];
+});
 
 
 
@@ -158,7 +190,7 @@ $app->map('/login', function() use ($app) {
     }
     $main = new Template('main', function() use ($error) {
         return array(
-            'content' => array(new Template('Login', function() use ($error) {
+            'content' => array(new Template('login', function() use ($error) {
                 return array(
                     // fill login on second attempt
                     'login' => isset($_POST['login']) ? $_POST['login'] : '',
@@ -185,9 +217,11 @@ $app->get("/logout", function() {
     }
 });
 
-$app->get("/throw-exception", function() use ($app) {
-    $array = array();
-    return $array['x'];
+$app->get("/chat", function() {
+    $main = new Template('main', function() {
+        return array('content' => array(new Template('chat', null)));
+    });
+    echo $main->render();
 });
 
 $app->get("/detail/:id/:link", function($id, $link) use ($app) {
@@ -414,10 +448,10 @@ $app->error(function($msg) use ($app) {
  */
 $app->get('/test', function() {
     global $app;
+    echo isset($_GET['lang']) ? $_GET['lang'] : 'undefined';
     $response = $app->response();
     $response['Content-Type'] = 'text/plain';
     print_r($_SERVER) . "\n";
-    
     echo $_SERVER['REQUEST_URI'] . "\n";
     echo 'nsfw: ' . $app->nsfw() ? 'true' : 'false';
     echo "\n";
@@ -476,7 +510,8 @@ $app->get('/download/collection/:name', function($name) {
                 }
                 $dirs[] = $row['tag'];
             }
-            if (in_array($row['filename'], array_keys($archive))) {
+            
+            if (array_key_exists($row['filename'], $archive)) {
                 $i = ++$archive[$row['filename']];
                 $local_filename = preg_replace("/\.svg$/",
                                                "_$i.svg",

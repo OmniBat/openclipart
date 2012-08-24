@@ -113,4 +113,7 @@ class Template implements Renderable {
             */
         }
     }
+    function __toString() {
+        return $this->render();
+    }
 }

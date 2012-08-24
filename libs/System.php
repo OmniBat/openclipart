@@ -208,7 +208,7 @@ final class System {
     }
     function __get($name) {
         //throw new Exception("Name $name not found");
-        if (in_array($name, array_keys($this->rest_user_data))) {
+        if (array_key_exists($name, $this->rest_user_data)) {
             return $this->rest_user_data[$name];
         } else {
             throw new Exception("'" . get_class($this) . "' have no $name " .
