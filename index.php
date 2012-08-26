@@ -24,6 +24,42 @@ ini_set('display_errors', 'On');
 
 define('DEBUG', true);
 
+function get_trace($exception) {
+    $i = 0;
+    return array_map(function($array) use (&$i) {
+        $args = implode(', ', array_map(function($arg) {
+            $type = gettype($arg);
+            return $type == 'object' ? get_class($arg) : $type;
+        }, $array['args']));
+        $result = sprintf('%3d: ', $i++);
+        if (isset($array['class']) && isset($array['type'])) {
+            $result .= $array['class'] . $array['type'];
+        }
+        $result .= $array['function'] . '(' . $args . ')';
+        if (isset($array['file'])) {
+            $result .= ' in ' . str_replace($_SERVER['DOCUMENT_ROOT'],
+                                            '',
+                                            $array['file']);
+        }
+        if (isset($array['line'])) {
+            $result .= ' at ' . $array['line'];
+        }
+        return $result;
+    }, $exception->getTrace());
+}
+
+function exception_string($exception) {
+    global $app;
+    return get_class($exception) . " " . $exception->getMessage() . " in file " .
+        str_replace($_SERVER['DOCUMENT_ROOT'], '', $exception->getFile()) .
+        ' at ' . $exception->getLine();
+
+}
+
+
+
+
+
 require_once('libs/utils.php');
 require_once('libs/Template.php');
 require_once('libs/System.php');
@@ -112,39 +148,6 @@ $app = new System(function() {
 });
 
 
-function get_trace($exception) {
-    $i = 0;
-    return array_map(function($array) use (&$i) {
-        global $app;
-        $args = implode(', ', array_map(function($arg) {
-            $type = gettype($arg);
-            return $type == 'object' ? get_class($arg) : $type;
-        }, $array['args']));
-        $result = sprintf('%3d: ', $i++);
-        if (isset($array['class']) && isset($array['type'])) {
-            $result .= $array['class'] . $array['type'];
-        }
-        $result .= $array['function'] . '(' . $args . ')';
-        if (isset($array['file'])) {
-            $result .= ' in ' . str_replace($app->config->root_directory,
-                                            '',
-                                            $array['file']);
-        }
-        if (isset($array['line'])) {
-            $result .= ' at ' . $array['line'];
-        }
-        return $result;
-    }, $exception->getTrace());
-}
-
-function exception_string($exception) {
-    global $app;
-    return get_class($exception) . " " . $exception->getMessage() . " in file " .
-        str_replace($app->config->root_directory, '', $exception->getFile()) .
-        ' at ' . $exception->getLine();
-
-}
-
 
 class NiceExceptions extends Slim_Middleware_PrettyExceptions {
     protected function renderBody(&$env, $exception) {
@@ -167,10 +170,25 @@ class NiceExceptions extends Slim_Middleware_PrettyExceptions {
     }
 }
 
+//$app->add(new NiceExceptions());
 
-
-$app->add(new NiceExceptions());
-
+$app->error(function($exception) {
+    global $app;
+    return new Template('main', function() use ($exception) {
+        return array('content' => new Template('exception', function() use ($exception) {
+            global $app;
+            return array(
+                'name' => get_class($exception),
+                'message' => $exception->getMessage(),
+                'file' => str_replace($app->config->root_directory,
+                                      '',
+                                      $exception->getFile()),
+                'line' => $exception->getLine(),
+                'trace' => implode("\n", get_trace($exception)) //->getTraceAsString()
+            );
+        }));
+    });
+});
 
 $app->get("/throw-exception", function() use ($app) {
     $array = array();
@@ -190,10 +208,6 @@ $app->notFound(function () use ($app) {
     return new Template('main', function() {
         return array('content' => new Template('error_404', null));
     });
-});
-
-$app->error(function(Exception $e) {
-    echo 'error';
 });
 
 
@@ -458,14 +472,8 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
     }
 });
 
-$app->error(function($msg) use ($app) {
-    $response = $app->response();
-    $response['Content-Type'] = 'text/plain';
-    $main = new Template('main', function() {
-        return array('content' => $msg);
-    });
-    return $main->render();
-});
+
+
 /*
   $response = $app->response();
   $response->body($main->render());

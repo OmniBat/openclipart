@@ -23,7 +23,7 @@
 require_once('Slim/Slim/Slim.php');
 require_once('Database.php');
 require_once('ArrayObjectFacade.php');
-require_once('nwexceptions.php');
+//require_once('nwexceptions.php');
 require_once('Restrict.php');
 
 
@@ -154,39 +154,6 @@ final class System extends Slim {
         )));
         */
     }
-    private function auto_render_fun($callable) {
-        $app = $this;
-        return function() use ($callable, $app) {
-            $args = func_get_args();
-                $ret = call_user_func_array($callable, $args);
-                // TODO: maybe cast to string (string)$ret it will call __toString()
-                //       without Template check, it will be more generic
-                if ($ret instanceof Template) {
-                    //render Template - Slim ignore return value
-                    $app->response()->body($ret->render());
-                }
-        };
-    }
-    // patch over callable so closure can return instance of Template
-    protected function mapRoute($args) {
-        $last = count($args)-1;
-        $args[$last] = $this->auto_render_fun($args[$last]);
-        return Slim::mapRoute($args);
-    }
-    public function notFound($callable = null) {
-        if (!is_null(($callable))) {
-            $this->router->notFound($this->auto_render_fun($callable));
-        } else {
-            $customNotFoundHandler = $this->router->notFound();
-            if (is_callable($customNotFoundHandler)) {
-                call_user_func($customNotFoundHandler);
-            } else {
-                call_user_func(array($this, 'defaultNotFound'));
-            }
-            $this->response->status(404);
-            $this->stop();
-        }
-    }
     function is($group) {
         return in_array($group, $this->groups);
     }
@@ -296,11 +263,6 @@ final class System extends Slim {
         $this->error = $handler;
     }
     function __call($method, $argv) {
-        // $ret instanceof Template
-        // return $ret->render();
-        /*if (have_method($this->slim, $method)) {
-            return call_user_func_array(array($this->slim, $method), $argv);
-        } else*/
         if (have_method($this->functions, $method)) {
             return call_user_func_array(array($this->functions, $method), $argv);
         } else {
