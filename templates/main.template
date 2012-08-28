@@ -1,4 +1,3 @@
-{{%UNESCAPED}}
 <!DOCTYPE html>
 <html lang='en' dir='ltr'>
 <head>
@@ -39,11 +38,12 @@
                 </ul>
               {{/username}}
               {{^username}}
-                <ul>
-                 <li><a href="{{root}}/login{{forward_query}}{{redirect}}">Log in</a></li>
-                 <li>|</li>
-                 <li><a href="{{root}}/register{{forward_query}}">Register</a></li>
-                </ul>
+              <ul>
+                <li>{{lang}}</li>
+                <li><a href="{{root}}/login{{forward_query}}{{redirect}}">Log in</a></li>
+                <li>|</li>
+                <li><a href="{{root}}/register{{forward_query}}">Register</a></li>
+              </ul>
               {{/username}}
               <div class="clearfix"></div>
             </div>

@@ -23,7 +23,7 @@
 require_once('Slim/Slim/Slim.php');
 require_once('Database.php');
 require_once('ArrayObjectFacade.php');
-require_once('nwexceptions.php');
+//require_once('nwexceptions.php');
 require_once('Restrict.php');
 
 
@@ -50,7 +50,7 @@ Class SystemFunctions {
 }
 
 
-final class System {
+final class System extends Slim {
     public $groups;
     private $original_config;
     public $config;
@@ -59,8 +59,8 @@ final class System {
     private $db_prefix;
     private $rest_user_data;
     function __construct($args) {
+        Slim::__construct();
         session_start();
-        $this->slim = new Slim();
         if (is_callable($args)) {
             $args = $args();
         }
@@ -199,9 +199,11 @@ final class System {
         try {
             $this->__authorize($where);
         } catch (AuthorizationException $e) {
+            $this->rest_user_data = array();
             throw new LoginException("Invalid Username");
         }
         if ($this->password != md5(md5($password))) {
+            $this->rest_user_data = array();
             throw new LoginException("Invalid Password");
         }
         $_SESSION['userid'] = $this->id;
@@ -261,14 +263,10 @@ final class System {
         $this->error = $handler;
     }
     function __call($method, $argv) {
-        // $ret instanceof Template
-        // return $ret->render();
-        try {
-            return call_user_func_array(array($this->slim, $method), $argv);
-        } catch (Exception $e) {
-            if (isset($this->error)) {
-                call_user_func($this->error, $e->getTraceAsString());
-            }
+        if (have_method($this->functions, $method)) {
+            return call_user_func_array(array($this->functions, $method), $argv);
+        } else {
+            throw new BadMethodCallException("Can't call method '$method'");
         }
     }
 }

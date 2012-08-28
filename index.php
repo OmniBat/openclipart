@@ -24,6 +24,42 @@ ini_set('display_errors', 'On');
 
 define('DEBUG', true);
 
+function get_trace($exception) {
+    $i = 0;
+    return array_map(function($array) use (&$i) {
+        $args = implode(', ', array_map(function($arg) {
+            $type = gettype($arg);
+            return $type == 'object' ? get_class($arg) : $type;
+        }, $array['args']));
+        $result = sprintf('%3d: ', $i++);
+        if (isset($array['class']) && isset($array['type'])) {
+            $result .= $array['class'] . $array['type'];
+        }
+        $result .= $array['function'] . '(' . $args . ')';
+        if (isset($array['file'])) {
+            $result .= ' in ' . str_replace($_SERVER['DOCUMENT_ROOT'],
+                                            '',
+                                            $array['file']);
+        }
+        if (isset($array['line'])) {
+            $result .= ' at ' . $array['line'];
+        }
+        return $result;
+    }, $exception->getTrace());
+}
+
+function exception_string($exception) {
+    global $app;
+    return get_class($exception) . " " . $exception->getMessage() . " in file " .
+        str_replace($_SERVER['DOCUMENT_ROOT'], '', $exception->getFile()) .
+        ' at ' . $exception->getLine();
+
+}
+
+
+
+
+
 require_once('libs/utils.php');
 require_once('libs/Template.php');
 require_once('libs/System.php');
@@ -84,8 +120,22 @@ $app = new System(function() {
         // desc     for sort true or false
         // lang     for translation system
         'forward_query_list' => array(
+            // TODO strip tags. or if Regex not match then ignore
+            // nsfw = /true|false/
             'nsfw', 'track', 'user', 'size', 'token', 'sort', 'desc', 'lang'
         ),
+        /*
+        'forward_query_list' => array(
+            'nsfw' => '/^(true|false)$/i',
+            'track' => '/^(true|false)$/i',
+            'user' => '/^[0-9]+$/',
+            'size' => '/^[0-9]+(px|%)?$/i',
+            'token' => '/^[0-9a-f]+$/i',
+            'sort' => '/^(name|date|download|favorites)$/i',
+            'desc' => '/^(true|false)$/i',
+            'lang' => '/^(pl|es|js|de|zh)$/i'
+        ),
+        */
         'nsfw_image' => array(
             'user' => 'h0us3s',
             'filename' => 'h0us3s_Signs_Hazard_Warning_1'
@@ -98,31 +148,6 @@ $app = new System(function() {
 });
 
 
-function get_trace($exception) {
-    $i = 0;
-    return array_map(function($array) use (&$i) {
-        global $app;
-        $args = implode(', ', array_map(function($arg) {
-            $type = gettype($arg);
-            return $type == 'object' ? get_class($arg) : $type;
-        }, $array['args']));
-        $result = sprintf('%3d: ', $i++);
-        if (isset($array['class']) && isset($array['type'])) {
-            $result .= $array['class'] . $array['type'];
-        }
-        $result .= $array['function'] . '(' . $args . ')';
-        if (isset($array['file'])) {
-            $result .= ' in ' . str_replace($app->config->root_directory,
-                                            '',
-                                            $array['file']);
-        }
-        if (isset($array['line'])) {
-            $result .= ' at ' . $array['line'];
-        }
-        return $result;
-    }, $exception->getTrace());
-}
-
 
 class NiceExceptions extends Slim_Middleware_PrettyExceptions {
     protected function renderBody(&$env, $exception) {
@@ -131,7 +156,7 @@ class NiceExceptions extends Slim_Middleware_PrettyExceptions {
             return array('content' => new Template('exception', function() use ($exception) {
                 global $app;
                 return array(
-                    'code' => $exception->getCode(),
+                    'name' => get_class($exception),
                     'message' => $exception->getMessage(),
                     'file' => str_replace($app->config->root_directory,
                                           '',
@@ -145,29 +170,44 @@ class NiceExceptions extends Slim_Middleware_PrettyExceptions {
     }
 }
 
+//$app->add(new NiceExceptions());
 
-
-$app->add(new NiceExceptions());
-
+$app->error(function($exception) {
+    global $app;
+    return new Template('main', function() use ($exception) {
+        return array('content' => new Template('exception', function() use ($exception) {
+            global $app;
+            return array(
+                'name' => get_class($exception),
+                'message' => $exception->getMessage(),
+                'file' => str_replace($app->config->root_directory,
+                                      '',
+                                      $exception->getFile()),
+                'line' => $exception->getLine(),
+                'trace' => implode("\n", get_trace($exception)) //->getTraceAsString()
+            );
+        }));
+    });
+});
 
 $app->get("/throw-exception", function() use ($app) {
     $array = array();
     return $array['x'];
 });
 
+$app->get("/foo", function() {
+    return new Template('main', function() {
+        return array('content' => 'hello');
+    });
+});
 
 
 $app->notFound(function () use ($app) {
     $response = $app->response();
     $response['Content-Type'] = 'text/html'; // handlers can change it like /image
-    $main = new Template('main', function() {
+    return new Template('main', function() {
         return array('content' => new Template('error_404', null));
     });
-    echo $main->render();
-});
-
-$app->error(function(Exception $e) {
-    echo 'error';
 });
 
 
@@ -177,12 +217,10 @@ $app->map('/login', function() use ($app) {
     $error = null;
     if (isset($_POST['login']) && isset($_POST['password'])) {
         $redirect = isset($app->GET->redirect) ? $app->GET->redirect : $app->config->root;
+        // TODO: redirect don't work
         try {
             $app->login($_POST['login'], $_POST['password']);
-            if (isset($app->GET->redirect)) {
-                $app->redirect($app->GET->redirect);
-            }
-            echo "Logedd";
+            $app->redirect($redirect);
             return;
         } catch (LoginException $e) {
             $error = $e->getMessage();
@@ -434,20 +472,15 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
     }
 });
 
-$app->error(function($msg) use ($app) {
-    $response = $app->response();
-    $response['Content-Type'] = 'text/plain';
-    $main = new Template('main', function() {
-        return array('content' => $msg);
-    });
-    return $main->render();
-});
+
+
 /*
   $response = $app->response();
   $response->body($main->render());
  */
 $app->get('/test', function() {
     global $app;
+    $app->xx();
     echo isset($_GET['lang']) ? $_GET['lang'] : 'undefined';
     $response = $app->response();
     $response['Content-Type'] = 'text/plain';

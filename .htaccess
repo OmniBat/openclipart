@@ -6,6 +6,12 @@ RewriteEngine On
 #
 # RewriteBase /
 
+# Subdomain to lang redirect
+RewriteCond %{HTTP_HOST} ^(.*)\.openclipart.org
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{HTTP_HOST} !^staging.
+RewriteRule (.*) /$1?lang=%1 [QSA]
+
 # TODO: gzip compression
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} people/.* [OR]
@@ -16,12 +22,12 @@ RewriteRule ^ index.php [QSA,L]
 # Prevent to access database credentials
 RewriteCond %{REQUEST_FILENAME} config.json
 # accessed only from command line
-RewriteCond %{REQUEST_FILENAME} recreate_tags.php
+RewriteCond %{REQUEST_FILENAME} recreate_tags.php [OR]
 RewriteRule .* - [F]
 
 # Display maintenance page if we're doing some work on the site
 RewriteCond %{DOCUMENT_ROOT}/maintenance.html -f
 RewriteCond %{REQUEST_URI} !^/style.css
 RewriteCond %{REQUEST_URI} !^/images(.*)
-RewriteCond %{REQUEST_URI} !^/people(.*)
+#RewriteCond %{REQUEST_URI} !^/people(.*)
 RewriteRule ^.*$ maintenance.html
