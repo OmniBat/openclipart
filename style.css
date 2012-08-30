@@ -1353,20 +1353,25 @@ ul.img-actions {padding-top: 5px; padding-bottom: 12px;}
 pre {
     word-wrap: break-word;
 }
-#login-form .field input {
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+#login-form .field input, #register .field input {
     border: 1px solid #C3C3C3;
     text-align: left;
     background: ghostWhite;
     padding: 2px;
 }
-#login-form .field label {
+#login-form .field label, #register .field label {
     font-weight: bold;
     width: 70px;
     float: left;
     display: block;
     margin-top: 6px;
 }
-#login-form .button, #login-form #action-links {
+#login-form .button, #register .button, #login-form #action-links {
     margin-left: 70px;
 }
 #login-form #action-links {

@@ -90,6 +90,9 @@ INSERT INTO openclipart_groups VALUES(1, 'Admin'), (2, 'Librarian');
 CREATE TABLE openclipart_user_groups(user_group INTEGER NOT NULL, user INTEGER NOT NULL, PRIMARY KEY(user_group, user), FOREIGN KEY(user_group) REFERENCES openclipart_groups(id), FOREIGN KEY(user) REFERENCES openclipart_users(id));
 
 
+
+
+
 -- CLIPART in USE [NEW]
 
 CREATE TABLE openclipart_file_usage(id INTEGER NOT NULL auto_increment, filename VARCHAR(255), clipart INTEGER NOT NULL, user INTEGER DEFAULT NULL, primary key(id), FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), FOREIGN KEY(user) REFERENCES openclipart_users(id));

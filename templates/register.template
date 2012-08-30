@@ -1,0 +1,42 @@
+<div id="register">
+  <h2 class="register">Register new user</h2>
+  <p style="color: red;{{^error}}display:none{{/error}}" class="error">{{error}}</p>
+
+  <form action="{{root}}/register" method="post">
+    <fieldset class="fields">
+      <div class="field">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{username}}"/>
+      </div>
+
+      <div class="field">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value=""/>
+      </div>
+
+      <div class="field">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" value="{{email}}"/>
+      </div>
+      <!--
+      <div class="field">
+        <label for="full_name">Full Name:</label>
+        <input type="text" id="full_name" name="full_name" value=""/>
+      </div>
+      -->
+    </fieldset>
+
+    <div id="picatcha">
+      <script type="text/javascript" src="http://api.picatcha.com/static/client/picatcha.js"></script>
+      <link rel="stylesheet" type="text/css" href="http://api.picatcha.com/static/client/picatcha.css"/>
+      <script type="text/javascript">
+      Picatcha.API_SERVER = 'http://api.picatcha.com';
+      Picatcha.PUBLIC_KEY = '{{picatcha.public_key}}';
+      window.onload = function() { Picatcha.create('picatcha'); };
+      </script>
+    </div>
+    <fieldset>
+      <input class="primary btn button" type="submit" value="Register" name="add_to_form"/>
+    </fieldset>
+  </form>
+</div>

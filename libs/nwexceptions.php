@@ -18,21 +18,21 @@
  *
  *  author: Andrey Nikishaev
  */
- 
-class NoticeException extends Exception { 
+
+class NoticeException extends Exception {
     public function __toString() {
         return  "Notice: {$this->message} {$this->file} on line {$this->line}\n";
     }
 }
- 
-class WarningException extends Exception { 
+
+class WarningException extends Exception {
     public function __toString() {
         return  "Warning: {$this->message} {$this->file} on line {$this->line}\n";
     }
 }
- 
+
 set_error_handler("error_handler", E_ALL);
- 
+
 function error_handler($errno, $errstr) {
     if($errno == E_WARNING) {
         throw new WarningException($errstr);

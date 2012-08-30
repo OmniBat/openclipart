@@ -21,7 +21,7 @@
 
 
 class ArrayObjectFacade {
-    protected $data;
+    private $data;
     function __construct($arg) {
         $data = array();
         if ($arg !== null) {
