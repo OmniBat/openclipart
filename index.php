@@ -46,6 +46,7 @@ $app = new OCAL(array(
     'home_page_thumbs_limit' => 8,
     'home_page_collections_limit' => 5,
     'home_page_news_limit' => 3,
+    'token_expiration' => 1, // number of hours for token expiration (token send via email)
     'bitmap_resolution_limit' => 3840, // number from old javascript
     'google_analytics' => false,
     // permission to functions in
@@ -75,16 +76,16 @@ $app = new OCAL(array(
     // sort     download, favorites, date
     // desc     for sort true or false
     // lang     for translation system
-    /*'forward_query_list' => array(
+    'forward_query_list' => array(
       'nsfw' => '/^(true|false)$/i',
       'track' => '/^(true|false)$/i',
       'user' => '/^[0-9]+$/',
       'size' => '/^[0-9]+(px|%)?$/i',
-      'token' => '/^[0-9a-f]+$/i',
+      'token' => '/^[0-9a-f]{40}$/i',
       'sort' => '/^(name|date|download|favorites)$/i',
       'desc' => '/^(true|false)$/i',
       'lang' => '/^(pl|es|js|de|zh)$/i'
-      ),*/
+    ),
     'nsfw_image' => array(
         'user' => 'h0us3s',
         'filename' => 'h0us3s_Signs_Hazard_Warning_1'
@@ -148,6 +149,33 @@ $app->map('/login', function() use ($app) {
     });
 })->via('GET', 'POST');
 
+$app->map('/forget-password', function() use ($app) {
+    if (isset($_GET['email'])) {
+        $email = $_GET['email'];
+        if ($app->send_reset_password_link($email, $app->config->token_expiration)) {
+            $msg = "Instant access link was send to your email";
+            $error = false;
+        } else {
+            $msg = "We couldn't send an email, maybe you put wrong email adress";
+            $error = true;
+        }
+        if ($app->request()->isAjax()) {
+            return json_encode(array('result' => $msg, 'error' => $error));
+        } else {
+            return new Template('main', array('content' => $msg));
+        }
+    } else {
+        return new Template('main', array(
+            'content' => new Template('forget-password')
+        ));
+    }
+})->via('GET', 'POST');
+
+$app->get('/profile', function() {
+    return new Template('main', array('content' => '<p>user profile</p>'));
+});
+
+
 $app->get("/logout", function() {
     global $app;
     $app->logout();
@@ -177,12 +205,13 @@ $app->map('/register', function() use ($app) {
         } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             $msg = 'Sorry, but email is invalid';
         } else if ($app->user_exist($_POST['username'])) {
+            // TODO: check if email exists - don't allow for two accounts with the same email
             $msg = "Sorry, but this user already exist";
         } else if (!isset($_POST['picatcha']['r'])) {
             $msg = "Sorry, but you need to solve picatcha to prove that you're human";
             $username = $_POST['username'];
         } else {
-            require('libs/picatchalib.php');
+            require('libs/picatcha/picatchalib.php');
             $response = picatcha_check_answer($app->config->picatcha['private_key'],
 				$_SERVER['REMOTE_ADDR'],
 				$_SERVER['HTTP_USER_AGENT'],
@@ -242,12 +271,30 @@ $app->get("/chat", function() {
     });
 });
 
-$app->get("/detail/:id/:link", function($id, $link) use ($app) {
-
+$app->get("/detail/:args+", function($args) use ($app) {
+    $id = $args[0];
+    
+    return new Template('main', array(
+        'content' => new Template('clipart_detail', function() use ($id) {
+            global $app;
+            $id = intval($id);
+            $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, count(DISTINCT user) as favs, created, downloads, description FROM openclipart_clipart INNER JOIN openclipart_users ON owner = openclipart_users.id INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id WHERE openclipart_clipart.id = $id";
+            $row = $app->db->get_row($query);
+            if (empty($row)) {
+                $app->notFound();
+            }
+            
+            $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = " . $row['id'];
+            return array_merge($row, array(
+                'filename_png' => preg_replace('/.svg$/', '.png', $row['filename']),
+                'tags' => $app->db->get_column($query)
+            ));
+        })
+    ));
 });
 
-$app->get("/user-detail/:username", function($username) use ($app) {
-
+$app->get("/user/:username", function($username) use ($app) {
+    
 });
 
 
@@ -357,7 +404,7 @@ $app->get('/clipart/:id/:link', function($id, $link) {
 $app->get('/download/svg/:user/:filename', function($user, $filename) {
     global $app;
     $clipart = new Clipart($user, $filename);
-    if (!$clipart->exists($svg) || $clipart->size() == 0) {
+    if (!$clipart->exists($filename) || $clipart->size() == 0) {
         // old OCAL have some 0 size files
         $app->notFound();
     } else {

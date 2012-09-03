@@ -17,7 +17,7 @@
       <input class="button" type="submit" name="submit" value="Login"/>
     </div>
     <div id="action-links">
-      <a href="/reset-password">Lost Password?</a>
+      <a href="/forget-password">Lost Password?</a>
       |
       <a href="/register">Register</a>
     </div>

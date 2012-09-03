@@ -32,7 +32,7 @@ interface Renderable {
 
 
 class Template implements Renderable {
-    function __construct($name, $data_privider) {
+    function __construct($name, $data_privider=null) {
         global $indent;
         $this->name = $name;
         $filename = "templates/${name}.template";
@@ -60,6 +60,8 @@ class Template implements Renderable {
                 $closure = $this->user_data;
                 try {
                     $user_data = $closure();
+                } catch (Slim_Exception_Stop $e) {
+                    throw $e;
                 } catch (Exception $e) {
                     $app->error($e);
                 }

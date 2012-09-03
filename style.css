@@ -1183,13 +1183,15 @@ ul.img-actions {padding-top: 5px; padding-bottom: 12px;}
 .favorite-icon .favorite-add, .favorite-icon .favorite-remove {
     width: 12px;
     height: 11px;
+    display: inline-block;
+    top: 2px;
+    position: relative;
 }
-.favorite-icon .favorite-add {
+.favorite-icon .favorite-add, .favorite-icon.active .favorite-remove:hover {
     background: url(images/OCAL_Favorites_Icon_Unselected.png);
 }
-
-.favorite-icon .favorite-remove {
-    background: url(images/OCAL_Favorites_Icon_Selected_Red.png));
+.favorite-icon .favorite-remove, .favorite-icon.active .favorite-add:hover  {
+    background: url(images/OCAL_Favorites_Icon_Selected_Red.png);
 }
 #logged ul {
     float: right;
@@ -1386,3 +1388,24 @@ fieldset {
 #chat h2, #chat p {
     text-align: left;
 }
+.center {
+    text-align:center;
+}
+.error {
+    color: red;
+}
+#system-warnings {
+    margin: 0 16px;
+    background-color: red;
+    color: white;
+    padding: 9px;
+}
+.tags ul li {
+    float: left;
+    display: block;
+    margin-right: 6px;
+}
+.tags ul li:after {
+    content: ", "
+}
+

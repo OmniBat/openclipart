@@ -34,7 +34,7 @@
                       <li><a href="{{root}}/librarians{{forward_query}}">Librarian Tools</a></li>
                     {{/librarian}}
                     <li>|</li>
-                    <li><a href="{{root}}/logout{{forward_query}}">Logout</a></li>
+                    <li><a href="{{root}}/logout{{forward_query}}{{redirect}}">Logout</a></li>
                 </ul>
               {{/username}}
               {{^username}}
@@ -103,6 +103,11 @@
           </div>
           {{/notifications}}
         </div>
+        {{#system_warnings}}
+          <div id="system-warnings">
+            <ul><li>{{.}}</li></ul>
+          </div>
+        {{/system_warnings}}
         {{! start content(17)  [EMPTY] }}
         <div id="content"  class="clearfix">
           {{!start upload-box(865)}}
