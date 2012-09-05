@@ -177,6 +177,7 @@
         {{/google_analytics}}
         <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
         <script src="{{root}}/libs/json-rpc/json-rpc.js"></script>
+        <script src="{{root}}/libs/Modernizr.js"></script>
         <script src="{{root}}/script.js"></script>
       </div><!-- #main -->
       {{#debug}}

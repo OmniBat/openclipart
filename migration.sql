@@ -51,7 +51,9 @@ INSERT IGNORE INTO openclipart_favorites SELECT DISTINCT openclipart_clipart.id,
 
 CREATE TABLE openclipart_comments(id INTEGER NOT NULL auto_increment, clipart INTEGER NOT NULL, user integer NOT NULL, comment text, date datetime, PRIMARY KEY(id), FOREIGN KEY(user) REFERENCES openclipart_users(id), FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id));
 
-INSERT INTO openclipart_comments SELECT id, topic_user, topic_upload, topic_date FROM cc_tbl_topics WHERE topic_deleted = 0 AND topic_upload != 0;
+INSERT INTO openclipart_comments SELECT topic_id, topic_upload, openclipart_users.id, topic_text, topic_date FROM cc_tbl_topics left join openclipart_users on openclipart_users.username = cc_tbl_topics.username WHERE topic_deleted = 0 AND topic_upload != 0;
+
+SELECT topic_id, topic_upload, openclipart_users.id, topic_text, topic_date FROM cc_tbl_topics left join openclipart_users on openclipart_users.username = cc_tbl_topics.username where topic_id = 2213
 
 -- ISSUES [NEW]
 

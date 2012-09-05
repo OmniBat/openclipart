@@ -23,6 +23,11 @@ require_once('System.php');
 
 // Main class extend System to OCAL specific functions
 class OCAL extends System {
+
+    private $shutterstock_api_url = "http://api.shutterstock.com/images/search.json?all=0&page_number=1&category_id=29";
+    private $shutterstock_api_login = "openclipart";
+    private $shutterstock_api_key = "75f6916e802d2969ce255ad03f0316a817535922";
+
     function __construct($settings) {
         $config = json_decode(file_get_contents('config.json'), true);
         $protocol = (isset($_SERVER['HTTPS'])) ? 'https' : 'http';
@@ -75,5 +80,51 @@ class OCAL extends System {
             $clipart_list[] = array_merge($row, $data);
         }
         return array('cliparts' => $clipart_list);
+    }
+    
+    function shutterstock_json($terms = null) {
+        $auth_code = base64_encode($this->shutterstock_api_login . ":" .
+                                   $this->shutterstock_api_key);
+        $headers = array();
+		$headers[] = "Authorization: Basic $auth_code";
+
+		$terms = trim($terms);
+		$terms = preg_replace('/\s+/','+',$terms);
+        $url = $this->shutterstock_api_url;
+        if ($terms != null) {
+            $url .= '&searchterm='. $terms;
+        }
+        $ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+		$resp = curl_exec($ch);
+		$response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if ( $response_code != '200' ) {
+            return null;
+        } else {
+            return json_decode($resp);
+        }
+    }
+    function shutterstock($terms = null) {
+        $shutter = $this->shutterstock_json($terms);
+        if (!$shutter || $shutter->count == 0) {
+            $shutter = $this->shutterstock_json();
+        }
+        if ($shutter->count > 6) {
+            return array_slice($shutter->results, 0, 6);
+        } else {
+            return array();
+        }
+    }
+    // TODO: this can be merge with tag cloud (same as $where in __autorize method)
+    function tag_counts($tags) {
+        $db = $this->db;
+        $tags = implode(", ", array_map(function($tag) use ($db) {
+            return "'". $db->escape($tag) . "'";
+        }, $tags));
+        $query = "select name, count(name) as count from openclipart_clipart_tags inner join openclipart_tags on tag = id where name in ($tags) group by name order by count desc";
+        return $db->get_array($query);
     }
 }

@@ -271,23 +271,44 @@ $app->get("/chat", function() {
     });
 });
 
-$app->get("/detail/:args+", function($args) use ($app) {
+
+$app->get("/clipart/:args+", function($args) use ($app) {
     $id = $args[0];
     
     return new Template('main', array(
         'content' => new Template('clipart_detail', function() use ($id) {
             global $app;
             $id = intval($id);
+            // TODO: this SQLs can be put into Clipart class
             $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, count(DISTINCT user) as favs, created, downloads, description FROM openclipart_clipart INNER JOIN openclipart_users ON owner = openclipart_users.id INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id WHERE openclipart_clipart.id = $id";
             $row = $app->db->get_row($query);
             if (empty($row)) {
                 $app->notFound();
             }
+            $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = $id";
+            $tags = $app->db->get_column($query);
+            //$query = "select username, comment from openclipart_comments inner join openclipart_users on user = openclipart_users.id where clipart = $id";
+            //$comments = $app->db->get_array($query);
             
-            $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = " . $row['id'];
+            $tag_rank = $app->tag_counts($tags);
+            $best_term = $tag_rank[0]['name'];
             return array_merge($row, array(
                 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename']),
-                'tags' => $app->db->get_column($query)
+                'tags' => $tags,
+                'shutterstock' => new Template('shutterstock', function() use ($best_term) {
+                    global $app;
+                    return array(
+                        'list' => array_map(function($image) {
+                            return array(
+                                'thumbnail' => $image->thumb_small->img,
+                                'description' => $image->description,
+                                'url' => $image->web_url
+                            );
+                        }, $app->shutterstock($best_term)),
+                        'term' => $best_term
+                    );
+                }),
+                'comments' => array()
             ));
         })
     ));
@@ -388,16 +409,7 @@ $app->get('/', function() {
 
 
 
-$app->get('/clipart/:id/:link', function($id, $link) {
-    return new Template('main', function() {
-        return array('content' => array(
-            new Template('clipart_detail', function() {
-                $tags = "SELECT ";
-                //editable - librarian or clipart owner
-            })
-        ));
-    });
-});
+
 
 
 // routing /people/*.svg
@@ -434,6 +446,15 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
     $png = $app->config->root_directory . "/people/$user/${width}px-$file";
     $svg = $app->config->root_directory . "/people/$user/" . $svg_filename;
     $response = $app->response();
+    /*
+    //speed up loading - problem: nsfw can change and this may display old generated image
+    $maybe_nsfw = preg_replace('/.png$/', '-nsfw.png', $png);
+    if (file_exists($maybe_nsfw)) {
+        return file_get_contents($maybe_nsfw);
+    } else if (file_exists($png)) {
+        return file_get_contents($png);
+    }
+    */
     $clipart = new Clipart($user, $file);
     if ($width > $app->config->bitmap_resolution_limit) {
         $response->status(400);
@@ -449,7 +470,7 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
         if ($app->nsfw() && $clipart->nsfw()) {
             $user = $app->config->nsfw_image['user'];
             $filename = $app->config->nsfw_image['filename'];
-            $png = $app->config->root_directory . "/people/$user/${width}px-$file.png";
+            $png = $app->config->root_directory . "/people/$user/${width}px-$file-nsfw.png";
             $svg = $app->config->root_directory . "/people/$user/$filename.svg";
         }
         $response->header('Content-Type', 'image/png');

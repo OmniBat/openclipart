@@ -564,7 +564,7 @@ html[xmlns] .clearfix { display: block;}
 }
 
 .img-actions li.ib-svg span {
-  background: transparent url(/image/25px/svg_to_png/122155/1298512738.png) no-repeat 18px 11px;
+  background: transparent url(/image/25/dear_theophilus/1298512738.png) no-repeat 18px 11px;
   padding-left: 12px;
 }
 
@@ -1409,3 +1409,277 @@ fieldset {
     content: ", "
 }
 
+/*Css for 37 detail*/
+
+.comment p.hide_button, .comment p.delete_button
+{
+    position: relative;
+    float: left;
+}
+
+.comment p.delete_button
+{
+    padding-left: 25px;
+}
+/* global buttons in 14-main
+.delete_button a
+{
+    background: none repeat scroll 0 0 GhostWhite;
+    border: 2px solid #C3C3C3;
+    color: #000000;
+    padding: 2px;
+    text-align: left;
+}
+
+p.visibility_button a.submit_button
+{
+    background: none repeat scroll 0 0 GhostWhite;
+    border: 2px solid #C3C3C3;
+    padding: 2px;
+    text-align: left;
+    color: #000000;
+}
+*/
+#detail input.submit_button{
+border:2px solid #c3c3c3;
+text-align:left;
+background:GhostWhite ;
+padding:2px;
+}
+
+div.comment.clearfix {
+  padding: 20px 0;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+div#forview {
+  margin: 0;
+  padding: 0;
+}
+
+#detail ul#lossy {
+    padding-right: 0;
+    padding-top: 0;
+    margin-bottom: 30px;
+}
+
+#detail textarea {width: 200;} 
+
+dd#viewtags {
+  white-space: pre;           /* CSS 2.0 */
+  white-space: pre-wrap;      /* CSS 2.1 */
+  white-space: pre-line;      /* CSS 3.0 */
+  white-space: -pre-wrap;     /* Opera 4-6 */
+  white-space: -o-pre-wrap;   /* Opera 7 */
+  white-space: -moz-pre-wrap; /* Mozilla */
+  white-space: -hp-pre-wrap;  /* HP Printers */
+  word-wrap: break-word;      /* IE 5+ */
+}
+dd#viewtags, dd#description, #view h2.auth div {
+  cursor: pointer;
+}
+dd#viewtags div, dd#description div{
+  float: left;
+}
+dd#viewtags div:hover, dd#description div:hover, #view h2 div:hover {
+  background-color: #FFF690;
+}
+dd#viewtags textarea, dd#description textarea {
+  height: 100px;
+  width: 220px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #FFF;
+  border: 1px solid #000;
+  margin-bottom: 5px;
+}
+dd#viewtags button, dd#description button {
+    background: #f9f9f9; /* Old browsers */
+    background: -moz-linear-gradient(top, #f9f9f9 0%, #777777 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(100%,#777777)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #f9f9f9 0%,#777777 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #f9f9f9 0%,#777777 100%); /* Opera11.10+ */
+background: -ms-linear-gradient(top, #f9f9f9 0%,#777777 100%); /* IE10+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#777777',GradientType=0 ); /* IE6-9 */
+background: linear-gradient(top, #f9f9f9 0%,#777777 100%); /* W3C */
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-right: 5px;
+  border: none;
+  padding: 3px 6px;
+}
+.tool {
+  position: relative;
+  cursor: help;
+}
+
+.tip {
+  display: none;
+}
+
+.tool:hover span.tip {
+  display: block;
+  z-index: 100;
+  position: absolute;
+  top: 1.6em;
+  left: 0;
+  width: 150px;
+  padding: 3px 7px 4px 6px;
+  border: 1px solid #CE5C00;
+  background-color: #f7f7ee;
+  font: normal 0.9em/1.2em Arial, Tahoma, sans-serif;
+  text-align: left;
+  color: #000;
+  filter: alpha(opacity:90);
+  KHTMLOpacity: 0.90;
+  MozOpacity: 0.90;
+  opacity: 0.90;
+}
+
+input#resolution {
+  width: 153px;
+  text-align:center;
+  border: 1px solid #CE5C00;
+  color: #757772;
+  font: 1em normal Arial,Verdana,sans-serif;
+}
+
+
+/****************** Add Comment + Email Styles *******************/
+/* global buttons in 14-main
+#comment-form-email .submit_button {
+    background: none repeat scroll 0 0 GhostWhite;
+    border: 2px solid #C3C3C3;
+    padding: 2px;
+    text-align: left;
+    position: relative;
+    float: left;
+}
+*/
+#comment-form-email .submit_button {
+  display: inline-block;
+  margin: 5px 0 0 2px;
+}
+#comment-form-email .submit_button:hover { cursor: pointer; }
+
+
+/******************* Collect Styles **********************/
+
+#collection-new #form_container
+{
+  float: right;
+  width: 275px;
+}
+
+#collection-new #new_record_form input {
+    float: left;
+    clear: left;
+    font-family: inherit;
+    margin-top: 0px ;
+    margin-bottom: 10px;
+}
+
+#upload_extra, textarea#upload_tags, textarea#upload_description {
+    float: right;
+}
+
+#collection-new #new_record_form h2 {
+    padding-top: 10px;
+    padding-bottom: 15px;
+    line-height: 1.2;
+    text-transform: capitalize;
+}
+
+#collection-new textarea, #collection-new input, #collection-new select {
+    border:2px solid #c3c3c3;
+    font-family: inherit;
+    padding:3px;
+    color:#555753;
+    margin:0 15px 0 0px;
+    font-size:120%;
+    background:GhostWhite;
+}
+
+.placeholder {
+    position: relative;
+}
+.placeholder .label {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+}
+#lossy .label {
+    color: #757772;
+    font: 1em normal Arial,Verdana,sans-serif;
+}
+
+#shutterstock_results {
+  background-color: #f1f1f1;
+  margin-bottom: 1em;
+  font-family: inherit;
+  clear: left;
+}
+/* shutterstock */
+#ss_header {
+  padding: 1ex;
+  font-weight: bold;
+  border: thin solid #cccccc;
+  margin-bottom: -1px;
+}
+
+#ss_header a {
+  color: black;
+}
+
+#ss_results {
+    border: thin solid #cccccc;
+    height: 150px;
+}
+
+#shutterstock li {
+    float: left;
+    overflow: hidden;
+    width: 16.6666666667%;
+    position: relative;
+    height: 150px;
+}
+#shutterstock li img {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#shutterstock_search {
+  clear: both;
+  text-align: center;
+  font-family: inherit;
+}
+
+#ss_search_text {
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#ss_search_form {
+  border: thin solid #cccccc;
+  padding: 3px;
+  width: 75%;
+  margin: 0 auto;
+}
+#lossy .error {
+    display: none;
+    color: red;
+    clear: both;
+    position: relative;
+    width: 253px;
+    left: 69px;
+}

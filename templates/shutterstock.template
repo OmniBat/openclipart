@@ -1,0 +1,17 @@
+<div id="shutterstock">
+  <div id="shutterstock_results">
+    <div id="ss_header">
+      Sponsored results for "{{term}}" from
+      <a href="http://www.shutterstock.com?rid=823306"><img src="/images/shutterstock_logo_81x21.png" alt="Shutter Stock" style="vertical-align: middle;"/></a>· Search over 15 million images available at low cost.
+    </div>
+    <ul id="ss_results">
+      {{#list}}
+      <li class="ss_result_item">
+        <a href="{{url}}">
+          <img src="{{thumbnail}}" title="{{description}}"/>
+        </a>
+      </li>
+      {{/list}}
+    </ul>
+  </div>
+</div><!-- shutter -->

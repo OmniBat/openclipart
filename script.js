@@ -2,28 +2,43 @@
 // plugin that indicate error in a field (move field from left to right with red color)
 $.fn.jump = function(options) {
     var settings = $.extend({
-        speed: 150,
+        speed: 600,
         color: 'red'
     }, options);
     var self = $(this);
-    var init_margin = self.css('margin-right');
-    var color = self.css('border-color');
-    var position = self.css('position');
+    var left, color, position;
+    if (self.data('animate')) {
+        left = self.data('left');
+        color = self.data('color');
+        position = self.data('position');
+        self.stop();
+    } else {
+        left = self.css('left');
+        color = self.css('border-color');
+        position = self.css('position');
+        self.data('color', color);
+        self.data('position', position);
+        self.data('left', left);
+    }
     self.css({
         borderColor: settings.color,
         position: 'relative'
     });
-    self.animate({'left': '-10px'}, settings.speed, function() {
-        self.animate({'left': '10px'}, settings.speed, function() {
-            self.animate({'left': '-10px'}, settings.speed, function() {
-                self.animate({'left': init_margin}, settings.speed);
-                self.css({
+    var time = settings.speed/4;
+    self.data('animate', true);
+    self.animate({'left': '-10px'}, time, function() {
+        self.animate({'left': '10px'}, time, function() {
+            self.animate({'left': '-10px'}, time, function() {
+                self.animate({'left': left}, time, function() {
+                    self.data('animate', false);
+                }).css({
                     borderColor: color,
                     position: position
                 });
             });
         });
     });
+    return self;
 };
 
 
@@ -162,4 +177,60 @@ $(function() {
         }
         return false;
     });
+    // Fix placeholders
+    if (!Modernizr.input.placeholder) {
+        $('input[placeholder]').each(function() {
+            var input = $(this);
+            input.wrap(function() {
+                return $('<span/>').addClass('placeholder').css({
+                    width: input.width(),
+                    height: input.height()
+                });
+            });
+            var placeholder = input.attr('placeholder');
+            $('<span/>').text(placeholder).addClass('label').insertBefore(input);
+            input.removeAttr('placeholder');
+        }).focus(function() {
+            $(this).prev().hide();
+        }).blur(function() {
+            $(this).prev().show();
+        });
+    }
+    // allow only digits
+    var change;
+    var resolution = $('#resolution').keypress(function(e) {
+        var self = $(this);
+        var new_val = self.val();
+        if (self.data('value') != new_val) {
+            self.change();
+            self.data('value', new_val);
+        }
+        if (!String.fromCharCode(e.which).match(/[0-9]/)) {
+            return false;
+        }
+    }).change(function() {
+        var self = $(this);
+        var lossy = $(this).parents('#lossy');
+        var link = lossy.find('li a');
+        var href = link.attr('href');
+        var resolution = $(this).val();
+        if (resolution) {
+            if (+resolution > 3840) {
+                self.jump().val(3840);
+                var error = lossy.find('.error').show();
+                setTimeout(function() {
+                    error.fadeOut();
+                }, 2000);
+            }
+            link.attr('href', href.replace(/(\image\/)[0-9]+/, '$1' + resolution));
+        }
+    });
+
+    if ($.browser.chrome || $.browser.webkit) {
+        resolution.keyup(function(e) {
+            if (!e.charCode) {
+                $(this).trigger('keypress', e);
+            }
+        });
+    }
 });

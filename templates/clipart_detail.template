@@ -1,0 +1,66 @@
+<div id="detail">
+  {{copyright_violation}}
+  <div id="forview"{{#editable}} class="editable"{{/editable}}>
+    <div id="view" class="clearfix">
+      <h2>{{title}}</h2>
+      <div id="viewimg">
+        <a href="/download/svg/{{username}}/{{filename}}">
+        <img src="/image/250/{{username}}/{{filename_png}}" alt="{{title}} by {{username}}{{^description}} - {{description}}{{/description}}"/>
+        </a>
+      </div>
+      <dl id="imginfo" class="clearfix">
+        {{! if author is set show that the owner is only an uploader}}
+        {{#original_author}}
+          <dt id="tviewauthor">Uploader:</dt>
+        {{/original_author}}
+        {{^original_author}}
+        <dt id="tviewauthor">Author:</dt>
+        {{/original_author}}
+        <dd id="viewauthor">
+          <a href="/user/{{username}}">{{username}}</a>
+        </dd>
+        {{#original_author}}
+          <dt>Original Author:</dt>
+          <dd>{{original_author}}</dd>
+        {{/original_author}}
+        <dt>Created:</dt>
+        <dd>{{created}}</dd>
+        <dt>Description:</dt>
+        <dd>{{description}}</dd>
+        <dt>Tags:</dt>
+        <dd class="tags">
+          {{#tags}}
+            <ul>
+              <li><a href="/tag/{{.}}">{{.}}</a></li>
+            </ul>
+          {{/tags}}
+        </dd>
+        <dt>Downloaded by:</dt>
+        <dd>{{downloads}} People</dd>
+        <dt>Favorited by:</dt>
+        <dd id="favs">{{favs}}</dd>
+      </dl>
+      <ul class="clearfix img-actions">
+        <li class="d-svg">
+          <a href="/download/svg/{{username}}/{{filename}}" class="download_hook">
+          <span>View Image</span>
+          </a>
+        </li>
+      </ul>
+      <ul id="lossy" class="clearfix">
+        <li><strong>Lossy:</strong></li>
+        <li><a href="/image/800/{{username}}/{{filename_png}}">png</a></li>
+        <li><input type="text" name="resolution" id="resolution" placeholder="Enter size of the bitmap"></li>
+        <li><span class="tool"><img src="/image/22/boobaloo/1304760779.png"><span class="tip">Enter desired resolution here and click out of field or press [Enter] or click on 'PNG' button to view bitmap. Default resolution is 800 pixels.</span></span></li>
+        <li class="error">Resolution can't be larger then 3840px. Please download SVG and produce such huge bitmap locally.</li>
+      </ul>
+      <ul class="clearfix img-actions">
+        <li class="ib-svg"><a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl={{root}}/people/{{username}}/{{filename}}" class="download_hook"><span>Edit Image</span></a></li>
+      </ul>
+    </div><!-- view -->
+    <div>
+      
+    </div>
+  </div>
+  {{shutterstock}}
+</div>

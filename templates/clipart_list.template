@@ -1,12 +1,12 @@
 {{#cliparts}}
   <div class="r-img">
     <div class="r-img-i">
-	  <a href="/detail/{{id}}/{{link}}{{forward_query}}">
+	  <a href="/clipart/{{id}}/{{link}}{{forward_query}}">
 	  <img alt="#" src="/image/90/{{username}}/{{filename_png}}{{forward_query}}"/>
 	  </a>
 	</div>
 	<h4>
-	  <a href="/detail/{{id}}/{{link}}{{forward_query}}">{{title}}</a>
+	  <a href="/clipart/{{id}}/{{link}}{{forward_query}}">{{title}}</a>
 	</h4>
 	<p>by <a href="/user/{{username}}{{forward_query}}">{{username}}</a><br />
 	{{human_date}}

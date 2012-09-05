@@ -7,7 +7,7 @@ class main {
     }
     function reset_password_link($email) {
         global $app;
-        return $app->send_reset_password_link($email);
+        return $app->send_reset_password_link($email, $this->config->token_expiration);
     }
     function test() {
         global $app;
