@@ -93,7 +93,11 @@ $app = new OCAL(array(
     'pd_issue_image' => array(
         'user' => 'h0us3s',
         'filename' => 'h0us3s_Signs_Hazard_Warning_1'
-    )
+    ),
+    'missing_avatar_image' => array(
+        'user' => 'pianoBrad',
+        'filename' => 'openclipart-logo-grey'
+    ),
 ));
 
 $app->error(function($exception) {
@@ -273,12 +277,11 @@ $app->get("/chat", function() {
 
 
 $app->get("/clipart/:args+", function($args) use ($app) {
-    $id = $args[0];
+    $id = intval($args[0]);
     
     return new Template('main', array(
         'content' => new Template('clipart_detail', function() use ($id) {
             global $app;
-            $id = intval($id);
             // TODO: this SQLs can be put into Clipart class
             $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, count(DISTINCT user) as favs, created, downloads, description FROM openclipart_clipart INNER JOIN openclipart_users ON owner = openclipart_users.id INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id WHERE openclipart_clipart.id = $id";
             $row = $app->db->get_row($query);
@@ -287,14 +290,33 @@ $app->get("/clipart/:args+", function($args) use ($app) {
             }
             $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = $id";
             $tags = $app->db->get_column($query);
-            //$query = "select username, comment from openclipart_comments inner join openclipart_users on user = openclipart_users.id where clipart = $id";
-            //$comments = $app->db->get_array($query);
-            
+            $query = "select openclipart_comments.id, username, comment, date, openclipart_clipart.filename as avatar from openclipart_comments inner join openclipart_users on user = openclipart_users.id LEFT OUTER JOIN openclipart_clipart ON avatar = openclipart_clipart.id where clipart = $id";
+            $comments = $app->db->get_array($query);
+
             $tag_rank = $app->tag_counts($tags);
             $best_term = $tag_rank[0]['name'];
+            $svg = 'people/' . $row['username'] . '/' . $row['filename'];
+            $editable = false;
+            if (isset($app->username)) {
+                if ($app->username == $row['username'] || $app->is('librarian')) {
+                    $editable = true;
+                }
+            }
             return array_merge($row, array(
+                'editable' => $editable,
                 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename']),
                 'tags' => $tags,
+                'comments' => array_map(function($comment) {
+                    $avatar = preg_replace('/.svg$/', '.png', $comment['avatar']);
+                    $comment['avatar'] = $avatar;
+                    // owner of the comment
+                    if (isset($app->username) && $coment['username'] == $app->username) {
+                        $comment['editable'] = true;
+                    }
+                    return $comment;
+                }, $comments),
+                'file_size' => human_size(filesize($svg)),
+                'nsfw' => in_array('nsfw', $tags),
                 'shutterstock' => new Template('shutterstock', function() use ($best_term) {
                     global $app;
                     return array(
@@ -307,8 +329,7 @@ $app->get("/clipart/:args+", function($args) use ($app) {
                         }, $app->shutterstock($best_term)),
                         'term' => $best_term
                     );
-                }),
-                'comments' => array()
+                })
             ));
         })
     ));

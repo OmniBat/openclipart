@@ -39,6 +39,8 @@
         <dd>{{downloads}} People</dd>
         <dt>Favorited by:</dt>
         <dd id="favs">{{favs}}</dd>
+        <dt>SVG filesize:</dt>
+        <dd>{{file_size}}</dd>
       </dl>
       <ul class="clearfix img-actions">
         <li class="d-svg">
@@ -58,8 +60,37 @@
         <li class="ib-svg"><a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl={{root}}/people/{{username}}/{{filename}}" class="download_hook"><span>Edit Image</span></a></li>
       </ul>
     </div><!-- view -->
-    <div>
-      
+    <div class="nsfw">
+      <label for="nsfw">NSFW:</label>
+      <select id="nsfw">
+        <option value="true"{{#nsfw}} selected="selected"{{/nsfw}}>true</option>
+        <option value="false"{{^nsfw}} selected="selected"{{/nsfw}}>false</option>
+      </select>
+    </div>
+    <div id="comments_wrapper">
+        <div class="clearfix" id="clipart-comments">
+          <h2 class="underline">Comments</h2>
+          {{#comments}}
+          <div class="comment clearfix{{#editable}} editable{{/editable}}">
+             <a href="/user/{{username}}">
+             {{#avatar}}
+               <img src="/image/90/{{username}}/{{avatar}}"/>
+             {{/avatar}}
+             {{^avatar}}
+             {{#missing_avatar_image}}
+             <img src="/image/90/{{user}}/{{filename}}.png"/>
+             {{/missing_avatar_image}}
+             {{/avatar}}
+             </a>
+             <h5><a href="/user/{{username}}" class="cc_user_link">{{username}}</a> said on {{date}}</h5>
+             <p>{{comment}}</p>
+             <div class="actions" data-id="{{id}}">
+               <a class="button" href="#">Delete</a>
+               <a class="button" href="#">Edit</a>
+             </div>
+          </div>
+          {{/comments}}
+        </div>
     </div>
   </div>
   {{shutterstock}}

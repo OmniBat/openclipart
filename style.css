@@ -1617,7 +1617,12 @@ input#resolution {
     color: #757772;
     font: 1em normal Arial,Verdana,sans-serif;
 }
-
+#shutterstock {
+    margin-top: 60px;
+    clear: both;
+    float: left;
+    width: 100%;
+}
 #shutterstock_results {
   background-color: #f1f1f1;
   margin-bottom: 1em;
@@ -1682,4 +1687,27 @@ input#resolution {
     position: relative;
     width: 253px;
     left: 69px;
+}
+
+.nsfw {
+    display: none;
+}
+.nsfw label {
+    font-weight: bold;
+}
+.editable .nsfw {
+    display: block;
+}
+.comment .actions {
+    display: none;
+    padding: 10px 0 0 75px;
+}
+.comment .actions a {
+    margin-right: 10px;
+}
+.comment.editable .actions {
+    display: block;
+}
+.comment .actions a:hover {
+    text-decoration: none;
 }

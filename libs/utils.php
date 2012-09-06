@@ -69,6 +69,26 @@ function human_date($date) {
         return date("d.m.Y",$timestamp);
 }
 
+function human_size($bytes) {
+    $bytes = intval($bytes);
+    if ($bytes < 1024) {
+        return "$bytes bytes";
+    } else {
+        $kb = round($bytes/1024, 2);
+        if ($kb < 1024) {
+            return "$kb KB";
+        } else {
+            $mb = round($kb/1024, 2);
+            if ($mb < 1024) {
+                return "$mb MB";
+            } else {
+                $gb = round($mb/1024, 2);
+                return "$gb GB";
+            }
+        }
+    }
+}
+
 function get_time() {
     return (float)array_sum(explode(' ', microtime()));
 }

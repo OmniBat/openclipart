@@ -44,72 +44,75 @@ class Template implements Renderable {
     }
     function render() {
         global $app, $indent;
-        $start_time = get_time();
-        $mustache = new Mustache_Engine(array(
-            'escape' => function($val) { return $val; }
-        ));
-        $overwrite = $app->overwrite_data();
-        $global = $app->globals();
-        if ($this->user_data === null) {
-            $data = array_merge($global, $overwrite);
-            return $mustache->render($this->template, $data);
-        } else {
-            $user_data = $this->user_data;
-            if (is_callable($this->user_data)) {
-                // can't execute closure directly in php :(
-                $closure = $this->user_data;
-                try {
+        try {
+            $start_time = get_time();
+            $mustache = new Mustache_Engine(array(
+                'escape' => function($val) { return $val; }
+            ));
+            $overwrite = $app->overwrite_data();
+            $global = $app->globals();
+            if ($this->user_data === null) {
+                $data = array_merge($global, $overwrite);
+                return $mustache->render($this->template, $data);
+            } else {
+                $user_data = $this->user_data;
+                if (is_callable($this->user_data)) {
+                    // can't execute closure directly in php :(
+                    $closure = $this->user_data;
                     $user_data = $closure();
-                } catch (Slim_Exception_Stop $e) {
-                    throw $e;
-                } catch (Exception $e) {
-                    $app->error($e);
                 }
-            }
-            $data = array();
-            if (is_array($user_data)) {
-                foreach ($user_data as $name => $value) {
-                    if (isset($overwrite[$name])) {
-                        $data[$name] = $overwrite[$name];
-                    } else if (gettype($value) == 'array') {
-                        $data[$name] = array();
-                        $template = false;
-                        foreach ($value as $k => $v) {
-                            if (gettype($v) == 'object' &&
-                                get_class($v) == 'Template') {
-                                $data[$name][$k] = $v->render();
-                                $template = true;
-                            } else {
-                                $data[$name][$k] = $v;
+                $data = array();
+                if (is_array($user_data)) {
+                    foreach ($user_data as $name => $value) {
+                        if (isset($overwrite[$name])) {
+                            $data[$name] = $overwrite[$name];
+                        } else if (gettype($value) == 'array') {
+                            $data[$name] = array();
+                            $template = false;
+
+                            foreach ($value as $k => $v) {
+                                if (gettype($v) == 'object' &&
+                                    get_class($v) == 'Template') {
+                                    $data[$name][$k] = $v->render();
+                                    $template = true;
+                                } else {
+                                    $data[$name][$k] = $v;
+                                }
                             }
+                            if ($template) {
+                                $data[$name] = implode("\n", $data[$name]);
+                            }
+                        } else if (gettype($value) == 'object' &&
+                                   get_class($value) == 'Template') {
+                            $data[$name] = $value->render();
+                        } else {
+                            $data[$name] = $value;
                         }
-                        if ($template) {
-                            $data[$name] = implode("\n", $data[$name]);
-                        }
-                    } else if (gettype($value) == 'object' &&
-                               get_class($value) == 'Template') {
-                        $data[$name] = $value->render();
-                    } else {
-                        $data[$name] = $value;
                     }
                 }
-            }
-            $end_time = sprintf("%.4f", (get_time()-$start_time));
-            $time = "<!-- Time: $end_time seconds -->";
-            $data = array_merge($global,
-                                array('load_time' => $time),
-                                $data,
-                                $overwrite);
-            return $mustache->render($this->template, $data);
-            /* it show begin before Doctype -- there should be pragma that disable this
-               if (DEBUG) {
+                $end_time = sprintf("%.4f", (get_time()-$start_time));
+                $time = "<!-- Time: $end_time seconds -->";
+                $data = array_merge($global,
+                                    array('load_time' => $time),
+                                    $data,
+                                    $overwrite);
+                // debug - not need to echo data :)
+                $data = array_merge($data, array('mustache_data' => json_encode($data)));
+                return $mustache->render($this->template, $data);
+                /* it show begin before Doctype -- there should be pragma that disable this
+                   if (DEBUG) {
                return "\n<!-- begin: " . $this->name . " -->\n" .
                $ret .
                "<!-- end: " . $this->name . " -->\n";
                } else {
                return $ret;
                }
-            */
+                */
+            }
+        } catch (Slim_Exception_Stop $e) {
+            throw $e;
+        } catch (Exception $e) {
+            $app->error($e);
         }
     }
     function __toString() {

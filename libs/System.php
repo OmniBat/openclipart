@@ -237,6 +237,8 @@ class System extends Slim {
         $email = $this->db->escape($email);
         return $this->db->query("INSERT INTO openclipart_users(username, password, email, creation_date) VALUES('$username', md5(md5('$password')), '$email', now())");
     }
+
+    // ---------------------------------------------------------------------------------
     function is($group) {
         return in_array($group, $this->groups);
     }
@@ -266,7 +268,7 @@ class System extends Slim {
     // ---------------------------------------------------------------------------------
     private function fetch_groups($user) {
         $query = "SELECT name FROM openclipart_user_groups INNER JOIN openclipart_groups ON id = user_group WHERE user = " . $user;
-        return $this->db->get_array($query);
+        return $this->db->get_column($query);
     }
 
     // ---------------------------------------------------------------------------------
@@ -281,6 +283,9 @@ class System extends Slim {
         }
     }
 
+    function __isset($name) {
+        return array_key_exists($name, $this->rest_user_data);
+    }
 
     // ---------------------------------------------------------------------------------
     function __get($name) {
@@ -332,13 +337,11 @@ class System extends Slim {
 
     // ---------------------------------------------------------------------------------
     function is_logged() {
-        return isset($this->id) && is_numeric($this->id);
+        return isset($this->config->id) && is_numeric($this->config->id);
     }
 
     // ---------------------------------------------------------------------------------
     function is_admin() {
-        //debug
-        return true;
         return $this->is_logged() && $this->is('admin');
     }
 

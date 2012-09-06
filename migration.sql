@@ -87,7 +87,7 @@ CREATE TABLE tag_collection_tag(tag INTEGER NOT NULL, collection INTEGER NOT NUL
 
 CREATE TABLE openclipart_groups(id integer NOT NULL auto_increment, name varchar(255) UNIQUE, PRIMARY KEY(id));
 
-INSERT INTO openclipart_groups VALUES(1, 'Admin'), (2, 'Librarian');
+INSERT INTO openclipart_groups VALUES(1, 'admin'), (2, 'librarian');
 
 CREATE TABLE openclipart_user_groups(user_group INTEGER NOT NULL, user INTEGER NOT NULL, PRIMARY KEY(user_group, user), FOREIGN KEY(user_group) REFERENCES openclipart_groups(id), FOREIGN KEY(user) REFERENCES openclipart_users(id));
 
