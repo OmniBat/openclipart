@@ -10,7 +10,7 @@
     <meta name="google-site-verification" content="_8noWmEGgMpGsj7Gb6cFfOcGnr9Cav0mr_8uPyfb97A" />
     <link rel="stylesheet" type="text/css"  href="/style.css"/>
 </head>
-<body>
+<body class="{{class}}{{#editable}} editable{{/editable}}">
     {{! start main(14) }}
     <div id="main">
         {{! HEADER LOGGED IN }}
@@ -113,13 +113,12 @@
           {{!start upload-box(865)}}
 
           <!-- {{join.template}} || {{upload.template}} -->
-
+          {{#sidebar}}
           <div id="sidebar-r">
-            {{#sidebar}}
               {{.}}
-            {{/sidebar}}
           </div>
-          
+          {{/sidebar}}
+
           {{#content}}
             {{.}}
           {{/content}}
@@ -169,13 +168,13 @@
         </script>
         <script type="text/javascript">
         try {
-        var pageTracker = _gat._getTracker("UA-7908533-1");
-        pageTracker._setDomainName(".openclipart.org");
-        pageTracker._trackPageview();
+            var pageTracker = _gat._getTracker("UA-7908533-1");
+            pageTracker._setDomainName(".openclipart.org");
+            pageTracker._trackPageview();
         } catch(err) {}
         </script>
         {{/google_analytics}}
-        <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.8.1.js"></script>
         <script src="{{root}}/libs/json-rpc/json-rpc.js"></script>
         <script src="{{root}}/libs/Modernizr.js"></script>
         <script src="{{root}}/script.js"></script>

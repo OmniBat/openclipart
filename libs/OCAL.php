@@ -118,7 +118,6 @@ class OCAL extends System {
             return array();
         }
     }
-    // TODO: this can be merge with tag cloud (same as $where in __autorize method)
     function tag_counts($tags) {
         $db = $this->db;
         $tags = implode(", ", array_map(function($tag) use ($db) {

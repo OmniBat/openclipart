@@ -4,7 +4,7 @@
   {{#error}}
     <p class="error">{{error}}</p>
   {{/error}}
-  <form action="/login" method="POST">
+  <form action="/login{{#redirect}}?redirect={{redirect}}{{/redirect}}" method="POST">
     <div class="field">
       <label for="login">Login:</label>
       <input id="login" name="login" value="{{login}}"/>

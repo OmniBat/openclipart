@@ -1703,11 +1703,160 @@ input#resolution {
     padding: 10px 0 0 75px;
 }
 .comment .actions a {
-    margin-right: 10px;
+    margin-right: 20px;
 }
-.comment.editable .actions {
+.editable .comment .actions {
     display: block;
 }
 .comment .actions a:hover {
     text-decoration: none;
 }
+/* BIG BUTTON */
+.big-button, a.big-button {
+    display: block;
+    width: 230px;
+    background: #DE7916 url(/images/viewimg.png) 0 0 no-repeat;
+    text-align: center;
+    color: white;
+    height: 49px;
+    color: white;
+    font-size: 16pt;
+    position: relative;
+    padding-top: 17px;
+    text-decoration: none;
+}
+.big-button.upload, .big-button.remix {
+    background-position: -420px 0;
+}
+.big-button.remix {
+    height: 30px;
+    padding-left: 19px;
+}
+
+.big-button:hover {
+    padding-top: 14px;
+    height: 33px;
+    text-decoration: none;
+}
+.big-button:hover:before {
+    top: 7px;
+}
+.big-button:before {
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 10px;
+    left: 34px;
+    z-index: 100;
+    display: block;
+    content: "";
+    background: transparent url(/images/actions.gif) 0 0 no-repeat;
+}
+.big-button.upload:before, .big-button.remix:before {
+    background-position: -2px -452px;
+}
+
+.detail #sidebar-r { width: 275px; float: right; padding: 10px 0 0; }
+
+#sidebar-r .actions a {
+    background: url("/images/viewimg.png") no-repeat scroll 0 0 #DE7916;
+    color: #393F41;
+    line-height: 47px;
+    text-align: center;
+    width: 59px;
+    height: 35px;
+    display: inline-block;
+    margin-right: 1px;
+    margin-bottom: 10px;
+    position: relative;
+    padding-top:12px;
+}
+.detail #sidebar-r .actions {
+    margin-top: 10px;
+}
+.detail .actions li {
+    float: left;
+    margin-right: 3px;
+}
+
+.detail #sidebar-r .actions a:after {
+    position:absolute;
+    top: 6px;
+    left: 18px;
+    content: "";
+    cursor: pointer;
+    display: block;
+    height: 22px;
+    width: 22px;
+    background-repeat: no-repeat;
+}
+.detail #sidebar-r .actions .collect:after {
+    background-image: url("/image/22/kuba/tasto_2_architetto_franc_01_black_border.png");
+}
+.detail #sidebar-r .actions .favorite:after {
+    background-image: url("/image/22/pianoBrad/OCAL_Favorites_Icon_Selected_Red.png");
+}
+.detail #sidebar-r .actions .edit:after {
+    background-image: url("/image/22/dear_theophilus/1298512738.png");
+}
+.detail #sidebar-r .actions .report:after {
+    background-image: url("/image/22/matthewgarysmith/warning.png");
+}
+.detail #sidebar-r .actions, #sidebar-r .big-button.remix {
+    display: none;
+}
+.editable #sidebar-r .actions, .editable #sidebar-r .remix {
+    display: block;
+}
+.share {
+    float: left;
+    overflow: hidden;
+    width: 400px;
+    margin: 20px 0;
+}
+.detail .collections {
+    clear: both;
+    text-align: center;
+    float: left;
+    margin-top: 10px;
+}
+.detail .collections h2 {
+    padding-bottom: 8px;
+}
+.detail .collections h2, .detail .collections ul li {
+    border-bottom: 1px solid #DDD;
+}
+.detail .collections ul li {
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+.detail .collections .date {
+    color: #777;
+}
+.ajax {
+    position: relative;
+}
+.nsfw.ajax {
+    float: left;
+}
+
+.ajax:after {
+    background: url(/images/small-indicator.gif) 0 0 no-repeat;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto -20px auto 0;
+    width: 16px;
+    height: 16px;
+}
+.detail .donate {
+  margin: 2em 0;
+  width: 100%;
+}
+.detail .donate, .detail .donate .flattr, .detail .donate .paypal {
+  float: left;
+}
+​

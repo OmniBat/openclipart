@@ -1,6 +1,6 @@
 <div id="detail">
   {{copyright_violation}}
-  <div id="forview"{{#editable}} class="editable"{{/editable}}>
+  <div id="forview">
     <div id="view" class="clearfix">
       <h2>{{title}}</h2>
       <div id="viewimg">

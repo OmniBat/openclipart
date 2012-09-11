@@ -233,4 +233,10 @@ $(function() {
             }
         });
     }
+
+    var src = 'http://s7.addthis.com/js/250/addthis_widget.js#username=boobaloo';
+    $.getScript(src);
+    //$('<script></script>').attr('src', src).appendTo('head');
+    src = '//api.flattr.com/js/0.6/load.js?mode=auto&uid=fabricatorz&popout=1&category=Images';
+    $.getScript(src);
 });
