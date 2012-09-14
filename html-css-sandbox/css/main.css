@@ -1,0 +1,111 @@
+body {
+	color: #808080;
+	background: url("../img/noise_top_64.png") top center repeat-x, url("../img/noise_64.png") center;
+}
+
+a {
+	text-decoration: none;
+	font-weight: bold;
+	color: #808080;
+}
+
+#left {
+	position: relative;
+}
+
+#page-title {
+	font-size: 26px;
+	font-weight: bold;
+	font-style: italic;
+	color: #333;
+	position: absolute;
+	top: 27px;
+	left: 80px;
+	width: 245px;
+}
+
+#logo {
+	position: absolute;
+	top: 26px;
+	left: -11px;
+}
+
+	#logo-glow {
+		position: absolute;
+		top: -60px;
+		left: -150px;
+		width: 324px;
+		height: 376px;
+		background: url("../img/logo-glow.png") top center no-repeat;
+		background-size: 100%;
+	}
+
+	#logo-shadow {
+		position: absolute;
+		top: 65px;
+		left: -30px;
+		width: 135px;
+		height: 81px;
+		background: url("../img/logo-shadow.png") top center no-repeat;
+		background-size: 100%;
+	}
+
+#top-search {
+	position: absolute;
+	top: 70px;
+	left: 50px;
+	width: 400px;
+}
+
+	#top-search #search-i {
+		width: 158px;
+		height: 28px;
+		border: 1px solid #c0c0c0;
+		padding-left: 50px;
+		color: #bebebe;
+		font: 'Asap', sans serif;
+		font-size: 16px;
+		font-style: italic;
+		background-color: white;
+	}
+
+	#top-search #s-button {
+		width: 44px;
+		height: 28px;
+		margin: 0 0 0 -4px;
+		border: 1px solid #c0c0c0;
+		border-radius: 0px 4px 4px 0px;
+	}
+	
+	#asd {
+	    background-image: url(/images/buttons/add.png); /* 16px x 16px */
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 16px;
+    padding-left: 16px;     /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+}
+ 
+	
+#main-menu {
+	font-size: 22px;
+	line-height: 33px;
+	list-style-type: none;
+	margin: 0;
+	padding: 140px 0 160px 0;
+	background: url("../img/menu-bg.png") no-repeat scroll 30px bottom;
+	position: relative;
+}
+	
+	#main-menu a {
+		font-weight: normal;
+	}
+
+	#main-menu a:hover {
+		font-weight: bold;
+	}
+	#main-menu li {
+		margin-left: 72px;
+	}
