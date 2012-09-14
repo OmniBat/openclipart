@@ -182,6 +182,8 @@ $app->get('/profile', function() {
 });
 
 
+
+
 $app->get("/logout", function() {
     global $app;
     $app->logout();
@@ -297,7 +299,7 @@ $app->get("/clipart/:args+", function($args) use ($app) {
         'content' => new Template('clipart_detail', function() use ($id, $row) {
             global $app;
             // TODO: this SQLs can be put into Clipart class
-            
+
             $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = $id";
             $tags = $app->db->get_column($query);
             $query = "select openclipart_comments.id, username, comment, date, openclipart_clipart.filename as avatar from openclipart_comments inner join openclipart_users on user = openclipart_users.id LEFT OUTER JOIN openclipart_clipart ON avatar = openclipart_clipart.id where clipart = $id";
@@ -306,7 +308,7 @@ $app->get("/clipart/:args+", function($args) use ($app) {
             $tag_rank = $app->tag_counts($tags);
             $best_term = $tag_rank[0]['name'];
             $svg = 'people/' . $row['username'] . '/' . $row['filename'];
-           
+
             return array_merge($row, array(
                 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename']),
                 'tags' => $tags,
@@ -336,13 +338,14 @@ $app->get("/clipart/:args+", function($args) use ($app) {
                 })
             ));
         }),
-        'sidebar' => new Template('clipart_detail_sidebar', function() use ($id) {
+        'sidebar' => new Template('clipart_detail_sidebar', function() use ($id, $editable) {
             global $app;
             $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";
             $collections = $app->db->get_array($query);
 
             return array(
                 'id' => $id,
+                'editable' => $editable,
                 'collection_count' => count($collections),
                 'collections' => array_map(function($row) {
                     $row['human_date'] = human_date($row['date']);
@@ -449,12 +452,28 @@ $app->get('/', function() {
 
 
 
-
-
 // routing /people/*.svg
 $app->get('/download/svg/:user/:filename', function($user, $filename) {
     global $app;
-    $clipart = new Clipart($user, $filename);
+
+    // TODO: code should look like this: classes User and Clipart System Operate on Users
+    //       OCALUser extend User and OCAL overwrite method that get user, so it return
+    //       OCALUser instead of User (the later will have methods to operate on Clipart)
+    /*
+    $user = $app->user_by_name($username);
+    if (!$user) {
+        $app->notFound();
+    } else {
+        $clipart = $user->clipart_by_name($filename);
+        if (!$clipart || $clipart->size() == 0) {
+            $app->notFound();
+        } else {
+
+        }
+    }
+    */
+
+    $clipart = Clipart::by_name($user, $filename);
     if (!$clipart->exists($filename) || $clipart->size() == 0) {
         // old OCAL have some 0 size files
         $app->notFound();
@@ -494,7 +513,7 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
         return file_get_contents($png);
     }
     */
-    $clipart = new Clipart($user, $file);
+    $clipart = new CLipart($user, $file);
     if ($width > $app->config->bitmap_resolution_limit) {
         $response->status(400);
         // TODO: error template
@@ -610,6 +629,8 @@ $app->get("/foo", function() {
 
 $app->get('/test', function() {
     global $app;
+
+    return;
     $app->xx();
     echo isset($_GET['lang']) ? $_GET['lang'] : 'undefined';
     $app->response()->header('Content-Type', 'text/plain');

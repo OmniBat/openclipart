@@ -29,11 +29,11 @@
         <dd>{{description}}</dd>
         <dt>Tags:</dt>
         <dd class="tags">
-          {{#tags}}
-            <ul>
+          <ul data-clipart="{{id}}">
+            {{#tags}}
               <li><a href="/tag/{{.}}">{{.}}</a></li>
-            </ul>
-          {{/tags}}
+            {{/tags}}
+          </ul>
         </dd>
         <dt>Downloaded by:</dt>
         <dd>{{downloads}} People</dd>
@@ -60,6 +60,7 @@
         <li class="ib-svg"><a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl={{root}}/people/{{username}}/{{filename}}" class="download_hook"><span>Edit Image</span></a></li>
       </ul>
     </div><!-- view -->
+    <!--
     <div class="nsfw">
       <label for="nsfw">NSFW:</label>
       <select id="nsfw">
@@ -67,6 +68,7 @@
         <option value="false"{{^nsfw}} selected="selected"{{/nsfw}}>false</option>
       </select>
     </div>
+    -->
     <div id="comments_wrapper">
         <div class="clearfix" id="clipart-comments">
           <h2 class="underline">Comments</h2>
@@ -93,5 +95,5 @@
         </div>
     </div>
   </div>
-  {{shutterstock}}
+  {{>shutterstock}}
 </div>

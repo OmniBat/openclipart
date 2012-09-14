@@ -54,6 +54,7 @@ Class SystemFunctions {
 class System extends Slim {
     public $groups;
     private $original_config;
+    private $logged_user;
     public $config;
     public $db;
     public $GET;
@@ -66,7 +67,9 @@ class System extends Slim {
             throw new Exception("System Argument need to be an array " .
                                 "or a function that return an array");
         }
-        $this->settings = $settings;
+        $this->settings = array_merge(array(
+            'debug' => false,
+        ), $settings);
         $this->db = new Database($settings['db_host'],
                                  $settings['db_user'],
                                  $settings['db_pass'],
@@ -242,7 +245,9 @@ class System extends Slim {
     function is($group) {
         return in_array($group, $this->groups);
     }
-
+    function user_by_name($username) {
+        return User::by_name($username);
+    }
     // ---------------------------------------------------------------------------------
     // SystemFunctions class need this function for disguise php have not friend
     function __authorize($where = null) {
@@ -266,6 +271,7 @@ class System extends Slim {
     }
 
     // ---------------------------------------------------------------------------------
+    // TODO: move to User
     private function fetch_groups($user) {
         $query = "SELECT name FROM openclipart_user_groups INNER JOIN openclipart_groups ON id = user_group WHERE user = " . $user;
         return $this->db->get_column($query);

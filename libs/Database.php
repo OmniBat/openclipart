@@ -85,12 +85,16 @@ class Database {
         $ret->close();
         return $result;
     }
-    function get_value($query) {
+    function get_value($query, $detaul=null) {
         $result = array();
         $ret = $this->query($query);
         $result = $ret->fetch_row();
-        $ret->close();
-        return $result[0];
+        if ($result) {
+            $ret->close();
+            return $result[0];
+        } else {
+            return $detault;
+        }
     }
     function __call($name, $argv) {
         return call_user_func_array(array($this->conn, $name), $argv);

@@ -20,7 +20,7 @@
  */
 
 class Clipart {
-    function __construct($user, $filename) {
+    static function by_name($user, $filename) {
         global $app;
         $user = $app->db->escape($user);
         $filename = $app->db->escape($filename);
@@ -29,13 +29,32 @@ class Clipart {
             $filename = preg_replace("/\.png|\.jpg$/", ".svg", $filename);
         }
         $query = "SELECT openclipart_tags.name FROM openclipart_clipart INNER JOIN openclipart_users ON owner = openclipart_users.id INNER JOIN openclipart_clipart_tags ON clipart = openclipart_clipart.id INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE filename = '$filename' AND username = '$user'";
-        $this->tags = $app->db->get_column($query);
-        $this->user = $user;
-        $this->filename = $filename;
+        
+        $clipart = new Clipart();
+    }
+    static function by_id($id) {
+        global $app;
+        $id = intval($id);
+        $query = "SELECT * FROM openclipart_clipart"
+        $query = "SELECT openclipart_tags.name FROM openclipart_tags INNER JOIN openclipart_clipart_tags ON tag = openclipart_tags.id WHERE clipart = $id";
+        $tags = $app->db->get_column($query);
+        $clipart = new Clipart($tags);
+        $clipart->fetch_tags($id);
+        
+    }
+    function fetch_tags($id) {
+         $this->tags = 
+    }
+    private function __construct($clipart, $tags) {
+        $this->clipart = $clipart;
+        $this->tags = $tags;
         $this->full_path = $app->config->root_directory . "/people/$user/$filename";
     }
-    function full_path() {
-        return $this->full_path;
+    function __isset($name) {
+        return isset($this->clipart);
+    }
+    function __get($name) {
+        return $this->clipart[$name];
     }
     function exists() {
         return file_exists($this->full_path());
@@ -53,8 +72,7 @@ class Clipart {
     }
     function inc_download() {
         global $app;
-        $query = "UPDATE openclipart_clipart SET downloads = downloads + 1 WHERE owner = (SELECT id FROM openclipart_users WHERE username = '" . $this->user . "') AND filename = '" . $this->filename . "'";
+        $query = "UPDATE openclipart_clipart SET downloads = downloads + 1 WHERE owner = (SELECT id FROM openclipart_users WHERE $id = " . $this->id;
         $app->db->query($query);
     }
-    
 }
