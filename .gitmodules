@@ -7,3 +7,6 @@
 [submodule "libs/json-rpc"]
 	path = libs/json-rpc
 	url = https://github.com/jcubic/json-rpc.git
+[submodule "libs/picatcha"]
+	path = libs/picatcha
+	url = https://github.com/picatcha/picatcha-php.git

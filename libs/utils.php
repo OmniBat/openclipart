@@ -69,6 +69,26 @@ function human_date($date) {
         return date("d.m.Y",$timestamp);
 }
 
+function human_size($bytes) {
+    $bytes = intval($bytes);
+    if ($bytes < 1024) {
+        return "$bytes bytes";
+    } else {
+        $kb = round($bytes/1024, 2);
+        if ($kb < 1024) {
+            return "$kb KB";
+        } else {
+            $mb = round($kb/1024, 2);
+            if ($mb < 1024) {
+                return "$mb MB";
+            } else {
+                $gb = round($mb/1024, 2);
+                return "$gb GB";
+            }
+        }
+    }
+}
+
 function get_time() {
     return (float)array_sum(explode(' ', microtime()));
 }
@@ -129,4 +149,41 @@ function get_object_methods($object) {
 
 function have_method($object, $method) {
     return in_array($method, get_object_methods($object));
+}
+
+
+function get_trace($exception) {
+    $i = 0;
+    return array_map(function($array) use (&$i) {
+        $args = implode(', ', array_map(function($arg) {
+            $type = gettype($arg);
+            return $type == 'object' ? get_class($arg) : $type;
+        }, $array['args']));
+        $result = sprintf('%3d: ', $i++);
+        if (isset($array['class']) && isset($array['type'])) {
+            $result .= $array['class'] . $array['type'];
+        }
+        $result .= $array['function'] . '(' . $args . ')';
+        if (isset($array['file'])) {
+            $result .= ' in ' . str_replace($_SERVER['DOCUMENT_ROOT'],
+                                            '',
+                                            $array['file']);
+        }
+        if (isset($array['line'])) {
+            $result .= ' at ' . $array['line'];
+        }
+        return $result;
+    }, $exception->getTrace());
+}
+
+function exception_string($exception) {
+    return get_class($exception) . " " . $exception->getMessage() . " in file " .
+        str_replace($_SERVER['DOCUMENT_ROOT'], '', $exception->getFile()) .
+        ' at ' . $exception->getLine();
+
+}
+
+function full_exception_string($exception, $separator="\n") {
+    return exception_string($exception) . $separator .
+        implode($separator, get_trace($exception));
 }

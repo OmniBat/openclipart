@@ -1,0 +1,97 @@
+<div id="detail">
+  {{copyright_violation}}
+  <div id="forview">
+    <div id="view" class="clearfix">
+      <h2>{{title}}</h2>
+      <div id="viewimg">
+        <a href="/download/svg/{{username}}/{{filename}}">
+        <img src="/image/250/{{username}}/{{filename_png}}" alt="{{title}} by {{username}}{{^description}} - {{description}}{{/description}}"/>
+        </a>
+      </div>
+      <dl id="imginfo" class="clearfix">
+        {{! if author is set show that the owner is only an uploader}}
+        {{#original_author}}
+          <dt id="tviewauthor">Uploader:</dt>
+        {{/original_author}}
+        {{^original_author}}
+        <dt id="tviewauthor">Author:</dt>
+        {{/original_author}}
+        <dd id="viewauthor">
+          <a href="/user/{{username}}">{{username}}</a>
+        </dd>
+        {{#original_author}}
+          <dt>Original Author:</dt>
+          <dd>{{original_author}}</dd>
+        {{/original_author}}
+        <dt>Created:</dt>
+        <dd>{{created}}</dd>
+        <dt>Description:</dt>
+        <dd>{{description}}</dd>
+        <dt>Tags:</dt>
+        <dd class="tags">
+          {{#tags}}
+            <ul>
+              <li><a href="/tag/{{.}}">{{.}}</a></li>
+            </ul>
+          {{/tags}}
+        </dd>
+        <dt>Downloaded by:</dt>
+        <dd>{{downloads}} People</dd>
+        <dt>Favorited by:</dt>
+        <dd id="favs">{{favs}}</dd>
+        <dt>SVG filesize:</dt>
+        <dd>{{file_size}}</dd>
+      </dl>
+      <ul class="clearfix img-actions">
+        <li class="d-svg">
+          <a href="/download/svg/{{username}}/{{filename}}" class="download_hook">
+          <span>View Image</span>
+          </a>
+        </li>
+      </ul>
+      <ul id="lossy" class="clearfix">
+        <li><strong>Lossy:</strong></li>
+        <li><a href="/image/800/{{username}}/{{filename_png}}">png</a></li>
+        <li><input type="text" name="resolution" id="resolution" placeholder="Enter size of the bitmap"></li>
+        <li><span class="tool"><img src="/image/22/boobaloo/1304760779.png"><span class="tip">Enter desired resolution here and click out of field or press [Enter] or click on 'PNG' button to view bitmap. Default resolution is 800 pixels.</span></span></li>
+        <li class="error">Resolution can't be larger then 3840px. Please download SVG and produce such huge bitmap locally.</li>
+      </ul>
+      <ul class="clearfix img-actions">
+        <li class="ib-svg"><a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl={{root}}/people/{{username}}/{{filename}}" class="download_hook"><span>Edit Image</span></a></li>
+      </ul>
+    </div><!-- view -->
+    <div class="nsfw">
+      <label for="nsfw">NSFW:</label>
+      <select id="nsfw">
+        <option value="true"{{#nsfw}} selected="selected"{{/nsfw}}>true</option>
+        <option value="false"{{^nsfw}} selected="selected"{{/nsfw}}>false</option>
+      </select>
+    </div>
+    <div id="comments_wrapper">
+        <div class="clearfix" id="clipart-comments">
+          <h2 class="underline">Comments</h2>
+          {{#comments}}
+          <div class="comment clearfix{{#editable}} editable{{/editable}}">
+             <a href="/user/{{username}}">
+             {{#avatar}}
+               <img src="/image/90/{{username}}/{{avatar}}"/>
+             {{/avatar}}
+             {{^avatar}}
+             {{#missing_avatar_image}}
+             <img src="/image/90/{{user}}/{{filename}}.png"/>
+             {{/missing_avatar_image}}
+             {{/avatar}}
+             </a>
+             <h5><a href="/user/{{username}}" class="cc_user_link">{{username}}</a> said on {{date}}</h5>
+             <p>{{comment}}</p>
+             <div class="actions" data-id="{{id}}">
+               <a class="button" href="#">Delete</a>
+               <a class="button" href="#">Edit</a>
+             </div>
+          </div>
+          {{/comments}}
+        </div>
+    </div>
+  </div>
+  {{shutterstock}}
+</div>

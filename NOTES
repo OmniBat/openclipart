@@ -34,3 +34,16 @@ SELECT * FROM TableA
 LEFT OUTER JOIN TableB
 ON TableA.name = TableB.name
 WHERE TableB.id IS null
+
+-----------------------------------------------------------------------------------
+
+
+
+// TODO: rpc permission system / Slick RPC library
+/*
+
+class Foo extends LibrarianPermission {
+
+}
+
+*/

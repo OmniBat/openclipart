@@ -56,4 +56,5 @@ class Clipart {
         $query = "UPDATE openclipart_clipart SET downloads = downloads + 1 WHERE owner = (SELECT id FROM openclipart_users WHERE username = '" . $this->user . "') AND filename = '" . $this->filename . "'";
         $app->db->query($query);
     }
+    
 }

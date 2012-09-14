@@ -1,12 +1,12 @@
 {{#cliparts}}
   <div class="r-img">
     <div class="r-img-i">
-	  <a href="/detail/{{id}}/{{link}}{{forward_query}}">
+	  <a href="/clipart/{{id}}/{{link}}{{forward_query}}">
 	  <img alt="#" src="/image/90/{{username}}/{{filename_png}}{{forward_query}}"/>
 	  </a>
 	</div>
 	<h4>
-	  <a href="/detail/{{id}}/{{link}}{{forward_query}}">{{title}}</a>
+	  <a href="/clipart/{{id}}/{{link}}{{forward_query}}">{{title}}</a>
 	</h4>
 	<p>by <a href="/user/{{username}}{{forward_query}}">{{username}}</a><br />
 	{{human_date}}
@@ -17,59 +17,23 @@
     <!-- SELECT ocal_files.upload_name, aiki_users.username as artist_name, ocal_files.id, aiki_users.email FROM ocal_files, aiki_users WHERE ocal_files.username = aiki_users.username AND ocal_files.id = ((id)) LIMIT 1 -->
     {{^userid}}
       <div class="favorite-icon" data-id="{{id}}">
-        <div class="favorite-add">
-          <!--<img src="/image/12px/svg_to_png/OCAL_Favorites_Icon_Unselected.png" alt="#">-->
-        </div>
+        <div class="favorite-add"><!--
+          <img src="/image/12px/svg_to_png/OCAL_Favorites_Icon_Unselected.png" alt="#"/>
+        --></div>
         <!-- SELECT COUNT(DISTINCT username) as num_favorites FROM ocal_favs WHERE clipart_id = ((id)) -->
         <div class="clipart_favs_num">{{num_favorites}}</div>
       </div>
     {{/userid}}
     {{#userid}}
-      <div class="favorite-icon" data-id="{{id}}">
+      <div class="favorite-icon active" data-id="{{id}}">
         {{#user_fav}}
-          <div class="favorite-remove"></div>
+          <a href="#" class="favorite-remove"></a>
         {{/user_fav}}
         {{^user_fav}}
-          <div class="favorite-add"></div>
+          <a href="#" class="favorite-add"></a>
         {{/user_fav}}
         <div class="clipart_favs_num">{{num_favorites}}</div>
       </div>
-      <!-- one javascript for page -->
-      <script>
-      $('.favorite-icon .favorite-remove, .favorite-icon .favorite-add').live('click', funcion() {
-          var self = $(this);
-          var parent = self.parent();
-          if (!parent.data('ajax')) {
-              var id = parent.data('id');
-              if (id) {
-                  self.parent().data('ajax', true);
-                  var next = self.next();
-                  var favs = parseInt(next.text());
-                  if (self.has('.favorite-remove')) {
-                      next.text(favs-1);
-                      self.removeClass('.favorite-remove').
-                          addClass('.favorite-add');
-                  } else if (self.has('.favorite-add')) {
-                      next.text(favs+1);
-                      self.removeClass('.favorite-add').
-                          addClass('.favorite-remove');
-                  }
-                  $.get('/toggle-favorite/' + id, function() {
-                      /*
-                      in handler:
-
-                      SELECT email, notify FROM aiki_users, ocal_files
-                      WHERE userid = upload_user AND ocal_files.id = <id>
-
-                      SELECT count(*) FROM ocal_favs WHERE clipart_id = <id> AND
-                      user_id = $this->user_id
-                      */
-                      parent.data('ajax', false);
-                  });
-              }
-          }
-      });
-      </script>​
     {{/userid}}
   </div>
 {{/cliparts}}

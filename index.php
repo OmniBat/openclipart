@@ -24,46 +24,11 @@ ini_set('display_errors', 'On');
 
 define('DEBUG', true);
 
-function get_trace($exception) {
-    $i = 0;
-    return array_map(function($array) use (&$i) {
-        $args = implode(', ', array_map(function($arg) {
-            $type = gettype($arg);
-            return $type == 'object' ? get_class($arg) : $type;
-        }, $array['args']));
-        $result = sprintf('%3d: ', $i++);
-        if (isset($array['class']) && isset($array['type'])) {
-            $result .= $array['class'] . $array['type'];
-        }
-        $result .= $array['function'] . '(' . $args . ')';
-        if (isset($array['file'])) {
-            $result .= ' in ' . str_replace($_SERVER['DOCUMENT_ROOT'],
-                                            '',
-                                            $array['file']);
-        }
-        if (isset($array['line'])) {
-            $result .= ' at ' . $array['line'];
-        }
-        return $result;
-    }, $exception->getTrace());
-}
-
-function exception_string($exception) {
-    global $app;
-    return get_class($exception) . " " . $exception->getMessage() . " in file " .
-        str_replace($_SERVER['DOCUMENT_ROOT'], '', $exception->getFile()) .
-        ' at ' . $exception->getLine();
-
-}
-
-
-
-
-
 require_once('libs/utils.php');
 require_once('libs/Template.php');
 require_once('libs/System.php');
 require_once('libs/Clipart.php');
+require_once('libs/OCAL.php');
 
 /* TODO: logs (using slim) - same as apacha with gzip and numbering
  *                           cache all exceptions and log them
@@ -73,104 +38,67 @@ require_once('libs/Clipart.php');
  *
  */
 
-$app = new System(function() {
-    /*
-     *  System config need those variables
-     *  db_user, db_host, db_pass, db_name (they are taken from config.json
-     *  the file is disabled by .htaccess)
-     */
-    $config = get_object_vars(json_decode(file_get_contents('config.json')));
-    $protocol = (isset($_SERVER['HTTPS'])) ? 'https' : 'http';
-    return array_merge($config, array(
-        'root' => $protocol . '://' . $_SERVER['HTTP_HOST'],
-        'root_directory' => $_SERVER['DOCUMENT_ROOT'],
-        'db_prefix' => 'openclipart',
-        'tag_limit' => 100,
-        'top_artist_last_month_limit' => 10,
-        'home_page_thumbs_limit' => 8,
-        'home_page_collections_limit' => 5,
-        'home_page_news_limit' => 3,
-        'bitmap_resolution_limit' => 3840, // number from old javascript
-        'google_analytics' => false,
-        // permission to functions in
-        'permissions' => array(
-            // JSON-RPC permissions
-            'rpc' => array(
-                'Admin' => array('admin')
-            ),
-            'access' => array(
-                'disguise' => array('admin', 'developer'),
-                'add_to_group' => array('admin'),
-            ),
-            // disguise fun is silent by default - executed in System constructor
-            'silent' => array(),
-            'disabled' => array()
-        ),
-        'show_facebook' => false,
-        'debug' => true,
-        // user     disguise as this user
-        // track    initialy to disable download count in edit button
-        //          can be use in different places
-        // size     thumbail_size
-        // token    you can browse site without cookies and php sessions
-        //          using token in url, token will be send for users that forget
-        //          passwords
-        //          if token_expiration in database is null the time is infinite
-        // sort     download, favorites, date
-        // desc     for sort true or false
-        // lang     for translation system
-        'forward_query_list' => array(
-            // TODO strip tags. or if Regex not match then ignore
-            // nsfw = /true|false/
-            'nsfw', 'track', 'user', 'size', 'token', 'sort', 'desc', 'lang'
-        ),
-        /*
-        'forward_query_list' => array(
-            'nsfw' => '/^(true|false)$/i',
-            'track' => '/^(true|false)$/i',
-            'user' => '/^[0-9]+$/',
-            'size' => '/^[0-9]+(px|%)?$/i',
-            'token' => '/^[0-9a-f]+$/i',
-            'sort' => '/^(name|date|download|favorites)$/i',
-            'desc' => '/^(true|false)$/i',
-            'lang' => '/^(pl|es|js|de|zh)$/i'
-        ),
-        */
-        'nsfw_image' => array(
-            'user' => 'h0us3s',
-            'filename' => 'h0us3s_Signs_Hazard_Warning_1'
-        ),
-        'pd_issue_image' => array(
-            'user' => 'h0us3s',
-            'filename' => 'h0us3s_Signs_Hazard_Warning_1'
-        ),
-    ));
-});
 
-
-
-class NiceExceptions extends Slim_Middleware_PrettyExceptions {
-    protected function renderBody(&$env, $exception) {
-        global $app;
-        $main = new Template('main', function() use ($exception) {
-            return array('content' => new Template('exception', function() use ($exception) {
-                global $app;
-                return array(
-                    'name' => get_class($exception),
-                    'message' => $exception->getMessage(),
-                    'file' => str_replace($app->config->root_directory,
-                                          '',
-                                          $exception->getFile()),
-                    'line' => $exception->getLine(),
-                    'trace' => implode("\n", get_trace($exception)) //->getTraceAsString()
-                );
-            }));
-        });
-        return $main->render();
-    }
-}
-
-//$app->add(new NiceExceptions());
+$app = new OCAL(array(
+    'db_prefix' => 'openclipart',
+    'tag_limit' => 100,
+    'top_artist_last_month_limit' => 10,
+    'home_page_thumbs_limit' => 8,
+    'home_page_collections_limit' => 5,
+    'home_page_news_limit' => 3,
+    'token_expiration' => 1, // number of hours for token expiration (token send via email)
+    'bitmap_resolution_limit' => 3840, // number from old javascript
+    'google_analytics' => false,
+    // permission to functions in
+    'permissions' => array(
+        // JSON-RPC permissions
+        'rpc' => array(
+            'Admin' => array('admin')
+        ),
+        'access' => array(
+            'disguise' => array('admin', 'developer'),
+            'add_to_group' => array('admin'),
+        ),
+        // disguise fun is silent by default - executed in System constructor
+        'silent' => array(),
+        'disabled' => array()
+    ),
+    'show_facebook' => false,
+    'debug' => true,
+    // user     disguise as this user
+    // track    initialy to disable download count in edit button
+    //          can be use in different places
+    // size     thumbail_size
+    // token    you can browse site without cookies and php sessions
+    //          using token in url, token will be send for users that forget
+    //          passwords
+    //          if token_expiration in database is null the time is infinite
+    // sort     download, favorites, date
+    // desc     for sort true or false
+    // lang     for translation system
+    'forward_query_list' => array(
+      'nsfw' => '/^(true|false)$/i',
+      'track' => '/^(true|false)$/i',
+      'user' => '/^[0-9]+$/',
+      'size' => '/^[0-9]+(px|%)?$/i',
+      'token' => '/^[0-9a-f]{40}$/i',
+      'sort' => '/^(name|date|download|favorites)$/i',
+      'desc' => '/^(true|false)$/i',
+      'lang' => '/^(pl|es|js|de|zh)$/i'
+    ),
+    'nsfw_image' => array(
+        'user' => 'h0us3s',
+        'filename' => 'h0us3s_Signs_Hazard_Warning_1'
+    ),
+    'pd_issue_image' => array(
+        'user' => 'h0us3s',
+        'filename' => 'h0us3s_Signs_Hazard_Warning_1'
+    ),
+    'missing_avatar_image' => array(
+        'user' => 'pianoBrad',
+        'filename' => 'openclipart-logo-grey'
+    ),
+));
 
 $app->error(function($exception) {
     global $app;
@@ -190,28 +118,14 @@ $app->error(function($exception) {
     });
 });
 
-$app->get("/throw-exception", function() use ($app) {
-    $array = array();
-    return $array['x'];
-});
-
-$app->get("/foo", function() {
-    return new Template('main', function() {
-        return array('content' => 'hello');
-    });
-});
-
 
 $app->notFound(function () use ($app) {
-    $response = $app->response();
-    $response['Content-Type'] = 'text/html'; // handlers can change it like /image
     return new Template('main', function() {
         return array('content' => new Template('error_404', null));
     });
 });
 
 
-//TODO: Wrapp echo $main->render();
 
 $app->map('/login', function() use ($app) {
     $error = null;
@@ -226,19 +140,47 @@ $app->map('/login', function() use ($app) {
             $error = $e->getMessage();
         }
     }
-    $main = new Template('main', function() use ($error) {
+    return new Template('main', function() use ($error) {
         return array(
             'content' => array(new Template('login', function() use ($error) {
+                global $app;
                 return array(
                     // fill login on second attempt
                     'login' => isset($_POST['login']) ? $_POST['login'] : '',
-                    'error' => $error
+                    'error' => $error,
+                    'redirect' => $app->GET->redirect
                 );
             }))
         );
     });
-    echo $main->render();
 })->via('GET', 'POST');
+
+$app->map('/forget-password', function() use ($app) {
+    if (isset($_GET['email'])) {
+        $email = $_GET['email'];
+        if ($app->send_reset_password_link($email, $app->config->token_expiration)) {
+            $msg = "Instant access link was send to your email";
+            $error = false;
+        } else {
+            $msg = "We couldn't send an email, maybe you put wrong email adress";
+            $error = true;
+        }
+        if ($app->request()->isAjax()) {
+            return json_encode(array('result' => $msg, 'error' => $error));
+        } else {
+            return new Template('main', array('content' => $msg));
+        }
+    } else {
+        return new Template('main', array(
+            'content' => new Template('forget-password')
+        ));
+    }
+})->via('GET', 'POST');
+
+$app->get('/profile', function() {
+    return new Template('main', array('content' => '<p>user profile</p>'));
+});
+
 
 $app->get("/logout", function() {
     global $app;
@@ -246,98 +188,215 @@ $app->get("/logout", function() {
     if (isset($app->GET->redirect)) {
         $app->redirect($app->GET->redirect);
     } else {
-        $main = new Template('main', function() {
+        return new Template('main', function() {
             return array(
                 'content' => '<p>You are now logged out</p>'
             );
         });
-        echo $main->render();
     }
 });
+
+
+$app->map('/register', function() use ($app) {
+    // TODO: try catch that show json on ajax and throw exception so it will be cached
+    //       by main error handler
+    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
+        $msg = null;
+        $success = false;
+        $username = null;
+        if (strip_tags($_POST['username']) != $_POST['username'] ||
+            preg_match('/^[0-9A-Za-z_]+$/', $_POST['username']) == 0) {
+            $msg = 'Sorry, but the username is invalid (you can use only letters, numbers'.
+                ' and underscore)';
+        } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            $msg = 'Sorry, but email is invalid';
+        } else if ($app->user_exist($_POST['username'])) {
+            // TODO: check if email exists - don't allow for two accounts with the same email
+            $msg = "Sorry, but this user already exist";
+        } else if (!isset($_POST['picatcha']['r'])) {
+            $msg = "Sorry, but you need to solve picatcha to prove that you're human";
+            $username = $_POST['username'];
+        } else {
+            require('libs/picatcha/picatchalib.php');
+            $response = picatcha_check_answer($app->config->picatcha['private_key'],
+				$_SERVER['REMOTE_ADDR'],
+				$_SERVER['HTTP_USER_AGENT'],
+				$_POST['picatcha']['token'],
+				$_POST['picatcha']['r']);
+            if ($response->error == "incorrect-answer") {
+                $msg = 'You give wrong anwser to Picatcha';
+                $username = $_POST['username'];
+            } else {
+                if ($app->register($_POST['username'], $_POST['password'], $_POST['email'])) {
+                    $msg = 'Your account has been created';
+                    $success = true;
+                } else {
+                    $msg = 'Sorry, but something wrong happen and we couldn\'t create '.
+                        'your account';
+                    $username = $_POST['username'];
+                }
+            }
+        }
+        if ($success) {
+            $url = $app->config->root . "/login";
+            $subject = 'Welcome to Open Clipart Library';
+            $username = $_POST['username'];
+            $message = "Dear $username:\n\nYour registration at Open Clipart Library was " .
+                "successful.\nPlease visit our site to sign in and get started:\n$url";
+            $app->system_email($_POST['email'], $subject, $message);
+        }
+        if ($app->request()->isAjax()) {
+            return json_encode(array('message' => $msg, 'status' => $success));
+        } else {
+            if ($success) {
+                return new Template('main', array(
+                    'content' => $msg
+                ));
+            } else {
+                return new Template('main', array(
+                    'content' => new Template('register', array(
+                        'error' => $msg,
+                        'email' => $_POST['email'], // so users don't need to type it twice
+                        'username' => $username     // if user fail or forget picatcha
+                    ))
+                ));
+            }
+        }
+    } else {
+        return new Template('main', array(
+            'content' => new Template('register', null)
+        ));
+    }
+})->via('GET', 'POST');
+
+
 
 $app->get("/chat", function() {
-    $main = new Template('main', function() {
+    return new Template('main', function() {
         return array('content' => array(new Template('chat', null)));
     });
-    echo $main->render();
 });
 
-$app->get("/detail/:id/:link", function($id, $link) use ($app) {
 
+$app->get("/clipart/:args+", function($args) use ($app) {
+    $id = intval($args[0]);
+    $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, count(DISTINCT user) as favs, created, downloads, description FROM openclipart_clipart INNER JOIN openclipart_users ON owner = openclipart_users.id INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id WHERE openclipart_clipart.id = $id";
+    $row = $app->db->get_row($query);
+    if (empty($row)) {
+        $app->notFound();
+    }
+    $editable = false;
+    if (isset($app->username)) {
+        if ($app->username == $row['username'] || $app->is('librarian')) {
+            $editable = true;
+        }
+    }
+    return new Template('main', array(
+        'class' => 'detail',
+        'editable' => $editable,
+        'content' => new Template('clipart_detail', function() use ($id, $row) {
+            global $app;
+            // TODO: this SQLs can be put into Clipart class
+            
+            $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = $id";
+            $tags = $app->db->get_column($query);
+            $query = "select openclipart_comments.id, username, comment, date, openclipart_clipart.filename as avatar from openclipart_comments inner join openclipart_users on user = openclipart_users.id LEFT OUTER JOIN openclipart_clipart ON avatar = openclipart_clipart.id where clipart = $id";
+            $comments = $app->db->get_array($query);
+
+            $tag_rank = $app->tag_counts($tags);
+            $best_term = $tag_rank[0]['name'];
+            $svg = 'people/' . $row['username'] . '/' . $row['filename'];
+           
+            return array_merge($row, array(
+                'filename_png' => preg_replace('/.svg$/', '.png', $row['filename']),
+                'tags' => $tags,
+                'comments' => array_map(function($comment) {
+                    $avatar = preg_replace('/.svg$/', '.png', $comment['avatar']);
+                    $comment['avatar'] = $avatar;
+                    // owner of the comment
+                    if (isset($app->username) && $coment['username'] == $app->username) {
+                        $comment['editable'] = true;
+                    }
+                    return $comment;
+                }, $comments),
+                'file_size' => human_size(filesize($svg)),
+                'nsfw' => in_array('nsfw', $tags),
+                'shutterstock' => new Template('shutterstock', function() use ($best_term) {
+                    global $app;
+                    return array(
+                        'list' => array_map(function($image) {
+                            return array(
+                                'thumbnail' => $image->thumb_small->img,
+                                'description' => $image->description,
+                                'url' => $image->web_url
+                            );
+                        }, $app->shutterstock($best_term)),
+                        'term' => $best_term
+                    );
+                })
+            ));
+        }),
+        'sidebar' => new Template('clipart_detail_sidebar', function() use ($id) {
+            global $app;
+            $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";
+            $collections = $app->db->get_array($query);
+
+            return array(
+                'id' => $id,
+                'collection_count' => count($collections),
+                'collections' => array_map(function($row) {
+                    $row['human_date'] = human_date($row['date']);
+                    return $row;
+                }, $collections)
+            );
+        })
+    ));
 });
 
-$app->get("/user-detail/:username", function($username) use ($app) {
-
+$app->get("/user/:username", function($username) use ($app) {
+    
 });
 
-function create_thumbs($where, $order_by) {
-    global $app;
-    if ($app->nsfw()) {
-        $nsfw = "AND openclipart_clipart.id not in (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE name = 'nsfw')";
-    } else {
-        $nsfw = '';
-    }
-    if ($app->is_logged()) {
-        $fav_check = $app->get_user_id() . ' in '.
-            '(SELECT user FROM openclipart_favorites'.
-            ' WHERE openclipart_clipart.id = clipart)';
-    } else {
-        $fav_check = '0';
-    }
-    if ($where != '' && $where != null) {
-        $where = "AND $where";
-    }
-    $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, count(DISTINCT user) as num_favorites, created, date, $fav_check as user_favm, downloads FROM openclipart_clipart INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON openclipart_users.id = owner WHERE openclipart_clipart.id NOT IN (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON openclipart_tags.id = tag WHERE clipart = openclipart_clipart.id AND openclipart_tags.name = 'pd_issue') $nsfw $where GROUP BY openclipart_clipart.id ORDER BY $order_by DESC LIMIT " . $app->config->home_page_thumbs_limit;
-    $clipart_list = array();
-    foreach ($app->db->get_array($query) as $row) {
-        $filename_png = preg_replace("/.svg$/",
-                                     ".png",
-                                     $row['filename']);
-        $human_date = human_date($row['created']);
-        $data = array(
-            'filename_png' => $filename_png,
-            'human_date' => $human_date
-            //TODO: check when close this query
-            //'user_fav' => false
-        );
-        $clipart_list[] = array_merge($row, $data);
-    }
-    return array('cliparts' => $clipart_list);
-}
+
 
 
 
 $app->get('/', function() {
     global $app;
-    $main = new Template('main', function() {
+    return new Template('main', function() {
         return array(
             'content' => array(new Template('wellcome', null),
                   new Template('most_popular_thumbs', function() {
                       return array(
                           'content' => new Template('clipart_list', function() {
+                              global $app;
                               $last_week = "(SELECT WEEK(max(date)) FROM ".
                                   "openclipart_favorites) = WEEK(date) AND ".
                                   "YEAR(NOW()) = YEAR(date)";
-                              return create_thumbs($last_week, "num_favorites");
+                              return $app->create_thumbs($last_week, "num_favorites");
                           })
                       );
                   }),
                   new Template('new_clipart_thumbs', function() {
                       return array(
                           'content' => new Template('clipart_list', function() {
-                              return create_thumbs(null, "created");
+                              global $app;
+                              return $app->create_thumbs(null, "created");
                           })
                       );
                   }),
                   new Template('top_download_thumbs', function() {
+                      /*
                       return array(
                           'content' => new Template('clipart_list', function() {
+                              global $app;
                               $top_download = "YEAR(created) = YEAR(CURRENT_".
                                   "DATE) AND MONTH(created) = MONTH(CURRENT_".
                                   "DATE)";
-                              return create_thumbs($top_download, "downloads");
+                              return $app->create_thumbs($top_download, "downloads");
                           })
                       );
+                      */
                   })
             ),
             'sidebar' => array(
@@ -385,35 +444,22 @@ $app->get('/', function() {
             )
         ); //array('content'
     }); // new Template('main'
-    echo $main->render();
 });
 
 
 
-$app->get('/clipart/:id/:link', function($id, $link) {
-    $main = new Template('main', function() {
-        return array('content' => array(
-            new Template('clipart_detail', function() {
-                
-                $tags = "SELECT ";
-                //editable - librarian or clipart owner
-            })
-        ));
-    });
-    return $main->render();
-});
+
 
 
 // routing /people/*.svg
 $app->get('/download/svg/:user/:filename', function($user, $filename) {
     global $app;
     $clipart = new Clipart($user, $filename);
-    if (!$clipart->exists($svg) || $clipart->size() == 0) {
+    if (!$clipart->exists($filename) || $clipart->size() == 0) {
         // old OCAL have some 0 size files
         $app->notFound();
     } else {
-        $response = $app->response();
-        $response['Content-Type'] = 'application/octet-stream';
+        $response = $app->response()->header('Content-Type', 'application/octet-stream');
         if ($app->track()) {
             $clipart->inc_download();
         }
@@ -439,6 +485,15 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
     $png = $app->config->root_directory . "/people/$user/${width}px-$file";
     $svg = $app->config->root_directory . "/people/$user/" . $svg_filename;
     $response = $app->response();
+    /*
+    //speed up loading - problem: nsfw can change and this may display old generated image
+    $maybe_nsfw = preg_replace('/.png$/', '-nsfw.png', $png);
+    if (file_exists($maybe_nsfw)) {
+        return file_get_contents($maybe_nsfw);
+    } else if (file_exists($png)) {
+        return file_get_contents($png);
+    }
+    */
     $clipart = new Clipart($user, $file);
     if ($width > $app->config->bitmap_resolution_limit) {
         $response->status(400);
@@ -454,16 +509,15 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
         if ($app->nsfw() && $clipart->nsfw()) {
             $user = $app->config->nsfw_image['user'];
             $filename = $app->config->nsfw_image['filename'];
-            $png = $app->config->root_directory . "/people/$user/${width}px-$file.png";
+            $png = $app->config->root_directory . "/people/$user/${width}px-$file-nsfw.png";
             $svg = $app->config->root_directory . "/people/$user/$filename.svg";
         }
-        $response['Content-Type'] = 'image/png';
+        $response->header('Content-Type', 'image/png');
         if (file_exists($png)) {
             echo file_get_contents($png);
         } else {
             exec("rsvg --width $width $svg $png");
             if (!file_exists($png)) {
-                $response['Content-Type'] = "text/html";
                 $app->pass();
             } else {
                 echo file_get_contents($png);
@@ -473,43 +527,10 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
 });
 
 
-
-/*
-  $response = $app->response();
-  $response->body($main->render());
- */
-$app->get('/test', function() {
-    global $app;
-    $app->xx();
-    echo isset($_GET['lang']) ? $_GET['lang'] : 'undefined';
-    $response = $app->response();
-    $response['Content-Type'] = 'text/plain';
-    print_r($_SERVER) . "\n";
-    echo $_SERVER['REQUEST_URI'] . "\n";
-    echo 'nsfw: ' . $app->nsfw() ? 'true' : 'false';
-    echo "\n";
-    echo (empty($_GET) ? 'true' : 'false') . "\n";
-    return "xxx";
-    $main = new Template('test', function() {
-        return array('foo' => function($query) {
-            global $app;
-            $array = $app->db->get_array($query);
-            return implode(' | ', $array[0]);
-        });
-    });
-    echo $main->render();
-}); //->conditions(array('name' => '[0-9]*'));
-
 $app->post("/notify-librarians-admins", function() {
-    
+
 });
 
-// TODO: rpc permission system
-/*
-class Foo extends LibrarianPermission {
-
-}
-*/
 
 $app->get('/download/collection/:name', function($name) {
     global $app;
@@ -543,7 +564,6 @@ $app->get('/download/collection/:name', function($name) {
                 }
                 $dirs[] = $row['tag'];
             }
-            
             if (array_key_exists($row['filename'], $archive)) {
                 $i = ++$archive[$row['filename']];
                 $local_filename = preg_replace("/\.svg$/",
@@ -568,14 +588,47 @@ $app->get('/download/collection/:name', function($name) {
         $app->notFound();
     } else {
         // stream the archive
-        $response = $app->response();
-        $response['Content-Type'] = 'application/octet-stream';
+        $app->response()->header('Content-Type', 'application/octet-stream');
         echo file_get_contents($zip_filename);
     }
 });
 
+// -------------------------------------------------------------------------------
+// :: TEST CODE
+
+
+$app->get("/throw-exception", function() use ($app) {
+    $array = array();
+    return $array['x'];
+});
+
+$app->get("/foo", function() {
+    return new Template('main', function() {
+        return array('content' => 'hello');
+    });
+});
+
+$app->get('/test', function() {
+    global $app;
+    $app->xx();
+    echo isset($_GET['lang']) ? $_GET['lang'] : 'undefined';
+    $app->response()->header('Content-Type', 'text/plain');
+    print_r($_SERVER) . "\n";
+    echo $_SERVER['REQUEST_URI'] . "\n";
+    echo 'nsfw: ' . $app->nsfw() ? 'true' : 'false';
+    echo "\n";
+    echo (empty($_GET) ? 'true' : 'false') . "\n";
+    return "xxx";
+    $main = new Template('test', function() {
+        return array('foo' => function($query) {
+            global $app;
+            $array = $app->db->get_array($query);
+            return implode(' | ', $array[0]);
+        });
+    });
+    echo $main->render();
+}); //->conditions(array('name' => '[0-9]*'));
 
 
 $app->run();
-
 ?>
