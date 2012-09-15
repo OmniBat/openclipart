@@ -9,8 +9,16 @@ a {
 	color: #808080;
 }
 
+a:hover {
+	color: #333;
+}
+
 #left {
 	position: relative;
+}
+
+#right {
+	padding: 35px 0 80px 0;
 }
 
 #page-title {
@@ -59,7 +67,7 @@ a {
 
 	#top-search #search-i {
 		width: 158px;
-		height: 28px;
+		height: 24px;
 		border: 1px solid #c0c0c0;
 		padding-left: 50px;
 		color: #bebebe;
@@ -68,33 +76,30 @@ a {
 		font-style: italic;
 		background-color: white;
 	}
-
+	
 	#top-search #s-button {
-		width: 44px;
+		width: 45px;
 		height: 28px;
 		margin: 0 0 0 -4px;
-		border: 1px solid #c0c0c0;
-		border-radius: 0px 4px 4px 0px;
+		background-image: url("../img/icon-search2.png"); /* 45px x 28px */
+		background-color: transparent;
+		background-repeat: no-repeat;
+		border: none;
+		cursor: pointer;        /* make the cursor like hovering over an <a> element */
+		height: 28px;
+		padding-left: 16px;     /* make text start to the right of the image */
+		vertical-align: top;
+		}
+	#top-search #s-button:hover {
+		background-position: -45px 0px;
 	}
-	
-	#asd {
-	    background-image: url(/images/buttons/add.png); /* 16px x 16px */
-    background-color: transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;        /* make the cursor like hovering over an <a> element */
-    height: 16px;
-    padding-left: 16px;     /* make text start to the right of the image */
-    vertical-align: middle; /* align the text vertically centered */
-}
- 
 	
 #main-menu {
 	font-size: 22px;
 	line-height: 33px;
 	list-style-type: none;
-	margin: 0;
-	padding: 140px 0 160px 0;
+	margin: 0 0 60px 0;
+	padding: 140px 0 154px 0;
 	background: url("../img/menu-bg.png") no-repeat scroll 30px bottom;
 	position: relative;
 }
@@ -102,10 +107,130 @@ a {
 	#main-menu a {
 		font-weight: normal;
 	}
+	
+	#main-menu li.active a {
+		color: #333;
+		font-weight: bold;
+	}
 
 	#main-menu a:hover {
 		font-weight: bold;
 	}
+	
 	#main-menu li {
 		margin-left: 72px;
+	}
+
+#icon-bar {
+	margin: 0 0 0 -24px;
+}
+
+	#icon-bar li a {
+		margin-right: 4px;
+		height: 30px;
+		width: 30px;
+		position: relative;
+		float: left;
+		background: url("../img/icons.png") no-repeat scroll 0px top;
+	}
+	
+	#icon-bar li a.identica			{background-position: 0px top;}
+	#icon-bar li a:hover.identica	{background-position: 0px bottom;}
+	#icon-bar li a.twitter 			{background-position: -30px top;}
+	#icon-bar li a:hover.twitter 	{background-position: -30px bottom;}
+	#icon-bar li a.googleplus		{background-position: -60px top;}	
+	#icon-bar li a:hover.googleplus	{background-position: -60px bottom;}	
+	#icon-bar li a.facebook			{background-position: -90px top;}	
+	#icon-bar li a:hover.facebook	{background-position: -90px bottom;}	
+	#icon-bar li a.diaspora			{background-position: -120px top;	}	
+	#icon-bar li a:hover.diaspora	{background-position: -120px bottom;}	
+	#icon-bar li a.share-more		{background-position: -150px top;	}	
+	#icon-bar li a:hover.share-more	{background-position: -150px bottom;}	
+
+	#icon-bar li:nth-child(1) a {margin-top: 98px;}
+	#icon-bar li:nth-child(2) a {margin-top: 78px;}
+	#icon-bar li:nth-child(3) a {margin-top: 60px;}
+	#icon-bar li:nth-child(4) a {margin-top: 39px;}
+	#icon-bar li:nth-child(5) a {margin-top: 20px;}
+	#icon-bar li:nth-child(6) a {margin-top: 0px;}
+
+.sidebar-block {
+	padding: 0 0 47px 47px;
+	line-height: 1.5;
+	font-size: 14px;
+}
+
+	.sidebar-block h2 {
+		font-size: 18px;
+		margin-bottom: 5px;
+	}
+	
+	.sidebar-block a {
+		font-weight: normal;
+	}
+	
+	.sidebar-block a:hover {
+		font-weight: bold;
+	}
+
+#licence-info .alpha {
+	text-align: right;
+	font-style: italic;
+	padding-right: 5px;
+}
+	#licence-info a {
+		font-size: 22px;
+		vertical-align: middle;
+		font-weight: normal;
+	}
+
+#licence-info .omega {
+	border-left: 1px solid #808080;
+	padding-left: 5px;
+	margin-left: -6px;
+	font-style: italic;
+}
+
+#donation-buttons {
+	text-align: center;
+}
+
+#login-register-language {
+	text-align: right;
+	opacity: 0.25;
+}
+	#login-register-language a {
+		font-weight: normal;
+	}
+	#login-register-language:hover {
+		opacity: 1;
+	}
+
+#front-banner {
+	padding: 63px 0 0 0;
+}
+
+#right1 {
+	background: url("../img/vertical-separator.png") repeat-y 277px;
+}
+
+.thumbnail {
+	position: relative;
+	float: left;
+	margin: 0 35px 35px 0;
+	font-weight: normal;
+	text-align: center;
+}
+
+#footer {
+	padding: 10px 0;
+	text-align: center;
+	background: url("../img/footer-bg.png") top center no-repeat;
+}
+	#footer a{
+		font-weight: normal;
+	}
+
+	#footer em a{
+		font-weight: bold;
 	}
