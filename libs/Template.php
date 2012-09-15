@@ -30,7 +30,6 @@ interface Renderable {
     function render();
 }
 
-
 class Template implements Renderable {
     function __construct($name, $data_privider=null) {
         global $indent;
@@ -42,18 +41,37 @@ class Template implements Renderable {
         $this->template = file_get_contents($filename);
         $this->user_data = $data_privider;
     }
+    function apply($data, $partials=array()) {
+        $mustache = new Mustache_Engine(array(
+            'escape' => function($val) {
+                return $val;
+            },
+            'partials' => $partials
+        ));
+        return $mustache->render($this->template, $data);
+    }
+    function expand() {
+        global $app;
+        if ($app->config->debug) {
+            return "\n<!-- begin: " . $this->name . " -->\n" 
+                . $this->render_as_partial() .
+                "<!-- end: " . $this->name . " -->\n";
+        } else {
+            return $this->render_as_partial();
+        }
+    }
+    function render_as_partial() {
+        return '{{=[NOPARSE[ ]NOPARSE]=}}' . $this->render();
+    }
     function render() {
         global $app, $indent;
         try {
             $start_time = get_time();
-            $mustache = new Mustache_Engine(array(
-                'escape' => function($val) { return $val; }
-            ));
             $overwrite = $app->overwrite_data();
             $global = $app->globals();
             if ($this->user_data === null) {
                 $data = array_merge($global, $overwrite);
-                return $mustache->render($this->template, $data);
+                return $this->apply($data);
             } else {
                 $user_data = $this->user_data;
                 if (is_callable($this->user_data)) {
@@ -62,29 +80,26 @@ class Template implements Renderable {
                     $user_data = $closure();
                 }
                 $data = array();
+                $partials = array();
                 if (is_array($user_data)) {
                     foreach ($user_data as $name => $value) {
                         if (isset($overwrite[$name])) {
                             $data[$name] = $overwrite[$name];
                         } else if (gettype($value) == 'array') {
                             $data[$name] = array();
-                            $template = false;
-
                             foreach ($value as $k => $v) {
-                                if (gettype($v) == 'object' &&
-                                    get_class($v) == 'Template') {
-                                    $data[$name][$k] = $v->render();
-                                    $template = true;
+                                if ($v instanceof Template) {
+                                    $partials[$name][$k] = $v->expand();
                                 } else {
                                     $data[$name][$k] = $v;
                                 }
                             }
-                            if ($template) {
-                                $data[$name] = implode("\n", $data[$name]);
+                            if (isset($partials[$name])) {
+                                $partials[$name] = //'{{=[NOPARSE[ ]NOPARSE]=}}' .
+                                    implode("\n", $partials[$name]);
                             }
-                        } else if (gettype($value) == 'object' &&
-                                   get_class($value) == 'Template') {
-                            $data[$name] = $value->render();
+                        } else if ($value instanceof Template) {
+                            $partials[$name] = $value->expand();
                         } else {
                             $data[$name] = $value;
                         }
@@ -96,9 +111,7 @@ class Template implements Renderable {
                                     array('load_time' => $time),
                                     $data,
                                     $overwrite);
-                // debug - not need to echo data :)
-                $data = array_merge($data, array('mustache_data' => json_encode($data)));
-                return $mustache->render($this->template, $data);
+                return $this->apply($data, $partials);
                 /* it show begin before Doctype -- there should be pragma that disable this
                    if (DEBUG) {
                return "\n<!-- begin: " . $this->name . " -->\n" .

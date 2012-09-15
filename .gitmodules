@@ -10,3 +10,9 @@
 [submodule "libs/picatcha"]
 	path = libs/picatcha
 	url = https://github.com/picatcha/picatcha-php.git
+[submodule "libs/jquery-tagit"]
+	path = libs/jquery-tagit
+	url = https://github.com/hailwood/jQuery-Tagit
+[submodule "libs/tag-it"]
+	path = libs/tag-it
+	url = https://github.com/aehlke/tag-it.git

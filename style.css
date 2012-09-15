@@ -1408,6 +1408,9 @@ fieldset {
 .tags ul li:after {
     content: ", "
 }
+.tags ul.tagit li:after {
+    content: "";
+}
 
 /*Css for 37 detail*/
 
@@ -1859,4 +1862,37 @@ input#resolution {
 .detail .donate, .detail .donate .flattr, .detail .donate .paypal {
   float: left;
 }
-​
+
+.gplus_button {
+    float: left;
+}
+dd p {
+    margin: 0;
+    padding: 3px 7px;
+}
+.ui-button-text {
+    color: white;
+}
+h2 textarea, dd textarea {
+    margin: 2px;
+    width: 100%;
+}
+dd textarea {
+    height: 100px;
+}
+h2 textarea {
+    height: 1.5em;
+    font-size: 1em;
+    font-family: Arial;
+}
+a.cancel {
+    cursor: pointer;
+}
+
+h2.ui-widget, dd.ui-widget {
+    margin: -1px !important;
+}
+
+h2 a.button, h2 a.cancel {
+    font-size: 13px;
+}
