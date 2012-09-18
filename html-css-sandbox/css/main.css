@@ -7,6 +7,7 @@ a {
 	text-decoration: none;
 	font-weight: bold;
 	color: #808080;
+	-moz-transition: color 0.25s ease-in-out 0s;
 }
 
 a:hover {
@@ -65,7 +66,7 @@ a:hover {
 	width: 400px;
 }
 
-	#top-search #search-i {
+	#search-i {
 		width: 158px;
 		height: 24px;
 		border: 1px solid #c0c0c0;
@@ -77,7 +78,7 @@ a:hover {
 		background-color: white;
 	}
 	
-	#top-search #s-button {
+	#s-button {
 		width: 45px;
 		height: 28px;
 		margin: 0 0 0 -4px;
@@ -90,7 +91,8 @@ a:hover {
 		padding-left: 16px;     /* make text start to the right of the image */
 		vertical-align: top;
 		}
-	#top-search #s-button:hover {
+		
+	#s-button:hover {
 		background-position: -45px 0px;
 	}
 	
@@ -98,27 +100,22 @@ a:hover {
 	font-size: 22px;
 	line-height: 33px;
 	list-style-type: none;
-	margin: 0 0 60px 0;
-	padding: 140px 0 154px 0;
+	margin: 0 0 50px 0;
+	padding: 124px 0 140px 0;
 	background: url("../img/menu-bg.png") no-repeat scroll 30px bottom;
 	position: relative;
 }
 	
-	#main-menu a {
-		font-weight: normal;
+	#main-menu a 			{font-weight: normal;}
+	#main-menu a:hover	{font-weight: bold;}
+	
+	#main-menu li {
+		margin-left: 72px;
 	}
 	
 	#main-menu li.active a {
 		color: #333;
 		font-weight: bold;
-	}
-
-	#main-menu a:hover {
-		font-weight: bold;
-	}
-	
-	#main-menu li {
-		margin-left: 72px;
 	}
 
 #icon-bar {
@@ -147,41 +144,38 @@ a:hover {
 	#icon-bar li a.share-more		{background-position: -150px top;	}	
 	#icon-bar li a:hover.share-more	{background-position: -150px bottom;}	
 
-	#icon-bar li:nth-child(1) a {margin-top: 98px;}
-	#icon-bar li:nth-child(2) a {margin-top: 78px;}
-	#icon-bar li:nth-child(3) a {margin-top: 60px;}
-	#icon-bar li:nth-child(4) a {margin-top: 39px;}
-	#icon-bar li:nth-child(5) a {margin-top: 20px;}
-	#icon-bar li:nth-child(6) a {margin-top: 0px;}
+	#icon-bar li:nth-child(1) a {margin-top: 83px;}
+	#icon-bar li:nth-child(2) a {margin-top: 63px;}
+	#icon-bar li:nth-child(3) a {margin-top: 45px;}
+	#icon-bar li:nth-child(4) a {margin-top: 24px;}
+	#icon-bar li:nth-child(5) a {margin-top: 5px;}
+	#icon-bar li:nth-child(6) a {margin-top: -15px;}
 
 .sidebar-block {
 	padding: 0 0 47px 47px;
 	line-height: 1.5;
 	font-size: 14px;
 }
-
-	.sidebar-block h2 {
+	.sidebar-block a 			{font-weight: normal;}
+	.sidebar-block a:hover	{font-weight: bold;}
+	
+	.sidebar-block h2	{
 		font-size: 18px;
 		margin-bottom: 5px;
 	}
 	
-	.sidebar-block a {
-		font-weight: normal;
-	}
-	
-	.sidebar-block a:hover {
-		font-weight: bold;
-	}
-
 #licence-info .alpha {
 	text-align: right;
 	font-style: italic;
 	padding-right: 5px;
 }
 	#licence-info a {
-		font-size: 22px;
 		vertical-align: middle;
 		font-weight: normal;
+	}
+	
+	#licence-info a:hover {
+		font-weight: bold;
 	}
 
 #licence-info .omega {
@@ -197,14 +191,52 @@ a:hover {
 
 #login-register-language {
 	text-align: right;
-	opacity: 0.25;
+	-moz-transition: opacity 0.25s ease-in-out 0s;
+	opacity: 0.35;
+	position: absolute;
 }
-	#login-register-language a {
-		font-weight: normal;
+	#login-register-language:hover 		{opacity: 1;}
+	#login-register-language a 			{font-weight: normal;}
+	#login-register-language a:hover	{font-weight: bold;}
+
+#login-register-language ul {
+	position: absolute;
+	right: 0;
+	margin-top: 10px;
+	background: url("../img/icon-triangle_down.png") right 8px no-repeat;
+	border: 1px solid #adadad;
+	border-radius: 3px;
+	background-color: rgba(0,0,0,0.1);
+	display: block;
+}
+
+	#login-register-language ul:hover {
+		background-image:none;
 	}
-	#login-register-language:hover {
-		opacity: 1;
+
+	#login-register-language li a {
+		display: none;
+		padding: 4px 18px 4px 4px;
+		line-height: 1;
 	}
+
+	#login-register-language ul:hover li a {
+		display: block;
+	}
+
+	#login-register-language li.active a {
+		display: inline;
+	}
+
+	#login-register-language ul:hover li.active a,
+	#login-register-language li.active a:hover	{
+		font-weight: bold;
+		color: #333;
+	}
+
+/* ================================================================== */
+/* Front */
+/* ================================================================== */
 
 #front-banner {
 	padding: 63px 0 0 0;
@@ -222,15 +254,76 @@ a:hover {
 	text-align: center;
 }
 
+/* ================================================================== */
+/* Search */
+/* ================================================================== */
+
+#container.search-page {	
+	margin-left: 18px;
+}
+
+#search {
+	padding-top: 30px;
+}
+
+	#search h1 {
+		display: inline;
+	}
+	
+	#search h1 + em{
+		font-style: italic;
+		font-weight: bold;
+		font-size: 22px;
+		color: #333;
+		clear: both;
+	}
+
+#result-search {
+	margin: 0 auto;
+	width: 350px;
+	text-align: center;
+}
+
+#results-container {
+	position: absolute;
+	width: auto;
+	background: #afafaf;
+	padding-top: 30px;
+}
+
+
+.download-button {
+	background-color: #e70000;
+	border-radius: 5px;
+	box-shadow: 2px 2px 3px rgba(0,0,0,0.25);
+	padding: 1px 6px 2px 6px;
+	display: inline;
+}
+
+	.download-button:hover {background-color: #d20000;}
+
+	.download-button a {
+		color: white;
+		font-style: italic;
+		font-weight: bold;
+	}
+
+
+
+
+/* ================================================================== */
+/* Footer */
+/* ================================================================== */
+	
 #footer {
-	padding: 10px 0;
+	padding: 10px 0 20px 0;
 	text-align: center;
 	background: url("../img/footer-bg.png") top center no-repeat;
 }
-	#footer a{
-		font-weight: normal;
-	}
+	#footer a {font-weight: normal;}
+	#footer a:hover {font-weight: bold;}
 
 	#footer em a{
 		font-weight: bold;
 	}
+	
