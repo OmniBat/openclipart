@@ -300,7 +300,7 @@ $(function() {
                 }
                 self.removeClass('inline-selected');
             }).filter('dd').wrapInner('<p/>');
-            
+
             $('dd:eq(2) .cancel, #view h2 .cancel').live('click', function() {
                 var parent = $(this).parent();
                 parent.html(parent.data('original'));
@@ -319,7 +319,7 @@ $(function() {
                     });
                 }
             });
-            
+
             $('h2 .button').live('click', function() {
                 var self = $(this);
                 var text = self.prev().val();
