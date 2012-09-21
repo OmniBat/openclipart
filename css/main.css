@@ -1,0 +1,397 @@
+body {
+	color: #808080;
+	background: url("../img/noise_top_64.png") top center repeat-x, url("../img/noise_64.png") center;
+}
+
+a {
+	text-decoration: none;
+	font-weight: bold;
+	color: #808080;
+	-moz-transition: color 0.25s ease-in-out 0s;
+}
+
+a:hover {
+	color: #333;
+}
+
+#left {
+	position: relative;
+}
+
+#right {
+	padding: 35px 0 80px 0;
+}
+
+#page-title {
+	font-size: 26px;
+	font-weight: bold;
+	font-style: italic;
+	color: #333;
+	position: absolute;
+	top: 27px;
+	left: 80px;
+	width: 245px;
+}
+
+#logo {
+	position: absolute;
+	top: 26px;
+	left: -11px;
+}
+
+	#logo-glow {
+		position: absolute;
+		top: -60px;
+		left: -150px;
+		width: 324px;
+		height: 376px;
+		background: url("../img/logo-glow.png") top center no-repeat;
+		background-size: 100%;
+	}
+
+	#logo-shadow {
+		position: absolute;
+		top: 65px;
+		left: -30px;
+		width: 135px;
+		height: 81px;
+		background: url("../img/logo-shadow.png") top center no-repeat;
+		background-size: 100%;
+	}
+
+#top-search {
+	position: absolute;
+	top: 70px;
+	left: 50px;
+	width: 400px;
+}
+
+	#search-i {
+		width: 158px;
+		height: 24px;
+		border: 1px solid #c0c0c0;
+		padding-left: 50px;
+		color: #bebebe;
+		font: 'Asap', sans serif;
+		font-size: 16px;
+		font-style: italic;
+		background-color: white;
+	}
+	
+	#s-button {
+		width: 45px;
+		height: 28px;
+		margin: 0 0 0 -4px;
+		background-image: url("../img/icon-search2.png"); /* 45px x 28px */
+		background-color: transparent;
+		background-repeat: no-repeat;
+		border: none;
+		cursor: pointer;        /* make the cursor like hovering over an <a> element */
+		height: 28px;
+		padding-left: 16px;     /* make text start to the right of the image */
+		vertical-align: top;
+		}
+		
+	#s-button:hover {
+		background-position: -45px 0px;
+	}
+	
+#main-menu {
+	font-size: 22px;
+	line-height: 33px;
+	list-style-type: none;
+	margin: 0 0 50px 0;
+	padding: 124px 0 140px 0;
+	background: url("../img/menu-bg.png") no-repeat scroll 30px bottom;
+	position: relative;
+}
+	
+	#main-menu a 			{font-weight: normal;}
+	#main-menu a:hover	{font-weight: bold;}
+	
+	#main-menu li {
+		margin-left: 72px;
+	}
+	
+	#main-menu li.active a {
+		color: #333;
+		font-weight: bold;
+	}
+
+#icon-bar {
+	margin: 0 0 0 -24px;
+}
+
+	#icon-bar li a {
+		margin-right: 4px;
+		height: 30px;
+		width: 30px;
+		position: relative;
+		float: left;
+		background: url("../img/icons.png") no-repeat scroll 0px top;
+	}
+	
+	#icon-bar li a.identica			{background-position: 0px top;}
+	#icon-bar li a:hover.identica	{background-position: 0px bottom;}
+	#icon-bar li a.twitter 			{background-position: -30px top;}
+	#icon-bar li a:hover.twitter 	{background-position: -30px bottom;}
+	#icon-bar li a.googleplus		{background-position: -60px top;}	
+	#icon-bar li a:hover.googleplus	{background-position: -60px bottom;}	
+	#icon-bar li a.facebook			{background-position: -90px top;}	
+	#icon-bar li a:hover.facebook	{background-position: -90px bottom;}	
+	#icon-bar li a.diaspora			{background-position: -120px top;	}	
+	#icon-bar li a:hover.diaspora	{background-position: -120px bottom;}	
+	#icon-bar li a.share-more		{background-position: -150px top;	}	
+	#icon-bar li a:hover.share-more	{background-position: -150px bottom;}	
+
+	#icon-bar li:nth-child(1) a {margin-top: 83px;}
+	#icon-bar li:nth-child(2) a {margin-top: 63px;}
+	#icon-bar li:nth-child(3) a {margin-top: 45px;}
+	#icon-bar li:nth-child(4) a {margin-top: 24px;}
+	#icon-bar li:nth-child(5) a {margin-top: 5px;}
+	#icon-bar li:nth-child(6) a {margin-top: -15px;}
+
+.sidebar-block {
+	padding: 0 0 47px 47px;
+	line-height: 1.5;
+	font-size: 14px;
+}
+	.sidebar-block a 			{font-weight: normal;}
+	.sidebar-block a:hover	{font-weight: bold;}
+	
+	.sidebar-block h2	{
+		font-size: 18px;
+		margin-bottom: 5px;
+	}
+	
+#licence-info .alpha {
+	text-align: right;
+	font-style: italic;
+	padding-right: 5px;
+}
+	#licence-info a {
+		vertical-align: middle;
+		font-weight: normal;
+	}
+	
+	#licence-info a:hover {
+		font-weight: bold;
+	}
+
+#licence-info .omega {
+	border-left: 1px solid #808080;
+	padding-left: 5px;
+	margin-left: -6px;
+	font-style: italic;
+}
+
+#donation-buttons {
+	text-align: center;
+}
+
+#login-register-language {
+	text-align: right;
+	-moz-transition: opacity 0.25s ease-in-out 0s;
+	opacity: 0.35;
+	position: absolute;
+}
+	#login-register-language:hover 		{opacity: 1;}
+	#login-register-language a 			{font-weight: normal;}
+	#login-register-language a:hover	{font-weight: bold;}
+
+#login-register-language ul {
+	position: absolute;
+	right: 0;
+	margin-top: 10px;
+	background: url("../img/icon-triangle_down.png") right 8px no-repeat;
+	border: 1px solid #adadad;
+	border-radius: 3px;
+	background-color: rgba(0,0,0,0.1);
+	display: block;
+}
+
+	#login-register-language ul:hover {
+		background-image:none;
+	}
+
+	#login-register-language li a {
+		display: none;
+		padding: 4px 18px 4px 4px;
+		line-height: 1;
+	}
+
+	#login-register-language ul:hover li a {
+		display: block;
+	}
+
+	#login-register-language li.active a {
+		display: inline;
+	}
+
+	#login-register-language ul:hover li.active a,
+	#login-register-language li.active a:hover	{
+		font-weight: bold;
+		color: #333;
+	}
+
+/* ================================================================== */
+/* Front */
+/* ================================================================== */
+
+#front-banner {
+	padding: 63px 0 0 0;
+}
+
+#right1 {
+	background: url("../img/vertical-separator.png") repeat-y 277px;
+}
+
+.thumbnail {
+	position: relative;
+	float: left;
+	margin: 0 35px 35px 0;
+	font-weight: normal;
+	text-align: center;
+}
+
+/* ================================================================== */
+/* Search */
+/* ================================================================== */
+
+#container.search-page {	
+	margin-left: 18px;
+}
+
+#search {
+	padding-top: 30px;
+}
+
+	#search h1 {
+		display: inline;
+	}
+	
+	#search h1 + em{
+		font-style: italic;
+		font-weight: bold;
+		font-size: 22px;
+		color: #333;
+		clear: both;
+	}
+
+.download-button {
+	display: inline;
+}
+
+	.download-button a {
+		color: white;
+		font-style: italic;
+		font-weight: bold;
+		background-color: #e70000;
+		border-radius: 5px;
+		box-shadow: 2px 2px 3px rgba(0,0,0,0.25);
+		padding: 2px 8px 4px 8px;
+	}
+	
+	.download-button a:hover {background-color: #d20000;}
+	
+	.download-button p {
+		position: absolute;
+		margin-top: 10px;
+		opacity: 0;
+		-moz-transition: opacity 0.5s ease-in-out 0s;
+	}
+		
+	.download-button:hover p {opacity: 1;}
+	
+#result-search {
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.10);
+	border-radius: 3px;
+	margin: 0 auto 20px auto;
+	text-align: center;
+	display: table;
+}
+
+#results-container {
+	position: absolute;
+	width: auto;
+	padding-top: 4px;
+}
+
+	#result-search #search-i {
+		border-radius: 3px 0 0 3px;
+		height: 26px;
+		width: auto;
+		padding: 0;
+		text-align: center;
+	}
+	
+#result-navigation {
+	background: url("../img/search-navigation-bg.png") no-repeat bottom center transparent;
+	text-align: center;
+	padding: 2px 0 10px 0;
+	
+}
+
+	#result-navigation .title {
+		font-weight: bold;
+		display: inline;
+		background: url("../img/icons_vertical.png") no-repeat 100% -6px;
+		padding-right: 12px;
+	}
+
+#search-sort .details {
+	opacity: 0;
+	display: none;
+}
+	#search-sort:hover .details {
+		opacity: 1;
+		width: 400px;
+		display: inline;
+		-moz-transition: opacity 3.5s ease-in-out 0s;
+	}
+
+#search-sort .details a{
+	background: url("../img/icons_vertical.png") no-repeat 100% -6px;
+	padding-right: 13px;
+} 
+	#search-sort a.date,
+	#search-sort a.downloads		{background-position: 100% -97px;}
+	#search-sort a.active			{background-position: 100% -37px;	}
+
+#search-sort a.color {
+	border-radius: 3px;
+	background-image: none;
+	border: 1px solid transparent;
+	box-shadow: 0px 0px 1px gray;
+	opacity: 0.5;
+}
+	#search-sort a.active.color,
+	#search-sort a.color:hover	{
+		opacity: 1;
+		border-color: black;
+	}
+
+	
+#search-sort .color.red 	{background-color: red;}
+#search-sort .color.blue 	{background-color: blue;}
+#search-sort .color.yellow 	{background-color: yellow;}
+#search-sort .color.green 	{background-color: green;}
+#search-sort .color.black 	{background-color: black;}
+#search-sort .color.white 	{background-color: white;}
+
+/* ================================================================== */
+/* Footer */
+/* ================================================================== */
+	
+#footer {
+	padding: 10px 0 20px 0;
+	text-align: center;
+	background: url("../img/footer-bg.png") top center no-repeat;
+}
+	#footer a {font-weight: normal;}
+	#footer a:hover {font-weight: bold;}
+
+	#footer em a{
+		font-weight: bold;
+	}
+	
