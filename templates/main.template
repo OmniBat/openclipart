@@ -26,15 +26,18 @@
 		  <li><a href="">SHOWCASE</a></li>
 		  <li><a href="">PARTICIPATE</a></li>
 		  <li><a href="">ABOUT</a></li>
+          <li id="icon-bar">
+            <ul>
+		      <li><a href="#" class="identica">&nbsp;</a></li>
+		      <li><a href="#" class="diaspora">&nbsp;</a></li>
+		      <li><a href="#" class="twitter">&nbsp;</a></li>
+		      <li><a href="#" class="googleplus">&nbsp;</a></li>
+		      <li><a href="#" class="facebook">&nbsp;</a></li>
+		      <li><a href="#" class="share-more">&nbsp;</a></li>
+		    </ul>
+          </li>
 		</ul>
-		<ul id="icon-bar">
-		  <li><a href="#" class="identica">&nbsp;</a></li>
-		  <li><a href="#" class="diaspora">&nbsp;</a></li>
-		  <li><a href="#" class="twitter">&nbsp;</a></li>
-		  <li><a href="#" class="googleplus">&nbsp;</a></li>
-		  <li><a href="#" class="facebook">&nbsp;</a></li>
-		  <li><a href="#" class="share-more">&nbsp;</a></li>
-		</ul>
+
 
 		<a id="site-title" href="#">Open Clip Art Library</a>
 

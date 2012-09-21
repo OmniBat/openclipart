@@ -120,9 +120,14 @@ a:hover {
 		font-weight: bold;
 	}
 
-#icon-bar {
+#main-menu li#icon-bar {
+	margin: 0;
+}
+#icon-bar ul {
 	margin: 0 0 0 -24px;
 }
+
+
 
 	#icon-bar li a {
 		margin-right: 4px;
@@ -267,7 +272,23 @@ a:hover {
 	font-weight: normal;
 	text-align: center;
 }
-
+	.thumbnail span {
+		display: block;
+	}
+    /* quick hack to fix different width and height issue */
+	.thumbnail .center {
+		width: 100px;
+		height: 100px;
+		position: relative;
+	}
+		.thumbnail .center img {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
 /* ================================================================== */
 /* Search - page */
 /* ================================================================== */
@@ -580,10 +601,10 @@ p.description {
 	font-style: italic;
 	font-size: 14px;
 }
-	p.description:before,
-	p.description:after {
-		content: '"';
-	}
+p.description:before,
+p.description:after {
+    content: "\"";
+}
 
 #detail-right table {
 	width: 100%;
@@ -688,4 +709,18 @@ p.description {
 	#footer em a{
 		font-weight: bold;
 	}
-	
+	#footer ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+		#footer ul li {
+			display: inline;
+		}
+		#footer ul li:after {
+			content: ",";
+			margin-right: 4px;
+		}
+		#footer ul :last-child:after {
+			content: "";
+		}
