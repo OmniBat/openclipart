@@ -12,9 +12,9 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{HTTP_HOST} !^staging.
 RewriteRule (.*) /$1?lang=%1 [QSA]
 
-<FilesMatch "openclipart.xml$">
-    Header set Content-Type application/opensearchdescription+xml
-</FilesMatch>
+#<FilesMatch "openclipart.xml$">
+#    Header set Content-Type application/opensearchdescription+xml
+#</FilesMatch>
 
 # TODO: gzip compression (on gadni handled in apache conf for virtual host)
 
