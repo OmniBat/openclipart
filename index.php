@@ -366,49 +366,28 @@ $app->get("/user/:username", function($username) use ($app) {
 });
 
 
-
-
-
 $app->get('/', function() {
-    global $app;
     return new Template('main', function() {
-        return array();
         return array(
-            'content' => array(new Template('wellcome', null),
-                  new Template('most_popular_thumbs', function() {
-                      return array(
-                          'content' => new Template('clipart_list', function() {
-                              global $app;
-                              $last_week = "(SELECT WEEK(max(date)) FROM ".
-                                  "openclipart_favorites) = WEEK(date) AND ".
-                                  "YEAR(NOW()) = YEAR(date)";
-                              return $app->create_thumbs($last_week, "num_favorites");
-                          })
-                      );
-                  }),
-                  new Template('new_clipart_thumbs', function() {
-                      return array(
-                          'content' => new Template('clipart_list', function() {
-                              global $app;
-                              return $app->create_thumbs(null, "created");
-                          })
-                      );
-                  }),
-                  new Template('top_download_thumbs', function() {
-                      /*
-                      return array(
-                          'content' => new Template('clipart_list', function() {
-                              global $app;
-                              $top_download = "YEAR(created) = YEAR(CURRENT_".
-                                  "DATE) AND MONTH(created) = MONTH(CURRENT_".
-                                  "DATE)";
-                              return $app->create_thumbs($top_download, "downloads");
-                          })
-                      );
-                      */
-                  })
-            ),
-            'sidebar' => array(
+            'content' => new Template('home-page-content', function() {
+                global $app;
+                $last_week = "(SELECT WEEK(max(date)) FROM ".
+                    "openclipart_favorites) = WEEK(date) AND ".
+                    "YEAR(NOW()) = YEAR(date)";
+                return array(
+                    'popular_clipart' => $app->list_clipart($last_week, "num_favorites"),
+                    'new_clipart' => $app->list_clipart(null, "created")
+                );
+            }),
+            'social-box' => new Template('social_boxes', null)
+        );
+    });
+});
+    
+    // SIDEBAR FROM OLD TEMPALTE
+    /*
+      
+      'sidebar' => array(
                 new Template('join', null),
                 new Template('facebook_box', null),
                 new Template('follow_us_box', null),
@@ -451,10 +430,7 @@ $app->get('/', function() {
                     }, $app->db->get_array($query)));
                 })
             )
-        ); //array('content'
-    }); // new Template('main'
-});
-
+    */
 
 
 
@@ -519,32 +495,60 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
         return file_get_contents($png);
     }
     */
-    $clipart = new CLipart($user, $file);
+    
     if ($width > $app->config->bitmap_resolution_limit) {
         $response->status(400);
-        // TODO: error template
+        // TODO: Generate Error Image
         echo "Resolution couldn't be higher then 3840px! Please download SVG and " .
             "produce such huge bitmap locally.";
-    } else if (!$clipart->exists() || $clipart->size() == 0) {
+    } else if (!file_exists($svg) || filesize($svg) == 0) {
         // NOTE: you don't need to check user and file for script injection because
         //       file_exists will prevent this
         $app->notFound();
     } else {
-        // NSFW check
-        if ($app->nsfw() && $clipart->nsfw()) {
+        $query = "SELECT count(*) FROM openclipart_clipart INNER JOIN openclipart_users ON owner = openclipart_users.id INNER JOIN openclipart_clipart_tags ON clipart = openclipart_clipart.id INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE filename = '$file' AND username = '$user' AND name = 'nsfw'";
+        if ($app->nsfw() && $app->db->get_value($query) != 0) {
             $user = $app->config->nsfw_image['user'];
             $filename = $app->config->nsfw_image['filename'];
             $png = $app->config->root_directory . "/people/$user/${width}px-$file-nsfw.png";
             $svg = $app->config->root_directory . "/people/$user/$filename.svg";
         }
-        $response->header('Content-Type', 'image/png');
+        
+
         if (file_exists($png)) {
+            $response->header('Content-Type', 'image/png');
             echo file_get_contents($png);
         } else {
-            exec("rsvg --width $width $svg $png");
+            // Scaling FROM AIKI
+            $newvalue = $width;
+            $svgfile = file_get_contents($svg);
+            $header = get_string_between($svgfile, "<svg", ">");
+            $or_width = get_string_between($header, 'width="', '"');
+            $width = str_replace("px", "", $or_width );
+            $width = str_replace("pt", "", $width );
+            $width  = intval($width);
+
+            $or_height = get_string_between($header, 'height="', '"');
+            $height  = str_replace("px", "", $or_height);
+            $height  = str_replace("pt", "", $height);
+            $height = intval($height);
+
+            if ($width < $height) {
+                $newhight = $newvalue;
+                $newwidth = round(($newvalue * $width) / $height);
+            } elseif ($width == $height) {
+                $newhight = $newvalue;
+                $newwidth = $newvalue;
+            } else {
+                $newwidth = $newvalue;
+                $newhight = round(($newvalue * $height) / $width);
+            }
+            
+            exec("rsvg --width $newwidth --height $newhight $svg $png");
             if (!file_exists($png)) {
                 $app->pass();
             } else {
+                $response->header('Content-Type', 'image/png');
                 echo file_get_contents($png);
             }
         }

@@ -5,7 +5,8 @@
 	<title>Open Clip Art Library</title>
     <meta name="description" content="
 	<link rel="stylesheet" href="/css/reset_eric.css" />
-    <link rel="icon" href="{{root}}/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="{{root}}/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/reset_eric.css" />
 	<link rel="stylesheet" href="/css/text.css" />
 	<link rel="stylesheet" href="/css/960_24_col.css" />
 	<link rel="stylesheet" href="/css/main.css" />
@@ -25,19 +26,17 @@
 		  <li><a href="">SHOWCASE</a></li>
 		  <li><a href="">PARTICIPATE</a></li>
 		  <li><a href="">ABOUT</a></li>
-		  <li id="icon-bar">
-			<ul>
-			  <li><a href="#" class="identica">&nbsp;</a></li>
-			  <li><a href="#" class="diaspora">&nbsp;</a></li>
-			  <li><a href="#" class="twitter">&nbsp;</a></li>
-			  <li><a href="#" class="googleplus">&nbsp;</a></li>
-			  <li><a href="#" class="facebook">&nbsp;</a></li>
-			  <li><a href="#" class="share-more">&nbsp;</a></li>
-			</ul>
-		  </li>
+		</ul>
+		<ul id="icon-bar">
+		  <li><a href="#" class="identica">&nbsp;</a></li>
+		  <li><a href="#" class="diaspora">&nbsp;</a></li>
+		  <li><a href="#" class="twitter">&nbsp;</a></li>
+		  <li><a href="#" class="googleplus">&nbsp;</a></li>
+		  <li><a href="#" class="facebook">&nbsp;</a></li>
+		  <li><a href="#" class="share-more">&nbsp;</a></li>
 		</ul>
 
-		<a id="page-title" href="#">Open Clip Art Library</a>
+		<a id="site-title" href="#">Open Clip Art Library</a>
 
 		<div id="top-search">
 		  <input id="search-i" name="query" value="search here..."/>
@@ -48,6 +47,7 @@
 
 	  </div><!--end main-navigation-->
 
+      {{#userid}}
 	  <div class="sidebar-block grid_8">
 		<h2>Username</h2>
 		<ul>
@@ -57,6 +57,7 @@
 		  <li><a href="">Logout</a></li>
 		</ul>
 	  </div>
+      {{/userid}}
 
       {{> social-box}}
 
@@ -93,114 +94,7 @@
 		</ul>
 	  </div><!--login-register-language-->
 
-	  <div id="front-banner" class="grid_16 alpha omega">
-		<a href="#"><img src="/img/front-banner.png"/></a>
-	  </div>
-
-	  <div id="right1" class="grid_8 alpha">
-		<h2>Popular This Month</h2>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-
-	  </div><!--end right1-->
-
-	  <div id="right2" class="grid_8 omega">
-		<h2>New Clipart</h2>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-		<div>
-		  <a href="#" class="thumbnail">
-			<img src="/img/100x100-thumbnail.png">
-			<div>thumbnail title</div>
-		  </a>
-		</div>
-	  </div><!--end right2-->
+	  {{> content}}
 
 	</div><!--end right-->
 

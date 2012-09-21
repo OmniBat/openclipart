@@ -187,3 +187,14 @@ function full_exception_string($exception, $separator="\n") {
     return exception_string($exception) . $separator .
         implode($separator, get_trace($exception));
 }
+
+// copied from AIKI
+function get_string_between($string, $start, $end) {
+    $ini = strpos($string,$start);
+    if ($ini === false) {
+        return "";
+    }
+    $ini += strlen($start);
+    $len = strpos($string, $end, $ini) - $ini;
+    return substr($string, $ini, $len);
+}

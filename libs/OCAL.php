@@ -48,7 +48,7 @@ class OCAL extends System {
             throw new Exception("You can't favorite a clipart if you are not logged in");
         }
     }
-    function create_thumbs($where, $order_by) {
+    function list_clipart($where, $order_by) {
          if ($this->nsfw()) {
             $nsfw = "AND openclipart_clipart.id not in (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE name = 'nsfw')";
         } else {
@@ -79,7 +79,7 @@ class OCAL extends System {
             );
             $clipart_list[] = array_merge($row, $data);
         }
-        return array('cliparts' => $clipart_list);
+        return $clipart_list;
     }
     
     function shutterstock_json($terms = null) {

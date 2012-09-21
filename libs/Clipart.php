@@ -40,9 +40,8 @@ class Clipart {
         $tags = $app->db->get_column($query);
         $clipart = new Clipart($tags);
         $clipart->fetch_tags($id);
-        
     }
-    private function __construct($clipart, $tags) {
+    function __construct($clipart, $tags) {
         $this->clipart = $clipart;
         $this->tags = $tags;
         $this->full_path = $app->config->root_directory . "/people/$user/$filename";
