@@ -12,7 +12,12 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{HTTP_HOST} !^staging.
 RewriteRule (.*) /$1?lang=%1 [QSA]
 
-# TODO: gzip compression
+<FilesMatch "openclipart.xml$">
+    Header set Content-Type application/opensearchdescription+xml
+</FilesMatch>
+
+# TODO: gzip compression (on gadni handled in apache conf for virtual host)
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} people/.* [OR]
 RewriteRule ^ index.php [QSA,L]
