@@ -2,7 +2,7 @@
   {{copyright_violation}}
   <div id="forview">
     <div id="view" class="clearfix">
-      <h2>{{title}}</h2>
+      <h2 class="inline">{{title}}</h2>
       <div id="viewimg">
         <a href="/download/svg/{{username}}/{{filename}}">
         <img src="/image/250/{{username}}/{{filename_png}}" alt="{{title}} by {{username}}{{^description}} - {{description}}{{/description}}"/>
@@ -26,7 +26,7 @@
         <dt>Created:</dt>
         <dd>{{created}}</dd>
         <dt>Description:</dt>
-        <dd>{{description}}</dd>
+        <dd class="inline">{{description}}</dd>
         <dt>Tags:</dt>
         <dd class="tags">
           <ul data-clipart="{{id}}">

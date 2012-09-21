@@ -1,5 +1,7 @@
 \#*\#
 *~
+.\#*
 TRASH
 \.\#
-config.json    #database configuration file
+/config.json
+/people

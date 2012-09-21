@@ -78,16 +78,16 @@ INSERT IGNORE INTO openclipart_clipart_tags SELECT id, (SELECT id FROM openclipa
 
 -- TAG COLLECTIONS
 
-CREATE TABLE tag_collection(id INTEGER NOT NULL auto_increment, name VARCHAR(255), creator INTEGER DEFAULT NULL, created DATETIME, last_archive_date DATETIME DEFAULT NULL, PRIMARY KEY(id), FOREIGN KEY(creator) REFERENCES openclipart_users(id));
+CREATE TABLE openclipart_tags_collection(id INTEGER NOT NULL auto_increment, name VARCHAR(255), creator INTEGER DEFAULT NULL, created DATETIME, last_archive_date DATETIME DEFAULT NULL, PRIMARY KEY(id), FOREIGN KEY(creator) REFERENCES openclipart_users(id));
 
-CREATE TABLE tag_collection_tag(tag INTEGER NOT NULL, collection INTEGER NOT NULL, added DATETIME, PRIMARY KEY(tag, collection), FOREIGN KEY(tag) REFERENCES openclipart_tags(id), FOREIGN KEY(collection) REFERENCES tag_collection(id));
+CREATE TABLE openclipart_tags_collection_tag(tag INTEGER NOT NULL, collection INTEGER NOT NULL, added DATETIME, PRIMARY KEY(tag, collection), FOREIGN KEY(tag) REFERENCES openclipart_tags(id), FOREIGN KEY(collection) REFERENCES tag_collection(id));
 
 
 -- GROUPS
 
 CREATE TABLE openclipart_groups(id integer NOT NULL auto_increment, name varchar(255) UNIQUE, PRIMARY KEY(id));
 
-INSERT INTO openclipart_groups VALUES(1, 'admin'), (2, 'librarian');
+INSERT INTO openclipart_groups VALUES(1, 'admin'), (2, 'librarian'), (3, 'banned'), (4, 'designer');
 
 CREATE TABLE openclipart_user_groups(user_group INTEGER NOT NULL, user INTEGER NOT NULL, PRIMARY KEY(user_group, user), FOREIGN KEY(user_group) REFERENCES openclipart_groups(id), FOREIGN KEY(user) REFERENCES openclipart_users(id));
 
@@ -97,7 +97,7 @@ CREATE TABLE openclipart_user_groups(user_group INTEGER NOT NULL, user INTEGER N
 
 -- CLIPART in USE [NEW]
 
-CREATE TABLE openclipart_file_usage(id INTEGER NOT NULL auto_increment, filename VARCHAR(255), clipart INTEGER NOT NULL, user INTEGER DEFAULT NULL, primary key(id), FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), FOREIGN KEY(user) REFERENCES openclipart_users(id));
+CREATE TABLE openclipart_file_usage(id INTEGER NOT NULL auto_increment, filename VARCHAR(255) NOT NULL, clipart INTEGER NOT NULL, user INTEGER DEFAULT NULL, primary key(id), FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), FOREIGN KEY(user) REFERENCES openclipart_users(id));
 
 -- user can be NULL for unlogged users ("I use this clipart" button, captcha and text box) librarians will check it and assign to Anonymous account (or different shared account).
 

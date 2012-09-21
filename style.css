@@ -1896,3 +1896,15 @@ h2.ui-widget, dd.ui-widget {
 h2 a.button, h2 a.cancel {
     font-size: 13px;
 }
+.inline {
+    border: 1px solid transparent;
+}
+.inline-selected {
+    border: 1px solid #CCC;
+    /*
+    position: relative;
+    top: 2px;
+    left: 2px;
+    */
+    background-color: #F0F0F0;
+}
