@@ -1,5 +1,6 @@
 body {
 	color: #808080;
+	background: url("../img/noise_64.png") center;
 	background: url("../img/noise_top_64.png") top center repeat-x, url("../img/noise_64.png") center;
 }
 
@@ -8,6 +9,7 @@ a {
 	font-weight: bold;
 	color: #808080;
 	-moz-transition: color 0.25s ease-in-out 0s;
+	-moz-transition: background-color 0.25s ease-in-out 0s;
 }
 
 a:hover {
@@ -22,7 +24,7 @@ a:hover {
 	padding: 35px 0 80px 0;
 }
 
-#page-title {
+#site-title {
 	font-size: 26px;
 	font-weight: bold;
 	font-style: italic;
@@ -118,9 +120,15 @@ a:hover {
 		font-weight: bold;
 	}
 
-#icon-bar {
-	margin: 0 0 0 -24px;
+#main-menu li#icon-bar {
+    margin: 0;
 }
+
+	#icon-bar ul {
+		margin: 0 0 0 -24px;
+	    list-style: none;
+		padding: 0;
+	}
 
 	#icon-bar li a {
 		margin-right: 4px;
@@ -203,10 +211,9 @@ a:hover {
 	position: absolute;
 	right: 0;
 	margin-top: 10px;
-	background: url("../img/icon-triangle_down.png") right 8px no-repeat;
 	border: 1px solid #adadad;
 	border-radius: 3px;
-	background-color: rgba(0,0,0,0.1);
+	background-color: rgba(200,200,200,0.75);
 	display: block;
 }
 
@@ -216,33 +223,46 @@ a:hover {
 
 	#login-register-language li a {
 		display: none;
-		padding: 4px 18px 4px 4px;
+		padding: 6px 18px 6px 4px;
 		line-height: 1;
 	}
 
 	#login-register-language ul:hover li a {
 		display: block;
 	}
+	#login-register-language ul:hover li a:hover {
+		background: url("../img/icons_vertical.png") right -32px no-repeat;
+	}
 
 	#login-register-language li.active a {
 		display: inline;
+		background: url("../img/icons_vertical.png") right -2px no-repeat;
+		padding-right: 20px;
 	}
 
 	#login-register-language ul:hover li.active a,
 	#login-register-language li.active a:hover	{
+		background: url("../img/icons_vertical.png") right -32px no-repeat;
 		font-weight: bold;
 		color: #333;
 	}
 
+#search,
+#detail {
+	padding-top: 30px;
+}
+
+
+
 /* ================================================================== */
-/* Front */
+/* Front - page */
 /* ================================================================== */
 
 #front-banner {
 	padding: 63px 0 0 0;
 }
 
-#right1 {
+#front-left {
 	background: url("../img/vertical-separator.png") repeat-y 277px;
 }
 
@@ -255,15 +275,11 @@ a:hover {
 }
 
 /* ================================================================== */
-/* Search */
+/* Search - page */
 /* ================================================================== */
 
 #container.search-page {	
 	margin-left: 18px;
-}
-
-#search {
-	padding-top: 30px;
 }
 
 	#search h1 {
@@ -290,6 +306,7 @@ a:hover {
 		border-radius: 5px;
 		box-shadow: 2px 2px 3px rgba(0,0,0,0.25);
 		padding: 2px 8px 4px 8px;
+		top: 4px;
 	}
 	
 	.download-button a:hover {background-color: #d20000;}
@@ -313,7 +330,9 @@ a:hover {
 
 #results-container {
 	position: absolute;
-	width: auto;
+	right: 0;
+	left: 343px;
+	min-width: 630px;
 	padding-top: 4px;
 }
 
@@ -329,14 +348,24 @@ a:hover {
 	background: url("../img/search-navigation-bg.png") no-repeat bottom center transparent;
 	text-align: center;
 	padding: 2px 0 10px 0;
-	
 }
 
 	#result-navigation .title {
 		font-weight: bold;
 		display: inline;
-		background: url("../img/icons_vertical.png") no-repeat 100% -6px;
-		padding-right: 12px;
+		background: url("../img/icons_vertical.png") no-repeat 100% -36px;
+		padding-right: 14px;
+	}
+
+#search-sort {
+	width: 200px;
+	height: 20px;
+	overflow: hidden;
+	margin: 0 auto;
+	-moz-transition: width 0.5s ease-in-out 0s;
+}
+	#search-sort:hover {
+		width: 500px;
 	}
 
 #search-sort .details {
@@ -347,16 +376,18 @@ a:hover {
 		opacity: 1;
 		width: 400px;
 		display: inline;
-		-moz-transition: opacity 3.5s ease-in-out 0s;
 	}
 
 #search-sort .details a{
-	background: url("../img/icons_vertical.png") no-repeat 100% -6px;
+	background: url("../img/icons_vertical.png") no-repeat 100% -36px;
 	padding-right: 13px;
+	font-weight: normal;
 } 
+	#search-sort .details a:hover {font-weight: bold;} 
+	
 	#search-sort a.date,
-	#search-sort a.downloads		{background-position: 100% -97px;}
-	#search-sort a.active			{background-position: 100% -37px;	}
+	#search-sort a.downloads		{background-position: 100% -127px;}
+	#search-sort a.active			{background-position: 100% -67px;	}
 
 #search-sort a.color {
 	border-radius: 3px;
@@ -379,6 +410,275 @@ a:hover {
 #search-sort .color.black 	{background-color: black;}
 #search-sort .color.white 	{background-color: white;}
 
+#result-list {
+	padding-top: 15px;
+}
+
+/* ================================================================== */
+/* Detail - pages */ 
+/* ================================================================== */
+
+#detail .page-title {
+	display: inline;
+}
+
+#detail {
+	padding-bottom: 20px;
+}
+
+#detail  a.star{
+	position: relative;
+	top: -15px;
+	background: url("../img/icons_vertical.png") no-repeat -5px -270px;
+	opacity: 0.5;
+	padding: 0 0 14px 14px;
+	font-size: 9px;
+}
+	#detail  a.star:hover{
+		opacity: 1;
+	}
+
+#detail .author{
+	display: inline;
+	padding-left: 10px;
+}
+	#detail .author em{
+		font-style: italic;
+	}
+
+#detail-left{
+	padding-top: 20px;
+}
+
+#detail .download {
+	display: block;
+	text-align: center;
+	margin: 0 auto;
+}
+
+#detail .download img:hover {
+	background: url("../img/image-hover-bg.png") repeat;
+}
+
+#detail .download .button {
+		display: inline;
+		color: white;
+		font-style: italic;
+		font-size: 22px;
+		background-color: #e70000;
+		border-radius: 5px;
+		box-shadow: 2px 2px 3px rgba(0,0,0,0.25);
+		padding: 2px 8px 4px 8px;
+}
+
+	#detail .download:hover .button {
+			background-color: #d20000;
+	}
+
+#detail-edit {
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 10px;
+}
+
+#detail-edit li {
+	display: inline;
+}
+
+#detail-edit li,
+#detail-edit li a{
+	color: #e70000;
+	font-size: 18px;
+	font-style: italic;
+	font-weight: normal;
+}
+	
+	#detail-edit li a:hover {font-weight: bold;}
+	#detail-edit li:after {content: " |"}
+	#detail-edit li.export:after {content: ""}  
+
+#detail-edit li.export a {
+	padding-right: 16px;
+	background: url("../img/icons_vertical.png") no-repeat right -334px;
+}  
+#detail-edit li:hover.export a {
+	padding-right: 16px;
+	background: url("../img/icons_vertical.png") no-repeat right -304px;
+}
+
+#export-form {
+	opacity: 0;
+	display: inline;
+	box-shadow: 0px 8px 2px lightgray; 
+	border-radius: 3px;
+}
+
+li.export:hover #export-form,
+li.export #export-form:hover {
+	opacity: 1;
+} 
+
+#export-form #dimension-i {
+	border: 1px solid #bebebe;
+	border-radius: 3px 0 0 3px;
+	padding: 0 4px 4px 0;
+	color: #bebebe;
+	font-family: "asap";
+	text-align: center;
+}
+#export-form #e-button {
+	font-family: "asap";
+	color: white;
+	background: #e70000;
+	font-weight: bold;
+	font-style: italic;
+	border: 0px transparent;
+	border-radius: 0 3px 3px 0;
+	padding: 0px 4px 3px 2px;
+	margin-left: -5px; 
+}
+
+.collection-list li,
+.tag-list li {
+	display: inline;
+}
+
+a.collection,
+a.tag {
+	color: #808080;
+	background: rgba(179,179,179, 0.26);
+	border-radius: 7px;
+	font-weight: normal;
+	font-style: italic;
+	padding: 2px 7px 3px 7px;
+	margin-right: 4px;
+	line-height: 2.1;
+	white-space: nowrap;
+}
+	a.collection:hover,
+	a.tag:hover {
+		background: white;
+		font-weight: bold;
+		cursor: pointer;
+		color: #333;
+	}
+
+	a.collection:hover {
+		background: rgba(55,55,55, 0.75);
+		color: white;
+	}
+
+a.collection.add,
+a.tag.add {
+	color: #aaa;
+	background: none;
+	border: 1px solid rgba(55,55,55,0.25);
+}
+	a.tag.add:hover {
+		color: gray;
+	}
+a.collection {
+	color: white;
+	background: rgba(55,55,55,0.25);
+}
+
+p.description {
+	font-style: italic;
+	font-size: 14px;
+}
+p.description:before,
+p.description:after {
+    content: "\"";
+}
+
+#detail-right table {
+	width: 100%;
+}
+	#detail-right table tr:nth-of-type(2n) {
+		background: rgba(255,255,255,0.3);
+	}
+	#detail-right table td:last-of-type  {
+		text-align: right;
+	}
+	#detail-right table td  {
+		padding: 2px 4px;
+		font-size: 14px;
+	}
+
+#detail-right caption {
+	display: inline;
+	text-align: left;
+	font-weight: normal;
+	padding: 0 16px 4px 0;
+	background: url("../img/icons_vertical.png") no-repeat 100% -6px;
+}
+
+.report {
+	font-style: italic;
+	position: relative;
+	right: -273px;
+}
+
+/* ================================================================== */
+/* Comments */
+/* ================================================================== */
+
+#comments .comments-title {
+	display: block;
+	padding: 0 16px 0 0;
+	background: url("../img/horizontal-separator.png") repeat-x top left;
+}
+	
+#comments h2 {
+	background: url("../img/icons_vertical.png") no-repeat 100% -3px;
+	padding-right: 19px;
+	margin: 0;
+	display: inline;
+}
+	
+#comments .comment {
+	display: block;
+	overflow: hidden;
+	padding: 10px 0 30px 0;
+	background: url("../img/horizontal-separator.png") repeat-x top left;
+}
+
+#comments .comment-body p{
+	padding-left: 25px;
+}
+
+#comments .comment .controls {
+	diplay: block;
+	text-align: right;
+}
+
+#comments form {
+	text-align: right;
+}
+
+#comments form textarea {
+	background: #fafafa;
+	font-family: 'asap',sans-serif;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	color: #bebebe;
+	padding: 5px;
+}
+
+#comments form textarea:hover {
+	color: #808080;
+}
+
+#comments form input {
+	font-style: italic;
+	font-weight: bold;
+
+}
+
+#comments form input:hover {
+	color: #333;
+}
+	
 /* ================================================================== */
 /* Footer */
 /* ================================================================== */
@@ -394,4 +694,18 @@ a:hover {
 	#footer em a{
 		font-weight: bold;
 	}
-	
+	#footer ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+		#footer ul li {
+			display: inline;
+		}
+		#footer ul li:after {
+			content: ",";
+			margin-right: 4px;
+		}
+		#footer ul :last-child:after {
+			content: "";
+		}

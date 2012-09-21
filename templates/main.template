@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Open Clip Art Library</title>
+    <meta name="description" content="
+	<link rel="stylesheet" href="/css/reset_eric.css" />
+    <link rel="icon" href="{{root}}/images/favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="/css/text.css" />
+	<link rel="stylesheet" href="/css/960_24_col.css" />
+	<link rel="stylesheet" href="/css/main.css" />
+    <link rel="search" type="application/opensearchdescription+xml" title="Open Clipart Library" href="{{root}}/openclipart.xml" />
+</head>
+<body>
+
+  <div id="container" class="container_24">
+
+    <div id="left" class="grid_8">
+	  <div id="main-navigation" class="grid_8 alpha omega">
+		<div id="logo-glow"></div>
+		<ul id="main-menu">
+		  <li class="active"><a href="">HOME</a></li>
+		  <li><a href="">COLLECTIONS</a></li>
+		  <li><a href="">ARTISTS</a></li>
+		  <li><a href="">SHOWCASE</a></li>
+		  <li><a href="">PARTICIPATE</a></li>
+		  <li><a href="">ABOUT</a></li>
+		  <li id="icon-bar">
+			<ul>
+			  <li><a href="#" class="identica">&nbsp;</a></li>
+			  <li><a href="#" class="diaspora">&nbsp;</a></li>
+			  <li><a href="#" class="twitter">&nbsp;</a></li>
+			  <li><a href="#" class="googleplus">&nbsp;</a></li>
+			  <li><a href="#" class="facebook">&nbsp;</a></li>
+			  <li><a href="#" class="share-more">&nbsp;</a></li>
+			</ul>
+		  </li>
+		</ul>
+
+		<a id="page-title" href="#">Open Clip Art Library</a>
+
+		<div id="top-search">
+		  <input id="search-i" name="query" value="search here..."/>
+		  <input id="s-button" type="submit"  value=""/>
+		</div>
+		<div id="logo-shadow"></div>
+		<a id="logo" href="#"><img src="/img/logo.png" /></a>
+
+	  </div><!--end main-navigation-->
+
+	  <div class="sidebar-block grid_8">
+		<h2>Username</h2>
+		<ul>
+		  <li><a href="">Profile</a></li>
+		  <li><a href="">Upload</a></li>
+		  <li><a href="">Clipart</a></li>
+		  <li><a href="">Logout</a></li>
+		</ul>
+	  </div>
+
+      {{> social-box}}
+
+	  <div class="sidebar-block grid_8">
+		<h2>Development</h2>
+		<ul>
+		  <li><a href="">Report Bugs</a></li>
+		  <li><a href="">API Documentation</a></li>
+		  <li><a href="">Git Repository</a></li>
+		</ul>
+	  </div>
+
+	</div><!--end left-->
+
+	<div id="right" class="grid_16">
+
+	  <div id="licence-info" class="grid_10 alpha">
+		<div class="grid_5 alpha"><a href="http://sharism.org/"><em>✳</em> Sharism</a></div>
+		<div class="grid_5 omega">all clipart is public domain use without restrictions.</div>
+	  </div>
+
+	  <div id="donation-buttons" class="grid_3">
+		<a href="#"><img src="/img/donation-buttons.png" /></a>
+	  </div>
+
+	  <div id="login-register-language" class="grid_3 omega">
+		<a href="">login</a> | <a href="">register</a>
+		<ul>
+		  <li><a href="#">german</a></li>
+		  <li><a href="#">english</a></li>
+		  <li><a href="#">language with long name</a></li>
+		  <li class="active"><a href="#">spanish</a></li>
+		  <li><a href="#">french</a></li>
+		</ul>
+	  </div><!--login-register-language-->
+
+	  <div id="front-banner" class="grid_16 alpha omega">
+		<a href="#"><img src="/img/front-banner.png"/></a>
+	  </div>
+
+	  <div id="right1" class="grid_8 alpha">
+		<h2>Popular This Month</h2>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+
+	  </div><!--end right1-->
+
+	  <div id="right2" class="grid_8 omega">
+		<h2>New Clipart</h2>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+		<div>
+		  <a href="#" class="thumbnail">
+			<img src="/img/100x100-thumbnail.png">
+			<div>thumbnail title</div>
+		  </a>
+		</div>
+	  </div><!--end right2-->
+
+	</div><!--end right-->
+
+	<div id="footer" class="grid_24">
+      <ul>
+        <li><em><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS">Donate to Support Hosting + Maintenance</a></em></li>
+	    <li><a href="http://fabricatorz.com/">Fabricatorz 王</a></li>
+	    <li><a href="http://www.inkscape.org/">Inkscape</a></li>
+	    <li><a href="http://www.freepik.com/">freepik</a></li>
+	    <li><a href="http://gandi.net/">Gandi.net</a></li>
+	    <li><a href="http://linode.net/">Linode</a></li>
+	    <li><a href="http://www.openfontlibrary.org/">Open Font Library</a></li>
+	    <li><a href="http://sharism.org/">✳ Sharism</a></li>
+      </ul>
+	</div><!--end footer-->
+
+  </div><!--end container-->
+
+</body>
+</html>
