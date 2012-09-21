@@ -30,6 +30,9 @@ require_once('libs/System.php');
 require_once('libs/Clipart.php');
 require_once('libs/OCAL.php');
 
+
+
+
 /* TODO: logs (using slim) - same as apacha with gzip and numbering
  *                           cache all exceptions and log them
  *       cache in Template::render
@@ -101,6 +104,8 @@ $app = new OCAL(array(
 ));
 
 $app->error(function($exception) {
+    return full_exception_string($exception, "<br/>");
+
     global $app;
     return new Template('main', function() use ($exception) {
         return array('content' => new Template('exception', function() use ($exception) {
@@ -367,6 +372,7 @@ $app->get("/user/:username", function($username) use ($app) {
 $app->get('/', function() {
     global $app;
     return new Template('main', function() {
+        return array();
         return array(
             'content' => array(new Template('wellcome', null),
                   new Template('most_popular_thumbs', function() {
