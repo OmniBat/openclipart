@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+    <ShortName>OpenClipart Search</ShortName>
+    <Description>Use openclipart.org to search clipart.</Description>
+    <Tags>clipart svg vector free open</Tags>
+    <Url type="text/html" template="http://openclipart.org/search/?query={searchTerms}"></Url>
+    <Url type="application/rss+xml" template="http://openclipart.org/media/feed/rss/{searchTerms}"></Url>
+    <Image width="16" height="16" type="image/x-icon">data:image/x-icon;base64,AAABAAEAEBAAABgAGABoAwAAFgAAACgAAAAQAAAAIAAAAAEAGAAAAAAAQAMAAAAAAAAAAAAAAAAAAAAAAAAAnP8AnP8AnP8AnP8AnP8AnP8Ai+QAnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AkOwAQWoAAgQAJTwAfc0AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AmvsAWZIAChEAK0YAgNIAQGgAAQIAOV0ASXgAl/cAnP8AnP8AnP8AnP8AnP8AcroAGioAFyUAbbIAnP8AnP8Am/0ALkwAAAAAAAAAP2cAmPkAnP8AnP8AnP8ARG8ACQ4AVYsAmPkAnP8AnP8AnP8AnP8AmfoAYJ0AR3QAAAAAFyUAbrMAnP8AnP8AlvYAUIIAfc0AnP8AnP8AnP8AnP8AnP8Aj+oAVowAgtUAPWMAAgMAAAAALEgAhNgAnP8AnP8AZ6gAYqEAkOsAfc0AmPgAYZ8AZ6kAXJYAQWoAnP8AjecAaq4AHzIAW5QAnP8AnP8AnP8Aj+oAZqYAgNIAVIkAjecAbrMAVIkANVYAnP8AbbIAVo0AkOwAnP8AnP8AnP8AnP8AnP8AnP8AX5wAZKQAFSIAdsEAV44AUIIAaq4AgtUAnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AXJcADhcAQ24Ab7UAY6IAZaUAYqEAnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AlPIAZKQAMVAAlPIAQWsAdb8AOl8AYqAAnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AbLAAjugAjugAhdoAPmYAjecAOV0Aaq4Ak/EAnP8AnP8AnP8AnP8AnP8AnP8AnP8AXZgAlvUAXpkAXpoAl/cAa68AjecAf9AAh9wAnP8AnP8AnP8AnP8AnP8AnP8AnP8AQGkAS3oAfcwAiuEAWJAAfc0AbrMAYqEAnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8Ah90ATHwASXgAa68AW5QAiN8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8AnP8Ah9wAnP8AnP8AnP8AnP8AnP8AnP8AnP8AAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8A</Image>
+    <moz:SearchForm>/search</moz:SearchForm>
+</OpenSearchDescription>

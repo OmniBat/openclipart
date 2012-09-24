@@ -34,11 +34,7 @@ class Template implements Renderable {
     function __construct($name, $data_privider=null) {
         global $indent;
         $this->name = $name;
-        $filename = "templates/${name}.template";
-        if (!file_exists($filename)) {
-            throw new TemplateException("file '$filename' not found");
-        }
-        $this->template = file_get_contents($filename);
+        $this->filename = "templates/${name}.template";
         $this->user_data = $data_privider;
     }
     function apply($data, $partials=array()) {
@@ -53,7 +49,7 @@ class Template implements Renderable {
     function expand() {
         global $app;
         if ($app->config->debug) {
-            return "\n<!-- begin: " . $this->name . " -->\n" 
+            return "\n<!-- begin: " . $this->name . " -->\n"
                 . $this->render_as_partial() .
                 "<!-- end: " . $this->name . " -->\n";
         } else {
@@ -66,6 +62,10 @@ class Template implements Renderable {
     function render() {
         global $app, $indent;
         try {
+            if (!file_exists($this->filename)) {
+                throw new TemplateException("file '{$this->filename}' not found");
+            }
+            $this->template = file_get_contents($this->filename);
             $start_time = get_time();
             $overwrite = $app->overwrite_data();
             $global = $app->globals();
@@ -123,7 +123,6 @@ class Template implements Renderable {
                 */
             }
         } catch (Slim_Exception_Stop $e) {
-            throw $e;
         } catch (Exception $e) {
             $app->error($e);
         }

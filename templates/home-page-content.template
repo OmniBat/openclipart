@@ -1,0 +1,32 @@
+<div id="front-banner" class="grid_16 alpha omega">
+  <a href="#"><img src="/img/front-banner.png"/></a>
+</div>
+
+<div id="right1" class="grid_8 alpha">
+  <h2>Popular This Month</h2>
+  {{#popular_clipart}}
+    <div>
+	  <a href="/clipart/{{id}}/{{link}}{{forward_query}}" class="thumbnail">
+        <span class="center">
+	      <img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}">
+        </span>
+        <span>{{title}}</span>
+	  </a>
+	</div>
+  {{/popular_clipart}}
+</div><!--end right1-->
+
+<div id="right2" class="grid_8 omega">
+  <h2>New Clipart</h2>
+  {{#new_clipart}}
+    <div>
+      <a href="/clipart/{{id}}/{{link}}{{forward_query}}" class="thumbnail">
+        <span class="center">
+	      <img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}">
+        </span>
+        <span>{{title}}</span>
+	  </a>
+	</div>
+  {{/new_clipart}}
+</div><!--end right2-->
+

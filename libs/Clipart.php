@@ -35,17 +35,13 @@ class Clipart {
     static function by_id($id) {
         global $app;
         $id = intval($id);
-        $query = "SELECT * FROM openclipart_clipart"
+        $query = "SELECT * FROM openclipart_clipart";
         $query = "SELECT openclipart_tags.name FROM openclipart_tags INNER JOIN openclipart_clipart_tags ON tag = openclipart_tags.id WHERE clipart = $id";
         $tags = $app->db->get_column($query);
         $clipart = new Clipart($tags);
         $clipart->fetch_tags($id);
-        
     }
-    function fetch_tags($id) {
-         $this->tags = 
-    }
-    private function __construct($clipart, $tags) {
+    function __construct($clipart, $tags) {
         $this->clipart = $clipart;
         $this->tags = $tags;
         $this->full_path = $app->config->root_directory . "/people/$user/$filename";
