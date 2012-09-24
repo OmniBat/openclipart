@@ -91,7 +91,7 @@ a:hover {
 		cursor: pointer;        /* make the cursor like hovering over an <a> element */
 		height: 28px;
 		padding-left: 16px;     /* make text start to the right of the image */
-		vertical-align: top;
+		vertical-align: bottom;
 		}
 		
 	#s-button:hover {
@@ -209,6 +209,7 @@ a:hover {
 	border-radius: 3px;
 	background-color: rgba(200,200,200,0.75);
 	display: block;
+	z-index: 200;
 }
 
 	#login-register-language ul:hover {
@@ -219,6 +220,7 @@ a:hover {
 		display: none;
 		padding: 6px 18px 6px 4px;
 		line-height: 1;
+		white-space: nowrap;
 	}
 
 	#login-register-language ul:hover li a {
@@ -230,7 +232,7 @@ a:hover {
 
 	#login-register-language li.active a {
 		display: inline;
-		background: url("../img/icons_vertical.png") right -2px no-repeat;
+		background: url("../img/icons_vertical.png") right 0px no-repeat;
 		padding-right: 20px;
 	}
 
@@ -245,8 +247,6 @@ a:hover {
 #detail {
 	padding-top: 30px;
 }
-
-
 
 /* ================================================================== */
 /* Front - page */
@@ -267,6 +267,9 @@ a:hover {
 	font-weight: normal;
 	text-align: center;
 }
+	a.thumbnail:hover {
+		font-weight: bold;
+	}
 
 /* ================================================================== */
 /* Search - page */
@@ -274,10 +277,23 @@ a:hover {
 
 #container.search-page {	
 	margin-left: 18px;
+	width: auto;
 }
+
+#footer.search-page{
+	width: 100%;
+	padding-left: 0;
+	padding-right: 0;
+	margin: 0;
+}
+
+#search {
+	padding-top: 89px;
+} 
 
 	#search h1 {
 		display: inline;
+		clear: both;
 	}
 	
 	#search h1 + em{
@@ -289,7 +305,7 @@ a:hover {
 	}
 
 .download-button {
-	display: inline;
+	display: block;
 }
 
 	.download-button a {
@@ -313,21 +329,24 @@ a:hover {
 	}
 		
 	.download-button:hover p {opacity: 1;}
+
+
+#results {
+	text-align: center;
+}
 	
 #result-search {
-	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.10);
+	box-shadow: 2px 6px 3px rgba(0, 0, 0, 0.10);
 	border-radius: 3px;
 	margin: 0 auto 20px auto;
 	text-align: center;
-	display: table;
+	display: inline;
 }
 
 #results-container {
-	position: absolute;
-	right: 0;
-	left: 343px;
 	min-width: 630px;
-	padding-top: 4px;
+	padding-top: 10px;
+	overflow: hidden;
 }
 
 	#result-search #search-i {
@@ -342,6 +361,7 @@ a:hover {
 	background: url("../img/search-navigation-bg.png") no-repeat bottom center transparent;
 	text-align: center;
 	padding: 2px 0 10px 0;
+	margin-top: 10px;
 }
 
 	#result-navigation .title {
@@ -353,7 +373,7 @@ a:hover {
 
 #search-sort {
 	width: 200px;
-	height: 20px;
+	height: 22px;
 	overflow: hidden;
 	margin: 0 auto;
 	-moz-transition: width 0.5s ease-in-out 0s;
@@ -389,13 +409,14 @@ a:hover {
 	border: 1px solid transparent;
 	box-shadow: 0px 0px 1px gray;
 	opacity: 0.5;
+	font-size: 10px;
+	padding-right: 10px;
 }
 	#search-sort a.active.color,
 	#search-sort a.color:hover	{
 		opacity: 1;
 		border-color: black;
 	}
-
 	
 #search-sort .color.red 	{background-color: red;}
 #search-sort .color.blue 	{background-color: blue;}
@@ -406,6 +427,42 @@ a:hover {
 
 #result-list {
 	padding-top: 15px;
+}
+
+ul#search-pagination {
+	margin: 2px 0 6px 0;
+}
+
+ul#search-pagination li {
+	display: inline;
+}
+
+ul#search-pagination li a{
+	font-weight: normal;
+	width: 20px;
+	display: inline-block;
+	position: relative;
+}
+	ul#search-pagination li a:hover{
+		font-weight: bold;
+	}
+
+ul#search-pagination a.first {background: url("../img/icons_vertical.png") no-repeat 100% -155px;}
+ul#search-pagination a.previous {background: url("../img/icons_vertical.png") no-repeat 100% -185px;}
+ul#search-pagination a.next {background: url("../img/icons_vertical.png") no-repeat 100% -245px;}
+ul#search-pagination a.last {background: url("../img/icons_vertical.png") no-repeat 100% -215px;}
+
+ul#search-pagination a.first,
+ul#search-pagination a.previous,
+ul#search-pagination a.next,
+ul#search-pagination a.last {
+	opacity: 0.5;
+}
+ul#search-pagination a.first:hover,
+ul#search-pagination a.previous:hover,
+ul#search-pagination a.next:hover,
+ul#search-pagination a.last:hover {
+	opacity: 1;
 }
 
 /* ================================================================== */
@@ -665,12 +722,12 @@ p.description {
 
 #comments form input {
 	font-style: italic;
-	font-weight: bold;
-
 }
 
 #comments form input:hover {
 	color: #333;
+	font-weight: bold;
+
 }
 	
 /* ================================================================== */
