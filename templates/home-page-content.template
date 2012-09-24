@@ -2,7 +2,7 @@
   <a href="#"><img src="/img/front-banner.png"/></a>
 </div>
 
-<div id="right1" class="grid_8 alpha">
+<div id="front-left" class="grid_8 alpha">
   <h2>Popular This Month</h2>
   {{#popular_clipart}}
     <div>
@@ -16,7 +16,7 @@
   {{/popular_clipart}}
 </div><!--end right1-->
 
-<div id="right2" class="grid_8 omega">
+<div id="front-right" class="grid_8 omega">
   <h2>New Clipart</h2>
   {{#new_clipart}}
     <div>
