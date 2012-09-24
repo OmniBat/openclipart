@@ -1,5 +1,5 @@
 <?php
 /* UPDATE REPO FROM GITHUB */
-
-passthru("git pull");
+header("Content-Type: text/plain");
+system("./pull");
 
