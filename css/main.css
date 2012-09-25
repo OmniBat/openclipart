@@ -337,6 +337,10 @@ a:hover {
 	margin: 0;
 }
 
+#search {
+	padding-top: 124px;
+}
+
 #search h1 {
 	display: inline;
 	clear: both;
