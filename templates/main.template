@@ -13,8 +13,8 @@
     <link rel="search" type="application/opensearchdescription+xml" title="Open Clipart Library" href="{{root}}/openclipart.xml" />
 </head>
 <body>
-
-  <div id="container" class="container_24">
+  {{! jquery added if editable (NOTE: rpc have it's own check)}}
+  <div id="container" class="container_24{{#editable}} editable{{/editable}}">
 
     <div id="left" class="grid_8">
 	  <div id="main-navigation" class="grid_8 alpha omega">
