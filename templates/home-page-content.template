@@ -5,28 +5,24 @@
 <div id="front-left" class="grid_8 alpha">
   <h2>Popular This Month</h2>
   {{#popular_clipart}}
-    <div>
-	  <a href="/clipart/{{id}}/{{link}}{{forward_query}}" class="thumbnail">
-        <span class="center">
-	      <img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}">
-        </span>
-        <span>{{title}}</span>
-	  </a>
-	</div>
+	<a href="/clipart/{{id}}/{{link}}{{forward_query}}" class="thumbnail" title="{{title}}">
+      <span class="thumbnail-image">
+	    <img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}">
+      </span>
+      <span class="thumbnail-title">{{title}}</span>
+	</a>
   {{/popular_clipart}}
 </div><!--end right1-->
 
 <div id="front-right" class="grid_8 omega">
   <h2>New Clipart</h2>
   {{#new_clipart}}
-    <div>
-      <a href="/clipart/{{id}}/{{link}}{{forward_query}}" class="thumbnail">
-        <span class="center">
-	      <img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}">
-        </span>
-        <span>{{title}}</span>
-	  </a>
-	</div>
+    <a href="/clipart/{{id}}/{{link}}{{forward_query}}" class="thumbnail" title="{{title}}">
+      <span class="thumbnail-image">
+	    <img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}" >
+      </span>
+      <span class="thumbnail-title">{{title}}</span>
+	</a>
   {{/new_clipart}}
 </div><!--end right2-->
 
