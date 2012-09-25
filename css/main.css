@@ -273,11 +273,13 @@ a:hover {
 }
 
 .thumbnail-title {
+	text-transform: lowercase;
 	font-weight: normal;
 	text-align: center;
 	line-height: 1;
 	display: block;
-	margin: 0 -12px -35px;
+	margin: 5px -12px -35px;
+	height: 0;
 }
 	.thumbnail:hover .thumbnail-title {
 		font-weight: bold;
