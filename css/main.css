@@ -24,6 +24,10 @@ a:hover {
 	padding: 35px 0 80px 0;
 }
 
+.content {
+	padding-top: 30px;
+} 
+
 #site-title {
 	font-size: 26px;
 	font-weight: bold;
@@ -248,9 +252,24 @@ a:hover {
 		color: #333;
 	}
 
-#search,
-#detail {
-	padding-top: 30px;
+.text a {
+	font-style: italic;
+	white-space: nowrap;
+}
+
+.text ul {
+	margin: 10px 0 10px 20px;
+} 
+.text ul li{
+	list-style: disc;
+} 
+
+.text h2 {
+	margin: 20px 0 5px 0;
+}
+
+.text p {
+	margin-bottom: 10px;
 }
 
 /* ================================================================== */
@@ -268,7 +287,7 @@ a:hover {
 .thumbnail {
 	position: relative;
 	float: left;
-	margin: 0 35px 70px 0;
+	margin: 0 35px 100px 0;
 	width: 100px;
 }
 
@@ -318,22 +337,18 @@ a:hover {
 	margin: 0;
 }
 
-#search {
-	padding-top: 89px;
-} 
+#search h1 {
+	display: inline;
+	clear: both;
+}
 
-	#search h1 {
-		display: inline;
-		clear: both;
-	}
-	
-	#search h1 + em{
-		font-style: italic;
-		font-weight: bold;
-		font-size: 22px;
-		color: #333;
-		clear: both;
-	}
+#search h1 + em{
+	font-style: italic;
+	font-weight: bold;
+	font-size: 22px;
+	color: #333;
+	clear: both;
+}
 
 .download-button {
 	display: block;
