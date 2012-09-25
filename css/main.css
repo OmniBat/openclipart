@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Asap:400,400italic,700,700italic);
+
 body {
 	color: #808080;
 	background: url("../img/noise_64.png") center;
@@ -320,7 +322,6 @@ a:hover {
 	margin: auto;
 }
 
-
 /* ================================================================== */
 /* Search - page */
 /* ================================================================== */
@@ -335,6 +336,10 @@ a:hover {
 	padding-left: 0;
 	padding-right: 0;
 	margin: 0;
+}
+
+#search {
+	padding-top: 124px;
 }
 
 #search h1 {
@@ -775,7 +780,93 @@ p.description {
 	font-weight: bold;
 
 }
+
+/* ================================================================== */
+/* Upload - page */
+/* ================================================================== */
+
+.green-hook {
+	background: url("../img/upload-icons.png") top left no-repeat;
+	position: absolute;
+	width: 50px;
+	height: 80px;
+	right: 0px;
+	top: -12px;
+}
+
+#upload-notice {
+	position: relative;
+	background: white;
+	border-radius: 8px;
+	padding: 17px 28px;
+	box-shadow: 3px 3px 4px rgba(0,0,0, 0.13);
+	width: 500px;
+	left: 30px;
+}
+
+#upload-notice h2 {
+	color: #333;
+}
+
+#upload-notice h3 {
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+
+#upload-notice .author-notice,
+#upload-notice .trademark-notice,
+#upload-notice .pd-notice {
+	padding-left: 60px;
+	background: url("../img/upload-icons.png") top left no-repeat;
+	min-height: 80px;
+	display: block;
+}
+#upload-notice .author-notice {background-position: left -116px;}
+#upload-notice .trademark-notice {background-position: left -316px;}
+#upload-notice .pd-notice {background-position: left -216px;}
+
+p.upload-details {
+	margin: 20px 0 20px 60px;
+	width: 470px;
+}
+
+#upload-notice .green-hook {
+	top: -22px;
+	right: -17px;
+}
+
+.upload-step {
+	background: url("../img/upload-separator.png") top center no-repeat;
+	position: relative;
+	padding: 25px 0 5px;
+}
+
+	.upload-step span{
+		width: 90px;
+		font-weight: bold;
+		text-align: right;
+		font-size: 18px;
+	}
 	
+	.upload-step p {
+		padding-top: 3px;
+	}
+	
+	.upload-step .svg-note {
+		padding-left: 60px;
+		background: url("../img/upload-icons.png")  left -417px no-repeat;
+		height: 53px;
+		width: 400px !important;
+	}
+
+.step-add {
+	text-align: center;
+}
+
+
+
 /* ================================================================== */
 /* Footer */
 /* ================================================================== */
