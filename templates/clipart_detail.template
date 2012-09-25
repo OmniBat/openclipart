@@ -1,0 +1,116 @@
+<div id="detail" class="grid_16 alpha omega content">
+  <div class="grid_16 alpha omega">
+	<h1 class="page-title">{{title}}</h1>
+	<a class="star" href="#">{{favs}}</a>
+    {{! original author or uploader }}
+	<div class="author">by <em>{{#original_author}}{{original_author}}{{/original_author}}{{^original_author}}{{username}}{{/original_author}}</em></div>
+  </div>
+  <div id="detail-left" class="grid_8 alpha">
+	<a class="download" href="/download/svg/{{username}}/{{filename}}">
+    <span class="center">
+	    <img src="/image/250/{{username}}/{{filename_png}}" title='"{{title}}" by {{username}}'>
+      </span>
+	  <div class="button">download</div>
+	</a>
+	<ul id="detail-edit">
+	  <li class="edit"><a href="#">edit</a></li>
+	  <li class="remix"><a href="#">remix</a></li>
+	  <li class="export">
+		<a href="#">export</a>
+		<div id="export-form">
+		  <input id="dimension-i" name="query" value="width or height in px">
+		  <input id="e-button" type="submit"  value="export">
+		</div>
+	  </li>
+	</ul>
+  </div><!--end detail-left-->
+
+  <div id="detail-right" class="grid_8 alpha">
+	<ul class="tag-list">
+      {{#tags}}
+        <li><a class="tag{{#system}} system{{/system}}" href="/tag/{{name}}">{{name}}</a></li>
+      {{/tags}}
+      {{! <li><a class="tag add" href="#">+ icon</a></li> }}
+	</ul>
+
+	Collected in:
+	<ul class="collection-list">
+      {{#collections}}
+        <li><a class="collection" href="/collection/{{username}}/{{id}}/{{name}}">
+        {{title}}
+        </a></li>
+      {{/collections}}
+	  <li><a class="collection add" href="#">+ collection</a></li>
+	</ul>
+
+	<p class="description">
+      {{#description}}{{description}}{{/description}}
+      {{^description}}No description given{{/description}}
+    </p>
+    {{#remix_count}}
+	Remixes:
+	<ul class="collection-list">
+      {{#remixes}}
+	  <li>
+        <a class="remix" href="/clipart/{{id}}/{{link}}">
+          <img src="/image/75/{{username}}/{{filename}}" title="{{title}}"/>
+        </a>
+      </li>
+      {{/remixes}}
+	</ul>
+    {{/remix_count}}
+	<table>
+	  <CAPTION><a href="#">Details</a></CAPTION>
+	  <tr>
+		<td>uploader:</td><td>{{username}}</td>
+	  </tr>
+	  <tr>
+		<td>created:</td><td>{{created}}</td>
+	  </tr>
+	  <tr>
+		<td>downloads:</td><td>{{downloads}}</td>
+	  </tr>
+	  <tr>
+		<td>comments:</td><td>{{comment_count}}</td>
+	  </tr>
+	  <tr>
+		<td>filesize:</td><td>{{file_size}}</td>
+	  </tr>
+	  <tr>
+		<td>remixes:</td><td>{{remix_count}}</td>
+		</td>
+	</table>
+
+	<a class="report" href="#">report</a>
+
+  </div><!--end detail-right-->
+
+</div><!--end detail-->
+
+<div id="comments" class="grid_16 alpha omega text">
+  <a class="comments-title" href="#"><h2>Comments</h2></a>
+  <div class="comment">
+	<div class="user grid_2 alpha">
+	  <img src="img/user-thumbnail.png" title="username"/>
+	  <a class="username" href="#">other user</a>
+	  <span>2012-04-03</span>
+	</div>
+	<div class="comment-body grid_14 omega">
+	  <p>This is really a nice clipart. I used it for the birthday cards of my brother.
+        thanks! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</p>
+		<div class="controls"><a href="#">edit</a> | <a href="#">delete</a></div>
+	</div>
+  </div>
+  <div class="comment add">
+	<div class="user grid_2 alpha">
+	  <img src="img/user-thumbnail.png" title="username"/>
+	  <a class="username" href="#">your username</a>
+	</div>
+	<div class="comment-body grid_14 omega">
+	  <form action="#">
+		<textarea name="Text" rows="6" cols="54">add your comment here...</textarea>
+		<input type="submit" value=" comment ">
+	  </form>
+	</div>
+  </div>
+</div><!--end comments-->

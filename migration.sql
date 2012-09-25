@@ -1,4 +1,4 @@
--- DATABASE MIGRATION FILE
+-- DATABASE CREATION FILE (WITH MIGRATION CODE FROM OLD AIKI+CCHOST DATABASE)
 
 DROP TABLE IF EXISTS openclipart_clipart;
 DROP TABLE IF EXISTS openclipart_users;
@@ -33,7 +33,7 @@ CREATE TABLE openclipart_users(id integer NOT NULL auto_increment, username varc
 
 -- copy non duplicate aiki_users
 
-INSERT INTO openclipart_users(id, username, password, full_name, country, email, avatar, homepage, user_group, creation_date, notify, nsfw_filter) SELECT minids.userid, username, password, full_name, country, email, clip.id as avatar, homepage, first_login, notify, nsfwfilter FROM aiki_users users INNER JOIN (SELECT MIN(userid) as userid FROM aiki_users GROUP by username) minids ON minids.userid = users.userid LEFT OUTER JOIN openclipart_clipart clip ON clip.owner = users.userid AND RIGHT(users.avatar, 3) = 'svg' AND clip.filename = users.avatar;
+INSERT INTO openclipart_users(id, username, password, full_name, country, email, avatar, homepage, user_group, creation_date, notify, nsfw_filter) SELECT minids.userid, username, password, full_name, country, email, clip.id as avatar, homepage, first_login, notify, nsfwfilter FROM aiki_users users INNER JOIN (SELECT MIN(userid) as userid FROM aiki_users GROUP by username) minids ON minids.userid = users.userid LEFT OUTER JOIN openclipart_clipart clip ON clip.owner = users.userid AND RIGHT (users.avatar, 3) = 'svg' AND clip.filename = users.avatar;
 
 -- REMIXES
 

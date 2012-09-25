@@ -299,24 +299,45 @@ $app->get("/clipart/:args+", function($args) use ($app) {
         }
     }
     return new Template('main', array(
-        'class' => 'detail',
         'editable' => $editable,
         'content' => new Template('clipart_detail', function() use ($id, $row) {
             global $app;
             // TODO: this SQLs can be put into Clipart class
 
+            // TAGS
             $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = $id";
+            $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
             $tags = $app->db->get_column($query);
-            $query = "select openclipart_comments.id, username, comment, date, openclipart_clipart.filename as avatar from openclipart_comments inner join openclipart_users on user = openclipart_users.id LEFT OUTER JOIN openclipart_clipart ON avatar = openclipart_clipart.id where clipart = $id";
-            $comments = $app->db->get_array($query);
 
             $tag_rank = $app->tag_counts($tags);
             $best_term = $tag_rank[0]['name'];
+
+            // COMMENTS
+            $query = "select openclipart_comments.id, username, comment, date, openclipart_clipart.filename as avatar from openclipart_comments inner join openclipart_users on user = openclipart_users.id LEFT OUTER JOIN openclipart_clipart ON avatar = openclipart_clipart.id where clipart = $id";
+            $comments = $app->db->get_array($query);
+
             $svg = 'people/' . $row['username'] . '/' . $row['filename'];
 
+            // COLLECTIONS
+            $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";
+            $collections = $app->db->get_array($query);
+
+            // REMIXES
+            $query = "SELECT openclipart_clipart.id, filename, title, link, username FROM openclipart_remixes INNER JOIN openclipart_clipart ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON owner = openclipart_users.id WHERE original = $id";
+            $remixes = array_map(function($remix) {
+                $remix['filename'] = preg_replace("/\.svg$/", ".png", $remix['filename']);
+                return $remix;
+            }, $app->db->get_array($query));
             return array_merge($row, array(
                 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename']),
-                'tags' => $tags,
+                'remixes' => $remixes,
+                'remix_count' => count($remixes),
+                'tags' => array_map(function($tag) use($system_tags) {
+                    return array(
+                        'name' => $tag,
+                        'system' => array_key_exists($tag, $system_tags)
+                    );
+                }, $tags),
                 'comments' => array_map(function($comment) {
                     $avatar = preg_replace('/.svg$/', '.png', $comment['avatar']);
                     $comment['avatar'] = $avatar;
@@ -327,7 +348,13 @@ $app->get("/clipart/:args+", function($args) use ($app) {
                     return $comment;
                 }, $comments),
                 'file_size' => human_size(filesize($svg)),
+                'collection_count' => count($collections),
+                'collections' => array_map(function($row) {
+                    $row['human_date'] = human_date($row['date']);
+                    return $row;
+                }, $collections),
                 'nsfw' => in_array('nsfw', $tags),
+                /*
                 'shutterstock' => new Template('shutterstock', function() use ($best_term) {
                     global $app;
                     return array(
@@ -340,9 +367,9 @@ $app->get("/clipart/:args+", function($args) use ($app) {
                         }, $app->shutterstock($best_term)),
                         'term' => $best_term
                     );
-                })
+                 }) */
             ));
-        }),
+        }) /*,
         'sidebar' => new Template('clipart_detail_sidebar', function() use ($id, $editable) {
             global $app;
             $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";
@@ -357,12 +384,12 @@ $app->get("/clipart/:args+", function($args) use ($app) {
                     return $row;
                 }, $collections)
             );
-        })
+         })*/
     ));
 });
 
 $app->get("/user/:username", function($username) use ($app) {
-    
+
 });
 
 
@@ -383,10 +410,10 @@ $app->get('/', function() {
         );
     });
 });
-    
+
     // SIDEBAR FROM OLD TEMPALTE
     /*
-      
+
       'sidebar' => array(
                 new Template('join', null),
                 new Template('facebook_box', null),
@@ -495,7 +522,7 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
         return file_get_contents($png);
     }
     */
-    
+
     if ($width > $app->config->bitmap_resolution_limit) {
         $response->status(400);
         // TODO: Generate Error Image
@@ -513,7 +540,7 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
             $png = $app->config->root_directory . "/people/$user/${width}px-$file-nsfw.png";
             $svg = $app->config->root_directory . "/people/$user/$filename.svg";
         }
-        
+
 
         if (file_exists($png)) {
             $response->header('Content-Type', 'image/png');
@@ -543,7 +570,7 @@ $app->get('/image/:width/:user/:filename', function($w, $user, $file) {
                 $newwidth = $newvalue;
                 $newhight = round(($newvalue * $height) / $width);
             }
-            
+
             exec("rsvg --width $newwidth --height $newhight $svg $png");
             if (!file_exists($png)) {
                 $app->pass();
