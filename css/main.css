@@ -177,7 +177,7 @@ a:hover {
 		margin-bottom: 5px;
 	}
 	
-#licence-info .alpha {
+#licence-info {
 	text-align: right;
 	font-style: italic;
 	padding-right: 5px;
@@ -191,12 +191,16 @@ a:hover {
 		font-weight: bold;
 	}
 
-#licence-info .omega {
-	border-left: 1px solid #808080;
-	padding-left: 5px;
-	margin-left: -6px;
-	font-style: italic;
+#licence-info span {
+	display: block;
+	opacity: 0;
+	-moz-transition: opacity 0.5s ease-in-out 0s;
 }
+
+	#licence-info:hover span {
+		opacity: 1;
+		font-weight: normal;
+	}
 
 #donation-buttons {
 	text-align: center;
