@@ -369,7 +369,8 @@ $app->get("/clipart/:args+", function($args) use ($app) {
                     );
                  }) */
             ));
-        }) /*,
+        }),
+        'social-box' => new Template('social_boxes', null)/*,
         'sidebar' => new Template('clipart_detail_sidebar', function() use ($id, $editable) {
             global $app;
             $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";

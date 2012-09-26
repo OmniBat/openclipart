@@ -114,7 +114,7 @@ a:hover {
 	position: relative;
 }
 	
-	#main-menu a 			{font-weight: normal;}
+	#main-menu a 			{font-weight: normal; text-transform: uppercase; }
 	#main-menu a:hover	{font-weight: bold;}
 	
 	#main-menu li {
