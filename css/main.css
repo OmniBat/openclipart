@@ -118,7 +118,7 @@ a:hover {
 	#main-menu a:hover	{font-weight: bold;}
 	
 	#main-menu li {
-		margin-left: 72px;
+		margin-left: 81px;
 	}
 	
 	#main-menu li.active a {
@@ -131,8 +131,8 @@ a:hover {
     margin: 0 0 0 -24px;
 }
 
-#icon-bar {
-	
+li#icon-bar {
+	margin-left: 72px;
 }
 
 	#icon-bar li a {
@@ -895,10 +895,12 @@ p.upload-details {
 .upload-button {
 	margin-top: 20px;
 	cursor: pointer;
+	font-family: Asap, sans-serif;
 }
 
 .add-button {
 	cursor: pointer;
+	font-family: Asap, sans-serif;
 }
 
 /* ================================================================== */
