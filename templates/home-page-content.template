@@ -15,13 +15,13 @@
       <div class="popup">
         <span class="star">{{num_favorites}}</span>
         <div class="box">
-          <a href="/clipart/{{id}}/{{link}}{{forward_query}}" title="{{title}}">
+          <a href="/clipart/{{id}}/{{link}}{{forward_query}}">
             <img src="/image/190/{{username}}/{{filename_png}}{{forward_query}}">
           </a>
         </div>
         <div>
           <p class="title">{{title}}</p>
-          <p>by <a href="/user/{{username}}" class="author">{{username}}</span></p>
+          <p>by <a href="/user/{{username}}" class="author">{{username}}</a></p>
           <p>{{human_date}}</p>
         </div>
       </div>
