@@ -534,6 +534,7 @@ ul#search-pagination a.last:hover {
 
 #detail .page-title {
 	display: inline;
+	text-transform: capitalize;
 }
 
 #detail {
@@ -568,11 +569,21 @@ ul#search-pagination a.last:hover {
 .detail-image {
 	position: relative;
 	display: block;
-	width: 250px;
-	height: 250px;
+	width: 280px;
+	height: 280px;
 }
-	.detail-image:hover {
-		background: url("../img/image-hover-bg.png") repeat;
+
+.checker {
+	opacity: 0;
+	position: absolute;
+	width: 280px;
+	height: 280px;
+	-moz-transition: opacity 0.2s ease-in-out 0.3s;
+	background: url("../img/image-hover-bg.png") repeat;
+}
+
+	.detail-image:hover .checker {
+		opacity: 0.08;
 	}
 	
 	.detail-image img {
@@ -592,7 +603,7 @@ ul#search-pagination a.last:hover {
 
 .detail-button {
 	position: relative;
-	width: 250px;
+	width: 280px;
 	display: block;
 	padding-top: 20px;
 }
@@ -620,7 +631,7 @@ ul#search-pagination a.last:hover {
 #detail-edit {
 	text-align: center;
 	padding-top: 10px;
-	width: 250px;
+	width: 280px;
 }
 
 #detail-edit li {
