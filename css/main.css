@@ -556,8 +556,9 @@ ul#search-pagination a.last:hover {
 	display: inline;
 	padding-left: 10px;
 }
-	#detail .author em{
+	#detail .author a{
 		font-style: italic;
+		font-weight: normal;
 	}
 
 #detail-left {
@@ -713,11 +714,16 @@ a.collection.add,
 a.tag.add {
 	color: #aaa;
 	background: none;
-	border: 1px solid rgba(55,55,55,0.25);
+	border: 1px solid rgba(0,0,0,0.05);
+	-moz-transition: border 0.2s ease-in-out 0s;
 }
+	a.collection.add:hover,
 	a.tag.add:hover {
-		color: gray;
+		border: 1px solid rgba(0,0,0,0.3);
+		color: #333;
+		font-weight: normal;
 	}
+	
 a.collection {
 	color: white;
 	background: rgba(55,55,55,0.25);
