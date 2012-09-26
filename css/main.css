@@ -176,6 +176,14 @@ li#icon-bar {
 		font-size: 18px;
 		margin-bottom: 5px;
 	}
+
+#social-network-iframes {
+	opacity: 0.5;
+	-moz-transition: opacity 0.2s ease-in-out 0s;
+}
+	#social-network-iframes:hover {
+		opacity: 1;
+}
 	
 #licence-info {
 	text-align: right;
