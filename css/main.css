@@ -894,6 +894,11 @@ p.upload-details {
 
 .upload-button {
 	margin-top: 20px;
+	cursor: pointer;
+}
+
+.add-button {
+	cursor: pointer;
 }
 
 /* ================================================================== */
