@@ -545,7 +545,7 @@ ul#search-pagination a.last:hover {
 	top: -15px;
 	background: url("../img/icons_vertical.png") no-repeat -5px -270px;
 	opacity: 0.5;
-	padding: 0 0 14px 14px;
+	padding: 0 0 14px 18px;
 	font-size: 9px;
 }
 	#detail  a.star:hover{
@@ -560,9 +560,28 @@ ul#search-pagination a.last:hover {
 		font-style: italic;
 	}
 
-#detail-left{
+#detail-left {
 	padding-top: 20px;
 }
+
+.detail-image {
+	position: relative;
+	display: block;
+	width: 250px;
+	height: 250px;
+}
+	.detail-image:hover {
+		background: url("../img/image-hover-bg.png") repeat;
+	}
+	
+	.detail-image img {
+		position: absolute;
+		margin: auto;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
 
 #detail .download {
 	display: block;
@@ -570,8 +589,11 @@ ul#search-pagination a.last:hover {
 	margin: 0 auto;
 }
 
-#detail .download img:hover {
-	background: url("../img/image-hover-bg.png") repeat;
+.detail-button {
+	position: relative;
+	width: 250px;
+	display: block;
+	padding-top: 20px;
 }
 
 #upload .upload-button,
@@ -586,16 +608,18 @@ ul#search-pagination a.last:hover {
 		border-radius: 5px;
 		box-shadow: 2px 2px 3px rgba(0,0,0,0.25);
 		padding: 2px 8px 4px 8px;
+		-moz-transition: background 0.2s ease-in-out 0s;
 }
 	#upload .upload-button:hover,
 	#detail .download:hover .button {
-			background-color: #d20000;
+			background-color: #333;
+			font-weight: normal;
 	}
 
 #detail-edit {
-	margin: 0 auto;
 	text-align: center;
 	padding-top: 10px;
+	width: 250px;
 }
 
 #detail-edit li {
@@ -786,14 +810,17 @@ p.description {
 	color: #808080;
 }
 
+.add-button,
 #comments form input {
 	font-style: italic;
+	cursor: pointer;
+	font-family: Asap, sans-serif;
 }
 
+.add-button:hover,
 #comments form input:hover {
 	color: #333;
 	font-weight: bold;
-
 }
 
 /* ================================================================== */
@@ -902,11 +929,6 @@ p.upload-details {
 
 .upload-button {
 	margin-top: 20px;
-	cursor: pointer;
-	font-family: Asap, sans-serif;
-}
-
-.add-button {
 	cursor: pointer;
 	font-family: Asap, sans-serif;
 }
