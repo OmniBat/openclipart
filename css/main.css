@@ -753,6 +753,9 @@ a.tag {
 	line-height: 2.1;
 	white-space: nowrap;
 }
+a.tag.system {
+    font-weight: bold;
+}
 	a.collection:hover,
 	a.tag:hover {
 		background: white;

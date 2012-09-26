@@ -306,7 +306,6 @@ $app->get("/clipart/:args+", function($args) use ($app) {
 
             // TAGS
             $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = $id";
-            $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
             $tags = $app->db->get_column($query);
 
             $tag_rank = $app->tag_counts($tags);
@@ -328,6 +327,9 @@ $app->get("/clipart/:args+", function($args) use ($app) {
                 $remix['filename'] = preg_replace("/\.svg$/", ".png", $remix['filename']);
                 return $remix;
             }, $app->db->get_array($query));
+
+
+            $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
             return array_merge($row, array(
                 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename']),
                 'remixes' => $remixes,
@@ -335,7 +337,7 @@ $app->get("/clipart/:args+", function($args) use ($app) {
                 'tags' => array_map(function($tag) use($system_tags) {
                     return array(
                         'name' => $tag,
-                        'system' => array_key_exists($tag, $system_tags)
+                        'system' => in_array($tag, $system_tags)
                     );
                 }, $tags),
                 'comments' => array_map(function($comment) {
