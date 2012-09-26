@@ -105,8 +105,8 @@ a:hover {
 	}
 	
 #main-menu {
-	font-size: 22px;
-	line-height: 33px;
+	font-size: 18px;
+	line-height: 36px;
 	list-style-type: none;
 	margin: 0 0 50px 0;
 	padding: 124px 0 140px 0;
@@ -566,17 +566,20 @@ ul#search-pagination a.last:hover {
 	background: url("../img/image-hover-bg.png") repeat;
 }
 
+#upload .upload-button,
 #detail .download .button {
 		display: inline;
 		color: white;
 		font-style: italic;
 		font-size: 22px;
+		font-weight: bold;
 		background-color: #e70000;
+		border: 0;
 		border-radius: 5px;
 		box-shadow: 2px 2px 3px rgba(0,0,0,0.25);
 		padding: 2px 8px 4px 8px;
 }
-
+	#upload .upload-button:hover,
 	#detail .download:hover .button {
 			background-color: #d20000;
 	}
@@ -869,7 +872,29 @@ p.upload-details {
 	text-align: center;
 }
 
+.upload-finished textarea,
+.upload-new textarea {
+	font-family: asap, sans-serif;
+	font-size: 14px;
+	line-height: 1.2;
+	padding: 3px 0 0 3px;
+}
 
+.upload-new textarea {
+	color: gray;
+	font-style: italic;
+}
+
+.nsfw-check {
+	font-weight: bold;
+	font-size: 12px;
+	color: #b0b0b0;
+	text-align: right;
+}
+
+.upload-button {
+	margin-top: 20px;
+}
 
 /* ================================================================== */
 /* Footer */
