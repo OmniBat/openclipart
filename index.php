@@ -397,16 +397,23 @@ $app->get("/user/:username", function($username) use ($app) {
 $app->get('/', function() {
     return new Template('main', function() {
         return array(
-            'content' => new Template('home-page-content', function() {
-                global $app;
-                $last_week = "(SELECT WEEK(max(date)) FROM ".
-                    "openclipart_favorites) = WEEK(date) AND ".
-                    "YEAR(NOW()) = YEAR(date)";
-                return array(
-                    'popular_clipart' => $app->list_clipart($last_week, "num_favorites"),
-                    'new_clipart' => $app->list_clipart(null, "created")
-                );
-            }),
+            'content' => new Template('home-page-content', array(
+                'popular_clipart' => new Template('clipart_list', function() {
+                    global $app;
+                    $last_week = "(SELECT WEEK(max(date)) FROM ".
+                        "openclipart_favorites) = WEEK(date) AND ".
+                        "YEAR(NOW()) = YEAR(date)";
+                    return array(
+                        'clipart_list' => $app->list_clipart($last_week, "num_favorites")
+                    );
+                }),
+                'new_clipart' => new Template('clipart_list', function() {
+                    global $app;
+                    return array(
+                        'clipart_list' => $app->list_clipart(null, "created")
+                    );
+                })
+            )),
             'social-box' => new Template('social_boxes', null)
         );
     });
