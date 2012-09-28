@@ -20,12 +20,12 @@
 	  <div id="main-navigation" class="grid_8 alpha omega">
 		<div id="logo-glow"></div>
 		<ul id="main-menu">
-		  <li class="active"><a href="">HOME</a></li>
-		  <li><a href="">COLLECTIONS</a></li>
-		  <li><a href="">ARTISTS</a></li>
-		  <li><a href="">SHOWCASE</a></li>
-		  <li><a href="">PARTICIPATE</a></li>
-		  <li><a href="">ABOUT</a></li>
+		  <li class="active"><a href="">Home</a></li>
+		  <li><a href="">Collections</a></li>
+		  <li><a href="">Artists</a></li>
+		  <li><a href="">Showcase</a></li>
+		  <li><a href="">Participate</a></li>
+		  <li><a href="">About</a></li>
           <li id="icon-bar">
             <ul>
 		      <li><a href="#" class="identica">&nbsp;</a></li>

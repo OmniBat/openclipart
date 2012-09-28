@@ -114,7 +114,7 @@ a:hover {
 	position: relative;
 }
 	
-	#main-menu a 			{font-weight: normal;}
+	#main-menu a 			{font-weight: normal; text-transform: uppercase; }
 	#main-menu a:hover	{font-weight: bold;}
 	
 	#main-menu li {
@@ -332,6 +332,62 @@ li#icon-bar {
 	bottom: 0;
 	margin: auto;
 }
+
+.thumbnail .popup {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    background: white;
+    z-index: 100;
+    -webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	        border-radius: 3px;
+       -moz-box-shadow: 0 0 20px #aaa;
+	-webkit-box-shadow: 0 0 20px #aaa;
+	     -o-box-shadow: 0 0 20px #aaa;
+	        box-shadow: 0 0 20px #aaa;
+    width: 190px;
+    text-align: center;
+    padding: 5px;
+    display: none;
+}
+.thumbnail:hover .popup {
+    display: block;
+}
+	.thumbnail .popup .box {
+	    width: 190px;
+	    height: 190px;
+    	position: relative;
+	}
+		.thumbnail .popup .box img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+		}
+
+	.thumbnail .popup .star {
+	    position: absolute;
+	    top: 3px;
+	    background: url("../img/icons_vertical.png") no-repeat -5px -270px;
+	    padding: 0 0 14px 18px;
+	    font-size: 9px;
+	    right: 6px;
+	}
+	.popup .title {
+	    display: block;
+	    color: black;
+	    font-size: 16px;
+	}
+	.popup .title, .popup .author {
+	    font-weight: bold;
+	}
+	.popup p {
+	    margin: 0;
+	}
+
 
 /* ================================================================== */
 /* Search - page */
@@ -709,6 +765,9 @@ a.tag {
 	margin-right: 4px;
 	line-height: 2.1;
 	white-space: nowrap;
+}
+a.tag.system {
+    font-weight: bold;
 }
 	a.collection:hover,
 	a.tag:hover {

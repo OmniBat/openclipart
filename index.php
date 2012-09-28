@@ -306,7 +306,6 @@ $app->get("/clipart/:args+", function($args) use ($app) {
 
             // TAGS
             $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = $id";
-            $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
             $tags = $app->db->get_column($query);
 
             $tag_rank = $app->tag_counts($tags);
@@ -328,6 +327,9 @@ $app->get("/clipart/:args+", function($args) use ($app) {
                 $remix['filename'] = preg_replace("/\.svg$/", ".png", $remix['filename']);
                 return $remix;
             }, $app->db->get_array($query));
+
+
+            $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
             return array_merge($row, array(
                 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename']),
                 'remixes' => $remixes,
@@ -335,7 +337,7 @@ $app->get("/clipart/:args+", function($args) use ($app) {
                 'tags' => array_map(function($tag) use($system_tags) {
                     return array(
                         'name' => $tag,
-                        'system' => array_key_exists($tag, $system_tags)
+                        'system' => in_array($tag, $system_tags)
                     );
                 }, $tags),
                 'comments' => array_map(function($comment) {
@@ -369,7 +371,8 @@ $app->get("/clipart/:args+", function($args) use ($app) {
                     );
                  }) */
             ));
-        }) /*,
+        }),
+        'social-box' => new Template('social_boxes', null)/*,
         'sidebar' => new Template('clipart_detail_sidebar', function() use ($id, $editable) {
             global $app;
             $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";
@@ -396,16 +399,23 @@ $app->get("/user/:username", function($username) use ($app) {
 $app->get('/', function() {
     return new Template('main', function() {
         return array(
-            'content' => new Template('home-page-content', function() {
-                global $app;
-                $last_week = "(SELECT WEEK(max(date)) FROM ".
-                    "openclipart_favorites) = WEEK(date) AND ".
-                    "YEAR(NOW()) = YEAR(date)";
-                return array(
-                    'popular_clipart' => $app->list_clipart($last_week, "num_favorites"),
-                    'new_clipart' => $app->list_clipart(null, "created")
-                );
-            }),
+            'content' => new Template('home-page-content', array(
+                'popular_clipart' => new Template('clipart_list', function() {
+                    global $app;
+                    $last_week = "(SELECT WEEK(max(date)) FROM ".
+                        "openclipart_favorites) = WEEK(date) AND ".
+                        "YEAR(NOW()) = YEAR(date)";
+                    return array(
+                        'clipart_list' => $app->list_clipart($last_week, "num_favorites")
+                    );
+                }),
+                'new_clipart' => new Template('clipart_list', function() {
+                    global $app;
+                    return array(
+                        'clipart_list' => $app->list_clipart(null, "created")
+                    );
+                })
+            )),
             'social-box' => new Template('social_boxes', null)
         );
     });

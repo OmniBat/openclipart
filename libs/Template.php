@@ -49,9 +49,13 @@ class Template implements Renderable {
     function expand() {
         global $app;
         if ($app->config->debug) {
-            return "\n<!-- begin: " . $this->name . " -->\n"
-                . $this->render_as_partial() .
-                "<!-- end: " . $this->name . " -->\n";
+            $start_time = get_time();
+            $rendered_partial = $this->render_as_partial();
+            $end_time = sprintf("%.4f", (get_time()-$start_time));
+            return "\n<!-- begin template: " . $this->name . " -->\n"
+                . $rendered_partial .
+                "<!-- end template: " . $this->name . " -->\n" .
+                "<!-- Time: $end_time seconds -->";
         } else {
             return $this->render_as_partial();
         }
@@ -66,7 +70,7 @@ class Template implements Renderable {
                 throw new TemplateException("file '{$this->filename}' not found");
             }
             $this->template = file_get_contents($this->filename);
-            $start_time = get_time();
+            
             $overwrite = $app->overwrite_data();
             $global = $app->globals();
             if ($this->user_data === null) {
@@ -105,22 +109,11 @@ class Template implements Renderable {
                         }
                     }
                 }
-                $end_time = sprintf("%.4f", (get_time()-$start_time));
-                $time = "<!-- Time: $end_time seconds -->";
+
                 $data = array_merge($global,
-                                    array('load_time' => $time),
                                     $data,
                                     $overwrite);
                 return $this->apply($data, $partials);
-                /* it show begin before Doctype -- there should be pragma that disable this
-                   if (DEBUG) {
-               return "\n<!-- begin: " . $this->name . " -->\n" .
-               $ret .
-               "<!-- end: " . $this->name . " -->\n";
-               } else {
-               return $ret;
-               }
-                */
             }
         } catch (Slim_Exception_Stop $e) {
         } catch (Exception $e) {
