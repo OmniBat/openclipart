@@ -105,7 +105,7 @@ a:hover {
 	}
 	
 #main-menu {
-	font-size: 18px;
+	font-size: 20px;
 	line-height: 36px;
 	list-style-type: none;
 	margin: 0 0 50px 0;
@@ -125,7 +125,6 @@ a:hover {
 		color: #333;
 		font-weight: bold;
 	}
-
 
 #main-menu li ul li {
     margin: 0 0 0 -24px;
@@ -343,7 +342,7 @@ li#icon-bar {
 	width: auto;
 }
 
-#footer.search-page{
+.search-page #footer{
 	width: 100%;
 	padding-left: 0;
 	padding-right: 0;
@@ -382,7 +381,10 @@ li#icon-bar {
 		top: 4px;
 	}
 	
-	.download-button a:hover {background-color: #d20000;}
+	.download-button a:hover {
+		background-color: #333;
+		font-weight: normal;
+	}
 	
 	.download-button p {
 		position: absolute;
@@ -578,7 +580,7 @@ ul#search-pagination a.last:hover {
 	position: absolute;
 	width: 280px;
 	height: 280px;
-	-moz-transition: opacity 0.2s ease-in-out 0.3s;
+	-moz-transition: opacity 0.3s ease-in-out 0.3s;
 	background: url("../img/image-hover-bg.png") repeat;
 }
 
@@ -723,7 +725,7 @@ a.tag {
 
 a.collection.add,
 a.tag.add {
-	color: #aaa;
+	color: #808080;
 	background: none;
 	border: 1px solid rgba(0,0,0,0.05);
 	-moz-transition: border 0.2s ease-in-out 0s;
@@ -731,7 +733,6 @@ a.tag.add {
 	a.collection.add:hover,
 	a.tag.add:hover {
 		border: 1px solid rgba(0,0,0,0.3);
-		color: #333;
 		font-weight: normal;
 	}
 	
@@ -973,5 +974,4 @@ p.upload-details {
    }
     #footer :last-child:after {
        content: "";
-    }
     }
