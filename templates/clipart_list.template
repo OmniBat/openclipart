@@ -7,7 +7,7 @@
   <span class="thumbnail-title">{{title}}</span>
   </a>
   <div class="popup">
-    <span class="star">{{num_favorites}}</span>
+    <a class="star" href="#">{{num_favorites}}</a>
     <div class="box">
       <a href="/clipart/{{id}}/{{link}}{{forward_query}}">
       <img src="/image/190/{{username}}/{{filename_png}}{{forward_query}}">
