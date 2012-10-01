@@ -7,10 +7,13 @@
   </div>
   <div id="detail-left" class="grid_8 alpha">
     <a class="download" href="/download/svg/{{username}}/{{filename}}">
-    <span class="center">
-        <img src="/image/250/{{username}}/{{filename_png}}" title='"{{title}}" by {{username}}'>
+      <span class="detail-image">
+        <div class="checker"></div>
+        <img src="/image/280/{{username}}/{{filename_png}}" title='"{{title}}" by {{username}}'>
       </span>
-      <div class="button">download</div>
+      <span class="detail-button">
+        <div class="button">download</div>
+      </span>
     </a>
     <ul id="detail-edit">
       <li class="edit"><a href="#">edit</a></li>
