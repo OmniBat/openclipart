@@ -41,6 +41,13 @@ $.fn.jump = function(options) {
     return self;
 };
 
+$.fn.bg = function() {
+    return this.each(function() {
+        var self = $(this);
+        self.css('background-image', 'url(' + self.attr('src') + ')').attr('src', '');
+        return self;
+    });
+};
 
 $(function() {
     var email_regex = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
@@ -233,7 +240,7 @@ $(function() {
             }
         });
     }
-    
+    /*
 
     (function(button) {
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(location);
@@ -242,23 +249,17 @@ $(function() {
             return false;
         });
     })($('.gplus_button'));
-    
-    $.fn.bg = function() {
-        return this.each(function() {
-            var self = $(this);
-            self.css('background-image', 'url(' + self.attr('src') + ')').attr('src', '');
-            return self;
-        });
-    };
+    */
+
+
 
     var img = $('#viewimg img, #shutterstock img').bg();
 
-
-    if ($('.editable').length) {
-
-        rpc({url: '/rpc/main', error: function(e) {
+    rpc({url: '/rpc/main', error: function(e) {
             alert(e.message || e);
-        }})(function(main) {
+    }})(function(main) {
+
+        function editable() {
             var tag_list = $('.tags ul');
             var tags = tag_list.find('li').detach();
             var finish = false;
@@ -333,15 +334,52 @@ $(function() {
                     });
                 }
             });
+        }
 
+        if ($('.editable').length) {
+            editable();
+        }
+
+
+        /*
+          var urls = [
+          "http://s7.addthis.com/js/250/addthis_widget.js#username=boobalooasync=1&domready=1",
+          "//api.flattr.com/js/0.6/load.js?mode=auto&uid=fabricatorz&popout=1&category=Images"];
+          $.each(urls, function(_, url) {
+          $.getScript(url);
+          });
+        */
+
+        var login_form = $('#login-dialog');
+        $('#login-register-language #login-link').click(function() {
+            login_form.fadeIn();
+            return false;
         });
-    }
+        $('#login-dialog .ui-overlay, #register-dialog .ui-overlay').click(function() {
+            $(this).parent().hide();
+        });
+        $('#login-dialog #submit').click(function() {
+            var login = $('#login').val();
+            var pass = $('#password').val();
+            main.login(login, pass)(function(ret) {
+                if (ret) {
+                    // TODO: detect if user own a clipart or is librarian
+                    $('#container').addClass('logged');
+                    editable();
+                    $('#login-dialog').fadeOut();
+                } else {
 
-    var urls = [
-        "http://s7.addthis.com/js/250/addthis_widget.js#username=boobalooasync=1&domready=1",
-        "//api.flattr.com/js/0.6/load.js?mode=auto&uid=fabricatorz&popout=1&category=Images"];
-    $.each(urls, function(_, url) {
-        $.getScript(url);
+                }
+            });
+            return false;
+        });
+        
+        $('#logout').click(function() {
+            main.logout()(function() {
+                $('#container').removeClass('editable logged');
+            });
+            return false;
+        });
+
     });
-
 });

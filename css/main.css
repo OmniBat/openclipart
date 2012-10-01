@@ -881,7 +881,7 @@ p.description {
 }
 	p.description:before,
 	p.description:after {
-		content: '"';
+		content: '"'; /* " I need this to fix highlight in Emacs*/
 	}
 
 #detail-right table {
@@ -1230,3 +1230,68 @@ span.picatcha_td {
     #footer :last-child:after {
        content: "";
     }
+
+#login-dialog, #register-dialog {
+	z-index: 100;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+#login-dialog .ui-widget-shadow {
+	width: 302px;
+	height: 152px;
+	position: absolute;
+	left: 50%;
+	margin-left: -151px;
+	top: 50%;
+	margin-top: -76px;
+}
+#login-dialog .ui-widget-content {
+	position: absolute;
+	width: 280px;
+	height: 130px;
+	left: 50%;
+	margin-left: -143px;
+	top: 50%;
+	margin-top: -68px;
+	padding: 10px;
+}
+#login-dialog h3 {
+	margin: 0 0 5px 11px;
+}
+#login-dialog #submit {
+	width: auto;
+	padding: 3px 15px;
+	float: right;
+	margin-top: 5px;
+	cursor: pointer;
+}
+#login-dialog label {
+	font-size: 14px;
+	width: 78px;
+	display: block;
+	float: left;
+	text-align: right;
+	margin-top: 3px;
+}
+#login-dialog input {
+	width: 187px;
+	border: 1px solid grey;
+	padding: 2px 4px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin-left: 3px;
+}
+
+.user-menu {
+    display: none;
+}
+.login-menu, .logged .logout-menu {
+    display: none;
+}
+.logged .user-menu, .logged .login-menu {
+    display: block;
+}

@@ -1,24 +1,24 @@
 <?php
 
 class main {
-    
+
     function favorite($clipart) {
         global $app;
         return $app->favorite(intval($clipart));
     }
-    
+
     function reset_password_link($email) {
         global $app;
         return $app->send_reset_password_link($email, $this->config->token_expiration);
     }
-    
+
     function get_tag_id($tag_name) {
         global $app;
         $query = "SELECT id FROM openclipart_tags WHERE name = '$tag_name'";
         $row = $app->db->get_assoc($query);
         return empty($row) ? null : $row['id'];
     }
-    
+
     function add_tag($clipart_id, $tag_name) {
         global $app;
         $clipart = $this->clipart($clipart_id);
@@ -45,14 +45,14 @@ class main {
         $ret = $app->db->query($query);
         return $ret ? $ret->insert_id : null;
     }
-    
+
     function clipart($clipart_id) {
         global $app;
         $clipart_id = intval($clipart_id);
         $query = "SELECT * FROM openclipart_clipart WHERE id = $clipart_id";
         return $app->db->get_assoc($query);
     }
-    
+
     function remove_tag($clipart_id, $tag) {
         global $app;
         $clipart = $this->clipart($clipart_id);
@@ -67,7 +67,7 @@ class main {
             throw new Exception("You are not authorized to remove tags");
         }
     }
-    
+
     function set_description($clipart_id, $description) {
         global $app;
         $clipart = $this->clipart($clipart_id);
@@ -82,7 +82,7 @@ class main {
             throw new Exception("You are not authorized set title");
         }
     }
-    
+
     function set_title($clipart_id, $title) {
         global $app;
         $clipart = $this->clipart($clipart_id);
@@ -121,7 +121,7 @@ class main {
             throw new Exception("You are not authorized to delete this comment");
         }
     }
-    
+
     function edit_comment($comment_id, $text) {
         global $app;
         $comment = $this->comment($comment_id);
@@ -137,5 +137,18 @@ class main {
         } else {
             throw new Exception("You are not authorized to delete this comment");
         }
+    }
+    function login($login, $password) {
+        global $app;
+        try {
+            $app->login($login, $password);
+            return true;
+        } catch(Exception $e) {
+            return false;
+        }
+    }
+    function logout() {
+        global $app;
+        $app->logout();
     }
 }
