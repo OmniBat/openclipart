@@ -1019,7 +1019,7 @@ p.upload-details {
 	position: absolute;
 	width: 445px;
 	height: auto;
-	top: 20%;
+	top: 10%;
 	left: 0;
 	right: 0;
 	margin: 0 auto;
@@ -1055,11 +1055,11 @@ p.upload-details {
 	right: -15px;
 	width: 30px;
 	height: 30px;
-	background: url("../img/icons_vertical.png") right -330px no-repeat;
+	background: url("../img/icons_vertical.png") right -390px no-repeat;
 	z-index: 100;
 }
 	.popup-close:hover {
-		background: url("../img/icons_vertical.png") right -360px no-repeat;
+		background: url("../img/icons_vertical.png") right -420px no-repeat;
 	}
 	
 .popup-content span {
@@ -1072,6 +1072,7 @@ p.upload-details {
 
 .popup-content input {
 	margin: 10px 0;
+	display: block;
 }
 
 .popup-content .login-alternative {
@@ -1090,6 +1091,13 @@ p.upload-details {
 a.lost-password {
 	vertical-align: top;
 	font-style: italic;
+}
+input.remember-me {
+	display: inline;
+}
+
+span.picatcha_td {
+	display: inline;
 }
 
 /* tabs */

@@ -26,7 +26,7 @@
             <textarea name="title" rows="1" cols="29"></textarea>
             <span>password:</span> 
             <textarea name="title" rows="1" cols="29"></textarea> <a class="lost-password" href="#">lost your password?</a>
-            <span><input type="checkbox" name="name" value="value" selected="selected"  title="remember me next time when i visit the site"> remember me!</span>
+            <span><input class="remember-me" type="checkbox" name="name" value="value" selected="selected"  title="remember me next time when i visit the site"> remember me!</span>
             <input id="button-id" class="add-button"type="submit"  value="login">
             <div class="login-alternative">
                 <h2>or login with</h2>
@@ -37,7 +37,7 @@
                     <a href="#"><img src="img/icon-facebook.png"></a>
                 </span>
             </div>
-        </div>
+        </div><!-- end -tab-login-->
         
         <div id="tab-register">
             <a href="#"><div class="popup-close"></div></a>
@@ -49,8 +49,22 @@
             <textarea name="title" rows="1" cols="29"></textarea>
             <span>password:</span> 
             <textarea name="title" rows="1" cols="29"></textarea>
-            <input id="button-id" class="add-button"type="submit"  value="login">
-        </div>
+            <span>full name:</span> 
+            <textarea name="title" rows="1" cols="29"></textarea>
+            
+            
+            <div id="picatcha" class="picatcha" style="border: 1px solid rgb(42, 31, 25); max-width: 324px;">
+                <script src="http://api.picatcha.com/static/client/picatcha.js" type="text/javascript"></script>
+                <link href="http://api.picatcha.com/static/client/picatcha.css" type="text/css" rel="stylesheet">
+                <script type="text/javascript">
+                    Picatcha.API_SERVER = 'http://api.picatcha.com';
+                    Picatcha.PUBLIC_KEY = 'qjSWPO6lV1MO_uJUDq2xmWlleGAUVQfRiul52kYm';
+                    window.onload = function(){Picatcha.create('picatcha');}
+                </script>
+            </div>
+            
+            <input id="button-id" class="add-button"type="submit"  value="register">
+        </div> <!-- end -tab-register-->
      
     </div>
 
