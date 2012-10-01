@@ -10,13 +10,23 @@ a {
 	text-decoration: none;
 	font-weight: bold;
 	color: #808080;
-	-moz-transition: color 0.25s ease-in-out 0s;
-	-moz-transition: background-color 0.25s ease-in-out 0s;
+	    -ms-transition: color 0.25s ease 0s;
+	-webkit-transition: color 0.25s ease 0s;
+	   -moz-transition: color 0.25s ease 0s;
+	     -o-transition: color 0.25s ease 0s;
+	        transition: color 0.25s ease 0s;
+	    -ms-transition: background-color 0.25s ease-in-out 0s;
+	-webkit-transition: background-color 0.25s ease-in-out 0s;
+	   -moz-transition: background-color 0.25s ease-in-out 0s;
+	     -o-transition: background-color 0.25s ease-in-out 0s;
+	        transition: background-color 0.25s ease-in-out 0s;
+
 }
 
-a:hover {
-	color: #333;
-}
+	a:hover {
+		color: #333;
+
+	}
 
 #left {
 	position: relative;
@@ -27,7 +37,7 @@ a:hover {
 }
 
 .content {
-	padding-top: 30px;
+	padding-top: 25px;
 } 
 
 #site-title {
@@ -178,7 +188,11 @@ li#icon-bar {
 
 #social-network-iframes {
 	opacity: 0.5;
-	-moz-transition: opacity 0.2s ease-in-out 0s;
+	    -ms-transition: opacity 0.2s ease-in-out 0s;
+	-webkit-transition: opacity 0.2s ease-in-out 0s;
+	     -o-transition: opacity 0.2s ease-in-out 0s;
+	   -moz-transition: opacity 0.2s ease-in-out 0s;
+	        transition: opacity 0.2s ease-in-out 0s;
 }
 	#social-network-iframes:hover {
 		opacity: 1;
@@ -201,7 +215,11 @@ li#icon-bar {
 #licence-info span {
 	display: block;
 	opacity: 0;
-	-moz-transition: opacity 0.5s ease-in-out 0s;
+	    -ms-transition: opacity 0.5s ease-in-out 0s;
+	-webkit-transition: opacity 0.5s ease-in-out 0s;
+	     -o-transition: opacity 0.5s ease-in-out 0s;
+	   -moz-transition: opacity 0.5s ease-in-out 0s;
+	        transition: opacity 0.5s ease-in-out 0s;
 }
 
 	#licence-info:hover span {
@@ -215,7 +233,11 @@ li#icon-bar {
 
 #login-register-language {
 	text-align: right;
-	-moz-transition: opacity 0.25s ease-in-out 0s;
+	    -ms-transition: opacity 0.25s ease-in-out 0s;
+	-webkit-transition: opacity 0.25s ease-in-out 0s;
+	     -o-transition: opacity 0.25s ease-in-out 0s;
+	   -moz-transition: opacity 0.25s ease-in-out 0s;
+	        transition: opacity 0.25s ease-in-out 0s;
 	opacity: 0.35;
 	position: absolute;
 }
@@ -300,7 +322,7 @@ li#icon-bar {
 .thumbnail {
 	position: relative;
 	float: left;
-	margin: 0 35px 100px 0;
+	margin: 0 45px 110px 0;
 	width: 100px;
 }
 
@@ -335,10 +357,10 @@ li#icon-bar {
 
 .thumbnail .popup {
     position: absolute;
-    top: -10px;
-    left: -10px;
+    top: -60px;
+    left: -60px;
     background: white;
-    z-index: 100;
+    z-index: 200;
     -webkit-border-radius: 3px;
 	   -moz-border-radius: 3px;
 	        border-radius: 3px;
@@ -346,19 +368,36 @@ li#icon-bar {
 	-webkit-box-shadow: 0 0 20px #aaa;
 	     -o-box-shadow: 0 0 20px #aaa;
 	        box-shadow: 0 0 20px #aaa;
-    width: 190px;
+    width: 220px;
     text-align: center;
     padding: 5px;
     display: none;
 }
+
 .thumbnail:hover .popup {
     display: block;
 }
+
+.thumbnail .popup {
+        opacity: 0;
+        -ms-transition: opacity 0.5s ease 0.2s;
+    -webkit-transition: opacity 0.5s ease 0.2s;
+         -o-transition: opacity 0.5s ease 0.2s;
+       -moz-transition: opacity 0.25s ease-in 0.4s;
+            transition: opacity 0.5s ease 0.2s;
+}
+.thumbnail .popup:hover {
+    opacity: 1;
+}
+
 	.thumbnail .popup .box {
-	    width: 190px;
-	    height: 190px;
+	    width: 200px;
+	    height: 200px;
     	position: relative;
+    	margin: 0 auto;
+    	padding: 10px 0;
 	}
+	
 		.thumbnail .popup .box img {
 			position: absolute;
 			top: 0;
@@ -375,17 +414,32 @@ li#icon-bar {
 	    padding: 0 0 14px 18px;
 	    font-size: 9px;
 	    right: 6px;
+	    opacity: 0.5;
+	    font-weight: bold;
+	    z-index: 10;
 	}
+	
+		.thumbnail .popup .star:hover {
+			opacity: 1;
+		}
+	
 	.popup .title {
 	    display: block;
-	    color: black;
-	    font-size: 16px;
-	}
-	.popup .title, .popup .author {
+	    color: #333;
+	    font-size: 22px;
+	    line-height: 1;
+	    text-transform: capitalize;
 	    font-weight: bold;
 	}
+	
+	.popup .author {
+	    font-style: italic;
+	    font-size: 14px
+	}
+	
 	.popup p {
 	    margin: 0;
+	    font-size: 14px;
 	}
 
 
@@ -406,7 +460,7 @@ li#icon-bar {
 }
 
 #search {
-	padding-top: 124px;
+	padding-top: 90px;
 }
 
 #search h1 {
@@ -446,7 +500,11 @@ li#icon-bar {
 		position: absolute;
 		margin-top: 10px;
 		opacity: 0;
-		-moz-transition: opacity 0.5s ease-in-out 0s;
+		    -ms-transition: opacity 0.5s ease-in-out 0s;
+		-webkit-transition: opacity 0.5s ease-in-out 0s;
+		     -o-transition: opacity 0.5s ease-in-out 0s;
+		   -moz-transition: opacity 0.5s ease-in-out 0s;
+		        transition: opacity 0.5s ease-in-out 0s;
 	}
 		
 	.download-button:hover p {opacity: 1;}
@@ -497,7 +555,11 @@ li#icon-bar {
 	height: 22px;
 	overflow: hidden;
 	margin: 0 auto;
-	-moz-transition: width 0.5s ease-in-out 0s;
+	    -ms-transition: width 0.5s ease-in-out 0s;
+	-webkit-transition: width 0.5s ease-in-out 0s;
+	     -o-transition: width 0.5s ease-in-out 0s;
+	   -moz-transition: width 0.5s ease-in-out 0s;
+	        transition: width 0.5s ease-in-out 0s;
 }
 	#search-sort:hover {
 		width: 500px;
@@ -517,6 +579,7 @@ li#icon-bar {
 	background: url("../img/icons_vertical.png") no-repeat 100% -36px;
 	padding-right: 13px;
 	font-weight: normal;
+	font-style: italic;
 } 
 	#search-sort .details a:hover {font-weight: bold;} 
 	
@@ -636,7 +699,11 @@ ul#search-pagination a.last:hover {
 	position: absolute;
 	width: 280px;
 	height: 280px;
-	-moz-transition: opacity 0.3s ease-in-out 0.3s;
+	    -ms-transition: opacity 0.3s ease-in-out 0.3s;
+	-webkit-transition: opacity 0.3s ease-in-out 0.3s;
+	     -o-transition: opacity 0.3s ease-in-out 0.3s;
+	   -moz-transition: opacity 0.3s ease-in-out 0.3s;
+	        transition: opacity 0.3s ease-in-out 0.3s;
 	background: url("../img/image-hover-bg.png") repeat;
 }
 
@@ -678,7 +745,11 @@ ul#search-pagination a.last:hover {
 		border-radius: 5px;
 		box-shadow: 2px 2px 3px rgba(0,0,0,0.25);
 		padding: 2px 8px 4px 8px;
-		-moz-transition: background 0.2s ease-in-out 0s;
+		    -ms-transition: background 0.2s ease-in-out 0s;
+		-webkit-transition: background 0.2s ease-in-out 0s;
+		     -o-transition: background 0.2s ease-in-out 0s;
+		   -moz-transition: background 0.2s ease-in-out 0s;
+		        transition: background 0.2s ease-in-out 0s;
 }
 	#upload .upload-button:hover,
 	#detail .download:hover .button {
@@ -787,7 +858,11 @@ a.tag.add {
 	color: #808080;
 	background: none;
 	border: 1px solid rgba(0,0,0,0.05);
-	-moz-transition: border 0.2s ease-in-out 0s;
+	    -ms-transition: border 0.2s ease-in-out 0s;
+	-webkit-transition: border 0.2s ease-in-out 0s;
+	     -o-transition: border 0.2s ease-in-out 0s;
+	   -moz-transition: border 0.2s ease-in-out 0s;
+	        transition: border 0.2s ease-in-out 0s;
 }
 	a.collection.add:hover,
 	a.tag.add:hover {
