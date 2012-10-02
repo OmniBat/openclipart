@@ -14,18 +14,18 @@
 </head>
 <body>
   {{! jquery added if editable (NOTE: rpc have it's own check)}}
-  <div id="container" class="container_24{{#editable}} editable{{/editable}}">
+  <div id="container" class="container_24{{#editable}} editable{{/editable}}{{#userid}} logged{{/userid}}">
 
     <div id="left" class="grid_8">
 	  <div id="main-navigation" class="grid_8 alpha omega">
 		<div id="logo-glow"></div>
 		<ul id="main-menu">
-		  <li class="active"><a href="">Home</a></li>
-		  <li><a href="">Collections</a></li>
-		  <li><a href="">Artists</a></li>
-		  <li><a href="">Showcase</a></li>
-		  <li><a href="">Participate</a></li>
-		  <li><a href="">About</a></li>
+		  <li class="active"><a href="/">Home</a></li>
+		  <li><a href="/collections">Collections</a></li>
+		  <li><a href="/artists">Artists</a></li>
+		  <li><a href="/showcase">Showcase</a></li>
+		  <li><a href="/participate">Participate</a></li>
+		  <li><a href="about">About</a></li>
           <li id="icon-bar">
             <ul>
 		      <li><a href="#" class="identica">&nbsp;</a></li>
@@ -39,7 +39,7 @@
 		</ul>
 
 
-		<a id="site-title" href="#">Open Clip Art Library</a>
+		<a id="site-title" href="/">Open Clip Art Library</a>
 
 		<div id="top-search">
 		  <input id="search-i" name="query" placeholder="search here..."/>
@@ -50,8 +50,7 @@
 
 	  </div><!--end main-navigation-->
 
-      {{#userid}}
-	  <div class="sidebar-block grid_8">
+	  <div class="sidebar-block grid_8 user-menu">
 		<h2>Username</h2>
 		<ul>
 		  <li><a href="">Profile</a></li>
@@ -60,7 +59,6 @@
 		  <li><a href="">Logout</a></li>
 		</ul>
 	  </div>
-      {{/userid}}
 
       {{> social-box}}
 
@@ -92,7 +90,15 @@
 	  </div>
 
 	  <div id="login-register-language" class="grid_3 omega">
-		<a href="">login</a> | <a href="">register</a>
+
+        <div class="wrapper logout-menu">
+		  <a id="login-link" href="/login">login</a> | <a id="register-link" href="/register">register</a>
+        </div>
+
+        <div class="wrapper login-menu">
+          <a href="/profile">profile</a> | <a id="logout" href="/logout">logout</a>
+        </div>
+
 		<ul>
 		  <li><a href="#">german</a></li>
 		  <li><a href="#">english</a></li>
@@ -101,6 +107,29 @@
 		  <li><a href="#">french</a></li>
 		</ul>
 	  </div><!--end login-register-language-->
+
+      <div id="login-dialog" style="display:none">
+
+		<div class="ui-overlay">
+          <div class="ui-widget-overlay"></div>
+          <div class="ui-widget-shadow ui-corner-all"></div>
+        </div>
+
+		<div class="ui-widget ui-widget-content ui-corner-all">
+          <h3>Login</h3>
+          <form>
+            <div class="field">
+              <label for="login">Login:</label>
+              <input id="login" name="login"/>
+            </div>
+            <div class="field">
+              <label for="password">Password:</label>
+              <input id="password" name="password" type="password"/>
+            </div>
+            <input id="submit" type="submit" value="Login"/>
+          </form>
+		</div>
+	  </div>
 
 	  {{> content}}
 
@@ -120,6 +149,13 @@
 	</div><!--end footer-->
 
   </div><!--end container-->
-
+  <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+  <script src="{{root}}/libs/json-rpc/json-rpc.js"></script>
+  <script src="{{root}}/libs/Modernizr.js"></script>
+  <script src="/libs/jquery-ui/jquery-ui-1.8.24.custom.min.js"></script>
+  <link href="/libs/jquery-ui/jquery-ui-1.8.24.custom.css" rel="stylesheet"/>
+  <link href="/libs/tag-it/css/jquery.tagit.css" rel="stylesheet"/>
+  <script src="/libs/tag-it/js/tag-it.js"></script>
+  <script src="{{root}}/script.js"></script>
 </body>
 </html>
