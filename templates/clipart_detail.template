@@ -68,8 +68,8 @@
     
     
     <div class="accordion-container">
-      <input id="ac-details" name="accordion-details" type="checkbox" />
-      <label for="ac-details" class="hidden">Details</label>
+      <input id="ac-details" class="hidden" name="accordion-details" type="checkbox" />
+      <label for="ac-details">Details</label>
       <div class="accordion-content">
         <table>
           <tr>
