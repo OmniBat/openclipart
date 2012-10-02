@@ -19,10 +19,13 @@
       <li class="edit"><a href="#">edit</a></li>
       <li class="remix"><a href="#">remix</a></li>
       <li class="export">
-        <a href="#">export</a>
-        <div id="export-form">
-          <input id="dimension-i" name="query" value="width or height in px">
-          <input id="e-button" type="submit"  value="export">
+        <div class="accordion-container">
+          <input class="hidden" id="ac-export" name="accordion-export" type="checkbox" />
+          <label for="ac-export">export</label>
+            <div id="export-form" class="accordion-content">
+              <input id="dimension-i" name="query" value="width or height in px">
+              <input id="e-button" type="submit"  value="export">
+            </div>
         </div>
       </li>
     </ul>
@@ -66,7 +69,7 @@
     
     <div class="accordion-container">
       <input id="ac-details" name="accordion-details" type="checkbox" />
-      <label for="ac-details">Details</label>
+      <label for="ac-details" class="hidden">Details</label>
       <div class="accordion-content">
         <table>
           <tr>
