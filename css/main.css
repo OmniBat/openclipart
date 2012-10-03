@@ -1302,7 +1302,7 @@ span.picatcha_td {
 }
 
 .overlay {
-    position: absolute;
+    position: fixed;
     width: 100%;
     left: 0;
    	top: 0;
@@ -1320,4 +1320,7 @@ span.picatcha_td {
 }
 #login-popup-window {
     z-index: 300;
+}
+#login-dialog {
+    position: absolute;
 }
