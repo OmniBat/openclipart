@@ -17,136 +17,115 @@
   <div id="container" class="container_24{{#editable}} editable{{/editable}}{{#userid}} logged{{/userid}}">
 
     <div id="left" class="grid_8">
-	  <div id="main-navigation" class="grid_8 alpha omega">
-		<div id="logo-glow"></div>
-		<ul id="main-menu">
-		  <li class="active"><a href="/">Home</a></li>
-		  <li><a href="/collections">Collections</a></li>
-		  <li><a href="/artists">Artists</a></li>
-		  <li><a href="/showcase">Showcase</a></li>
-		  <li><a href="/participate">Participate</a></li>
-		  <li><a href="about">About</a></li>
+      <div id="main-navigation" class="grid_8 alpha omega">
+        <div id="logo-glow"></div>
+        <ul id="main-menu">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/collections">Collections</a></li>
+          <li><a href="/artists">Artists</a></li>
+          <li><a href="/showcase">Showcase</a></li>
+          <li><a href="/participate">Participate</a></li>
+          <li><a href="about">About</a></li>
           <li id="icon-bar">
             <ul>
-		      <li><a href="#" class="identica">&nbsp;</a></li>
-		      <li><a href="#" class="diaspora">&nbsp;</a></li>
-		      <li><a href="#" class="twitter">&nbsp;</a></li>
-		      <li><a href="#" class="googleplus">&nbsp;</a></li>
-		      <li><a href="#" class="facebook">&nbsp;</a></li>
-		      <li><a href="#" class="share-more">&nbsp;</a></li>
-		    </ul>
+              <li><a href="#" class="identica">&nbsp;</a></li>
+              <li><a href="#" class="diaspora">&nbsp;</a></li>
+              <li><a href="#" class="twitter">&nbsp;</a></li>
+              <li><a href="#" class="googleplus">&nbsp;</a></li>
+              <li><a href="#" class="facebook">&nbsp;</a></li>
+              <li><a href="#" class="share-more">&nbsp;</a></li>
+            </ul>
           </li>
-		</ul>
+        </ul>
 
 
-		<a id="site-title" href="/">Open Clip Art Library</a>
+        <a id="site-title" href="/">Open Clip Art Library</a>
 
-		<div id="top-search">
-		  <input id="search-i" name="query" placeholder="search here..."/>
-		  <input id="s-button" type="submit"  value=""/>
-		</div>
-		<div id="logo-shadow"></div>
-		<a id="logo" href="#"><img src="/img/logo.png" /></a>
+        <div id="top-search">
+          <input id="search-i" name="query" placeholder="search here..."/>
+          <input id="s-button" type="submit"  value=""/>
+        </div>
+        <div id="logo-shadow"></div>
+        <a id="logo" href="#"><img src="/img/logo.png" /></a>
 
-	  </div><!--end main-navigation-->
+      </div><!--end main-navigation-->
 
-	  <div class="sidebar-block grid_8 user-menu">
-		<h2>Username</h2>
-		<ul>
-		  <li><a href="">Profile</a></li>
-		  <li><a href="">Upload</a></li>
-		  <li><a href="">Clipart</a></li>
-		  <li><a href="">Logout</a></li>
-		</ul>
-	  </div>
+      <div class="sidebar-block grid_8 user-menu">
+        <h2>Username</h2>
+        <ul>
+          <li><a href="">Profile</a></li>
+          <li><a href="">Upload</a></li>
+          <li><a href="">Clipart</a></li>
+          <li><a href="">Logout</a></li>
+        </ul>
+      </div>
 
       {{> social-box}}
 
-	  <div class="sidebar-block grid_8">
-		<h2>Development</h2>
-		<ul>
-		  <li><a href="">Report Bugs</a></li>
-		  <li><a href="">API Documentation</a></li>
-		  <li><a href="">Git Repository</a></li>
-		</ul>
-	  </div>
+      <div class="sidebar-block grid_8">
+        <h2>Development</h2>
+        <ul>
+          <li><a href="">Report Bugs</a></li>
+          <li><a href="">API Documentation</a></li>
+          <li><a href="">Git Repository</a></li>
+        </ul>
+      </div>
 
-	</div><!--end left-->
+    </div><!--end left-->
 
-	<div id="right" class="grid_16">
+    <div id="right" class="grid_16">
 
-	<div id="licence-info" class="grid_10 alpha">
-		<div class="grid_10 sharism">
-			<a href="http://sharism.org/">
-				<em>✳</em> Sharism
-				<span>all clipart is public domain<br />
-				 use without restrictions.</span>
-			</a>
-		</div>
-	</div><!--end licence-info-->
+    <div id="licence-info" class="grid_10 alpha">
+        <div class="grid_10 sharism">
+            <a href="http://sharism.org/">
+                <em>✳</em> Sharism
+                <span>all clipart is public domain<br />
+                 use without restrictions.</span>
+            </a>
+        </div>
+    </div><!--end licence-info-->
 
-	  <div id="donation-buttons" class="grid_3">
-		<a href="#"><img src="/img/donation-buttons.png" /></a>
-	  </div>
+      <div id="donation-buttons" class="grid_3">
+        <a href="#"><img src="/img/donation-buttons.png" /></a>
+      </div>
 
-	  <div id="login-register-language" class="grid_3 omega">
+      <div id="login-register-language" class="grid_3 omega">
 
         <div class="wrapper logout-menu">
-		  <a id="login-link" href="/login">login</a> | <a id="register-link" href="/register">register</a>
+          <a id="login-link" href="/login">login</a> | <a id="register-link" href="/register">register</a>
         </div>
 
         <div class="wrapper login-menu">
           <a href="/profile">profile</a> | <a id="logout" href="/logout">logout</a>
         </div>
 
-		<ul>
-		  <li><a href="#">german</a></li>
-		  <li><a href="#">english</a></li>
-		  <li><a href="#">language with long name</a></li>
-		  <li class="active"><a href="#">spanish</a></li>
-		  <li><a href="#">french</a></li>
-		</ul>
-	  </div><!--end login-register-language-->
+        <ul>
+          <li><a href="#">german</a></li>
+          <li><a href="#">english</a></li>
+          <li><a href="#">language with long name</a></li>
+          <li class="active"><a href="#">spanish</a></li>
+          <li><a href="#">french</a></li>
+        </ul>
+      </div><!--end login-register-language-->
 
-      <div id="login-dialog" style="display:none">
+      {{> login-dialog}}
 
-		<div class="ui-overlay">
-          <div class="ui-widget-overlay"></div>
-          <div class="ui-widget-shadow ui-corner-all"></div>
-        </div>
+      {{> content}}
 
-		<div class="ui-widget ui-widget-content ui-corner-all">
-          <h3>Login</h3>
-          <form>
-            <div class="field">
-              <label for="login">Login:</label>
-              <input id="login" name="login"/>
-            </div>
-            <div class="field">
-              <label for="password">Password:</label>
-              <input id="password" name="password" type="password"/>
-            </div>
-            <input id="submit" type="submit" value="Login"/>
-          </form>
-		</div>
-	  </div>
+    </div><!--end right-->
 
-	  {{> content}}
-
-	</div><!--end right-->
-
-	<div id="footer" class="grid_24">
+    <div id="footer" class="grid_24">
       <ul>
         <li><em><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS">Donate to Support Hosting + Maintenance</a></em></li>
-	    <li><a href="http://fabricatorz.com/">Fabricatorz 王</a></li>
-	    <li><a href="http://www.inkscape.org/">Inkscape</a></li>
-	    <li><a href="http://www.freepik.com/">freepik</a></li>
-	    <li><a href="http://gandi.net/">Gandi.net</a></li>
-	    <li><a href="http://linode.net/">Linode</a></li>
-	    <li><a href="http://www.openfontlibrary.org/">Open Font Library</a></li>
-	    <li><a href="http://sharism.org/">✳ Sharism</a></li>
+        <li><a href="http://fabricatorz.com/">Fabricatorz 王</a></li>
+        <li><a href="http://www.inkscape.org/">Inkscape</a></li>
+        <li><a href="http://www.freepik.com/">freepik</a></li>
+        <li><a href="http://gandi.net/">Gandi.net</a></li>
+        <li><a href="http://linode.net/">Linode</a></li>
+        <li><a href="http://www.openfontlibrary.org/">Open Font Library</a></li>
+        <li><a href="http://sharism.org/">✳ Sharism</a></li>
       </ul>
-	</div><!--end footer-->
+    </div><!--end footer-->
 
   </div><!--end container-->
   <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
@@ -156,6 +135,11 @@
   <link href="/libs/jquery-ui/jquery-ui-1.8.24.custom.css" rel="stylesheet"/>
   <link href="/libs/tag-it/css/jquery.tagit.css" rel="stylesheet"/>
   <script src="/libs/tag-it/js/tag-it.js"></script>
+  {{^userid}}
+  {{! don't load if logged in }}
+  <script src="http://api.picatcha.com/static/client/picatcha.js" type="text/javascript"></script>
+  <link href="http://api.picatcha.com/static/client/picatcha.css" type="text/css" rel="stylesheet"/>
+  {{/userid}}
   <script src="{{root}}/script.js"></script>
 </body>
 </html>

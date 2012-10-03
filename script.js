@@ -350,15 +350,15 @@ $(function() {
           });
         */
 
-        var login_form = $('#login-dialog');
+        var login_dialog = $('#login-dialog');
         $('#login-register-language #login-link').click(function() {
-            login_form.fadeIn();
+            login_dialog.fadeIn();
             return false;
         });
-        $('#login-dialog .ui-overlay, #register-dialog .ui-overlay').click(function() {
-            $(this).parent().hide();
+        $('.overlay').click(function() {
+            $(this).parent().fadeOut();
         });
-        $('#login-dialog #submit').click(function() {
+        $('#login-popup-window #login-submit').click(function() {
             var login = $('#login').val();
             var pass = $('#password').val();
             main.login(login, pass)(function(ret) {
@@ -366,20 +366,26 @@ $(function() {
                     // TODO: detect if user own a clipart or is librarian
                     $('#container').addClass('logged');
                     editable();
-                    $('#login-dialog').fadeOut();
+                    login_dialog.fadeOut();
                 } else {
 
                 }
             });
             return false;
         });
-        
+        $('#login-popup-window #close').click(function() {
+            login_dialog.fadeOut();
+            return false;
+        });
         $('#logout').click(function() {
             main.logout()(function() {
                 $('#container').removeClass('editable logged');
             });
             return false;
         });
-
     });
+
+    Picatcha.API_SERVER = 'http://api.picatcha.com';
+    Picatcha.PUBLIC_KEY = 'qjSWPO6lV1MO_uJUDq2xmWlleGAUVQfRiul52kYm';
+    Picatcha.create('picatcha');
 });
