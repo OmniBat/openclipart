@@ -686,7 +686,8 @@ ul#search-pagination a.last:hover {
 		font-weight: bold;
 	}
 
-#detail-left {
+#detail-left,
+#detail-right {
 	padding-top: 20px;
 }
 
