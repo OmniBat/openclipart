@@ -299,6 +299,7 @@ $app->get("/clipart/:args+", function($args) use ($app) {
         }
     }
     return new Template('main', array(
+        'login-dialog' => new Template('login-dialog', null),
         'editable' => $editable,
         'content' => new Template('clipart_detail', function() use ($id, $row) {
             global $app;
@@ -399,6 +400,8 @@ $app->get("/user/:username", function($username) use ($app) {
 $app->get('/', function() {
     return new Template('main', function() {
         return array(
+            'editable' => false, // librarian functions
+            'login-dialog' => new Template('login-dialog', null),
             'content' => new Template('home-page-content', array(
                 'popular_clipart' => new Template('clipart_list', function() {
                     global $app;
