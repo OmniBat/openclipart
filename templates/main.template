@@ -19,15 +19,18 @@
     <div id="left" class="grid_8">
 	  <div id="main-navigation" class="grid_8 alpha omega">
 		<div id="logo-glow"></div>
-		<ul id="main-menu">
-		  <li class="active"><a href="/">Home</a></li>
-		  <li><a href="/collections">Collections</a></li>
-		  <li><a href="/artists">Artists</a></li>
-		  <li><a href="/showcase">Showcase</a></li>
-		  <li><a href="/participate">Participate</a></li>
-		  <li><a href="about">About</a></li>
-          <li id="icon-bar">
-            <ul>
+		<div id="main-menu">
+		  <ul>
+		    <li class="active"><a href="/">Home</a></li>
+		    <li><a href="/collections">Collections</a></li>
+		    <li><a href="/artists">Artists</a></li>
+		    <li><a href="/showcase">Showcase</a></li>
+		    <li><a href="/participate">Participate</a></li>
+		    <li><a href="about">About</a></li>
+		  </ul>
+		</div>
+		<div id="icon-bar">
+		    <ul>
 		      <li><a href="#" class="identica">&nbsp;</a></li>
 		      <li><a href="#" class="diaspora">&nbsp;</a></li>
 		      <li><a href="#" class="twitter">&nbsp;</a></li>
@@ -35,9 +38,7 @@
 		      <li><a href="#" class="facebook">&nbsp;</a></li>
 		      <li><a href="#" class="share-more">&nbsp;</a></li>
 		    </ul>
-          </li>
-		</ul>
-
+		</div>
 
 		<a id="site-title" href="/">Open Clip Art Library</a>
 
@@ -51,6 +52,19 @@
 	  </div><!--end main-navigation-->
 
 	  <div class="sidebar-block grid_8 user-menu">
+		<div class="accordion-container">
+		  <input id="ac-sidebar-1" class="hidden" name="accordion-sidebar" type="checkbox" />
+		  <label for="ac-sidebar-1">Username</label>
+		  <div class="accordion-content">
+		    <ul>
+		      <li><a href="">Profile</a></li>
+		      <li><a href="">Upload</a></li>
+		      <li><a href="">Clipart</a></li>
+		      <li><a href="">Logout</a></li>
+		    </ul>
+		  </div>
+		</div>
+		
 		<h2>Username</h2>
 		<ul>
 		  <li><a href="">Profile</a></li>
@@ -58,7 +72,7 @@
 		  <li><a href="">Clipart</a></li>
 		  <li><a href="">Logout</a></li>
 		</ul>
-	  </div>
+	  </div><!--end sidebar-block-->
 
       {{> social-box}}
 

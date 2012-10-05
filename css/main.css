@@ -118,8 +118,8 @@ a {
 	font-size: 20px;
 	line-height: 36px;
 	list-style-type: none;
-	margin: 0 0 50px 0;
-	padding: 124px 0 140px 0;
+	margin: 0 0 -100px;
+	padding: 124px 0 120px 0;
 	background: url("../img/menu-bg.png") no-repeat scroll 30px bottom;
 	position: relative;
 }
@@ -140,8 +140,11 @@ a {
     margin: 0 0 0 -24px;
 }
 
-li#icon-bar {
-	margin-left: 72px;
+#icon-bar {
+	margin: 0 50px;
+	top: -60px;
+	bottom: 0;
+	position: relative;
 }
 
 	#icon-bar li a {
@@ -178,13 +181,36 @@ li#icon-bar {
 	line-height: 1.5;
 	font-size: 14px;
 }
-	.sidebar-block a 			{font-weight: normal;}
+	.sidebar-block a 		{font-weight: normal;}
 	.sidebar-block a:hover	{font-weight: bold;}
 	
-	.sidebar-block h2	{
-		font-size: 18px;
-		margin-bottom: 5px;
-	}
+
+/* begin sidebar accordion paste*/
+.sidebar-block .accordion-container {
+	margin: 0;
+}
+
+.sidebar-block .accordion-container label {
+	font-size: 18px;
+	background: url("../img/icons_vertical.png") no-repeat 100% -34px;
+}
+
+.sidebar-block .accordion-container input:checked + label,
+.sidebar-block .accordion-container input:checked + label:hover {
+	background: url("../img/icons_vertical.png") no-repeat 100% -4px;
+}
+
+.sidebar-block .accordion-container input.hidden {
+	display: none;
+}
+
+.sidebar-block .accordion-container .accordion-content {
+	padding: 10px 0 20px 0;
+}
+/* end sidebar accordion paste*/
+
+
+
 
 #social-network-iframes {
 	opacity: 0.5;
@@ -410,17 +436,16 @@ li#icon-bar {
 	.thumbnail .popup .star {
 	    position: absolute;
 	    top: 3px;
-	    background: url("../img/icons_vertical.png") no-repeat -5px -270px;
+	    background: url("../img/icons_vertical.png") no-repeat -5px -450px;
 	    padding: 0 0 14px 18px;
 	    font-size: 9px;
 	    right: 6px;
-	    opacity: 0.5;
 	    font-weight: bold;
 	    z-index: 10;
 	}
 	
 		.thumbnail .popup .star:hover {
-			opacity: 1;
+			background: url("../img/icons_vertical.png") no-repeat -5px -270px;
 		}
 	
 	.popup .title {
@@ -498,7 +523,8 @@ li#icon-bar {
 	
 	.download-button p {
 		position: absolute;
-		margin-top: 10px;
+		margin-left: 5px;
+		display: inline;
 		opacity: 0;
 		    -ms-transition: opacity 0.5s ease-in-out 0s;
 		-webkit-transition: opacity 0.5s ease-in-out 0s;
@@ -523,9 +549,7 @@ li#icon-bar {
 }
 
 #results-container {
-	min-width: 630px;
-	padding-top: 10px;
-	overflow: hidden;
+	padding-top: 65px;
 }
 
 	#result-search #search-i {
@@ -540,7 +564,7 @@ li#icon-bar {
 	background: url("../img/search-navigation-bg.png") no-repeat bottom center transparent;
 	text-align: center;
 	padding: 2px 0 10px 0;
-	margin-top: 10px;
+	margin: 10px 0 0 300px;
 }
 
 	#result-navigation .title {
@@ -610,7 +634,7 @@ li#icon-bar {
 #search-sort .color.white 	{background-color: white;}
 
 #result-list {
-	padding-top: 15px;
+	padding: 15px 0 0 300px;
 }
 
 ul#search-pagination {
@@ -665,13 +689,12 @@ ul#search-pagination a.last:hover {
 #detail  a.star{
 	position: relative;
 	top: -15px;
-	background: url("../img/icons_vertical.png") no-repeat -5px -270px;
-	opacity: 0.5;
+	background: url("../img/icons_vertical.png") no-repeat -5px -450px;
 	padding: 0 0 14px 18px;
 	font-size: 9px;
 }
 	#detail  a.star:hover{
-		opacity: 1;
+		background: url("../img/icons_vertical.png") no-repeat -5px -270px;
 	}
 
 #detail .author{
@@ -1346,4 +1369,148 @@ span.picatcha_td {
 }
 .logged .user-menu, .logged .login-menu {
     display: block;
+}
+
+/* ================================================================== */
+/* Screens smaller than 960 */
+/* ================================================================== */
+
+@media screen and (max-width: 960px) {
+
+	body {
+		min-width: 630px;
+	}
+	
+	#logo-glow,
+	#licence-info,
+	#social-network-iframes {
+		display: none;
+		opacity: 0;
+	}
+
+	#logo 			{left: 29px;} /*move the logo to the right*/
+	#logo-shadow 	{left: 10px;}
+	#top-search 	{left: 80px;}
+	#site-title 	{left: 120px;}
+	
+	#login-register-language {
+		top: 32px;
+		right: 50%;
+		margin-right: -272px;
+		width: 200px;
+	}
+	
+	.container_24,
+	.container_24 .grid_16,
+	.container_24 .grid_24 {
+		width: 630px;
+	}
+	
+	#left {
+		width: 630px;
+		background: white;
+		background-image: -webkit-linear-gradient(bottom, #e1e1e1 33px, #cccccc 41px, #bdbdbd 42px, rgb(255, 255, 255) 42px);
+		background-image:    -moz-linear-gradient(bottom, #e1e1e1 33px, #cccccc 41px, #bdbdbd 42px, rgb(255, 255, 255) 42px);
+		background-image:     -ms-linear-gradient(bottom, #e1e1e1 33px, #cccccc 41px, #bdbdbd 42px, rgb(255, 255, 255) 42px);
+		background-image:      -o-linear-gradient(bottom, #e1e1e1 33px, #cccccc 41px, #bdbdbd 42px, rgb(255, 255, 255) 42px);
+		background-image:         linear-gradient(to top, #e1e1e1 33px, #cccccc 41px, #bdbdbd 42px, rgb(255, 255, 255) 42px) ;
+	}
+	
+	#main-menu {
+		padding: 20px 0 40px 0;
+		margin: 120px 0 0 0;
+		background-image: none;
+	}
+	
+	#main-menu li {
+			margin-left: 30px;
+		}
+		
+		#icon-bar li:nth-child(1) a {margin-top: 0;}
+		#icon-bar li:nth-child(2) a {margin-top: 0;}
+		#icon-bar li:nth-child(3) a {margin-top: 0;}
+		#icon-bar li:nth-child(4) a {margin-top: 0;}
+		#icon-bar li:nth-child(5) a {margin-top: 0;}
+		#icon-bar li:nth-child(6) a {margin-top: 0;}
+		
+		#icon-bar {
+			position: absolute;
+			width: 290px;
+			margin: -35px 0 0 25px;
+			height: 33px;
+			padding: 0;
+			bottom: 0;
+			top: auto;
+		}
+
+		#main-menu li ul li {
+			margin: 5px 30px;
+		}
+
+		#main-navigation {
+			width: 310px;
+		}
+		
+		#container .sidebar-block.grid_8 {
+			margin: 141px 0 50px 60px;
+			width: 240px;
+			background: white;
+			padding: 0;
+		}
+
+	#donation-buttons {
+		position: relative;
+		left: 470px;
+		margin: -62px 0 0 -140px;
+		text-align: right;
+		width: 260px;
+	}
+
+	.sidebar-block .accordion-container .accordion-content {
+		padding: 0 0 10px 0;
+	}
+	.sidebar-block .accordion-container .accordion-content ul {
+		margin: 0;
+	}
+	
+	.sidebar-block .accordion-container label {
+		background: url("../img/icons_vertical.png") no-repeat 100% -34px;
+	}
+
+	.sidebar-block .accordion-container input:checked + label,
+	.sidebar-block .accordion-container input:checked + label:hover {
+		background: url("../img/icons_vertical.png") no-repeat 100% -4px;
+	}
+	
+	#front-banner {
+		padding: 10px 0 0 0;
+	}
+
+	#search {
+		padding-top: 20px;
+	}
+
+	#search .download-button {
+		padding-bottom: 25px;
+	}
+
+	#result-list {
+		padding: 15px 0 0 20px;
+	}
+	
+	#result-navigation {
+		margin-left: 0;
+	}
+
+
+	#container.search-page {	
+		margin: 0 auto;
+		width: 630px;
+	}
+	
+	#right {
+		padding-top: 25px;
+		float: left;
+	}
+
 }

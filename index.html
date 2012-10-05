@@ -16,25 +16,28 @@
         <div id="left" class="grid_8 alpha omega">
 			<div id="main-navigation" class="grid_8 alpha omega">
 				<div id="logo-glow"></div>
-				<ul id="main-menu">
-					<li class="active"><a href="">HOME</a></li>
-					<li><a href="">COLLECTIONS</a></li>
-					<li><a href="">ARTISTS</a></li>
-					<li><a href="">SHOWCASE</a></li>
-					<li><a href="">PARTICIPATE</a></li>
-					<li><a href="">ABOUT</a></li>
-					<li id="icon-bar">
-						<ul>
-							<li><a href="#" class="identica">&nbsp;</a></li>
-							<li><a href="#" class="diaspora">&nbsp;</a></li>
-							<li><a href="#" class="twitter">&nbsp;</a></li>
-							<li><a href="#" class="googleplus">&nbsp;</a></li>
-							<li><a href="#" class="facebook">&nbsp;</a></li>
-							<li><a href="#" class="share-more">&nbsp;</a></li>
-						</ul>
-					</li>
-				</ul>
-				
+				<div id="main-menu">	
+					<ul>
+						<li class="active"><a href="">HOME</a></li>
+						<li><a href="">COLLECTIONS</a></li>
+						<li><a href="">ARTISTS</a></li>
+						<li><a href="">SHOWCASE</a></li>
+						<li><a href="">PARTICIPATE</a></li>
+						<li><a href="">ABOUT</a></li>
+					</ul>
+				</div>				
+
+				<div id="icon-bar">
+					<ul>
+						<li><a href="#" class="identica">&nbsp;</a></li>
+						<li><a href="#" class="diaspora">&nbsp;</a></li>
+						<li><a href="#" class="twitter">&nbsp;</a></li>
+						<li><a href="#" class="googleplus">&nbsp;</a></li>
+						<li><a href="#" class="facebook">&nbsp;</a></li>
+						<li><a href="#" class="share-more">&nbsp;</a></li>
+					</ul>
+				</div>
+
 				<a id="site-title" href="#">Open Clip Art Library</a>
 				
 				<div id="top-search">
@@ -43,17 +46,59 @@
 				</div>
 				<div id="logo-shadow"></div>
 				<a id="logo" href="#"><img src="img/logo.png" /></a>
-				
+
+					
 			</div><!--end main-navigation-->
 			
 			<div class="sidebar-block grid_8">
-				<h2>Username</h2>
-				<ul>
-					<li><a href="">Profile</a></li>
-					<li><a href="">Upload</a></li>
-					<li><a href="">Clipart</a></li>
-					<li><a href="">Logout</a></li>
-				</ul>
+				<div class="accordion-container">
+					<input id="ac-sidebar-1" class="hidden" name="accordion-sidebar" type="checkbox" />
+					<label for="ac-sidebar-1">Username</label>
+					<div class="accordion-content">
+						<ul>
+							<li><a href="">Profile</a></li>
+							<li><a href="">Upload</a></li>
+							<li><a href="">Clipart</a></li>
+							<li><a href="">Logout</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="accordion-container">
+					<input id="ac-sidebar2" class="hidden" name="accordion-sidebar" type="checkbox" />
+					<label for="ac-sidebar2">Pusername</label>
+					<div class="accordion-content">
+						<ul>
+							<li><a href="">Profile</a></li>
+							<li><a href="">Upload</a></li>
+							<li><a href="">Clipart</a></li>
+							<li><a href="">Logout</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="accordion-container">
+					<input id="ac-sidebar3" class="hidden" name="accordion-sidebar" type="checkbox" />
+					<label for="ac-sidebar3">Pusername</label>
+					<div class="accordion-content">
+						<ul>
+							<li><a href="">Profile</a></li>
+							<li><a href="">Upload</a></li>
+							<li><a href="">Clipart</a></li>
+							<li><a href="">Logout</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="accordion-container">
+					<input id="ac-sidebar4" class="hidden" name="accordion-sidebar" type="checkbox" />
+					<label for="ac-sidebar4">Pusername</label>
+					<div class="accordion-content">
+						<ul>
+							<li><a href="">Profile</a></li>
+							<li><a href="">Upload</a></li>
+							<li><a href="">Clipart</a></li>
+							<li><a href="">Logout</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
 
 			<div id="social-network-iframes" class="sidebar-block grid_6">
@@ -76,7 +121,8 @@
 			</div>
 			
 			<div id="donation-buttons" class="grid_3">
-				<a href="#"><img src="img/donation-buttons.png" /></a>
+				<a href="#"><img src="img/donation-flattr.png" /></a>
+				<a href="#"><img src="img/donation-paypal.png" /></a>
 			</div>
 			
 			<div id="login-register-language" class="grid_3 omega">
