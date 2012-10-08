@@ -1512,5 +1512,13 @@ span.picatcha_td {
 		padding-top: 25px;
 		float: left;
 	}
+	
+	.thumbnail {
+		margin: 0 25px 110px 25px;
+	}
+
+	#front-left {
+		background: url("../img/vertical-separator.png") repeat-y 300px;
+	}
 
 }
