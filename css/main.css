@@ -1375,7 +1375,7 @@ span.picatcha_td {
 /* Screens smaller than 960 */
 /* ================================================================== */
 
-@media screen and (max-width: 960px) {
+@media (max-width: 960px) {
 
 	body {
 		min-width: 630px;
