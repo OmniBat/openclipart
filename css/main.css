@@ -177,15 +177,17 @@ a {
 	#icon-bar li:nth-child(6) a {margin-top: -15px;}
 
 .sidebar-block {
-	padding: 0 0 47px 47px;
+	padding: 0 0 47px 0;
 	line-height: 1.5;
 	font-size: 14px;
 }
 	.sidebar-block a 		{font-weight: normal;}
 	.sidebar-block a:hover	{font-weight: bold;}
-	
 
-/* begin sidebar accordion paste*/
+	.sidebar-block div {
+		padding-left: 47px;
+	}	
+
 .sidebar-block .accordion-container {
 	margin: 0;
 }
@@ -207,12 +209,9 @@ a {
 .sidebar-block .accordion-container .accordion-content {
 	padding: 10px 0 20px 0;
 }
-/* end sidebar accordion paste*/
-
-
-
 
 #social-network-iframes {
+	padding-left: 47px;
 	opacity: 0.5;
 	    -ms-transition: opacity 0.2s ease-in-out 0s;
 	-webkit-transition: opacity 0.2s ease-in-out 0s;
@@ -325,7 +324,7 @@ a {
 	list-style: disc;
 } 
 
-.text h2 {
+h2 {
 	margin: 20px 0 5px 0;
 }
 
@@ -927,13 +926,13 @@ p.description {
 #detail-right table {
 	width: 100%;
 }
-	#detail-right table tr:nth-of-type(2n) {
+	.zebra tr:nth-of-type(2n) {
 		background: rgba(255,255,255,0.3);
 	}
-	#detail-right table td:last-of-type  {
+	.zebra td:last-of-type  {
 		text-align: right;
 	}
-	#detail-right table td  {
+	.zebra td  {
 		padding: 2px 4px;
 		font-size: 14px;
 	}
@@ -1076,6 +1075,7 @@ p.description {
 
 #upload-notice h2 {
 	color: #333;
+	margin: 0 0 20px 0;
 }
 
 #upload-notice h3 {
@@ -1279,6 +1279,66 @@ span.picatcha_td {
     opacity: 1;
     z-index: 50;
     position: relative;
+}
+
+/* ================================================================== */
+/* Profile */
+/* ================================================================== */
+
+#profile-left .avatar {
+	float: left;
+	padding: 0 10px 0 0;
+}
+
+#profile-left .username {
+	font-size: 18px;
+	display: block;
+}
+
+#profile-left .role,
+#profile-left .join-date {
+	display: block;
+}
+
+#profile-left table {
+	clear: both;
+	padding-bottom: 20px;
+}
+
+#profile-left td {
+	padding: 4px 0;
+}
+
+#profile-left tr:last-child {
+	opacity: 0.5;
+	text-align: right;
+}
+
+#profile-left table:hover tr:last-child {
+	opacity: 1;
+}
+
+#profile-left .update {
+	display: block;
+	text-align: center;
+	padding-top: 20px;
+	background: url("../img/horizontal-separator.png") top center repeat-x;
+}
+
+#profile-left .radio-checkbox {
+	color: #b3b3b3;
+}
+
+#stats .zebra {
+	width: 140px;
+	float: left;
+	margin-right: 8px;
+}
+
+#achievements .zebra td{
+	text-align: left;
+	padding: 3px 4px 3px 26px;
+	background: url("../img/icons_vertical.png") no-repeat -3px -362px;
 }
 
 /* ================================================================== */

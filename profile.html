@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Open Clip Art Library - Detail</title>
+<title>Open Clip Art Library - Profile</title>
 <link rel="stylesheet" href="css/reset_eric.css" />
 <link rel="icon" href="favicon.ico" />
 <link rel="stylesheet" href="css/text.css" />
@@ -135,131 +135,91 @@
 				</ul>
 			</div><!--end login-register-language-->
 			
-			<div id="detail" class="grid_16 alpha omega content">
-				<div class="grid_16 alpha omega">
-					<h1 class="page-title">Orange</h1>
-					<a class="star" href="#">13</a>
-					<div class="author">by <a href="#">yoshihiro</a></div>
-				</div>
-				<div id="detail-left" class="grid_8 alpha">
-					<a class="download" href="#">
-						<span class="detail-image">
-							<div class="checker"></div>
-							<img src="img/280x280-thumbnail.png" title='"Orange" by yoshihiro'>
-						</span>
-						<span class="detail-button">
-							<div class="button">download</div>
-						</span>
-					</a>
-					<ul id="detail-edit">
-						<li class="edit"><a href="#">edit</a></li>
-						<li class="remix"><a href="#">remix</a></li>
-						<li class="export">
-							<div class="accordion-container">
-								<input class="hidden" id="ac-export" name="accordion-export" type="checkbox" />
-								<label for="ac-export">export</label>
-								<div id="export-form" class="accordion-content">
-									<input id="dimension-i" name="query" value="width or height in px">
-									<input id="e-button" type="submit"  value="export">
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div><!--end detail-left-->
-				
-				<div id="detail-right" class="grid_8 alpha">
-					<ul class="tag-list">
-						<li><a class="tag" href="#">orange</a></li>
-						<li><a class="tag" href="#">fruit</a></li>
-						<li><a class="tag" href="#">juice</a></li>
-						<li><a class="tag" href="#">fresh</a></li>
-						<li><a class="tag" href="#">fruit salad</a></li>
-						<li><a class="tag" href="#">vitamin c</a></li>
-						<li><a class="tag" href="#">icon</a></li>
-						<li><a class="tag add" href="#">+ tag</a></li>
-					</ul>
-				
-					Collected in:
-					<ul class="collection-list">
-						<li><a class="collection" href="#">most useful</a></li>
-						<li><a class="collection" href="#">my sliced fruits</a></li>
-						<li><a class="collection add" href="#">+ collection</a></li>
-					</ul>
-					
-					<p class="description">Fresh fruit. I like it. I could have been writing more details about this clipart but didn't do so. So here is just some more description.</p>
-					
-					Remixes:
-					<ul class="collection-list">
-						<li><a class="remix" href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
-						<li><a class="remix" href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
-					</ul>
-
-					<div class="accordion-container">
-						<input id="ac-details" class="hidden" name="accordion-details" type="checkbox" />
-						<label for="ac-details">Details</label>
-						<div class="accordion-content">
-							<table class="zebra">
-								<tr>
-									<td>uploader:</td><td>rejon</td>
-								</tr>
-								<tr>	
-									<td>created:</td><td>2006-08-29</td>
-								</tr>
-								<tr>	
-									<td>downloads:</td><td>7005</td>
-								</tr>
-								<tr>	
-									<td>comments:</td><td>1</td>
-								</tr>
-								<tr>	
-									<td>filesize:</td><td>292kB</td>
-								</tr>
-								<tr>	
-									<td>remixes:</td><td>2</td>
-								</td>
-								<tr>	
-									<td>license:</td><td>public domain</td>
-								</td>
-							</table>
-						</div>
-					</div>
-
-					
-					<a class="report" href="#">report</a>
-					
-				</div><!--end detail-right-->
-							
-			</div><!--end detail-->
-			
-			<div id="comments" class="grid_16 alpha omega text">
-				<h2 class="comments-title">Comments</h2>
-				<div class="comment">
-					<div class="user grid_2 alpha">
-						<img src="img/user-thumbnail.png" title="username"/>
-						<a class="username" href="#">other user</a>
-						<span>2012-04-03</span>
-					</div>
-					<div class="comment-body grid_14 omega">
-						<p>This is really a nice clipart. I used it for the birthday cards of my brother.
-thanks! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</p>
-						<div class="controls"><a href="#">edit</a> | <a href="#">delete</a></div>
-					</div>
-				</div>
-				<div class="comment add">
-					<div class="user grid_2 alpha">
-						<img src="img/user-thumbnail.png" title="username"/>
-						<a class="username" href="#">your username</a>
-					</div>
-					<div class="comment-body grid_14 omega">
-						<form action="#">
-							<textarea name="Text" rows="6" cols="54">add your comment here...</textarea>
-							<input type="submit" value=" comment ">
-						</form>
-					</div>
-				</div>
-			</div><!--end comments-->
-			
+			<div id="upload" class="grid_16 alpha omega content">
+				<h1>Manage Usernames Profile</h1>
+          <div id="profile-left" class="grid_8 alpha content">
+            <a href="" class="avatar"><img src="img/user-thumbnail.png" /></a>
+            <div class="username">Username</div>
+            <div class="role">Librerian</div>
+            <div class="join-date">joined 2011-03-12</div>
+            <div class="profile-form">
+              <table>
+                <tr><td>Full name</td><td><input size="16" value="" name=""></td></tr>
+                <tr><td>Country</td><td><input size="16" value="" name=""></td></tr>
+                <tr><td>E-Mail</td><td><input size="16" value="" name=""></td></tr>
+                <tr><td>&nbsp</td><td><input size="16" type="checkbox" name="" value="" title=""><span class="radio-checkbox">receive Email notifications</span></td></tr>
+                <tr><td>Homepage</td><td><input size="16" value="" name=""></td></tr>
+                <tr><td>twitter</td><td><input size="16" value="" name=""></td></tr>
+                <tr><td>identi.ca</td><td><input size="16" value="" name=""></td></tr>
+                <tr><td><input value="" name="" size="3"></td><td><input value="" name="" size="13"><input type="submit" value="+" id=""></td></tr>
+              </table>
+              <div class="update">
+                <input type="submit" value="update profile" id="">
+              </div>
+            </div>
+          </div><!--end profle-left-->
+          <div id="profile-right" class="grid_8 omega content">
+            <h2>Stats</h2>
+            <div id="stats">
+              <table class="zebra">               
+                <tr><td>Uploads</td><td>25</td></tr>
+                <tr><td>Remixes</td><td>4</td></tr>
+                <tr><td>Remixed</td><td>23</td></tr>
+                <tr><td>Comments</td><td>14</td></tr>
+              </table>
+              <table class="zebra">               
+                <tr><td>Uploads</td><td>25</td></tr>
+                <tr><td>Remixes</td><td>4</td></tr>
+                <tr><td>Remixed</td><td>23</td></tr>
+                <tr><td>Comments</td><td>14</td></tr>
+              </table>
+            </div>
+            <h2>Achievements <span style="font-weight: normal; font-size: 14px;">(12/98)</span></h2>
+            <div id="achievements">
+              <table class="zebra">               
+                <tr><td>tag 10 cliparts you didn't upload</td></tr>
+                <tr><td>tag a clipart that you didn't upload</td></tr>
+                <tr><td>upload and tag a clipart</td></tr>
+                <tr><td>upload and tag 10 cliparts</td></tr>
+                <tr><td>upload and tag 100 cliparts</td></tr>
+                <tr><td>tag 1000 cliparts total</td></tr>
+                <tr><td>be the author of a clipart of the week</td></tr>
+                <tr><td>be the author of a aclipart of the month</td></tr>
+                <tr><td>have 100 downloads of all your cliparts</td></tr>
+                <tr><td>have 1000 downloads of all your cliparts</td></tr>
+                <tr><td>have 10 downloads for one single clipart</td></tr>
+                <tr><td>have 100 downloads for one single</td></tr>
+              </table>
+            </div>
+          </div><!--end profle-right-->
+          <div>
+            <h2>Recently uploaded:</h2>
+            <ul class="collection-list">
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Top downloaded:</h2>
+            <ul class="collection-list">
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+              <li><a href="#"><img src="img/75x75-thumbnail.png" title="clipart title"/></a></li>
+            </ul>
+          </div>
         </div><!--end right-->
+      </div>
          
 		<ul id="footer" class="grid_24">
 			<li><em><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS">Donate to Support Hosting + Maintenance</a></em></li>
