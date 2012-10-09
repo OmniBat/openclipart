@@ -141,8 +141,8 @@ a {
 }
 
 #icon-bar {
-	margin: 0 50px;
-	top: -60px;
+	margin: -160px  0 0 50px;
+	padding: 0 0 160px 0;
 	bottom: 0;
 	position: relative;
 }
