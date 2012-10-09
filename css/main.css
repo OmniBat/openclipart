@@ -266,6 +266,11 @@ a {
 	opacity: 0.35;
 	position: absolute;
 }
+
+	.search-page #login-register-language {
+		position: relative;
+	}
+
 	#login-register-language:hover 		{opacity: 1;}
 	#login-register-language a 			{font-weight: normal;}
 	#login-register-language a:hover	{font-weight: bold;}
@@ -1454,11 +1459,16 @@ span.picatcha_td {
 	#site-title 	{left: 120px;}
 	
 	#login-register-language {
+		position: absolute;
 		top: 32px;
 		right: 50%;
 		margin-right: -272px;
 		width: 200px;
 	}
+	
+		.search-page #login-register-language {
+			position: absolute;
+		}
 	
 	.container_24,
 	.container_24 .grid_16,
