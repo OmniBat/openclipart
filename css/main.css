@@ -40,6 +40,29 @@ a {
 	padding-top: 25px;
 } 
 
+#notification a {
+	position: absolute;
+	z-index: 99999;
+	top: 75px;
+	left: 312px;
+	color: #e70000;
+	z-index: 1;
+	width: 300px;
+}
+	#notification span {
+		position: absolute;
+		text-align: center;
+		height: 30px;
+		width: 30px;
+		color: white;
+		font-weight: bold;
+		padding: 0;
+		background: url("../img/icons_vertical.png") no-repeat 0px -484px;
+	}
+	#notification p {
+		padding-left: 30px;
+	}
+
 #site-title {
 	font-size: 26px;
 	font-weight: bold;
@@ -55,6 +78,7 @@ a {
 	position: absolute;
 	top: 26px;
 	left: -11px;
+	z-index: 5;
 }
 
 	#logo-glow {
@@ -75,6 +99,7 @@ a {
 		height: 81px;
 		background: url("../img/logo-shadow.png") top center no-repeat;
 		background-size: 100%;
+		z-index: 4;
 	}
 
 #top-search {
@@ -1457,6 +1482,11 @@ span.picatcha_td {
 	#logo-shadow 	{left: 10px;}
 	#top-search 	{left: 80px;}
 	#site-title 	{left: 120px;}
+	
+	#notification a {
+		top: 105px;
+		left: 116px;
+	}
 	
 	#login-register-language {
 		position: absolute;
