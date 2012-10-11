@@ -433,11 +433,11 @@ h2 {
 
 .thumbnail .popup {
         opacity: 0;
-        -ms-transition: opacity 0.5s ease 0.2s;
-    -webkit-transition: opacity 0.5s ease 0.2s;
-         -o-transition: opacity 0.5s ease 0.2s;
+        -ms-transition: opacity 0.25s ease-in 0.4s;
+    -webkit-transition: opacity 0.25s ease-in 0.4s;
+         -o-transition: opacity 0.25s ease-in 0.4s;
        -moz-transition: opacity 0.25s ease-in 0.4s;
-            transition: opacity 0.5s ease 0.2s;
+            transition: opacity 0.25s ease-in 0.4s;
 }
 .thumbnail .popup:hover {
     opacity: 1;
@@ -981,8 +981,12 @@ p.description {
 
 .accordion-container {
 	margin-bottom: 20px;
-	display: inherit;
+	display: block;
 }
+
+	#detail-edit .export .accordion-container {
+		display: inherit;
+	}
 
 .accordion-container label {
 	cursor: pointer;
@@ -1506,12 +1510,7 @@ span.picatcha_td {
 	
 	#left {
 		width: 630px;
-		background: white;
-		background-image: -webkit-linear-gradient(bottom, #e1e1e1 33px, #cccccc 41px, #bdbdbd 42px, rgb(255, 255, 255) 42px);
-		background-image:    -moz-linear-gradient(bottom, #e1e1e1 33px, #cccccc 41px, #bdbdbd 42px, rgb(255, 255, 255) 42px);
-		background-image:     -ms-linear-gradient(bottom, #e1e1e1 33px, #cccccc 41px, #bdbdbd 42px, rgb(255, 255, 255) 42px);
-		background-image:      -o-linear-gradient(bottom, #e1e1e1 33px, #cccccc 41px, #bdbdbd 42px, rgb(255, 255, 255) 42px);
-		background-image:         linear-gradient(to top, #e1e1e1 33px, #cccccc 41px, #bdbdbd 42px, rgb(255, 255, 255) 42px) ;
+		background: url("../img/menu-bg_small.png") repeat-x bottom white;
 	}
 	
 	#main-menu {
