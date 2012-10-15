@@ -10,6 +10,7 @@
 
 body {
   font: 14px/1.5 'Asap', sans-serif;
+  font-family: "AsapRegular", "Asap", Arial, sans-serif;
 }
 
 pre,
@@ -30,13 +31,15 @@ hr {
 h1 {
   font-size: 22px;
   color: #333;
-  font-weight: bold
+  font-family: "AsapBold", Arial, sans-serif;
+  font-weight: normal;
 }
 
 h2 {
   font-size: 18px;
   color: #808080;
   font-weight: bold;
+  font-family: "AsapBold", Arial, sans-serif;
 }
 
 h3 {
@@ -76,4 +79,5 @@ address,
 fieldset,
 figure {
   margin-bottom: 20px;
+  font-weight: normal;
 }

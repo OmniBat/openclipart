@@ -1,3 +1,45 @@
+@font-face {
+    font-family: 'AsapRegular';
+    src: url('../fonts/Asap-Regular-webfont.eot');
+    src: url('../fonts/Asap-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-Regular-webfont.woff') format('woff'),
+         url('../fonts/Asap-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-Regular-webfont.svg#AsapRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapItalic';
+    src: url('../fonts/Asap-Italic-webfont.eot');
+    src: url('../fonts/Asap-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-Italic-webfont.woff') format('woff'),
+         url('../fonts/Asap-Italic-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-Italic-webfont.svg#AsapItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapBold';
+    src: url('../fonts/Asap-Bold-webfont.eot');
+    src: url('../fonts/Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-Bold-webfont.woff') format('woff'),
+         url('../fonts/Asap-Bold-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-Bold-webfont.svg#AsapBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapBoldItalic';
+    src: url('../fonts/Asap-BoldItalic-webfont.eot');
+    src: url('../fonts/Asap-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-BoldItalic-webfont.woff') format('woff'),
+         url('../fonts/Asap-BoldItalic-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-BoldItalic-webfont.svg#AsapBoldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 body {
 	color: #808080;
 	background: url("../img/noise_64.png") center;
@@ -6,7 +48,7 @@ body {
 
 a {
 	text-decoration: none;
-	font-weight: bold;
+	font-family: "AsapBold", Arial, sans-serif;
 	color: #808080;
 	    -ms-transition: color 0.25s ease 0s;
 	-webkit-transition: color 0.25s ease 0s;
@@ -23,7 +65,6 @@ a {
 
 	a:hover {
 		color: #333;
-
 	}
 
 #left {
@@ -53,18 +94,18 @@ a {
 		height: 30px;
 		width: 30px;
 		color: white;
-		font-weight: bold;
+		font-family: "AsapBold", Arial, sans-serif;
 		padding: 0;
 		background: url("../img/icons_vertical.png") no-repeat 0px -484px;
 	}
 	#notification p {
 		padding-left: 30px;
+		font-family: "AsapItalic", Arial, sans-serif;
 	}
 
 #site-title {
 	font-size: 26px;
-	font-weight: bold;
-	font-style: italic;
+	font-family: "AsapBoldItalic", Arial, sans-serif;
 	color: #333;
 	position: absolute;
 	top: 27px;
@@ -115,7 +156,7 @@ a {
 		color: #bebebe;
 		font: 'Asap', sans serif;
 		font-size: 16px;
-		font-style: italic;
+		font-family: "AsapItalic", Arial, sans-serif;
 		background-color: white;
 	}
 	
@@ -147,8 +188,8 @@ a {
 	position: relative;
 }
 	
-	#main-menu a 			{font-weight: normal; text-transform: uppercase; }
-	#main-menu a:hover	{font-weight: bold;}
+	#main-menu a 		{font-family: "AsapRegular", Arial, sans-serif; text-transform: uppercase; }
+	#main-menu a:hover	{font-family: "AsapBold", Arial, sans-serif;}
 	
 	#main-menu li {
 		margin-left: 81px;
@@ -156,7 +197,7 @@ a {
 	
 	#main-menu li.active a {
 		color: #333;
-		font-weight: bold;
+		font-family: "AsapBold", Arial, sans-serif;
 	}
 
 #main-menu li ul li {
@@ -204,8 +245,8 @@ a {
 	line-height: 1.5;
 	font-size: 14px;
 }
-	.sidebar-block a 		{font-weight: normal;}
-	.sidebar-block a:hover	{font-weight: bold;}
+	.sidebar-block a 		{font-family: "AsapRegular", Arial, sans-serif;}
+	.sidebar-block a:hover	{font-family: "AsapBold", Arial, sans-serif;}
 
 	.sidebar-block div {
 		padding-left: 47px;
@@ -248,16 +289,16 @@ a {
 	
 #licence-info {
 	text-align: right;
-	font-style: italic;
+	font-family: "AsapItalic", Arial, sans-serif;
 	padding-right: 5px;
 }
 	#licence-info a {
 		vertical-align: middle;
-		font-weight: normal;
+		font-family: "AsapItalic", Arial, sans-serif;
 	}
 	
 	#licence-info a:hover {
-		font-weight: bold;
+		font-family: "AsapBoldItalic", Arial, sans-serif;
 	}
 
 #licence-info span {
@@ -272,7 +313,7 @@ a {
 
 	#licence-info:hover span {
 		opacity: 1;
-		font-weight: normal;
+		font-family: "AsapItalic", Arial, sans-serif;
 	}
 
 #donation-buttons {
@@ -295,8 +336,8 @@ a {
 	}
 
 	#login-register-language:hover 		{opacity: 1;}
-	#login-register-language a 			{font-weight: normal;}
-	#login-register-language a:hover	{font-weight: bold;}
+	#login-register-language a 			{font-family: "AsapRegular", Arial, sans-serif;}
+	#login-register-language a:hover	{font-family: "AsapBold", Arial, sans-serif;}
 
 #login-register-language ul {
 	position: absolute;
@@ -336,12 +377,12 @@ a {
 	#login-register-language ul:hover li.active a,
 	#login-register-language li.active a:hover	{
 		background: url("../img/icons_vertical.png") right -32px no-repeat;
-		font-weight: bold;
+		font-family: "AsapBold", Arial, sans-serif;
 		color: #333;
 	}
 
 .text a {
-	font-style: italic;
+	font-family: "AsapBoldItalic", Arial, sans-serif;
 	white-space: nowrap;
 }
 
@@ -381,7 +422,7 @@ h2 {
 
 .thumbnail-title {
 	text-transform: lowercase;
-	font-weight: normal;
+	font-family: "AsapRegular", Arial, sans-serif;
 	text-align: center;
 	line-height: 1;
 	display: block;
@@ -389,7 +430,7 @@ h2 {
 	height: 0;
 }
 	.thumbnail:hover .thumbnail-title {
-		font-weight: bold;
+		font-family: "AsapBold", Arial, sans-serif;
 	}
 
 .thumbnail-image {
@@ -467,7 +508,7 @@ h2 {
 	    padding: 0 0 14px 18px;
 	    font-size: 9px;
 	    right: 6px;
-	    font-weight: bold;
+	    font-family: "AsapBold", Arial, sans-serif;
 	    z-index: 10;
 	}
 	
@@ -481,11 +522,11 @@ h2 {
 	    font-size: 22px;
 	    line-height: 1;
 	    text-transform: capitalize;
-	    font-weight: bold;
+	    font-family: "AsapBold", Arial, sans-serif;
 	}
 	
 	.popup .author {
-	    font-style: italic;
+	    font-family: "AsapItalic", Arial, sans-serif;
 	    font-size: 14px
 	}
 	
@@ -521,8 +562,7 @@ h2 {
 }
 
 #search h1 + em{
-	font-style: italic;
-	font-weight: bold;
+	font-family: "AsapBoldItalic", Arial, sans-serif;
 	font-size: 22px;
 	color: #333;
 	clear: both;
@@ -534,8 +574,7 @@ h2 {
 
 	.download-button a {
 		color: white;
-		font-style: italic;
-		font-weight: bold;
+		font-family: "AsapBoldItalic", Arial, sans-serif;
 		background-color: #e70000;
 		border-radius: 5px;
 		box-shadow: 2px 2px 3px rgba(0,0,0,0.25);
@@ -545,7 +584,7 @@ h2 {
 	
 	.download-button a:hover {
 		background-color: #333;
-		font-weight: normal;
+		font-family: "AsapItalic", Arial, sans-serif;
 	}
 	
 	.download-button p {
@@ -595,7 +634,7 @@ h2 {
 }
 
 	#result-navigation .title {
-		font-weight: bold;
+		font-family: "AsapBold", Arial, sans-serif;
 		display: inline;
 		background: url("../img/icons_vertical.png") no-repeat 100% -36px;
 		padding-right: 14px;
@@ -629,10 +668,9 @@ h2 {
 #search-sort .details a{
 	background: url("../img/icons_vertical.png") no-repeat 100% -36px;
 	padding-right: 13px;
-	font-weight: normal;
-	font-style: italic;
+	font-family: "AsapItalic", Arial, sans-serif;
 } 
-	#search-sort .details a:hover {font-weight: bold;} 
+	#search-sort .details a:hover {font-family: "AsapBoldItalic", Arial, sans-serif;} 
 	
 	#search-sort a.date,
 	#search-sort a.downloads		{background-position: 100% -127px;}
@@ -673,13 +711,13 @@ ul#search-pagination li {
 }
 
 ul#search-pagination li a{
-	font-weight: normal;
+	font-family: "AsapRegular", Arial, sans-serif;
 	width: 20px;
 	display: inline-block;
 	position: relative;
 }
 	ul#search-pagination li a:hover{
-		font-weight: bold;
+		font-family: "AsapBold", Arial, sans-serif;
 	}
 
 ul#search-pagination a.first {background: url("../img/icons_vertical.png") no-repeat 100% -155px;}
@@ -729,11 +767,10 @@ ul#search-pagination a.last:hover {
 	padding-left: 10px;
 }
 	#detail .author a{
-		font-style: italic;
-		font-weight: normal;
+		font-family: "AsapItalic", Arial, sans-serif;
 	}
 	#detail .author a:hover{
-		font-weight: bold;
+		font-family: "AsapBoldItalic", Arial, sans-serif;
 	}
 
 #detail-left,
@@ -791,9 +828,8 @@ ul#search-pagination a.last:hover {
 #detail .download .button {
 		display: inline;
 		color: white;
-		font-style: italic;
+		font-family: "AsapBoldItalic", Arial, sans-serif;
 		font-size: 22px;
-		font-weight: bold;
 		background-color: #e70000;
 		border: 0;
 		border-radius: 5px;
@@ -808,7 +844,7 @@ ul#search-pagination a.last:hover {
 	#upload .upload-button:hover,
 	#detail .download:hover .button {
 			background-color: #333;
-			font-weight: normal;
+			font-family: "AsapItalic", Arial, sans-serif;
 	}
 
 #detail-edit {
@@ -825,29 +861,28 @@ ul#search-pagination a.last:hover {
 #detail-edit li a{
 	color: #e70000;
 	font-size: 18px;
-	font-style: italic;
-	font-weight: normal;
+	font-family: "AsapItalic", Arial, sans-serif;
 }
 	
-	#detail-edit li a:hover {font-weight: bold;}
+	#detail-edit li a:hover {font-family: "AsapBoldItalic", Arial, sans-serif;}
 	#detail-edit li:after {content: " |"}
 	#detail-edit li.export:after {content: ""}  
 
 
 #detail-edit .accordion-container label {
 	padding-right: 16px;
-	font-weight: normal;
+	font-family: "AsapItalic", Arial, sans-serif;
 	background: url("../img/icons_vertical.png") no-repeat right -334px;
 }  
 #detail-edit .accordion-container label:hover {
 	color: #E70000;
-	font-weight: bold;
+	font-family: "AsapBoldItalic", Arial, sans-serif;
 }  
 
 #detail-edit .accordion-container input:checked + label,
 #detail-edit .accordion-container input:checked + label:hover {
 	background: url("../img/icons_vertical.png") no-repeat right -304px;
-	font-weight: bold;
+	font-family: "AsapBold", Arial, sans-serif;
 }
 
 li.export:hover #export-form,
@@ -860,16 +895,14 @@ li.export #export-form:hover {
 	border-radius: 3px 0 0 3px;
 	padding: 2px 4px 4px 0;
 	color: #bebebe;
-	font-family: "asap";
+	font-family: "AsapRegular", Arial, sans-serif;
 	text-align: center;
 }
 
 #export-form #e-button {
-	font-family: "asap";
 	color: white;
 	background: #e70000;
-	font-weight: bold;
-	font-style: italic;
+	font-family: "AsapBoldItalic", Arial, sans-serif;
 	border: 0px transparent;
 	border-radius: 0 3px 3px 0;
 	padding: 2px 4px 3px 2px;
@@ -879,7 +912,7 @@ li.export #export-form:hover {
 	#export-form #e-button:hover {
 		color: white;
 		background: #333;
-		font-weight: normal;
+		font-family: "AsapItalic", Arial, sans-serif;
 			-ms-transition: background 0.2s ease-in-out 0s;
 		-webkit-transition: background 0.2s ease-in-out 0s;
 		     -o-transition: background 0.2s ease-in-out 0s;
@@ -897,20 +930,19 @@ a.tag {
 	color: #808080;
 	background: rgba(179,179,179, 0.26);
 	border-radius: 7px;
-	font-weight: normal;
-	font-style: italic;
+	font-family: "AsapItalic", Arial, sans-serif;
 	padding: 2px 7px 3px 7px;
 	margin-right: 4px;
 	line-height: 2.1;
 	white-space: nowrap;
 }
 a.tag.system {
-    font-weight: bold;
+    font-family: "AsapBold", Arial, sans-serif;
 }
 	a.collection:hover,
 	a.tag:hover {
 		background: white;
-		font-weight: bold;
+		font-family: "AsapBoldItalic", Arial, sans-serif;
 		cursor: pointer;
 		color: #333;
 	}
@@ -934,7 +966,7 @@ a.tag.add {
 	a.collection.add:hover,
 	a.tag.add:hover {
 		border: 1px solid rgba(0,0,0,0.3);
-		font-weight: normal;
+		font-family: "AsapBoldItalic", Arial, sans-serif;
 	}
 	
 a.collection {
@@ -943,7 +975,7 @@ a.collection {
 }
 
 p.description {
-	font-style: italic;
+	font-family: "AsapItalic", Arial, sans-serif;
 	font-size: 14px;
 }
 	p.description:before,
@@ -968,13 +1000,12 @@ p.description {
 #detail-right caption {
 	display: inline;
 	text-align: left;
-	font-weight: normal;
+	font-family: "AsapRegular", Arial, sans-serif;
 	padding: 0 16px 4px 0;
-	
 }
 
 .report {
-	font-style: italic;
+	font-family: "AsapBoldItalic", Arial, sans-serif;
 	position: relative;
 	right: -273px;
 }
@@ -990,7 +1021,7 @@ p.description {
 
 .accordion-container label {
 	cursor: pointer;
-	font-weight: bold;
+	font-family: "AsapBold", Arial, sans-serif;
 	padding: 0 16px 8px 0;
 	background: url("../img/icons_vertical.png") no-repeat 100% -36px;
 }
@@ -1058,7 +1089,7 @@ p.description {
 
 #comments form textarea {
 	background: #fafafa;
-	font-family: 'asap',sans-serif;
+	font-family: "AsapRegular", Arial, sans-serif;
 	border: 1px solid #ccc;
 	border-radius: 3px;
 	color: #bebebe;
@@ -1071,15 +1102,14 @@ p.description {
 
 .add-button,
 #comments form input {
-	font-style: italic;
+	font-family: "AsapItalic", Arial, sans-serif;
 	cursor: pointer;
-	font-family: Asap, sans-serif;
 }
 
 .add-button:hover,
 #comments form input:hover {
 	color: #333;
-	font-weight: bold;
+	font-family: "AsapBoldItalic", Arial, sans-serif;
 }
 
 /* ================================================================== */
@@ -1114,7 +1144,7 @@ p.description {
 	font-size: 14px;
 	margin: 0;
 	padding: 0;
-	font-weight: bold;
+	font-family: "AsapBold", Arial, sans-serif;
 }
 
 #upload-notice .author-notice,
@@ -1147,7 +1177,7 @@ p.upload-details {
 
 	.upload-step span{
 		width: 90px;
-		font-weight: bold;
+		font-family: "AsapBold", Arial, sans-serif;
 		text-align: right;
 		font-size: 18px;
 	}
@@ -1169,7 +1199,7 @@ p.upload-details {
 
 .upload-finished textarea,
 .upload-new textarea {
-	font-family: asap, sans-serif;
+	font-family: "AsapRegular", Arial, sans-serif;
 	font-size: 14px;
 	line-height: 1.2;
 	padding: 3px 0 0 3px;
@@ -1177,11 +1207,11 @@ p.upload-details {
 
 .upload-new textarea {
 	color: gray;
-	font-style: italic;
+	font-family: "AsapItalic", Arial, sans-serif;
 }
 
 .nsfw-check {
-	font-weight: bold;
+	font-family: "AsapBold", Arial, sans-serif;
 	font-size: 12px;
 	color: #b0b0b0;
 	text-align: right;
@@ -1190,7 +1220,7 @@ p.upload-details {
 .upload-button {
 	margin-top: 20px;
 	cursor: pointer;
-	font-family: Asap, sans-serif;
+	font-family: "AsapRegular", Arial, sans-serif;
 }
 
 
@@ -1272,7 +1302,7 @@ p.upload-details {
 
 a.lost-password {
 	vertical-align: top;
-	font-style: italic;
+	font-family: "AsapItalic", Arial, sans-serif;
 }
 input.remember-me {
 	display: inline;
@@ -1286,15 +1316,13 @@ span.picatcha_td {
 
 .question label {
 	color: #b0b0b0;
-	font-weight: bold;
+	font-family: "AsapBoldItalic", Arial, sans-serif;
 	cursor: pointer;
 	padding-left: 4px;
-	font-style: italic;
 }
 
 .question label:hover {
 	color: #333;
-	font-weight: bold;
 	cursor: pointer;
 }
 
@@ -1384,11 +1412,11 @@ span.picatcha_td {
 }
 
 	#footer li {display: inline;}
-	#footer a {font-weight: normal;}
-	#footer a:hover {font-weight: bold;}
+	#footer a {font-family: "AsapRegular", Arial, sans-serif;}
+	#footer a:hover {font-family: "AsapBold", Arial, sans-serif;}
 
 	#footer em a{
-		font-weight: bold;
+		font-family: "AsapBold", Arial, sans-serif;
 	}
 	#footer li:after {
        content: ",";

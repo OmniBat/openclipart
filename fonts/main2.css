@@ -1,0 +1,125 @@
+@font-face {
+    font-family: 'AsapRegular';
+    src: url('Asap-Regular-webfont.eot');
+    src: url('Asap-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Asap-Regular-webfont.woff') format('woff'),
+         url('Asap-Regular-webfont.ttf') format('truetype'),
+         url('Asap-Regular-webfont.svg#AsapRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapItalic';
+    src: url('Asap-Italic-webfont.eot');
+    src: url('Asap-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Asap-Italic-webfont.woff') format('woff'),
+         url('Asap-Italic-webfont.ttf') format('truetype'),
+         url('Asap-Italic-webfont.svg#AsapItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapBold';
+    src: url('Asap-Bold-webfont.eot');
+    src: url('Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Asap-Bold-webfont.woff') format('woff'),
+         url('Asap-Bold-webfont.ttf') format('truetype'),
+         url('Asap-Bold-webfont.svg#AsapBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapBoldItalic';
+    src: url('Asap-BoldItalic-webfont.eot');
+    src: url('Asap-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Asap-BoldItalic-webfont.woff') format('woff'),
+         url('Asap-BoldItalic-webfont.ttf') format('truetype'),
+         url('Asap-BoldItalic-webfont.svg#AsapBoldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#main-menu a,
+.sidebar-block,
+#licence-info a,
+#licence-info:hover span,
+#login-register-language a,
+.thumbnail-title,
+.download-button a:hover,
+ul#search-pagination li a,
+#upload .upload-button:hover,
+#detail .download:hover .button,
+#detail-edit .accordion-container labe,
+#export-form #dimension-i,
+#export-form #e-button:hover,
+a.tag.add:hover,
+#detail-right caption,
+#comments form textarea,
+.upload-finished textarea,
+.upload-new textarea,
+.upload-button {
+	font-family: "AsapRegular", Arial, sans-serif;
+}
+
+a,
+#notification span,
+#main-menu a:hover,
+#main-menu li.active a,
+.sidebar-block a:hover,
+#licence-info a:hover,
+#login-register-language a:hover,
+#login-register-language ul:hover li.active a,
+#login-register-language li.active a:hover,
+.thumbnail:hover .thumbnail-title,
+.thumbnail .popup .star,
+.popup .title,
+#result-navigation .title,
+#search-sort .details a:hover,
+ul#search-pagination li a:hover,
+#detail .author a:hover,
+#detail-edit li a:hover,
+#detail-edit .accordion-container label:hover,
+#detail-edit .accordion-container input:checked + label,
+#detail-edit .accordion-container input:checked + label:hover,
+a.tag.system,
+a.collection:hover,
+a.tag:hover,
+.accordion-container label,
+.add-button:hover,
+#comments form input:hover,
+#upload-notice h3,
+.upload-step span,
+.nsfw-check,
+.question label:hover,
+#footer a:hover,
+#footer em a {
+	font-family: "AsapBold", Arial, sans-serif;
+}
+
+#search-i,
+#licence-info,
+.text a,
+.popup .author,
+#search-sort .details a,
+#detail .author a,
+#detail-edit li,
+#detail-edit li a,
+a.collection,
+a.tag,
+p.description,
+.report,
+.add-button,
+#comments form input,
+.upload-new textarea,
+a.lost-password	{
+	font-family: "AsapItalic", Arial, sans-serif;
+}
+
+#site-title,
+#search h1 + em,
+.download-button a,
+#detail .download .button,
+#export-form #e-button,
+.question label	{
+	font-family: "AsapBoldItalic", Arial, sans-serif;
+}
