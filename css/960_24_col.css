@@ -1,4 +1,88 @@
 /*
+  960 Grid System ~ Text CSS.
+  Learn more ~ http://960.gs/
+
+  Licensed under GPL and MIT.
+*/
+
+/* `Basic HTML
+----------------------------------------------------------------------------------------------------*/
+
+body {
+  font: 14px/1.5 'Asap', sans-serif;
+  font-family: "AsapRegular", "Asap", Arial, sans-serif;
+}
+
+pre,
+code {
+  font-family: monospace;
+}
+
+hr {
+  border: 0 #ccc solid;
+  border-top-width: 1px;
+  clear: both;
+  height: 0;
+}
+
+/* `Headings
+----------------------------------------------------------------------------------------------------*/
+
+h1 {
+  font-size: 22px;
+  color: #333;
+  font-family: "AsapBold", Arial, sans-serif;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 18px;
+  color: #808080;
+  font-weight: bold;
+  font-family: "AsapBold", Arial, sans-serif;
+}
+
+h3 {
+  font-size: 21px;
+}
+
+h4 {
+  font-size: 19px;
+}
+
+h5 {
+  font-size: 17px;
+}
+
+h6 {
+  font-size: 15px;
+}
+
+/* `Spacing
+----------------------------------------------------------------------------------------------------*/
+
+
+p,
+dl,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+pre,
+table,
+address,
+fieldset,
+figure {
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+
+/*
   960 Grid System ~ Core CSS.
   Learn more ~ http://960.gs/
 
