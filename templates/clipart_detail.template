@@ -96,9 +96,12 @@
         </table>
       </div>
     </div>
-
-    <a class="report" href="#">report</a>
-
+    
+    <div class="controls">
+      <a href="#">report</a>
+      <a href="#">edit</a>
+    </div>
+    
   </div><!--end detail-right-->
 
 </div><!--end detail-->

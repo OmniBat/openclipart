@@ -274,7 +274,7 @@ a {
 	padding: 10px 0 20px 0;
 }
 
-#social-network-iframes {
+#social-network-iframes iframe{
 	padding-left: 47px;
 	opacity: 0.5;
 	    -ms-transition: opacity 0.2s ease-in-out 0s;
@@ -283,7 +283,7 @@ a {
 	   -moz-transition: opacity 0.2s ease-in-out 0s;
 	        transition: opacity 0.2s ease-in-out 0s;
 }
-	#social-network-iframes:hover {
+	#social-network-iframes iframe:hover {
 		opacity: 1;
 }
 	
@@ -1078,10 +1078,17 @@ p.description {
 	padding-left: 25px;
 }
 
-#comments .comment .controls {
+.controls {
 	diplay: block;
 	text-align: right;
+	font-family: "AsapBoldItalic",Arial,sans-serif;
 }
+	.controls a:after {
+		content: " | ";
+	}
+	.controls a:last-child:after {
+		content: "";
+	}
 
 #comments form {
 	text-align: right;
