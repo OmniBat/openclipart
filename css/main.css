@@ -1081,8 +1081,11 @@ p.description {
 .controls {
 	diplay: block;
 	text-align: right;
-	font-family: "AsapBoldItalic",Arial,sans-serif;
 }
+
+	.controls a {
+		font-family: "AsapBoldItalic",Arial,sans-serif;
+	}
 	.controls a:after {
 		content: " | ";
 	}
