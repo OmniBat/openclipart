@@ -683,6 +683,12 @@ $app->get("/about", function() {
     });
 });
 
+$app->get("/participate", function() {
+    return new Template('main', function() {
+        return array('content' => array(new Template('participate', null)));
+    });
+});
+
 $app->get('/test', function() {
     global $app;
 
