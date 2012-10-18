@@ -1182,7 +1182,7 @@ p.upload-details {
 	padding: 25px 0 5px;
 }
 
-	.upload-step span{
+	.upload-step > span{
 		width: 90px;
 		font-family: "AsapBold", Arial, sans-serif;
 		text-align: right;
@@ -1215,6 +1215,10 @@ p.upload-details {
 .upload-new textarea {
 	color: gray;
 	font-family: "AsapItalic", Arial, sans-serif;
+}
+
+.nsfw-check input:checked + span {
+	color: #333;
 }
 
 .nsfw-check {
