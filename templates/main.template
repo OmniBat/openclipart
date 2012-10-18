@@ -94,14 +94,16 @@
         <div class="wrapper login-menu">
           <a href="/profile">profile</a> | <a id="logout" href="/logout">logout</a>
         </div>
-
+	
+	<!-- no foreign languages supported yet
         <ul>
+          <li class="active"><a href="#">english</a></li>
+          <li><a href="#">spanish</a></li>
           <li><a href="#">german</a></li>
-          <li><a href="#">english</a></li>
-          <li><a href="#">language with long name</a></li>
-          <li class="active"><a href="#">spanish</a></li>
           <li><a href="#">french</a></li>
         </ul>
+	-->
+	
       </div><!--end login-register-language-->
 
       {{> login-dialog}}

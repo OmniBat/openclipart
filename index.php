@@ -689,6 +689,12 @@ $app->get("/participate", function() {
     });
 });
 
+$app->get("/search", function() {
+    return new Template('main', function() {
+        return array('content' => array(new Template('search', null)));
+    });
+});
+
 $app->get('/test', function() {
     global $app;
 
