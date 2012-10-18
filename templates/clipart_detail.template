@@ -124,7 +124,10 @@
       </div>
       <div class="comment-body grid_14 omega">
         <p>{{comment}}</p>
-        <div class="controls"><a href="#">edit</a> | <a href="#">delete</a></div>
+        <div class="controls">
+          <a href="#">edit</a>
+          <a href="#">delete</a>
+        </div>
       </div>
     </div>
   {{/comments}}

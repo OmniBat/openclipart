@@ -1396,6 +1396,16 @@ span.picatcha_td {
 	background: url("../img/horizontal-separator.png") top center repeat-x;
 }
 
+#profile-left .update input {
+	color: #333;
+	font-size: 14px;
+	font-family: "AsapItalic", Arial, sans-serif;
+}
+
+#profile-left .update input:hover {
+	font-family: "AsapBoldItalic", Arial, sans-serif;
+}
+
 #profile-left .radio-checkbox {
 	color: #b3b3b3;
 }
