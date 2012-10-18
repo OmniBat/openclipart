@@ -10,7 +10,7 @@
   <ul>
     <li>Create and upload your clip art! <br />Don't forget to <a href="/register">register</a> first.</li>
     <li>Subscribe to the <a href="http://freedesktop.org/mailman/listinfo/clipart">mailing list</a> and email your thoughts of course! <br />You can also browse the <a href="http://freedesktop.org/pipermail/clipart/">archives</a> to review the project's history if you want.</li>
-    <li>Join us on <a href="http://webchat.freenode.net/?channels=openclipart">#openclipart</a> on irc.freenode.net<br /> You can also use the <a href="#webclient">webclient below</a>)</li>
+    <li>Join us on <a href="http://webchat.freenode.net/?channels=openclipart">#openclipart</a> on irc.freenode.net!<br /> You can also use the <a href="#webclient">webclient below</a>.</li>
     <li>Report <a href="https://github.com/openclipart/openclipart/issues?milestone=5&state=open">problems</a> with the site!</li>
     <li>Issue <a href="https://github.com/openclipart/openclipart/issues?milestone=4&state=open">features</a> you are missing!</li>
     <!--<li>Make applications that use our API</li>-->
