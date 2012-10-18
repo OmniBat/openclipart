@@ -677,6 +677,12 @@ $app->get("/foo", function() {
     });
 });
 
+$app->get("/chat", function() {
+    return new Template('main', function() {
+        return array('content' => array(new Template('about', null)));
+    });
+});
+
 $app->get('/test', function() {
     global $app;
 
