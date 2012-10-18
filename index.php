@@ -691,9 +691,26 @@ $app->get("/participate", function() {
 
 $app->get("/search", function() {
     return new Template('main', function() {
-        return array('content' => array(new Template('search', null)), 'class' => "search-page");
+        return array('content' => array(new Template('search', return array ('class' => "search-page"))));
     });
 });
+
+
+   //~ return new Template('main', function() use ($error) {
+        //~ return array(
+            //~ 'content' => array(new Template('login', function() use ($error) {
+                //~ global $app;
+                //~ return array(
+                    //~ // fill login on second attempt
+                    //~ 'login' => isset($_POST['login']) ? $_POST['login'] : '',
+                    //~ 'error' => $error,
+                    //~ 'redirect' => $app->GET->redirect
+                //~ );
+            //~ }))
+        //~ );
+    //~ });
+
+
 
 $app->get('/test', function() {
     global $app;
