@@ -677,7 +677,7 @@ $app->get("/foo", function() {
     });
 });
 
-$app->get("/chat", function() {
+$app->get("/about", function() {
     return new Template('main', function() {
         return array('content' => array(new Template('about', null)));
     });
