@@ -690,9 +690,9 @@ $app->get("/participate", function() {
 });
 
 $app->get("/search", function() {
-    return new Template('main', array( 
-        function() {return array('content' => array(new Template('search',null)));
-        }, array('class' => 'search'));
+    return new Template('main', function() {
+        return array('content' => array(new Template('search', null)), 'class' => 'search');
+    });
 });
 
 $app->get('/test', function() {
