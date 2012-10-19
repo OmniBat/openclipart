@@ -548,9 +548,7 @@ h2 {
 
 #container.search-page #right.grid_16 {
 	float: none;
-	display: inline;
-	margin-left: 5px;
-	margin-right: 5px;
+	display: block;
 	width: auto;
 }
 
