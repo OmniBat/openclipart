@@ -697,18 +697,6 @@ $app->get("/search", function() {
     });
 });
 
-else {
-                return new Template('main', array(
-                    'content' => new Template('register', array(
-                        'error' => $msg,
-                        'email' => $_POST['email'], // so users don't need to type it twice
-                        'username' => $username     // if user fail or forget picatcha
-                    ))
-                ));
-
-
-
-
 $app->get('/test', function() {
     global $app;
 
