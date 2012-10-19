@@ -545,6 +545,10 @@ h2 {
 	width: auto;
 }
 
+#container.search-page #right.grid_16 {
+	float: none;
+}
+
 .search-page #footer{
 	width: 100%;
 	padding-left: 0;
