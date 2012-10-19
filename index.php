@@ -691,10 +691,23 @@ $app->get("/participate", function() {
 
 $app->get("/search", function() {
     return new Template('main', function() {
-        return array('content' => array(new Template('search',null));
-        return array('class' => "search"));
+        return array('content' => array(new Template('search',array(
+            'class' => "search"
+        ))));
     });
 });
+
+else {
+                return new Template('main', array(
+                    'content' => new Template('register', array(
+                        'error' => $msg,
+                        'email' => $_POST['email'], // so users don't need to type it twice
+                        'username' => $username     // if user fail or forget picatcha
+                    ))
+                ));
+
+
+
 
 $app->get('/test', function() {
     global $app;
