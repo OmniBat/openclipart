@@ -331,7 +331,7 @@ a {
 	position: absolute;
 }
 
-	.search-page #login-register-language {
+	.search-template #login-register-language {
 		position: relative;
 	}
 
@@ -540,19 +540,19 @@ h2 {
 /* Search - page */
 /* ================================================================== */
 
-#container.search-page {	
+#container.search-template {	
 	margin-left: 18px;
 	width: auto;
 	float: none;
 }
 
-#container.search-page #right.grid_16 {
+#container.search-template #right.grid_16 {
 	float: none;
 	display: block;
 	width: auto;
 }
 
-.search-page #footer{
+.search-template #footer{
 	width: 100%;
 	padding-left: 0;
 	padding-right: 0;
@@ -1557,7 +1557,7 @@ span.picatcha_td {
 		width: 200px;
 	}
 	
-		.search-page #login-register-language {
+		.search-template #login-register-language {
 			position: absolute;
 		}
 	
@@ -1659,7 +1659,7 @@ span.picatcha_td {
 	}
 
 
-	#container.search-page {	
+	#container.search-template {	
 		margin: 0 auto;
 		width: 630px;
 	}

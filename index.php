@@ -691,7 +691,8 @@ $app->get("/participate", function() {
 
 $app->get("/search", function() {
     return new Template('main', function() {
-        return array('content' => array(new Template('search', null), 'class' => "search-page"));
+        return array('content' => array(new Template('search', 
+            return array('class' => "search"))));
     });
 });
 
