@@ -20,4 +20,4 @@ NOTE: maybe you need to call
 
 then you can rsync svg files
 
-    sudo rsync -avz --exclude '*png' -e ssh <USER>@openclipart.org:~/openclipart/people/ people
+    sudo rsync -avz --exclude '*png' -e ssh <USER>@openclipart.org:/srv/www/openclipart.org/htdocs/people/ people
