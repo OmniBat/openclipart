@@ -387,10 +387,11 @@ a {
 }
 
 .text ul {
-	margin: 10px 0 10px 20px;
+	margin: 15px 0 15px 20px;
 } 
 .text ul li{
 	list-style: disc;
+	padding: 0 0 20px;
 } 
 
 h2 {
@@ -1366,62 +1367,62 @@ span.picatcha_td {
 /* Profile */
 /* ================================================================== */
 
-#profile-left .avatar {
+#profile-info .avatar {
 	float: left;
 	padding: 0 10px 0 0;
 }
 
-#profile-left .username {
+#profile-info .username {
 	font-size: 18px;
 	display: block;
 }
 
-#profile-left .role,
-#profile-left .join-date {
+#profile-info .role,
+#profile-info .join-date {
 	display: block;
 }
 
-#profile-left table {
+#profile-info table {
 	clear: both;
 	padding-bottom: 20px;
 }
 
-#profile-left td {
+#profile-info td {
 	padding: 4px 0;
 }
 
-#profile-left tr:last-child {
+#profile-info tr:last-child {
 	opacity: 0.5;
 	text-align: right;
 }
 
-#profile-left table:hover tr:last-child {
+#profile-info table:hover tr:last-child {
 	opacity: 1;
 }
 
-#profile-left .update {
+.profile-form .update {
 	display: block;
 	text-align: center;
 	padding-top: 20px;
 	background: url("../img/horizontal-separator.png") top center repeat-x;
 }
 
-#profile-left .update input {
+.profile-form .update input {
 	color: #333;
 	font-size: 14px;
 	font-family: "AsapItalic", Arial, sans-serif;
 }
 
-#profile-left .update input:hover {
+.profile-form .update input:hover {
 	font-family: "AsapBoldItalic", Arial, sans-serif;
 }
 
-#profile-left .radio-checkbox {
+.profile-form .radio-checkbox {
 	color: #b3b3b3;
 }
 
 #stats .zebra {
-	width: 140px;
+	width: 100%;
 	float: left;
 	margin-right: 8px;
 }
@@ -1431,6 +1432,55 @@ span.picatcha_td {
 	padding: 3px 4px 3px 26px;
 	background: url("../img/icons_vertical.png") no-repeat -3px -362px;
 }
+
+/* ================================================================== */
+/* Messages */
+/* ================================================================== */
+
+#message-table {width: 100%;}
+
+#message-table tr .hidden {display: none;}
+#message-table tr:hover .hidden {display: inherit;}
+
+#message-table thead th{
+	padding: 0 0 10px;
+}
+#message-table th {
+	text-align: left;
+	font: 18px/1 "AsapBold"; 
+}
+
+#message-table .subject span {
+	font-family: "AsapItalic"
+}
+
+#message-table .unread span{
+	font-family: "AsapBoldItalic"; 
+	cursor: pointer;
+}
+
+#message-table td{
+	padding: 3px 0;
+}
+
+#message-table .subject span:before ,
+#message-table .subject span:after {
+	content: '"';
+}
+
+#message-table .subject p {
+	padding:  0 15px 15px 15px;
+}
+
+#message-table .date span {
+	padding: 0 23px 0 0;
+}
+
+#message-table .unread .date span {
+	background: url("../img/icons_vertical.png") no-repeat right -516px;
+}
+
+
 
 /* ================================================================== */
 /* Footer */
