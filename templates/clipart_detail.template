@@ -16,7 +16,7 @@
       </span>
     </a>
     <ul id="detail-edit">
-      <li class="edit"><a href="#">edit</a></li>
+      <li class="edit"><a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl={{file-url}}">edit</a></li>
       <li class="remix"><a href="#">remix</a></li>
       <li class="export">
         <div class="accordion-container">

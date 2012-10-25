@@ -933,6 +933,10 @@ li.export #export-form:hover {
 	display: inline;
 }
 
+.collection-list a:hover img {
+	background: rgba(255,255,255, 0.5);
+} 
+
 a.collection,
 a.tag {
 	color: #808080;
@@ -1440,7 +1444,8 @@ span.picatcha_td {
 #message-table {width: 100%;}
 
 #message-table tr .hidden {display: none;}
-#message-table tr:hover .hidden {display: inherit;}
+#message-table tr:hover .hidden,
+#message-table tr.active .hidden {display: inherit;}
 
 #message-table thead th{
 	padding: 0 0 10px;
