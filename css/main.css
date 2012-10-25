@@ -1444,7 +1444,6 @@ span.picatcha_td {
 #message-table {width: 100%;}
 
 #message-table tr .hidden {display: none;}
-#message-table tr:hover .hidden,
 #message-table tr.active .hidden {display: inherit;}
 
 #message-table thead th{
