@@ -182,7 +182,7 @@ $app->map('/forget-password', function() use ($app) {
     }
 })->via('GET', 'POST');
 
-$app->get('/profile', function() {
+$app->get("/profile", function() {
     return new Template('main', array('content' => '<p>user profile</p>'));
 });
 
@@ -397,7 +397,7 @@ $app->get("/user/:username", function($username) use ($app) {
 });
 
 
-$app->get('/', function() {
+$app->get("/", function() {
     return new Template('main', function() {
         return array(
             'editable' => false, // librarian functions
@@ -475,7 +475,7 @@ $app->get('/', function() {
 
 
 // routing /people/*.svg
-$app->get('/download/svg/:user/:filename', function($user, $filename) {
+$app->get("/download/svg/:user/:filename", function($user, $filename) {
     global $app;
 
     // TODO: code should look like this: classes User and Clipart System Operate on Users
@@ -519,7 +519,7 @@ $app->get('/download/svg/:user/:filename', function($user, $filename) {
     }
 });
 
-$app->get('/image/:width/:user/:filename', function($w, $user, $file) {
+$app->get("/image/:width/:user/:filename", function($w, $user, $file) {
     global $app;
     $width = intval($w);
     $svg_filename = preg_replace("/.png$/", '.svg', $file);
@@ -601,7 +601,7 @@ $app->post("/notify-librarians-admins", function() {
 });
 
 
-$app->get('/download/collection/:name', function($name) {
+$app->get("/download/collection/:name", function($name) {
     global $app;
     // name exists
     // check last count in field
@@ -691,11 +691,43 @@ $app->get("/participate", function() {
 
 $app->get("/search", function() {
     return new Template('main', function() {
-        return array('content' => array(new Template('search', null)), 'class' => 'search');
+        return array(
+            'class' => 'search',
+            'content' => new Template('search', function() {
+                global $app;
+                if (isset($_GET['query'])) {
+                    $term = $app->db->escape($_GET['query']);
+                    if ($app->is_logged()) {
+                        $fav_check = $app->get_user_id() . ' in '.
+                            '(SELECT user_error FROM openclipart_favorites'.
+                            ' WHERE openclipart_clipart.id = clipart)';
+                    } else {
+                        $fav_check = '0';
+                    }
+                    if ($app->nsfw()) {
+                        $nsfw = "AND openclipart_clipart.id not in (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE name = 'nsfw')";
+                    } else {
+                        $nsfw = '';
+                    }
+                    $order_by = "date";
+
+                    $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, count(DISTINCT user) as num_favorites, created, date, $fav_check as user_fav, downloads FROM openclipart_clipart INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON openclipart_users.id = owner WHERE openclipart_clipart.id NOT IN (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON openclipart_tags.id = tag WHERE clipart = openclipart_clipart.id AND openclipart_tags.name = 'pd_issue') $nsfw AND (title rlike '^$term$|^$term | $term | $term$' or '$term' in (SELECT name FROM openclipart_tags INNER JOIN openclipart_clipart_tags ON id = tag WHERE clipart = openclipart_clipart.id)) GROUP BY openclipart_clipart.id ORDER BY $order_by DESC LIMIT 42";
+                    return array(
+                        'clipart_list' => array_map(function($result) {
+                            $png = preg_replace('/.svg$/', '.png', $result['filename']);
+                            return array_merge($result, array(
+                                'filename_png' => $png,
+                                'human_date' => human_date($result['date'])
+                            ));
+                        }, $app->db->get_array($query))
+                    );
+                }
+            })
+        );
     });
 });
 
-$app->get('/test', function() {
+$app->get("/test", function() {
     global $app;
 
     return;
