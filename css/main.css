@@ -1443,23 +1443,43 @@ span.picatcha_td {
 
 #message-table {width: 100%;}
 
-#message-table tr .hidden {display: none;}
-#message-table tr.active .hidden {display: inherit;}
+#message-table tr:hover {
+	background-color: rgba(255,255,255, 0.2);
+	border-right: 2px solid #b0b0b0;
+}
+#message-table thead tr:hover {
+	background-color: transparent;
+	border: none;
+}
+
+#message-table tr .hidden {
+	display: none;
+}
+
+#message-table tr.active .hidden {
+	display: inherit;
+}
+
+#message-table .avatar img{
+	padding-top: 15px;
+}
+
+#message-table .date .controls{
+	padding-top: 9px;
+}
 
 #message-table thead th{
 	padding: 0 0 10px;
 }
+
 #message-table th {
 	text-align: left;
 	font: 18px/1 "AsapBold"; 
 }
 
 #message-table .subject span {
-	font-family: "AsapItalic"
-}
-
-#message-table .unread span{
-	font-family: "AsapBoldItalic"; 
+	font-family: "AsapBoldItalic";
+	padding-bottom: 5px;
 	cursor: pointer;
 }
 
@@ -1473,7 +1493,12 @@ span.picatcha_td {
 }
 
 #message-table .subject p {
-	padding:  0 15px 15px 15px;
+	padding:  10px 15px 15px 15px;
+}
+
+#message-table .subject p img {
+	float: left;
+	padding-right: 10px;
 }
 
 #message-table .date span {
