@@ -1254,7 +1254,7 @@ p.upload-details {
 /* Login popup */
 /* ================================================================== */
 	
-#login-popup-window {
+#popup-window {
 	position: absolute;
 	width: 445px;
 	height: auto;
@@ -1266,8 +1266,7 @@ p.upload-details {
 	border-radius: 20px;
 }
 
-#tab-login,
-#tab-register {
+.pop-up-tab {
 	position: relative;
 	background: white;
 	padding: 10px;
@@ -1318,7 +1317,7 @@ p.upload-details {
 	margin: 30px 0 9px;
 }
 
-#login-popup-window .login-alternative h2 {
+#popup-window .login-alternative h2 {
 	position: relative;
 	top: -15px;
 	background: white;
@@ -1352,16 +1351,16 @@ span.picatcha_td {
 	cursor: pointer;
 }
 
-#login-popup-window #tab-login,
-#login-popup-window #tab-register {
+#popup-window #tab-login,
+#popup-window #tab-register {
 	opacity: 0;
 	position: absolute;
 	top: 0;
 	right: 0;
 }
 
-#login-popup-window input.tab-selector-1:checked ~ .popup-content #tab-login,
-#login-popup-window input.tab-selector-2:checked ~ .popup-content #tab-register {
+#popup-window input.tab-selector-1:checked ~ .popup-content #tab-login,
+#popup-window input.tab-selector-2:checked ~ .popup-content #tab-register {
     opacity: 1;
     z-index: 50;
     position: relative;
@@ -1509,7 +1508,19 @@ span.picatcha_td {
 	background: url("../img/icons_vertical.png") no-repeat right -516px;
 }
 
+#tab-message {
+	position: relative;
+	background: white;
+	padding: 10px;
+	box-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+	border-radius: 4px;
+	margin: 25px;
+	width: 375px;
+}
 
+#message-popup-window h2{
+	margin-top: 0px;
+}
 
 /* ================================================================== */
 /* Footer */
