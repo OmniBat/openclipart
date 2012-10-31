@@ -689,6 +689,12 @@ $app->get("/participate", function() {
     });
 });
 
+$app->get("/why-the-ads", function() {
+    return new Template('main', function() {
+        return array('content' => array(new Template('why-the-ads', null)));
+    });
+});
+
 $app->get("/search", function() {
     return new Template('main', function() {
         return array(
