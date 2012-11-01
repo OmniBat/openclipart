@@ -408,6 +408,7 @@ h2 {
 
 #front-banner {
 	padding: 63px 0 0 0;
+	text-align: center;
 }
 
 #front-left {
@@ -1610,6 +1611,41 @@ span.picatcha_td {
 }
 .logged .user-menu, .logged .login-menu {
     display: block;
+}
+
+/* ================================================================== */
+/* ADs */
+/* ================================================================== */
+
+.ads {
+	text-align: center;
+	padding: 25px 0;
+	display: block;
+}
+
+.ads div a{
+	font-family: "AsapRegular";
+}
+
+.ads div {
+	text-align: right;
+	padding-right: 80px;
+}
+
+.sidebar-ad  {
+	text-align: left;
+}
+
+	.sidebar-ad div  {
+		text-align: right;
+
+	}
+	.sidebar-ad img  {
+		padding-left: 35px;
+	}
+
+.footer-ad div {
+	padding: 0 125px 0;
 }
 
 /* ================================================================== */
