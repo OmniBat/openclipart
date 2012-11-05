@@ -1,5 +1,11 @@
 <div id="front-banner" class="grid_16 alpha omega">
-  <a href="#"><img src="/img/front-banner.png"/></a>
+  <p>create, share & remix<br />free clip art</p>
+  <div><a href="/upload">upload clipart.</a></div>
+</div>
+
+<div class="grid_16 aplha omega ads">
+  <div><a href="/why-the-ads">why the ads?</a></div>
+  <img src="img/adsense_185666_adformat-display_468x60_en.jpg" />
 </div>
 
 <div id="front-left" class="grid_8 alpha">

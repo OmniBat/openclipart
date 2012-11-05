@@ -72,15 +72,19 @@
 
     <div id="right" class="grid_16">
 
-      <div id="licence-info" class="grid_10 alpha">
-          <div class="grid_10 sharism">
-              <a href="http://sharism.org/">
-                  <em>✳</em> Sharism
-                  <span>all clipart is public domain<br />
-                   use without restrictions.</span>
-              </a>
-          </div>
-      </div><!--end licence-info-->
+      <div id="licence-info" class="grid_3 alpha">
+        <div class="grid_3 sharism">
+          <a href="http://sharism.org/">
+            <em>✳</em> Sharism
+            <span>public domain use without restrictions.</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="grid_7 ads top-ad">
+				<div><a href="/why-the-ads">why the ads?</a></div>
+				<a href="#"><img src="img/adsense_185665_adformat-text_234x60_en.png" /></a>
+			</div>
 
       <div id="donation-buttons" class="grid_3">
         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS"><img src="img/donation-paypal.png" /></a>
@@ -115,6 +119,12 @@
     </div><!--end right-->
 
     <div id="footer" class="grid_24">
+        
+        <div class="grid_16 aplha omega ads">
+          <div><a href="/why-the-ads">why the ads?</a></div>
+          <img src="img/adsense_185679_adformat-link_468x15_en.png" />
+        </div>
+    
       <ul>
         <li><em><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS">Donate to Support Hosting + Maintenance</a></em></li>
         <li><a href="http://fabricatorz.com/">Fabricatorz 王</a></li>
