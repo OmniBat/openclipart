@@ -245,6 +245,7 @@ class System extends Slim {
     function is($group) {
         return in_array($group, $this->groups);
     }
+    // ---------------------------------------------------------------------------------
     function user_by_name($username) {
         return User::by_name($username);
     }

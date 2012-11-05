@@ -46,10 +46,27 @@ class OCAL extends System {
     function favorite($clipart) {
         if (!$this->is_logged()) {
             throw new Exception("You can't favorite a clipart if you are not logged in");
+        } else {
+            $clipart = intval($clipart);
+            $id = $this->config->id;
+            $query = "INSERT INTO openclipart_favorites VALUES($clipart, $id, NOW())";
+            return $this->db->query($query);
         }
     }
+    // ---------------------------------------------------------------------------------
+    function unfavorite($clipart) {
+        if (!$this->is_logged()) {
+            throw new Exception("You can't favorite a clipart if you are not logged in");
+        } else {
+            $clipart = intval($clipart);
+            $id = $this->config->id;
+            $query = "DELETE FROM openclipart_favorites WHERE clipart = '$clipart' AND user = '$id'";
+            return $this->db->query($query);
+        }
+    }
+    // ---------------------------------------------------------------------------------
     function list_clipart($where, $order_by) {
-         if ($this->nsfw()) {
+        if ($this->nsfw()) {
             $nsfw = "AND openclipart_clipart.id not in (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE name = 'nsfw')";
         } else {
             $nsfw = '';

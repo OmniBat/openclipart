@@ -542,7 +542,7 @@ h2 {
 	    z-index: 10;
 	}
 	
-		.thumbnail .popup .star:hover {
+		.logged .thumbnail .popup .star:hover {
 			background: url("../img/icons_vertical.png") no-repeat -5px -270px;
 		}
 	
@@ -795,7 +795,7 @@ ul#search-pagination a.last:hover {
 	padding: 0 0 14px 18px;
 	font-size: 9px;
 }
-	#detail  a.star:hover{
+	.logged #detail a.star:hover{
 		background: url("../img/icons_vertical.png") no-repeat -5px -270px;
 	}
 
