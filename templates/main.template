@@ -52,18 +52,25 @@
       </div><!--end main-navigation-->
 
       <div class="sidebar-block grid_8">
-		<div class="accordion-container">
-		  <input id="ac-sidebar-1" class="hidden" name="accordion-sidebar" type="checkbox" />
-		  <label for="ac-sidebar-1">Username</label>
-		  <div class="accordion-content">
-		    <ul>
-		      <li><a href="">Profile</a></li>
-		      <li><a href="">Upload</a></li>
-		      <li><a href="">Clipart</a></li>
-		      <li><a href="">Logout</a></li>
-		    </ul>
-		  </div>
-		</div>
+        
+        <div class="accordion-container">
+          <input id="ac-sidebar-1" class="hidden" name="accordion-sidebar" type="checkbox" />
+          <label for="ac-sidebar-1">Username</label>
+          <div class="accordion-content">
+            <ul>
+              <li><a href="">Profile</a></li>
+              <li><a href="">Upload</a></li>
+              <li><a href="">Clipart</a></li>
+              <li><a href="">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ads sidebar-ad">
+					<div><a href="/why-the-ads">why the ads?</a></div>
+					<img src="img/adsense_185665_adformat-text_200x200_en.png" />
+				</div>
+        
       </div>
 
       {{> social-box}}
@@ -126,11 +133,6 @@
     </div><!--end right-->
 
     <div id="footer" class="grid_24">
-        
-        <div class="grid_16 aplha omega ads">
-          <div><a href="/why-the-ads">why the ads?</a></div>
-          <img src="img/adsense_185679_adformat-link_468x15_en.png" />
-        </div>
     
       <ul>
         <li><em><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS">Donate to Support Hosting + Maintenance</a></em></li>
