@@ -83,8 +83,8 @@
       </div><!--end licence-info-->
 
       <div id="donation-buttons" class="grid_3">
-        <a href="#"><img src="img/donation-flattr.png" /></a>
-        <a href="#"><img src="img/donation-paypal.png" /></a>
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS"><img src="img/donation-paypal.png" /></a>
+        <a href="https://flattr.com/thing/166229/Open-Clip-Art-Library"><img src="img/donation-flattr_small.png" /></a>
       </div>
 
       <div id="login-register-language" class="grid_3 omega">

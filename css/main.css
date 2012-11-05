@@ -144,7 +144,7 @@ a {
 #top-search {
 	position: absolute;
 	top: 70px;
-	left: 50px;
+	left: 40px;
 	width: 400px;
 }
 
@@ -206,7 +206,7 @@ a {
 
 #icon-bar {
 	margin: -160px  0 0 50px;
-	padding: 0 0 160px 0;
+	padding: 0 0 130px 0;
 	bottom: 0;
 	position: relative;
 }
@@ -241,7 +241,7 @@ a {
 	#icon-bar li:nth-child(6) a {margin-top: -15px;}
 
 .sidebar-block {
-	padding: 0 0 47px 0;
+	padding: 0;
 	line-height: 1.5;
 	font-size: 14px;
 }
@@ -249,7 +249,7 @@ a {
 	.sidebar-block a:hover	{font-family: "AsapBold", Arial, sans-serif;}
 
 	.sidebar-block div {
-		padding-left: 47px;
+		padding-left: 78px;
 	}	
 
 .sidebar-block .accordion-container {
@@ -275,7 +275,7 @@ a {
 }
 
 #social-network-iframes iframe{
-	padding-left: 47px;
+	padding-left: 39px;
 	opacity: 0.5;
 	    -ms-transition: opacity 0.2s ease-in-out 0s;
 	-webkit-transition: opacity 0.2s ease-in-out 0s;
@@ -286,7 +286,7 @@ a {
 	#social-network-iframes iframe:hover {
 		opacity: 1;
 }
-	
+
 #licence-info {
 	text-align: right;
 	font-family: "AsapItalic", Arial, sans-serif;
@@ -318,6 +318,7 @@ a {
 
 #donation-buttons {
 	text-align: center;
+	padding-top: 5px;
 }
 
 #login-register-language {
@@ -407,17 +408,45 @@ h2 {
 /* ================================================================== */
 
 #front-banner {
-	padding: 63px 0 0 0;
+	min-height: 134px;
+	text-align: center;
+	background: url("../img/front-banner_bg.png") no-repeat center bottom;
+	font-family: "AsapBold";
+	font-size: 26px;
+	text-shadow: 0px 1px 0 white;
+	padding: 0 0 20px;
+	margin: -10px 0px 36px;
 }
 
+	#front-banner a {
+		font-family: "AsapBoldItalic";
+		color: #e70000;
+	}
+	
+	#front-banner a:hover {
+		text-shadow: 0px 1px 0 white, 0px 0px 20px white;
+		color: #ff3131;
+	}
+	
+	#front-banner p {
+		padding: 0px;
+		margin: 0;
+	}
+
 #front-left {
-	background: url("../img/vertical-separator.png") repeat-y 277px;
+	background: url("../img/vertical-separator.png") repeat-y 308px;
+	
+}
+
+#front-right h2,
+#front-left h2 {
+	padding: 0 0 15px 15px;
 }
 
 .thumbnail {
 	position: relative;
 	float: left;
-	margin: 0 45px 110px 0;
+	margin: 0 22px 110px 22px;
 	width: 100px;
 }
 
@@ -933,6 +962,10 @@ li.export #export-form:hover {
 	display: inline;
 }
 
+.collection-list a:hover img {
+	background: rgba(255,255,255, 0.5);
+} 
+
 a.collection,
 a.tag {
 	color: #808080;
@@ -1250,7 +1283,7 @@ p.upload-details {
 /* Login popup */
 /* ================================================================== */
 	
-#login-popup-window {
+#popup-window {
 	position: absolute;
 	width: 445px;
 	height: auto;
@@ -1262,8 +1295,7 @@ p.upload-details {
 	border-radius: 20px;
 }
 
-#tab-login,
-#tab-register {
+.pop-up-tab {
 	position: relative;
 	background: white;
 	padding: 10px;
@@ -1314,7 +1346,7 @@ p.upload-details {
 	margin: 30px 0 9px;
 }
 
-#login-popup-window .login-alternative h2 {
+#popup-window .login-alternative h2 {
 	position: relative;
 	top: -15px;
 	background: white;
@@ -1348,16 +1380,16 @@ span.picatcha_td {
 	cursor: pointer;
 }
 
-#login-popup-window #tab-login,
-#login-popup-window #tab-register {
+#popup-window #tab-login,
+#popup-window #tab-register {
 	opacity: 0;
 	position: absolute;
 	top: 0;
 	right: 0;
 }
 
-#login-popup-window input.tab-selector-1:checked ~ .popup-content #tab-login,
-#login-popup-window input.tab-selector-2:checked ~ .popup-content #tab-register {
+#popup-window input.tab-selector-1:checked ~ .popup-content #tab-login,
+#popup-window input.tab-selector-2:checked ~ .popup-content #tab-register {
     opacity: 1;
     z-index: 50;
     position: relative;
@@ -1439,23 +1471,43 @@ span.picatcha_td {
 
 #message-table {width: 100%;}
 
-#message-table tr .hidden {display: none;}
-#message-table tr:hover .hidden {display: inherit;}
+#message-table tr:hover {
+	background-color: rgba(255,255,255, 0.2);
+	border-right: 2px solid #b0b0b0;
+}
+#message-table thead tr:hover {
+	background-color: transparent;
+	border: none;
+}
+
+#message-table tr .hidden {
+	display: none;
+}
+
+#message-table tr.active .hidden {
+	display: inherit;
+}
+
+#message-table .avatar img{
+	padding-top: 15px;
+}
+
+#message-table .date .controls{
+	padding-top: 9px;
+}
 
 #message-table thead th{
 	padding: 0 0 10px;
 }
+
 #message-table th {
 	text-align: left;
 	font: 18px/1 "AsapBold"; 
 }
 
 #message-table .subject span {
-	font-family: "AsapItalic"
-}
-
-#message-table .unread span{
-	font-family: "AsapBoldItalic"; 
+	font-family: "AsapBoldItalic";
+	padding-bottom: 5px;
 	cursor: pointer;
 }
 
@@ -1469,7 +1521,12 @@ span.picatcha_td {
 }
 
 #message-table .subject p {
-	padding:  0 15px 15px 15px;
+	padding:  10px 15px 15px 15px;
+}
+
+#message-table .subject p img {
+	float: left;
+	padding-right: 10px;
 }
 
 #message-table .date span {
@@ -1480,7 +1537,19 @@ span.picatcha_td {
 	background: url("../img/icons_vertical.png") no-repeat right -516px;
 }
 
+#tab-message {
+	position: relative;
+	background: white;
+	padding: 10px;
+	box-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+	border-radius: 4px;
+	margin: 25px;
+	width: 375px;
+}
 
+#message-popup-window h2{
+	margin-top: 0px;
+}
 
 /* ================================================================== */
 /* Footer */
@@ -1570,6 +1639,61 @@ span.picatcha_td {
 }
 .logged .user-menu, .logged .login-menu {
     display: block;
+}
+
+/* ================================================================== */
+/* ADs */
+/* ================================================================== */
+
+.ads {
+	text-align: center;
+	padding: 25px 0 0 ;
+	display: block;
+}
+
+.ads div a {
+	font-family: "AsapRegular";
+	color: rgb(200,200,200);
+}
+
+	.ads:hover div a {
+		color: rgb(128,128,128);
+	}
+
+.ads div {
+	text-align: right;
+	padding-right: 80px;
+}
+
+.ads.top-ad  {
+	text-align: center;
+	position: relative;
+	top: -47px;
+}
+	.top-ad div  {
+		padding: 5px 0 0 ;
+	}
+	
+	.top-ad div a {
+		padding-right: 15px;
+	}
+
+.ads.sidebar-ad  {
+	text-align: left;
+	padding: 0 0 0 40px;
+}
+
+	.sidebar-ad div  {
+		text-align: right;
+		padding-right: 70px;
+	}
+
+	.sidebar-ad div a:hover {
+		font-family: "AsapRegular";
+	}
+
+.footer-ad div {
+	padding: 0 80px 0;
 }
 
 /* ================================================================== */
@@ -1671,6 +1795,10 @@ span.picatcha_td {
 		text-align: right;
 		width: 260px;
 	}
+	
+	.ads.sidebar-ad div {
+		padding-right: 0px;
+    }
 
 	.sidebar-block .accordion-container .accordion-content {
 		padding: 0 0 10px 0;
