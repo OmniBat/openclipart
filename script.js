@@ -383,9 +383,31 @@ $(function() {
             });
             return false;
         });
+        $('.logged .star').live('click', function() {
+            var self = $(this);
+            var thumb = self.parents('.thumbnail');
+            var clipart = thumb.data('id');
+            // !!+ string "0" or "1" to int and then to boolean
+            if (!!+thumb.data('favorite')) {
+                main.unfavorite(clipart)(function(removed) {
+                    if (removed) {
+                        self.text(self.text()-1);
+                    }
+                });
+            } else {
+                main.favorite(clipart)(function(added) {
+                    if (added) {
+                        self.text(+self.text()+1);
+                    }
+                });
+            }
+            return false;
+        });
     });
 
     Picatcha.API_SERVER = 'http://api.picatcha.com';
     Picatcha.PUBLIC_KEY = 'qjSWPO6lV1MO_uJUDq2xmWlleGAUVQfRiul52kYm';
     Picatcha.create('picatcha');
+
+    
 });

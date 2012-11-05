@@ -603,6 +603,7 @@ $app->post("/notify-librarians-admins", function() {
 
 $app->get("/download/collection/:name", function($name) {
     global $app;
+    // TODO:
     // name exists
     // check last count in field
     // check count using join    - can be in one query
@@ -710,8 +711,8 @@ $app->get("/search", function() {
                         $nsfw = '';
                     }
                     $order_by = "date";
-
                     $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, count(DISTINCT user) as num_favorites, created, date, $fav_check as user_fav, downloads FROM openclipart_clipart INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON openclipart_users.id = owner WHERE openclipart_clipart.id NOT IN (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON openclipart_tags.id = tag WHERE clipart = openclipart_clipart.id AND openclipart_tags.name = 'pd_issue') $nsfw AND (title rlike '^$term$|^$term | $term | $term$' or '$term' in (SELECT name FROM openclipart_tags INNER JOIN openclipart_clipart_tags ON id = tag WHERE clipart = openclipart_clipart.id)) GROUP BY openclipart_clipart.id ORDER BY $order_by DESC LIMIT 42";
+                    echo $query;
                     return array(
                         'clipart_list' => array_map(function($result) {
                             $png = preg_replace('/.svg$/', '.png', $result['filename']);

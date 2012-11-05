@@ -7,6 +7,11 @@ class main {
         return $app->favorite(intval($clipart));
     }
 
+    function unfavorite($clipart) {
+        global $app;
+        return $app->unfavorite(intval($clipart));
+    }
+
     function reset_password_link($email) {
         global $app;
         return $app->send_reset_password_link($email, $this->config->token_expiration);
@@ -147,6 +152,7 @@ class main {
             return false;
         }
     }
+
     function logout() {
         global $app;
         $app->logout();

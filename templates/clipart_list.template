@@ -1,5 +1,5 @@
 {{#clipart_list}}
-<div class="thumbnail">
+<div class="thumbnail" data-id="{{id}}" data-favorite="{{user_fav}}">
   <a href="/clipart/{{id}}/{{link}}{{forward_query}}" title="{{title}}">
   <span class="thumbnail-image">
   	<img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}">
