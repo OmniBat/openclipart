@@ -1,158 +1,169 @@
 <?php
+/**
+ *  This file is part of Open Clipart Library <http://openclipart.org>
+ *
+ *  Open Clipart Library is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Open Clipart Library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Open Clipart Library; if not, write to the Free Software
+ *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ *  author: Jakub Jankiewicz <http://jcubic.pl>
+ */
 
-class utils {
-    function _echo($a) { return $a; }
-    function nsfw() {
-		global $db, $membership;
-		if ($membership->userid) {
-			$query = "select nsfwfilter from aiki_users where userid = ".
-				$membership->userid;
-			return $db->get_var($query);
-		} else {
-			return "0";
-		}
-    }
 
-	function delete_file($filename) {
-		// on new aiki trim can be removed
-		$filename = trim($filename);
-		if (preg_match('/^people.*\.svg$/', $filename) &&
-			!preg_match('/\.\./', $filename)) {
-			unlink($filename);
-		}
-	}
-
-	function sphinx_ocal_search($term, $page, $num_per_page, $nsfw) {
-		return $this->search($term, $page, $num_per_page, $nsfw, 'ocal_dev');
-	}
-
-	function sphinx_ocal_tags($term, $page, $num_per_page, $nsfw) {
-		return $this->search($term, $page, $num_per_page, $nsfw, 'ocal_dev_tags');
-	}
-
-	function search($term, $page, $num_per_page, $nsfw, $query) {
-		global $db, $aiki;
-		if ($page > 0) {
-			$page = $page-1;
-		}
-		require('sphinxapi.php');
-		$cl = new SphinxClient();
-		$cl->SetServer("localhost", 9312);
-		$cl->SetMatchMode(SPH_MATCH_ALL);
-		$cl->SetLimits($page*$num_per_page, (int)$num_per_page);
-		if ($nsfw) {
-			$cl->SetFilter("nsfw", array(0) );
-		}
-		$result = $cl->Query($term, $query);
-		$num_of_results = $result['total'];
-		if ($result === false) {
-			return "<div>Query failed: " . $cl->GetLastError() . "</div>";
-		} else {
-			if ($cl->GetLastWarning()) {
-				return "<div>WARNING: " . $cl->GetLastWarning() . "</div>";
-			} else {
-				if (!isset($result["matches"]) || $result["matches"] == null) {
-					return "<p>Sorry, no matching clipart was found.</p>";
-				} else {
-					$ids = implode(', ', array_keys($result["matches"]));
-					$query = "SELECT id, upload_date, filename, user_name, ".
-						"upload_name, file_num_download, full_path, link, (".
-						"SELECT count(DISTINCT ocal_favs.username) FROM oca".
-						"l_favs WHERE ocal_files.id = ocal_favs.clipart_id)".
-						" as favs FROM ocal_files WHERE id in ($ids);";
-					$results = $db->get_results($query);
-					if (!$results) {
-						return "<div>" . mysql_error() . "</div>";
-					} elseif(count($results) == 0) {
-						return "<p>Sorry, no matching clipart was found.</p>";
-					} else {
-						$html = '<h2>Clipart search results for "'.$term .
-							'" <a href="/media/feed/rss/GET[query]"><i'.
-							'mg src="/assets/images/images/rss-sm.png"'.
-							'></a></h2><br />';
-						$aiki->load('web2date');
-						foreach($results as $file) {
-					
-							$date = $aiki->web2date->parseweb2date($file->upload_date);
-							$filename = str_replace('svg', 'png', $file->filename);
-
-							$html .= '<div class="r-img"><div class="r-img-i">'.
-								'<a href="/detail/'.$file->id.'/'.$file->link.
-								'"><img alt="#" src="/image/90px/svg_to_png/'.
-								$file->id.'/'.$filename.'"/></a></div>'.
-            
-								'<h4><a href="/detail/'.$file->id.'/'.$file->link.
-								'">'.$file->upload_name.'</a></h4><p>by <a hr'.
-								'ef="/user-detail/'.$file->user_name.'">'.
-								$file->user_name.'</a><br />'.$date.'</p>'.
-
-								'<p class="thumbnail_info_downloaded"><a clas'.
-								's="download_hook" href="'.$file->full_path.
-								$file->filename.'"><img src="/assets/images/d'.
-								'ownload-icon.png" height="12px" alt="'.
-								$file->upload_name.'" /></a> '.$file->file_num_download.
-								'</p>'.
-    
-								'<div id="favorite_icon_'.$file->id.'" class="'.
-								'favorite-icon"><div id="make_clipart_fav_'.
-								$file->id.'" class="favorite-add '.$file->id.'">'.
-								'<img src="/image/12px/svg_to_png/OCAL_Favori'.
-								'tes_Icon_Unselected.png" alt="#"></div>'.
-								'<div class="clipart_favs_num">'.$file->favs.
-								'</div></div></div>';
-						}
-						if ($num_of_results < $num_per_page) {
-							return $html;
-						}
-						//pagination
-						$html .= '<p class="pagination">Move to page:<br>';
-						if ($page>1) {
-							$html .= '<a style="letter-spacing:0px;" href'.
-								'="?query='.$term.'&amp;page='.($page-1).'">'.
-								'<b>&lt; Previous</b></a>';
-						}
-						$num_of_pages = ceil($num_of_results/$num_per_page);
-						$page = $page+1;
-						$end = $page + 9;
-						if ($end > $num_of_pages) {
-							$end = $num_of_pages;
-						}
-						for ($i=1; $i<=$end; ++$i) {
-							if ($i == $page) {
-								$html .= '<b> '.$i.' </b>';
-							} else {
-								$html .= '<b> <a href="?query='.$term.'&amp;p'.
-									'age='.$i.'">'.$i.'</a> </b>';
-							}
-						}
-						if ($page < $num_of_pages) {
-							$html .= '<a style="letter-spacing:0px;" href="?q'.
-							'uery='.$term.'&amp;page='.($page+1).'"><b>Next &'.
-							'gt;</b></a>';
-						}
-						$html .= '<br/>';
-						if ($page > 1) {
-							$html .= '<a style="letter-spacing:0px;" href="?q'.
-								'uery='.$term.'&amp;page=1"><small>&lt;&lt; F'.
-								'irst page</small></a>';
-						}
-						if ($page < $num_of_pages) {
-							$html .= ' <a style="letter-spacing:0px;" href="?'.
-								'query='.$term.'&amp;page='.$num_of_pages.'">'.
-								'<small>Last page &gt;&gt;</small></a>';
-						}
-						$html .= '</p>';
-						return $html;
-					}
-				}
-			}
-		}
-	}
-
+// taken from old OCAL (author unknown)
+function human_date($date) {
+    $timestamp = strtotime($date);
+    if ($timestamp >= strtotime("-1 minutes"))
+        return "1 minute ago";
+    if ($timestamp >= strtotime("-2 minutes"))
+        return "2 minutes ago";
+    if ($timestamp >= strtotime("-3 minutes"))
+        return "3 minutes ago";
+    if ($timestamp >= strtotime("-4 minutes"))
+        return "4 minutes ago";
+    if ($timestamp >= strtotime("-5 minutes"))
+        return "5 minutes ago";
+    if ($timestamp >= strtotime("-10 minutes"))
+        return "10 minutes ago";
+    if ($timestamp >= strtotime("-30 minutes"))
+        return "half an hour ago";
+    if ($timestamp >= strtotime("-1 hours"))
+        return "1 hour ago";
+    if ($timestamp >= strtotime("-2 hours"))
+        return "2 hours ago";
+    if ($timestamp >= strtotime("-3 hours"))
+        return "3 hours ago";
+    if ($timestamp >= strtotime("-4 hours"))
+        return "4 hours ago";
+    if ($timestamp >= strtotime("-5 hours"))
+        return "5 hours ago";
+    if ($timestamp >= strtotime("-6 hours"))
+        return "6 hours ago";
+    if ($timestamp >= strtotime("-7 hours"))
+        return "7 hours ago";
+    if ($timestamp >= strtotime("-8 hours"))
+        return "8 hours ago";
+    if ($timestamp >= strtotime("-9 hours"))
+        return "9 hours ago";
+    if ($timestamp >= strtotime("-24 hours"))
+        return "today";
+    if ($timestamp >= strtotime("-1 days"))
+        return "yesterday";
+    if ($timestamp >= strtotime("-7 days"))
+        return "on ".date("l",$timestamp);
+    if ($timestamp >= strtotime("-1 week"))
+        return "1 week ago";
+    if ($timestamp >= strtotime("-2 week"))
+        return "2 weeks ago";
+    else
+        return date("d.m.Y",$timestamp);
 }
 
-?>
-. $args . ')';
+function human_size($bytes) {
+    $bytes = intval($bytes);
+    if ($bytes < 1024) {
+        return "$bytes bytes";
+    } else {
+        $kb = round($bytes/1024, 2);
+        if ($kb < 1024) {
+            return "$kb KB";
+        } else {
+            $mb = round($kb/1024, 2);
+            if ($mb < 1024) {
+                return "$mb MB";
+            } else {
+                $gb = round($mb/1024, 2);
+                return "$gb GB";
+            }
+        }
+    }
+}
+
+function get_time() {
+    return (float)array_sum(explode(' ', microtime()));
+}
+
+// calulate number from $min to 100 for $max, used for tag cloud
+function size($min, $max) {
+    return function($count) use($min, $max) {
+        return round((((100-$min) * $count) / $max) + $min);
+    };
+}
+
+function normalized_get_array() {
+    return array_map(function($val) {
+        if ($val == 'true' ||
+            $val == 'false' ||
+            is_numeric($val) ||
+            preg_match("/^ *(\[|\{)/", $val)) { // json array or json object
+            return json_decode($val);
+        } else {
+            return $val;
+        }
+    }, $_GET);
+}
+
+// array_filter check only values
+function filter_pair($array, $fun) {
+    $result = array();
+    if (empty($array)) {
+        return $result;
+    }
+    foreach($array as $k => $v) {
+        if ($fun($k, $v)) {
+            $result[$k] = $v;
+        }
+    }
+    return $result;
+}
+
+function query_sring($array) {
+    $result = array();
+    foreach ($array as $k => $v) {
+        $result[] = "$k=$v";
+    }
+    return implode('&', $result);
+}
+
+function get($array, $name, $default) {
+    if (isset($array[$name])) {
+        return $array[$name];
+    } else {
+        return $default;
+    }
+}
+
+function get_object_methods($object) {
+    return gettype($object) == 'object' ? get_class_methods(get_class($object)) : array();
+}
+
+function have_method($object, $method) {
+    return in_array($method, get_object_methods($object));
+}
+
+
+function get_trace($exception) {
+    $i = 0;
+    return array_map(function($array) use (&$i) {
+        $args = implode(', ', array_map(function($arg) {
+            $type = gettype($arg);
+            return $type == 'object' ? get_class($arg) : $type;
+        }, $array['args']));
+        $result = sprintf('%3d: ', $i++);
+        if (isset($array['class']) && isset($array['type'])) {
+            $result .= $array['class'] . $array['type'];
+        }
+        $result .= $array['function'] . '(' . $args . ')';
         if (isset($array['file'])) {
             $result .= ' in ' . str_replace($_SERVER['DOCUMENT_ROOT'],
                                             '',
