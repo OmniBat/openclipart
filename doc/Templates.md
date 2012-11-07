@@ -9,7 +9,7 @@ new Template('main', null);
 Second argument can be associative array where keys will be interpreted as mustache tags and it's values will be inserted into template file.
 
 ```php
-new Template('main, array(
+new Template('main', array(
     'name' => 'John'
 );
 ```
