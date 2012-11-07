@@ -80,3 +80,7 @@ The main template can be something like
 </body>
 <html>
 ```
+
+# Defalt tags
+
+There are predefined tags that can be use in all templates (even nested). Array passed as option to OCAL and System is used for as base for templates but if Template overwrite default values. OCAL class also add {{root}} and {{root_directory}}. All data from user table (openclipart_users) is accessed when user is loged in.
