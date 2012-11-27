@@ -256,9 +256,14 @@ $(function() {
     var img = $('#viewimg img, #shutterstock img').bg();
 
     rpc({url: '/rpc/main', error: function(e) {
+        if (e.error) {
+            alert(e.error.message + ' file ' + e.error.file + ' at ' + e.error.at + '\n' +
+                  e.error.line);
+        } else {
             alert(e.message || e);
+        }
     }})(function(main) {
-
+        window.main = main;
         function editable() {
             var tag_list = $('.tags ul');
             var tags = tag_list.find('li').detach();
@@ -358,7 +363,7 @@ $(function() {
         $('.overlay').click(function() {
             $(this).parent().fadeOut();
         });
-        $('#login-popup-window #login-submit').click(function() {
+        $('#login-dialog #popup-window #login-submit').click(function() {
             var login = $('#login').val();
             var pass = $('#password').val();
             main.login(login, pass)(function(ret) {
@@ -388,16 +393,19 @@ $(function() {
             var thumb = self.parents('.thumbnail');
             var clipart = thumb.data('id');
             // !!+ string "0" or "1" to int and then to boolean
-            if (!!+thumb.data('favorite')) {
+            //if (!!+thumb.data('favorite')) {
+            if (!thumb.hasClass('can_fav')) {
                 main.unfavorite(clipart)(function(removed) {
                     if (removed) {
                         self.text(self.text()-1);
+                        thumb.addClass('can_fav');
                     }
                 });
             } else {
                 main.favorite(clipart)(function(added) {
                     if (added) {
                         self.text(+self.text()+1);
+                        thumb.removeClass('can_fav');
                     }
                 });
             }
@@ -409,5 +417,4 @@ $(function() {
     Picatcha.PUBLIC_KEY = 'qjSWPO6lV1MO_uJUDq2xmWlleGAUVQfRiul52kYm';
     Picatcha.create('picatcha');
 
-    
 });

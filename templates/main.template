@@ -11,7 +11,7 @@
 </head>
 <body>
   {{! jquery added if editable (NOTE: rpc have it's own check)}}
-  <div id="container" class="container_24 {{#editable}} editable{{/editable}}{{#userid}} logged{{/userid}}{{#class}} {{class}}{{/class}}-template">
+  <div id="container" class="container_24 {{#editable}} editable{{/editable}}{{#userid}} logged{{/userid}}{{#class}} {{class}}-template{{/class}}">
     <a href="https://github.com//openclipart"><img style="position: absolute; top: 0px; right: 0px; border: 0; opacity: 0.5; z-index: 100;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
     <div id="left" class="grid_8 alpha omega">
       <div id="main-navigation" class="grid_8 alpha omega">
@@ -52,7 +52,7 @@
       </div><!--end main-navigation-->
 
       <div class="sidebar-block grid_8">
-        
+
         <div class="accordion-container">
           <input id="ac-sidebar-1" class="hidden" name="accordion-sidebar" type="checkbox" />
           <label for="ac-sidebar-1">Username</label>
@@ -67,10 +67,9 @@
         </div>
 
         <div class="ads sidebar-ad">
-					<div><a href="/why-the-ads">why the ads?</a></div>
-					<img src="img/adsense_185665_adformat-text_200x200_en.png" />
-				</div>
-        
+		  <div><a href="/why-the-ads">why the ads?</a></div>
+		  <img src="img/adsense_185665_adformat-text_200x200_en.png" />
+		</div>
       </div>
 
       {{> social-box}}
@@ -89,9 +88,9 @@
       </div>
 
       <div class="grid_7 ads top-ad">
-				<div><a href="/why-the-ads">why the ads?</a></div>
-				<a href="#"><img src="img/adsense_185665_adformat-text_234x60_en.png" /></a>
-			</div>
+		<div><a href="/why-the-ads">why the ads?</a></div>
+		<a href="#"><img src="img/adsense_185665_adformat-text_234x60_en.png" /></a>
+	  </div>
 
       <div id="donation-buttons" class="grid_3">
         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS"><img src="img/donation-paypal.png" /></a>
@@ -107,7 +106,7 @@
         <div class="wrapper login-menu">
           <a href="/profile">profile</a> | <a id="logout" href="/logout">logout</a>
         </div>
-	
+
 	<!-- no foreign languages supported yet
         <ul>
           <li class="active"><a href="#">english</a></li>
@@ -116,24 +115,32 @@
           <li><a href="#">french</a></li>
         </ul>
 	-->
-	
+
       </div><!--end login-register-language-->
 
       {{> login-dialog}}
 
+      <div class="grid_16">
+        <ul>
+        {{#system_warnings}}
+          <li>{{.}}</li>
+        {{/system_warnings}}
+        </ul>
+      </div>
+
       {{> content}}
-      
-			<div class="grid_16 aplha omega">
-				<div class="ads footer-ad">
-					<div><a href="/why-the-ads">why the ads?</a></div>
-					<img src="img/adsense_185679_adformat-link_468x15_en.png" />
-				</div>
-			</div>
+
+	  <div class="grid_16 aplha omega">
+		<div class="ads footer-ad">
+		  <div><a href="/why-the-ads">why the ads?</a></div>
+		  <img src="img/adsense_185679_adformat-link_468x15_en.png" />
+		</div>
+	  </div>
 
     </div><!--end right-->
 
     <div id="footer" class="grid_24">
-    
+
       <ul>
         <li><em><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS">Donate to Support Hosting + Maintenance</a></em></li>
         <li><a href="http://fabricatorz.com/">Fabricatorz 王</a></li>
@@ -154,11 +161,8 @@
   <link href="/libs/jquery-ui/jquery-ui-1.8.24.custom.css" rel="stylesheet"/>
   <link href="/libs/tag-it/css/jquery.tagit.css" rel="stylesheet"/>
   <script src="/libs/tag-it/js/tag-it.js"></script>
-  {{^userid}}
-  {{! don't load if logged in }}
   <script src="http://api.picatcha.com/static/client/picatcha.js" type="text/javascript"></script>
   <link href="http://api.picatcha.com/static/client/picatcha.css" type="text/css" rel="stylesheet"/>
-  {{/userid}}
   <script src="{{root}}/script.js"></script>
 </body>
 </html>

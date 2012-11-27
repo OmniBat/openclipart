@@ -1,7 +1,10 @@
 <?php
 
 class main {
-
+    function test() {
+        global $app;
+        return $app->is_logged();
+    }
     function favorite($clipart) {
         global $app;
         return $app->favorite(intval($clipart));

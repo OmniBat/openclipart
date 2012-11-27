@@ -48,7 +48,7 @@ class OCAL extends System {
             throw new Exception("You can't favorite a clipart if you are not logged in");
         } else {
             $clipart = intval($clipart);
-            $id = $this->config->id;
+            $id = $this->config->userid;
             $query = "INSERT INTO openclipart_favorites VALUES($clipart, $id, NOW())";
             return $this->db->query($query);
         }
@@ -59,7 +59,7 @@ class OCAL extends System {
             throw new Exception("You can't favorite a clipart if you are not logged in");
         } else {
             $clipart = intval($clipart);
-            $id = $this->config->id;
+            $id = $this->config->userid;
             $query = "DELETE FROM openclipart_favorites WHERE clipart = '$clipart' AND user = '$id'";
             return $this->db->query($query);
         }
@@ -72,7 +72,7 @@ class OCAL extends System {
             $nsfw = '';
         }
         if ($this->is_logged()) {
-            $fav_check = $this->get_user_id() . ' in '.
+            $fav_check = $this->config->userid . ' in '.
                 '(SELECT user FROM openclipart_favorites'.
                 ' WHERE openclipart_clipart.id = clipart)';
         } else {
