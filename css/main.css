@@ -545,9 +545,11 @@ h2 {
 		background-position: -5px -450px;
 	}
 		.logged .can_fav .popup .star:hover {
-			background: url("../img/icons_vertical.png") no-repeat -5px -270px;
+			background-position: -5px -270px;
 		}
-
+		.logged .popup .star:hover {
+			background-position: -5px -450px;
+		}
 	.popup .title {
 	    display: block;
 	    color: #333;
