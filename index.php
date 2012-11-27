@@ -409,11 +409,10 @@ $app->get("/", function() {
             'content' => new Template('home-page-content', array(
                 'popular_clipart' => new Template('clipart_list', function() {
                     global $app;
-                    $last_week = "(SELECT WEEK(max(date)) FROM ".
-                        "openclipart_favorites) = WEEK(date) AND ".
-                        "YEAR(NOW()) = YEAR(date)";
+                    $last_week = "(SELECT WEEK(max(date)) FROM openclipart_favorites) = " .
+                        "WEEK(date) AND YEAR(NOW()) = YEAR(date)";
                     return array(
-                        'clipart_list' => $app->list_clipart($last_week, "num_favorites")
+                        'clipart_list' => $app->list_clipart($last_week, "last_date")
                     );
                 }),
                 'new_clipart' => new Template('clipart_list', function() {
