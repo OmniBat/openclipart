@@ -45,11 +45,11 @@ Class SystemFunctions {
     function add_to_group($user, $group) {
         //
     }
+    // act as other user
     function disguise($id) {
         $this->system->__authorize("id = " . intval($id));
     }
 }
-
 
 class System extends Slim {
     public $groups;
@@ -89,6 +89,8 @@ class System extends Slim {
                 throw new SystemException("Invalid UserID in Session");
             }
         }
+        // debug
+        // $settings['system_warnings'][] = 'hello';
         if (isset($_GET['token'])) {
             $token = $this->db->escape($_GET['token']);
             try {
@@ -183,7 +185,6 @@ class System extends Slim {
 
     // ---------------------------------------------------------------------------------
     function login($username, $password) {
-        $table = $this->config->db_prefix . '_users';
         $username = $this->db->escape($username);
         $password = $this->db->escape($password);
         $where = "username = '$username'";// AND password = md5(md5('$password'))";
@@ -251,9 +252,10 @@ class System extends Slim {
     }
     // ---------------------------------------------------------------------------------
     // SystemFunctions class need this function for disguise php have not friend
+    // param $where is part of sql that will authorize
     function __authorize($where = null) {
         if ($where == null || $where == '') {
-            throw new Exception("where argument to authorize private method " .
+            throw new Exception("where argument to __authorize private method " .
                                 "can't be null or empty");
         }
         $table = $this->db_prefix . '_users';
@@ -344,7 +346,7 @@ class System extends Slim {
 
     // ---------------------------------------------------------------------------------
     function is_logged() {
-        return isset($this->config->id) && is_numeric($this->config->id);
+        return isset($this->config->userid) && is_numeric($this->config->userid);
     }
 
     // ---------------------------------------------------------------------------------

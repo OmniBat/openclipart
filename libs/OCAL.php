@@ -48,7 +48,7 @@ class OCAL extends System {
             throw new Exception("You can't favorite a clipart if you are not logged in");
         } else {
             $clipart = intval($clipart);
-            $id = $this->config->id;
+            $id = $this->config->userid;
             $query = "INSERT INTO openclipart_favorites VALUES($clipart, $id, NOW())";
             return $this->db->query($query);
         }
@@ -59,7 +59,7 @@ class OCAL extends System {
             throw new Exception("You can't favorite a clipart if you are not logged in");
         } else {
             $clipart = intval($clipart);
-            $id = $this->config->id;
+            $id = $this->config->userid;
             $query = "DELETE FROM openclipart_favorites WHERE clipart = '$clipart' AND user = '$id'";
             return $this->db->query($query);
         }
@@ -72,7 +72,7 @@ class OCAL extends System {
             $nsfw = '';
         }
         if ($this->is_logged()) {
-            $fav_check = $this->get_user_id() . ' in '.
+            $fav_check = $this->config->userid . ' in '.
                 '(SELECT user FROM openclipart_favorites'.
                 ' WHERE openclipart_clipart.id = clipart)';
         } else {
@@ -81,7 +81,7 @@ class OCAL extends System {
         if ($where != '' && $where != null) {
             $where = "AND $where";
         }
-        $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, count(DISTINCT user) as num_favorites, created, date, $fav_check as user_fav, downloads FROM openclipart_clipart INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON openclipart_users.id = owner WHERE openclipart_clipart.id NOT IN (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON openclipart_tags.id = tag WHERE clipart = openclipart_clipart.id AND openclipart_tags.name = 'pd_issue') $nsfw $where GROUP BY openclipart_clipart.id ORDER BY $order_by DESC LIMIT " . $this->config->home_page_thumbs_limit;
+        $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, (SELECT count(DISTINCT user) FROM openclipart_favorites WHERE clipart = openclipart_clipart.id) as num_favorites, (SELECT max(date) FROM openclipart_favorites WHERE clipart = openclipart_clipart.id) as last_date, created, date, $fav_check as user_fav, downloads FROM openclipart_clipart INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON openclipart_users.id = owner WHERE openclipart_clipart.id NOT IN (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON openclipart_tags.id = tag WHERE clipart = openclipart_clipart.id AND openclipart_tags.name = 'pd_issue') $nsfw $where GROUP BY openclipart_clipart.id ORDER BY $order_by DESC LIMIT " . $this->config->home_page_thumbs_limit;
         $clipart_list = array();
         foreach ($this->db->get_array($query) as $row) {
             $filename_png = preg_replace("/.svg$/",

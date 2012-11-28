@@ -1,4 +1,4 @@
-<div id="login-form">
+<div id="login-form" class="grid_16">
   <h2>Login</h2>
   <p>(*Fields are case sensitive)</p>
   {{#error}}
@@ -22,4 +22,5 @@
       <a href="/register">Register</a>
     </div>
   </form>
+  {{debug}}
 </div>

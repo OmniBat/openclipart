@@ -104,22 +104,25 @@ $app = new OCAL(array(
 ));
 
 $app->error(function($exception) {
-    return full_exception_string($exception, "<br/>");
+    //return full_exception_string($exception, "<br/>");
 
     global $app;
     return new Template('main', function() use ($exception) {
-        return array('content' => new Template('exception', function() use ($exception) {
-            global $app;
-            return array(
-                'name' => get_class($exception),
-                'message' => $exception->getMessage(),
-                'file' => str_replace($app->config->root_directory,
-                                      '',
-                                      $exception->getFile()),
-                'line' => $exception->getLine(),
-                'trace' => implode("\n", get_trace($exception)) //->getTraceAsString()
-            );
-        }));
+        return array(
+            'login-dialog' => new Template('login-dialog', null),
+            'content' => new Template('exception', function() use ($exception) {
+                global $app;
+                return array(
+                    'name' => get_class($exception),
+                    'message' => $exception->getMessage(),
+                    'file' => str_replace($app->config->root_directory,
+                                          '',
+                                          $exception->getFile()),
+                    'line' => $exception->getLine(),
+                    'trace' => implode("\n", get_trace($exception)) //->getTraceAsString()
+                );
+            })
+        );
     });
 });
 
@@ -138,22 +141,23 @@ $app->map('/login', function() use ($app) {
         $redirect = isset($app->GET->redirect) ? $app->GET->redirect : $app->config->root;
         // TODO: redirect don't work
         try {
-            $app->login($_POST['login'], $_POST['password']);
-            $app->redirect($redirect);
-            return;
+            //$app->redirect($redirect);
+            //return;
+            return $app->login($_POST['login'], $_POST['password']) === NULL ? 'null' : 'false';
         } catch (LoginException $e) {
             $error = $e->getMessage();
         }
     }
     return new Template('main', function() use ($error) {
         return array(
+            'login-dialog' => new Template('login-dialog', null),
             'content' => array(new Template('login', function() use ($error) {
                 global $app;
                 return array(
                     // fill login on second attempt
                     'login' => isset($_POST['login']) ? $_POST['login'] : '',
                     'error' => $error,
-                    'redirect' => $app->GET->redirect
+                    'redirect' => isset($app->GET->redirect) ? $app->GET->redirect : ''
                 );
             }))
         );
@@ -405,11 +409,10 @@ $app->get("/", function() {
             'content' => new Template('home-page-content', array(
                 'popular_clipart' => new Template('clipart_list', function() {
                     global $app;
-                    $last_week = "(SELECT WEEK(max(date)) FROM ".
-                        "openclipart_favorites) = WEEK(date) AND ".
-                        "YEAR(NOW()) = YEAR(date)";
+                    $last_week = "(SELECT WEEK(max(date)) FROM openclipart_favorites) = " .
+                        "WEEK(date) AND YEAR(NOW()) = YEAR(date)";
                     return array(
-                        'clipart_list' => $app->list_clipart($last_week, "num_favorites")
+                        'clipart_list' => $app->list_clipart($last_week, "last_date")
                     );
                 }),
                 'new_clipart' => new Template('clipart_list', function() {
