@@ -11,11 +11,11 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
-        padding-top: 100px;
+        padding-top: 72px;
         padding-bottom: 40px;
       }
     </style>
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/ocal.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -35,17 +35,25 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
+
+          <a class="brand" href="#"><img src="img/logo.png" alt="OCAL" /></a>
+          
+          <form class="form-search ocal-search">
+            <div class="input-append">
+              <input type="text" class="span2 search-query" placeholder="Search">
+              <button type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
+            </div>
+          </form>
+          
+          <a class="paypal" href="#"><img src="img/donation-paypal.png" /></a>
+          
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">LOGO</a>
-          <form class="navbar-search pull-left">
-            <input type="text" class="search-query" placeholder="Search"><span class="add-on">
-          </form>
-          <a href=""><img src="" alt="" />Donate</a>
-          <div class="nav-collapse collapse pull-right">
+          </a>  
+          
+          <div class="nav-collapse collapse pull-right ocal-nav">
             <ul class="nav">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">username <b class="caret"></b></a>
@@ -59,53 +67,67 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Librarian Tools <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Librarian - Search Username</a></li>
-                  <li><a href="#">Librarian - List librarians</a></li>
-                  <li><a href="#">QwikEdit all Website Text and Titles</a></li>
-                  <li><a href="#">Clipart with clipart_issue tag</a></li>
-                  <li><a href="#">Clipart with pd_issue tag</a></li>
-                  <li><a href="#">Search comments</a></li>
+                  <li><a href="#">search username</a></li>
+                  <li><a href="#">search comments</a></li>
+                  <li><a href="#">QwikEdit</a></li>
+                  <li><a href="#">clipart_issue tag</a></li>
+                  <li><a href="#">pd_issue tag</a></li>
                   <li class="divider"></li>
-                  <li class="nav-header">List...</li>
-                  <li><a href="#">all Hidden Clipart</a></li>
-                  <li><a href="#">List all clipart with no tags</a></li>
-                  <li><a href="#"> List all comments</a></li>
+                  <li class="nav-header">list...</li>
+                  <li><a href="#">hidden clip art</a></li>
+                  <li><a href="#">untagged clip art</a></li>
+                  <li><a href="#">comments</a></li>
+                  <li><a href="#">librarians</a></li>
                 </ul>
               </li>
               <li><a href="#contact">sign-in</a></li>
             </ul>
           </div><!--/.nav-collapse -->
-          <div class="nav">
-            <div class="nav">
-              <li><a href="#">home </a></li>
-              <li><a href="#">collections </a></li>
-              <li><a href="#">artists </a></li>
-              <li><a href="#">showcase </a></li>
-              <li><a href="#">participate </a></li>
-              <li><a href="#">about </a></li>
+       
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="container">
+
+      <div class="row ocal-ad-banner">
+        <div class="span12 ">
+          <div class="row">
+            <div class="span3 title">
+              <div>Open Clip Art Library</div>
+            </div>
+            <div class="span9 ad pull-right">
+              <a href="#">
+                <img src="http://placehold.it/728x90" alt="" />
+              </a>
             </div>
           </div>
+        </div>
+      </div>   
+    
+      <div class="row"> 
+        <div class="span12">
+          <ul class="ocal-main-menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Collections</a></li>
+            <li><a href="#">Artisits</a></li>
+            <li><a href="#">Showcase</a></li>
+            <li class="active"><span>Participate</span></li>
+            <li><a href="#">About</a></li>
+          </ul>
         </div>
       </div>
     </div>
 
-    <div class="container">
+    <div class="stripe"></div>
+     
+    <div class="container">     
+    
 
-      <div class="row">
-        <div class="span12">
-          <div class="row">
-            <div class="span4">Open Clip Art Library</div>
-            <div class="span8">
-                <a href="#">
-                  <img src="http://placehold.it/728x90" alt="" />
-                </a>
-            </div>
-          </div>
-        </div>
-      </div>      
-
+      
       <!-- Main hero unit for a primary marketing message or call to action -->
-      <div class="well">
+      <div>
         <p class="lead">create, share & remix free clip art. <a class="btn btn-primary btn-danger btn-large">upload yours.</a></p>
       </div>
 
@@ -319,9 +341,9 @@
       </footer>   
     
       <hr>    
-      <span class="label label-info"><h2>End FRONT PAGE</h2></span>
+      <span class="label label-info"><h4>End FRONT PAGE</h4></span>
       <hr>
-      <span class="label label-info"><h2>Begin DETAIL PAGE</h2></span>
+      <span class="label label-info"><h4>Begin DETAIL PAGE</h4></span>
       <hr>
 
       <div class="row">
@@ -529,9 +551,9 @@
       </footer>  
     
       <hr>    
-      <span class="label label-info"><h2>End DETAIL PAGE</h2></span>
+      <span class="label label-info"><h4>End DETAIL PAGE</h4></span>
       <hr>
-      <span class="label label-info"><h2>Begin SEARCH PAGE</h2></span>
+      <span class="label label-info"><h4>Begin SEARCH PAGE</h4></span>
       <hr>
 
       <div class="row">
@@ -644,7 +666,7 @@
     
 
       <hr>    
-      <span class="label label-info"><h2>End SEARCH PAGE</h2></span>
+      <span class="label label-info"><h4>End SEARCH PAGE</h4></span>
       <hr> 
     </div> <!-- /container -->
 
