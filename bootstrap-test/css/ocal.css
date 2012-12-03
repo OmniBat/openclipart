@@ -4,18 +4,16 @@ body {
 	background-color: #ececec;
 }
 
-.stripe + .container {
-	background: url('../img/black-triangle.png') no-repeat 40px 0px,
+.container.after-stripe {
+	background: url('../img/black-triangle.png') no-repeat 45px 0px,
 				-moz-linear-gradient(top, rgba(255,255,255,1) 0px, rgba(255,255,255,0) 200px),
 				-moz-linear-gradient(left, #fff 1px, #d7d7d7 2px, transparent 2px),
 				-moz-linear-gradient(right, #fff 1px, #d7d7d7 2px, transparent 2px),
-				-moz-linear-gradient(bottom, #fff 1px, #d7d7d7 2px, #fff 2px)
-				;
-	
+				-moz-linear-gradient(bottom, #fff 1px, #d7d7d7 2px, #fff 2px);
+				
 	padding: 0 10px;
 	margin-bottom: -30px;
 	background-color: #fff;
-	
 }
 
 .navbar .navbar-inner .container {
@@ -56,7 +54,7 @@ body {
 
 .paypal {
 	float: left;
-	padding: 0 0 0 15px;
+	padding: 0 0 0 32px;
 	margin: 0;
 	opacity: 0.75;
 }
@@ -64,11 +62,23 @@ body {
 		opacity: 1;
 	}
 
-.btn.btn-navbar {
+.btn.ocal-collapse {
 	float: right;
 	margin: 0 15px 8px 0;
+	padding: 6px 8px;
+	display: none;
+	border-radius: 3px;
 }
-
+.btn.ocal-collapse .icon-bar {
+    background-color: white;
+    border-radius: 1px 1px 1px 1px;
+    box-shadow: none;
+    display: inline;
+    height: 2px;
+    width: 18px;
+	display: block;
+	margin-bottom: 2px;
+}
 .ocal-nav {
 	float: right;
 }
@@ -112,7 +122,10 @@ body {
 .ocal-ad-banner {
 	padding-top: 5px;
 }
-
+.ocal-ad-banner img {
+	height: 90px;
+	width: 728px;
+}
 .ocal-ad-banner .title {
 	color: white;
 	font-weight: bold;
@@ -142,16 +155,26 @@ body {
 	width: 100%;
 	z-index: 1;
 	left: 0;
-	border-bottom: 2px solid white;
+	border-bottom: 1px solid white;
     /*box-shadow: 2px 25px 42px lightgray,  inset 0px 200px 100px -100px #000;*/
     background: #1a1a1a; /* Old browsers */
-	background: -moz-linear-gradient(bottom, #1a1a1a 0%, #000 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,#1a1a1a), color-stop(100%,#000)); /* Chrome,Safari4+ */
+	background:	   -moz-linear-gradient(bottom, #1a1a1a 0%, #000 100%); /* FF3.6+ */
+	background: 	   -webkit-gradient(linear, left bottom, left top, color-stop(0%,#1a1a1a), color-stop(100%,#000)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(bottom, #1a1a1a 0%,#000 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(bottom, #1a1a1a 0%,#000 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(bottom, #1a1a1a 0%,#000 100%); /* IE10+ */
-	background: linear-gradient(to top, #1a1a1a 0%,#000 100%); /* W3C */
+	background:	     -o-linear-gradient(bottom, #1a1a1a 0%,#000 100%); /* Opera 11.10+ */
+	background: 	-ms-linear-gradient(bottom, #1a1a1a 0%,#000 100%); /* IE10+ */
+	background: 		linear-gradient(to top, #1a1a1a 0%,#000 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a1a1a', endColorstr='#000',GradientType=0 ); /* IE6-9 */
+}
+
+.glow {
+	position: absolute;
+	height: 200px;
+	width: 100%;
+	z-index: 2;
+	left: 0;
+	width: 100%;
+	background: -moz-radial-gradient(top, ellipse cover, rgba(255,255,255,1) 50%,  rgba(255,255,255,0) 100%); /* FF3.6+ */
 }
 
 .ocal-main-menu {
@@ -209,6 +232,53 @@ body {
 	.ocal-main-menu li a:hover{
 		text-decoration: none;
 	}
+
+
+/*#################################################### landing page*/
+
+
+.slogan {
+	background: url(../img/landing.png) no-repeat 20px 25px transparent;
+	background-size: 90% 70%; 
+	position: relative;
+	margin: 0 auto;
+	line-height:45px;
+
+}
+
+	.slogan p {
+		font-family: "permanent marker";
+		color: black;
+		font-size: 28px;
+		text-shadow: 3px 3px 0 white;
+		padding: 60px 40px 60px 70px;
+	}
+
+	.slogan a {
+		display: inline;
+		margin-left: 20px;
+	}
+	
+	.btn-ocal {
+		font-family: "asap";
+		font-weight: bold;
+		padding: 3px 7px 5px 7px;
+		box-shadow: 2px 4px 5px #cbcbcb;
+	}
+
+.like-links {
+	padding: 30px 0;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -283,72 +353,22 @@ body {
 	}
 	
 	.ocal-main-menu {
-		padding-left: 0px;
-		margin-left: 0;
+		padding: 5px 0;
+		margin: 0 0 0 100px;
+		text-align: center;
 	}
+
+	.btn.ocal-collapse {
+		display: inline;
+	}
+
 }
 
 /*#################################################### 767px*/
 @media (max-width: 767px) {
-	.ocal-search .input-append input {
-		min-height: 27px;
-	}
 
-	
-	.ocal-main-menu {
-		padding-left: 0px;
-		margin-left: 0;
-	}
-	.ocal-main-menu li.active,
-	.ocal-main-menu li:hover {
-		background: none;
-	}
-	.ocal-main-menu li.active *,
-	.ocal-main-menu li:hover a {
-		border-bottom: 5px solid white;
-	}
-	.ocal-main-menu li.active:after,
-	.ocal-main-menu li:after {
-		content: none;
-	}
-	
-}
-
-/*#################################################### 550px*/
-@media (max-width: 550px) {
-	.paypal {
-		padding: 0 0 0 150px;
-	}
-	
-	.ocal-nav {
-		margin: 0;
-	}
-	
-}
-
-/*#################################################### 440px*/
-@media (max-width: 440px) {
-	
-	.navbar .brand img {
-		width: 80px;
-		position: absolute;
-		top: 5px;
-		left: 0;
-		right: 0;
-		margin: 0 auto;
-		padding: 0;
-	}
-	
 	.navbar .navbar-inner .container {
-		padding-top: 75px;
-	}
-	
-	.ocal-search {
-		position: absolute;
-		display: block;
-		width: auto;
-		left: 2px;
-		right: 58px;
+		padding-top: 34px;
 	}
 
 	.ocal-search .input-append,
@@ -356,18 +376,82 @@ body {
 		width: 100%;
 	}
 	
-	.paypal {
-		padding: 35px 0 0 15px;
+	.ocal-search .input-append input {
+		min-height: 27px;
+		max-width: 300px;
 	}
-	
-	.btn.btn-navbar {
-		margin: 35px 15px 8px 0;
+
+	.ocal-main-menu {
+		padding-left: 0;
+		margin-left: 0;
+	}
+	.ocal-main-menu li,
+	.ocal-main-menu li.active,
+	.ocal-main-menu li:hover {
+		background: none;
+	}
+	.ocal-main-menu li.active *,
+	.ocal-main-menu li:hover a {
+		border-bottom: 3px solid white;
+	}
+	.ocal-main-menu li.active:after,
+	.ocal-main-menu li:after {
+		content: none;
+	}
+	.stripe + .container {
+		background-position: 0px -40px;
 	}
 	
 	.ocal-ad-banner .span3 div {
 		display: none;
 	}
+	
+	.paypal {
+		margin-left: 20px;
+	}
 }
 
+@media (max-width: 630px) {
 	
+	.ocal-search {
+		position: absolute;
+		display: block;
+		width: auto;
+		left: 2px;
+		right: 58px;
+		padding: 0 0 0 130px;
+		top: 10px;
+		margin: 0;
+	}
+	
+	.btn.ocal-collapse {
+		float: right;
+		margin: 9px 20px 0 5px;
+		width: 20px;
+	}
+	
+	.paypal {
+		margin: 10px 0 0;
+		padding: 0;
+		position: absolute;
+	}
+	
+}	
 
+
+@media (max-width: 300px) {
+	.paypal {
+		display: none;
+	}
+	.navbar .brand img{
+		width: 60%;
+	}
+	.ocal-search {
+	    padding: 0 0 0 100px;
+	}
+	.btn.ocal-collapse {
+		float: right;
+		margin: 9px 20px 5px 5px;
+		width: 20px;
+	}
+}
