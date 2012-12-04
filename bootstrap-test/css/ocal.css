@@ -5,8 +5,7 @@ body {
 }
 
 .container.after-stripe {
-	background: url('../img/black-triangle.png') no-repeat 45px 0px,
-				-moz-linear-gradient(top, rgba(255,255,255,1) 0px, rgba(255,255,255,0) 200px),
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0px, rgba(255,255,255,0) 200px),
 				-moz-linear-gradient(left, #fff 1px, #d7d7d7 2px, transparent 2px),
 				-moz-linear-gradient(right, #fff 1px, #d7d7d7 2px, transparent 2px),
 				-moz-linear-gradient(bottom, #fff 1px, #d7d7d7 2px, #fff 2px);
@@ -14,6 +13,15 @@ body {
 	padding: 0 10px;
 	margin-bottom: -30px;
 	background-color: #fff;
+}
+
+.triangle {
+	top: 0;
+	left: 46px;
+	position: absolute;
+	height:20px;
+	width: 70px;
+	background: url('../img/black-triangle.png') no-repeat 0px 0px;
 }
 
 .navbar .navbar-inner .container {
@@ -136,7 +144,9 @@ body {
 	padding-top: 30px;
 	text-shadow: 0 3px 0 black;
 }
-
+.like-links a img{
+	padding-bottom: 10px;
+}
 .ocal-ad-banner .ad a {
 	width: 728px;
 	height: 90px;
@@ -238,12 +248,12 @@ body {
 
 
 .slogan {
-	background: url(../img/landing.png) no-repeat 20px 25px transparent;
-	background-size: 90% 70%; 
+	background: url(../img/landing.png) no-repeat 30px 35px transparent;
+	background-size: 80% 60%; 
 	position: relative;
 	margin: 0 auto;
 	line-height:45px;
-
+	clear: both;
 }
 
 	.slogan p {
@@ -315,6 +325,13 @@ body {
 	.ocal-main-menu {
 		padding-left: 210px;
 	}
+	
+	.slogan {
+		text-align: center;
+	}
+	.slogan {
+		background-size: 94% 60%;
+	}
 }
 
 
@@ -361,7 +378,10 @@ body {
 	.btn.ocal-collapse {
 		display: inline;
 	}
-
+	
+	.slogan {
+		background-size: 90% 70%; 
+	}
 }
 
 /*#################################################### 767px*/
@@ -398,8 +418,8 @@ body {
 	.ocal-main-menu li:after {
 		content: none;
 	}
-	.stripe + .container {
-		background-position: 0px -40px;
+	.triangle {
+		display: none;
 	}
 	
 	.ocal-ad-banner .span3 div {
@@ -454,4 +474,14 @@ body {
 		margin: 9px 20px 5px 5px;
 		width: 20px;
 	}
+	
+	.slogan {
+		background-size: 80% 90%; 
+	}
+		.slogan p {
+			padding-left: 40px;
+		}
+		.slogan a {
+			margin-left: -10px;
+		}
 }
