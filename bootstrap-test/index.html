@@ -13,7 +13,7 @@
     <style type="text/css">
       body {
         padding-top: 72px;
-        padding-bottom: 40px;
+        padding-bottom: 0px;
       }
     </style>
     <link href="css/ocal.css" rel="stylesheet">
@@ -36,8 +36,8 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-
-          <a class="brand" href="#"><img src="img/logo.png" alt="OCAL" /></a>
+          <div class="logo-shadow"></div>
+          <a class="brand" href="#"><img src="img/logo.png" alt="OCAL"  style="z-index: 2;"/></a>
           
           <form class="form-search ocal-search">
             <div class="input-append">
@@ -47,6 +47,7 @@
           </form>
           
           <a class="paypal" href="#"><img src="img/donation-paypal.png" /></a>
+          
           
           <a class="btn btn-inverse ocal-collapse" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
@@ -120,9 +121,10 @@
         </div>
       </div>
     </div>
-    
+    <div class="shadow"></div>
     <div class="stripe"></div>
     <div class="glow"></div>
+    
 
     <div class="container after-stripe">     
       <div class="triangle"></div>
@@ -146,7 +148,7 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="span6">
-          <h3>Popular Clip Art</h3>
+          <h3 class="center">Popular Clip Art</h3>
           <ul class="thumbnails">
             <li class="span2">
               <a href="#" class="thumbnail">
@@ -205,7 +207,7 @@
           </ul>
         </div><!-- End Popular-->
         <div class="span6">
-          <h3>New Clip Art</h3>
+          <h3 class="center">New Clip Art</h3>
           <ul class="thumbnails">
             <li class="span2">
               <a href="#" class="thumbnail">
@@ -265,11 +267,9 @@
         </div><!--end New-->
       </div>
 
-      <hr>
-      
       <div class="row">
-        <div class="span6">
-          <h3>Top Artists this month</h3>
+        <div class="span6 section">
+          <h3 class="section">Top Artists this month</h3>
           <table class="table table-hover">
             <tr>
               <td><a href="#">Rick</a></td>
@@ -306,34 +306,35 @@
           </table>
         </div>
         
-        <div class="span6">
+        <div class="span6 section">
           <h3>Popular Tags</h3>
-          <button class="btn btn-inverse">dog</button>
-          <button class="btn btn-inverse">juice</button>
-          <button class="btn btn-inverse">house</button>
-          <button class="btn btn-inverse">red</button>
-          <button class="btn btn-inverse">people</button>
-          <button class="btn btn-inverse">sun</button>
-          <button class="btn btn-inverse">sports</button>
-          <button class="btn btn-inverse">automobile</button>
-          <button class="btn btn-inverse">motorbike</button>
-          <button class="btn btn-inverse">headphones</button>
-          <button class="btn btn-inverse">airplane</button>
-          <button class="btn btn-inverse">spider</button>
-          <button class="btn btn-inverse">halloween</button>
-          <button class="btn btn-inverse">orange</button>
-          <button class="btn btn-inverse">motorbike</button>
-          <button class="btn btn-inverse">lizard</button>
-          <button class="btn btn-inverse">lemonade</button>
-          <button class="btn btn-inverse">headphones</button>
-          <button class="btn btn-inverse">spider</button>
-          <button class="btn btn-inverse">halloween</button>
+          <div class="tags">
+            <button class="btn btn-inverse">dog</button>
+            <button class="btn btn-inverse">juice</button>
+            <button class="btn btn-inverse">house</button>
+            <button class="btn btn-inverse">red</button>
+            <button class="btn btn-inverse">people</button>
+            <button class="btn btn-inverse">sun</button>
+            <button class="btn btn-inverse">sports</button>
+            <button class="btn btn-inverse">automobile</button>
+            <button class="btn btn-inverse">motorbike</button>
+            <button class="btn btn-inverse">headphones</button>
+            <button class="btn btn-inverse">airplane</button>
+            <button class="btn btn-inverse">spider</button>
+            <button class="btn btn-inverse">halloween</button>
+            <button class="btn btn-inverse">orange</button>
+            <button class="btn btn-inverse">motorbike</button>
+            <button class="btn btn-inverse">lizard</button>
+            <button class="btn btn-inverse">lemonade</button>
+            <button class="btn btn-inverse">headphones</button>
+            <button class="btn btn-inverse">spider</button>
+            <button class="btn btn-inverse">halloween</button>
+          </div>
         </div>
       </div>
 
-      <hr>
       
-      <div class="well">
+      <div class="footer-ad">
         <a href="#">
           <img src="http://placehold.it/728x15" alt="" />
         </a>
@@ -352,11 +353,8 @@
         </p>
       </footer>   
     
-      <hr>    
       <span class="label label-info"><h4>End FRONT PAGE</h4></span>
-      <hr>
       <span class="label label-info"><h4>Begin DETAIL PAGE</h4></span>
-      <hr>
 
       <div class="row">
         
@@ -401,16 +399,18 @@
             
             <div class="span6">
               <h5>Tags</h5>
-              <button class="btn btn-inverse">dog</button>
-              <button class="btn btn-inverse">juice</button>
-              <button class="btn btn-inverse">house</button>
-              <button class="btn btn-inverse">red</button>
-              <button class="btn btn-inverse">people</button>
-              <button class="btn btn-inverse">sun</button>
-              <button class="btn btn-inverse">sports</button>
-              <button class="btn btn-inverse">automobile</button>
-              <button class="btn btn-inverse">motorbike</button>
-              <button class="btn btn-inverse">headphones</button>
+                <div class="tags">
+                  <button class="btn btn-inverse">dog</button>
+                  <button class="btn btn-inverse">juice</button>
+                  <button class="btn btn-inverse">house</button>
+                  <button class="btn btn-inverse">red</button>
+                  <button class="btn btn-inverse">people</button>
+                  <button class="btn btn-inverse">sun</button>
+                  <button class="btn btn-inverse">sports</button>
+                  <button class="btn btn-inverse">automobile</button>
+                  <button class="btn btn-inverse">motorbike</button>
+                  <button class="btn btn-inverse">headphones</button>
+                </div>
             </div>
             
             <div class="span6">
@@ -461,9 +461,9 @@
       
       <div class="row"> 
       
-        <div class="span12">
+        <div class="span12 section">
           
-          <h4>We are social</h4>  
+          <h3>We are social</h3>  
           <div class="row">
             <div class="span4">
               <a href="#">
@@ -488,9 +488,10 @@
       
       <div class="row">
         
-        <div class="span12">
+        <div class="span12 section">
 
-          <h4>Comments</h4>
+          <h3>Comments</h3>
+
           <div class="media"><!--start comment-->
             <a class="pull-left" href="#">
               <img class="media-object" src="http://placehold.it/75x75">
@@ -506,7 +507,8 @@
               </div>
             </div>
           </div><!--end comment-->
-          <div class="media">
+
+          <div class="media"><!--start comment-->
             <a class="pull-left" href="#">
               <img class="media-object" src="http://placehold.it/75x75">
             </a>
@@ -521,7 +523,8 @@
               </div>
             </div>
           </div><!--end comment-->
-          <div class="media">
+
+          <div class="media"><!--start comment-->
             <a class="pull-left" href="#">
               <img class="media-object" src="http://placehold.it/75x75">
             </a>
@@ -536,14 +539,11 @@
               </div>
             </div>
           </div><!--end comment-->
-          
         </div>
         
       </div><!--end row-->   
 
-      <hr>
-      
-      <div class="well">
+      <div class="footer-ad">
         <a href="#">
           <img src="http://placehold.it/728x15" alt="" />
         </a>
@@ -562,11 +562,8 @@
         </p>
       </footer>  
     
-      <hr>    
       <span class="label label-info"><h4>End DETAIL PAGE</h4></span>
-      <hr>
       <span class="label label-info"><h4>Begin SEARCH PAGE</h4></span>
-      <hr>
 
       <div class="row">
         
@@ -655,9 +652,7 @@
         
       </div>
       
-      <hr>
-      
-      <div class="well">
+      <div class="footer-ad">
         <a href="#">
           <img src="http://placehold.it/728x15" alt="" />
         </a>
@@ -675,11 +670,7 @@
           <a href="#">✳ Sharism</a>
         </p>
       </footer>   
-    
 
-      <hr>    
-      <span class="label label-info"><h4>End SEARCH PAGE</h4></span>
-      <hr> 
     </div> <!-- /container -->
 
     <!-- Le javascript
