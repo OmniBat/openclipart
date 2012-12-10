@@ -30,7 +30,11 @@ h3 {
 		text-align: center;
 		padding: 2px 0 3px 0;
 		line-height: 28px;
-		background: -moz-linear-gradient(top, white 1px, black 1px, #333 12px);
+		background: 	 -moz-linear-gradient(top, white 1px, black 1px, #333 12px);
+		background: 	 -ms-linear-gradient(top, white 1px, black 1px, #333 12px);
+		background: 	 -o-linear-gradient(top, white 1px, black 1px, #333 12px);
+		background: 	 -webkit-linear-gradient(top, white 1px, black 1px, #333 12px);
+		background: 	 linear-gradient(top, white 1px, black 1px, #333 12px);
 		z-index: 3;
 		border-top: 1px solid #d7d7d7;
 	}
@@ -267,22 +271,20 @@ a.thumbnail {
 }
 
 .stripe {
-	background: url('../img/background-logo.png') no-repeat 30px -70px #1c1c1c;
 	position: absolute;
-	height: 200px;
-	margin-top: -200px;
+	height: 400px;
+	margin-top: -400px;
 	width: 100%;
 	z-index: 1;
 	left: 0;
 	border-bottom: 1px solid white;
-    /*box-shadow: 2px 25px 42px lightgray,  inset 0px 200px 100px -100px #000;*/
     background: #1a1a1a; /* Old browsers */
-	background:	   -moz-linear-gradient(bottom, #1a1a1a 0%, #000 100%); /* FF3.6+ */
+	background:	 -moz-linear-gradient(bottom, #1a1a1a 0%, #000 100%); /* FF3.6+ */
 	background: 	   -webkit-gradient(linear, left bottom, left top, color-stop(0%,#1a1a1a), color-stop(100%,#000)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(bottom, #1a1a1a 0%,#000 100%); /* Chrome10+,Safari5.1+ */
 	background:	     -o-linear-gradient(bottom, #1a1a1a 0%,#000 100%); /* Opera 11.10+ */
 	background: 	-ms-linear-gradient(bottom, #1a1a1a 0%,#000 100%); /* IE10+ */
-	background: 		linear-gradient(to top, #1a1a1a 0%,#000 100%); /* W3C */
+	background:       url(../img/logo-background.png) no-repeat 0px 170px,   linear-gradient(to top, #1a1a1a 0%,#000 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a1a1a', endColorstr='#000',GradientType=0 ); /* IE6-9 */
 }
 
@@ -320,11 +322,11 @@ a.thumbnail {
 	padding: 9px 0px 9px 11px;
 	margin-left: 0px;
 	background: url(../img/menu-select.png) no-repeat center 40px;
-	-moz-transition: background 0.1s ease-in-out 0s;
-	-ms-transition: background 0.1s ease-in-out 0s;
-	-o-transition: background 0.1s ease-in-out 0s;
+	   -moz-transition: background 0.1s ease-in-out 0s;
+	    -ms-transition: background 0.1s ease-in-out 0s;
+	     -o-transition: background 0.1s ease-in-out 0s;
 	-webkit-transition: background 0.1s ease-in-out 0s;
-	transition: background 0.1s ease-in-out 0s;
+	        transition: background 0.1s ease-in-out 0s;
 }
 	.ocal-main-menu li.active,
 	.ocal-main-menu li:hover {
@@ -333,10 +335,6 @@ a.thumbnail {
 	
 	.ocal-main-menu li a{
 		color: white;
-	}
-	
-	.ocal-main-menu li:hover a{
-
 	}
 	
 	.ocal-main-menu li:after{
@@ -365,12 +363,13 @@ a.thumbnail {
 	}
 
 .tags {
-	text-align: center;
+	padding-bottom: 20px;
 }
 	.tags .btn-inverse {
 		font-family: "Asap";
+		font-size: 16px;
 		margin: 9px 5px 0 0;
-		padding: 0 7px 3px;
+		padding: 2px 7px 3px;
 		border-radius: 7px;
 		text-transform: lowercase;
 		box-shadow: none;
@@ -477,12 +476,34 @@ table td {
 	padding: 30px 0;
 }
 
+.news .span2 {
+	text-align: right;
+	font-weight: bold;
+}
 
+/* ##################### detail page ######################*/
 
+.vote-star {
+	padding-right: 30px;
+}
 
-
-
-
+.vote-star a {
+	color: #808080;
+	font-size: 9px;
+	position: absolute;
+	height: 30px;
+	width: 30px;
+	margin: 3px 0px 0px 0px;
+	text-align: right;
+	line-height: 11px;
+	background: url(../img/ocal-icons.png) no-repeat -30px -60px;
+}
+	.vote-star a:hover,
+	.vote-star a.active {
+		text-decoration: none;
+		color: black;
+		background-position: 0px -60px ;
+	}
 
 
 
@@ -645,6 +666,14 @@ table td {
 	.shadow, .logo-shadow, .glow {
 		display: none;
 	}
+	
+	.news .span2 {
+		text-align: left;
+		padding-top: 10px;
+	}
+		.news .row {
+			padding: 0px;
+		}
 }
 
 @media (max-width: 630px) {
