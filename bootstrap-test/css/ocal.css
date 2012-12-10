@@ -9,9 +9,28 @@ body {
 	background-color: #ececec;
 }
 
+a {
+	font-style: italic;
+	color: #333;
+}
+
+	a:hover {
+		text-decoration: none;
+		font-weight: bold;
+		color: black;		
+	}
+
 h3 {
 	font-size: 22px;
 }
+
+.btn-danger {
+	background-image: linear-gradient(to bottom, #e70000, #a20000);
+}
+	.btn-danger:hover {
+		background-color: #a20000;
+	}
+
 
 .section {
 	position: relative;
@@ -77,6 +96,7 @@ a.thumbnail {
     padding: 0;
     transition: all 0.2s ease-in-out 0s;
     color: black;
+    font-style: normal;
 }
 	
 	a.thumbnail:hover {
@@ -113,6 +133,10 @@ a.thumbnail {
 	height:20px;
 	width: 70px;
 	background: url('../img/black-triangle.png') no-repeat 0px 0px;
+}
+
+.navbar a {
+	font-style: normal;
 }
 
 .navbar .navbar-inner .container {
@@ -313,6 +337,10 @@ a.thumbnail {
 .ocal-main-menu {
 	padding-left: 270px;
 }
+
+.ocal-main-menu a {
+	font-style: normal;
+}
 .ocal-main-menu li {
 	list-style: none outside none;
 	float: left;
@@ -368,8 +396,9 @@ a.thumbnail {
 	.tags .btn-inverse {
 		font-family: "Asap";
 		font-size: 16px;
+		font-style: italic;
 		margin: 9px 5px 0 0;
-		padding: 2px 7px 3px;
+		padding: 3px 7px;
 		border-radius: 7px;
 		text-transform: lowercase;
 		box-shadow: none;
@@ -383,6 +412,17 @@ a.thumbnail {
 		font-weight: bold;
 		background: #222;
 		text-shadow: 0 1px 3px darkgay;
+	}
+
+	.tags .add-tag {
+		background: #ddd;
+		color: black;
+		text-shadow: 0 2px 2px white;
+		border-color: white;
+	}
+
+	.tags .add-tag:hover {
+		background: #eee;
 	}
 
 .footer-ad {
@@ -434,11 +474,17 @@ table td {
 	}
 
 
+.ad-span {
+	padding-bottom: 30px;
+}
+
+
 /*#################################################### landing page*/
 
 .like-links {
-    margin-left: -20px;
+    margin: 0 0 0 -20px;
     text-align: center;
+    height: 80px;
 }
 
 .slogan {
@@ -448,7 +494,6 @@ table td {
 	margin: 0 auto;
 	line-height: 45px;
 	clear: both;
-
 }
 
 	.slogan p {
@@ -496,24 +541,80 @@ table td {
 	margin: 3px 0px 0px 0px;
 	text-align: right;
 	line-height: 11px;
-	background: url(../img/ocal-icons.png) no-repeat -30px -60px;
+	background: url(../img/ocal-icons.png) no-repeat 0 -90px;
 }
 	.vote-star a:hover,
 	.vote-star a.active {
 		text-decoration: none;
 		color: black;
-		background-position: 0px -60px ;
+		background-position: -30px -90px;
 	}
 
+	.vote-star a.active {
+		background-position: 0 -60px;
+	}
+	.vote-star a.active:hover {
+		background-position: -30px -60px;
+	}
+	
+.detail-image {
+	z-index: 2;
+	margin: 0 auto;
+	width: 280px;
+	height: 280px;
+	padding-bottom: 10px;
+}
 
+.detail-image:hover ~ button {
+    background-position: 0 -15px;
+    transition: background-position 0.1s linear 0s;
+}
 
+.edit-menu {
+	padding: 10px 0px;
+}
+	.edit-menu a {
+		color: #E70000;
+		margin: 0 2px;
+	}
+	.edit-menu a:hover {
+		color: #A20000;
+	}
+	
+	.edit-menu a:hover:after {
+		color: #E70000;
+		font-weight: normal;
+	}
 
+	.edit-menu a:after {
+		content: " |";
+	}
+	.edit-menu a:last-child:after {
+		content: "";
+	}
 
+.download-like-links a div{
+	position: relative;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background: url('../img/ocal-icons.png') no-repeat 30px 30px;
+}
 
+	.download-like-links a .facebook {background-position: 0 -450px;}
+	.download-like-links a:hover .facebook {background-position: -30px -450px;}
+	.download-like-links a .twitter {background-position: 0 -300px;}
+	.download-like-links a:hover .twitter {background-position: -30px -300px;}
+	.download-like-links a .googleplus {background-position: 0 -330px;}
+	.download-like-links a:hover .googleplus {background-position: -30px -330px;}
+	.download-like-links a .pinterest {background-position: 0 -390px;}
+	.download-like-links a:hover .pinterest {background-position: -30px -390px;}
+	.download-like-links a .more {background-position: 0 -270px;}
+	.download-like-links a:hover .more {background-position: -30px -270px;}
 
-
-
-
+.remixes img {
+	padding: 10px 5px 0 0;	
+} 
 
 
 
