@@ -327,7 +327,7 @@ a.thumbnail {
 	left: 0;
 	top: 0;
 	bottom: 0;
-	background: -moz-linear-gradient(left, #ECECEC 0%, #000000 50%, #ECECEC 100%);
+	background: -moz-linear-gradient(left center , #ECECEC 6%, #777 50%, #ECECEC 95%) repeat scroll 0 0 transparent;
 }
 
 .ocal-main-menu {
