@@ -81,11 +81,6 @@ h3 {
 		background: -moz-linear-gradient(center top, #FFF 50px, rgba(255, 255, 255, 0) 300px);
 		z-index: -1;
 	}
-	
-	.section + .section h3 {
-		margin: 0 -10px 0 -20px;
-	}
-
 
 a.thumbnail {
 	border: none;
@@ -192,6 +187,7 @@ a.thumbnail {
 	padding: 0 0 0 32px;
 	margin: 0;
 	opacity: 0.75;
+	transition: all 0.15s linear 0s;
 }
 	.paypal:hover {
 		opacity: 1;
@@ -434,21 +430,39 @@ footer {
 	padding: 0;
 	margin-bottom: 0;
 	font-size: 14px;
+	text-align: left;
 }
-	footer p {
-		margin-bottom: 0;
+	footer .span3 {
+		padding: 10px 0 20px 20px;
+		margin-right: -20px;
 	}
+	footer ul {
+		list-style-position: outside;
+		padding: 0;
+		margin:  0 0 0 0px;
+	}
+	footer ul li {
+		list-style-type: none;
+		padding: 5px 0 0 0;
+		margin: 0;
+	}
+
 	footer a,
 	footer a:hover {
 		color: white;
 		text-decoration: none;
+		font-style: normal;
 	}
+	
 	footer a:hover {
 		font-weight: bold;
 	}
-	footer a:first-of-type {
-		font-weight: bold;
+	
+	footer p a,
+	footer p a:hover {
+		text-decoration: underline;
 	}
+
 
 table td {
 	border-right: 3px solid white;
@@ -482,26 +496,25 @@ table td {
 /*#################################################### landing page*/
 
 .like-links {
-    margin: 0 0 0 -20px;
+    margin: 0;
     text-align: center;
-    height: 80px;
 }
 
 .slogan {
-	background: url(../img/landing.png) no-repeat 30px 35px transparent;
-	background-size: 80% 60%; 
+	/*background: url(../img/landing.png) no-repeat 30px 35px transparent;
+	background-size: 80% 60%; */
 	position: relative;
 	margin: 0 auto;
 	line-height: 45px;
 	clear: both;
+	margin: 20px 0 0 10px;
 }
-
 	.slogan p {
-		font-family: "permanent marker";
-		color: black;
 		font-size: 28px;
-		text-shadow: 3px 3px 0 white;
-		padding: 60px 40px 60px 70px;
+		text-shadow: -1px -2px 1px white;
+		font-size: 22px;
+		color: black;
+		padding: 25px 0px 25px 200px;
 	}
 
 	.slogan a {
@@ -516,9 +529,20 @@ table td {
 		padding: 3px 7px 5px 7px;
 		box-shadow: 2px 4px 5px #cbcbcb;
 	}
+	.btn-ocal:hover {
+		box-shadow: 1px 2px 3px #cbcbcb;
+	}
+
+.popular-new .ad-span img {
+	padding-top: 55px;
+}
+
+.ad-span img {
+	padding-bottom: 10px;
+}
 
 .like-links {
-	padding: 30px 0;
+	padding: 20px 0;
 }
 
 .news .span2 {
@@ -616,14 +640,110 @@ table td {
 	padding: 10px 5px 0 0;	
 } 
 
+.detail-ad {
+	padding: 20px 0 30px;
+}
 
 
+/* ##################### search page ######################*/
+.search-navigation {
+	margin-top: 10px;
+}
+
+.search-navigation .btn-group .btn {
+	padding: 0;
+	font-size: 16px;
+	color: #333;
+	background: none;
+}
+	.search-navigation .btn-group .btn:hover {
+		text-decoration: none;
+	}
+	.search-navigation .btn-group.open .btn.dropdown-toggle {
+		box-shadow: none;
+		background: none;
+	}
+
+.search-navigation .sort-ascending,
+.search-navigation .sort-descending {
+	display: inline;
+	position: absolute;
+	background: url('../img/ocal-icons.png') -15px -35px no-repeat;
+	width: 20px;
+	height: 20px;
+	opacity: 0.65;
+}
+	.search-navigation .btn-group:hover .sort-ascending,
+	.search-navigation .btn-group:hover .sort-descending {
+		opacity: 1;
+	}
+	.search-navigation .sort-ascending {
+		background-position: -45px -35px;
+	}
+
+.search-navigation .dropdown-menu {
+	text-align: left;
+	min-width: 120px;
+}
+.search-navigation .dropdown-menu a {
+	border-left: 20px solid red;
+	padding-left: 10px;
+}
+	.search-navigation .dropdown-menu a:hover {
+		font-weight: bold;
+	}
+	.search-navigation a.age {border-color: transparent;}
+	.search-navigation a.downloads {border-color: transparent;}
+	.search-navigation a.red {border-color: red;}
+	.search-navigation a.yellow {border-color: yellow;}
+	.search-navigation a.blue {border-color: blue;}
+	.search-navigation a.green {border-color: green;}
+	.search-navigation a.white {border-color: white;}
+	.search-navigation a.black {border-color: black;}
 
 
+.pagination {
+    margin-top: 10px;
+}
 
+.pagination ul {
+    border: none;
+    box-shadow: none;
+}
+	.pagination ul li {
+		float: left;
+	}
 
+	.pagination ul > li > a,
+	.pagination ul > li > span {
+		border: none;
+		box-shadow: none;
+	}
 
+	.pagination ul > li > a:hover,
+	.pagination ul > .active > a,
+	.pagination ul > .active > span {
+		background-color: #333;
+		color: white;
+		font-weight: bold;
+		margin-bottom: 7px;
+	}
 
+	.pagination ul .active,
+	.pagination ul li:hover {
+		background: url('../img/ocal-icons.png') no-repeat center -470px;
+	}
+	.pagination ul li:first-of-type,
+	.pagination ul li:last-of-type,
+	.pagination ul li.disabeled {
+		background-image: none;
+	}
+
+	.pagination ul > .disabeled {
+		line-height: 30px;
+		float: left;
+		padding: 0 5px;
+	}
 
 
 
@@ -639,6 +759,8 @@ table td {
 
 
 /*#################################################### 1200px*/
+
+/*
 @media (max-width: 1200px) {
 
 	.ocal-main-menu {
@@ -657,12 +779,17 @@ table td {
 	}
 	
 }
-
+*/
 
 
 
 /*#################################################### 979px*/
 @media (max-width: 979px) {
+
+	.logo-shadow {
+		display: none;
+	}
+
 	.navbar .container {
 		max-width: 724px;
 	  }
@@ -716,7 +843,7 @@ table td {
 
 /*#################################################### 767px*/
 @media (max-width: 767px) {
-
+	
 	.navbar .navbar-inner .container {
 		padding-top: 34px;
 	}
