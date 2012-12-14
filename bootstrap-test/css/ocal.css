@@ -1,27 +1,81 @@
 @import url('bootstrap-responsive.css');
 
+@font-face {
+    font-family: 'AsapRegular';
+    src: url('../fonts/Asap-Regular-webfont.eot');
+    src: url('../fonts/Asap-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-Regular-webfont.woff') format('woff'),
+         url('../fonts/Asap-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-Regular-webfont.svg#AsapRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapItalic';
+    src: url('../fonts/Asap-Italic-webfont.eot');
+    src: url('../fonts/Asap-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-Italic-webfont.woff') format('woff'),
+         url('../fonts/Asap-Italic-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-Italic-webfont.svg#AsapItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapBold';
+    src: url('../fonts/Asap-Bold-webfont.eot');
+    src: url('../fonts/Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-Bold-webfont.woff') format('woff'),
+         url('../fonts/Asap-Bold-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-Bold-webfont.svg#AsapBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapBoldItalic';
+    src: url('../fonts/Asap-BoldItalic-webfont.eot');
+    src: url('../fonts/Asap-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-BoldItalic-webfont.woff') format('woff'),
+         url('../fonts/Asap-BoldItalic-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-BoldItalic-webfont.svg#AsapBoldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 .center {
 	text-align: center;	
 }
 
 body {
 	font-size: 16px;
+	font-family: "AsapRegular";
 	background-color: #ececec;
 }
 
 a {
-	font-style: italic;
+	font-family: "AsapItalic";
 	color: #333;
 }
 
 	a:hover {
 		text-decoration: none;
-		font-weight: bold;
+		font-family: "AsapBold";
 		color: black;		
 	}
 
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-family: "AsapBold";
+}
+
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    font-family: "AsapRegular";
+}
+
+
 h3 {
 	font-size: 22px;
+	font-family: "AsapBold";
 }
 
 .btn-danger {
@@ -91,7 +145,7 @@ a.thumbnail {
     padding: 0;
     transition: all 0.2s ease-in-out 0s;
     color: black;
-    font-style: normal;
+    font-family: "AsapRegular";
 }
 	
 	a.thumbnail:hover {
@@ -102,14 +156,14 @@ a.thumbnail {
 
 	a.thumbnail h5 {
 		font-size: 14px;
-		font-weight: normal;
+		font-family: "AsapRegular";
 		color: #808080;
 		text-transform: lowercase;
 		text-align: center;
 	}
 	
 	a.thumbnail:hover h5 {
-		font-weight: bold;
+		font-family: "AsapBold";
 	}
 
 .container.after-stripe {
@@ -131,7 +185,7 @@ a.thumbnail {
 }
 
 .navbar a {
-	font-style: normal;
+	font-family: "AsapRegular";
 }
 
 .navbar .navbar-inner .container {
@@ -166,7 +220,7 @@ a.thumbnail {
 		border-color: black;
 		color: #GGG;
 		font-size: 16px;
-		font-family: "Asap";
+		font-family: "AsapRegular";
 		height: 15px;
 		width: 230px;
 	}
@@ -223,7 +277,7 @@ a.thumbnail {
 	.navbar .nav li.dropdown.active > .dropdown-toggle,
 	.navbar .nav li.dropdown.open.active > .dropdown-toggle {
 		background: none;
-		font-weight: bold;
+		font-family: "AsapBold";
 		color: #333;
 	}
 
@@ -236,18 +290,18 @@ a.thumbnail {
 	.nav-collapse .nav > li > a:hover,
 	.nav-collapse .dropdown-menu a,
 	.nav-collapse .dropdown-menu a:hover{
-		font-weight: normal;
+		font-family: "AsapRegular";
 		background: none;
 		padding: 3px 15px;
 	}
 	.nav-collapse .dropdown-menu a:hover {
 		background: black;
-		font-weight: bold;
+		font-family: "AsapBold";
 	}
 	
 	.nav-collapse .nav > li > a:hover,
 	.navbar .nav li.dropdown.active > .dropdown-toggle {
-		font-weight: bold;
+		font-family: "AsapBold";
 		color: #333;
 	}
 
@@ -269,8 +323,7 @@ a.thumbnail {
 }
 .ocal-ad-banner .title {
 	color: white;
-	font-weight: bold;
-	font-style: italic;
+	font-family: "AsapBoldItalic";
 	font-size: 22px;
 	text-align: center;
 	width: 150px;
@@ -335,13 +388,13 @@ a.thumbnail {
 }
 
 .ocal-main-menu a {
-	font-style: normal;
+	font-family: "AsapBold";
 }
 .ocal-main-menu li {
 	list-style: none outside none;
 	float: left;
 	color: white;
-	font-weight: bold;
+	font-family: "AsapBold";
 	font-size: 18px;
 	padding: 9px 0px 9px 11px;
 	margin-left: 0px;
@@ -390,9 +443,8 @@ a.thumbnail {
 	padding-bottom: 20px;
 }
 	.tags .btn-inverse {
-		font-family: "Asap";
+		font-family: "AsapItalic";
 		font-size: 16px;
-		font-style: italic;
 		margin: 9px 5px 0 0;
 		padding: 3px 7px;
 		border-radius: 7px;
@@ -404,8 +456,7 @@ a.thumbnail {
 	}
 	
 	.tags .btn-inverse:hover {
-		font-family: "Asap";
-		font-weight: bold;
+		font-family: "AsapBoldItalic";
 		background: #222;
 		text-shadow: 0 1px 3px darkgay;
 	}
@@ -451,11 +502,11 @@ footer {
 	footer a:hover {
 		color: white;
 		text-decoration: none;
-		font-style: normal;
+		font-family: "AsapRegular";
 	}
 	
 	footer a:hover {
-		font-weight: bold;
+		font-family: "AsapBold";
 	}
 	
 	footer p a,
@@ -480,7 +531,7 @@ table td {
 	table td:hover a {
 		text-decoration: none;
 		text-shadow: 0 -2px 1px white;
-		font-weight: bold;
+		font-family: "AsapBoldItalic";
 		color: black;
 	}
 	.table th, .table td {
@@ -501,19 +552,14 @@ table td {
 }
 
 .slogan {
-	/*background: url(../img/landing.png) no-repeat 30px 35px transparent;
-	background-size: 80% 60%; */
 	position: relative;
-	margin: 0 auto;
 	line-height: 45px;
 	clear: both;
 	margin: 20px 0 0 10px;
 }
 	.slogan p {
-		font-size: 28px;
-		text-shadow: -1px -2px 1px white;
 		font-size: 22px;
-		color: black;
+		font-family: "AsapItalic";
 		padding: 25px 0px 25px 200px;
 	}
 
@@ -523,16 +569,22 @@ table td {
 	}
 	
 	.btn-ocal {
-		font-family: "asap";
-		font-weight: bold;
-		font-style: italic;
+		font-family: "AsapBoldItalic";
 		padding: 3px 7px 5px 7px;
 		box-shadow: 2px 4px 5px #cbcbcb;
 	}
 	.btn-ocal:hover {
 		box-shadow: 1px 2px 3px #cbcbcb;
+		font-family: "AsapBoldItalic";
 	}
 
+.popular-new {
+	background: -moz-linear-gradient(left, rgba(0,0,0,0) 0px
+										 , rgba(0,0,0,0.15) 1px
+										 , rgba(0,0,0,0) 1px);
+	background-position: 490px 0;
+}
+	
 .popular-new .ad-span img {
 	padding-top: 55px;
 }
@@ -542,12 +594,13 @@ table td {
 }
 
 .like-links {
-	padding: 20px 0;
+	padding: 20px 10px 0 0 ;
+	text-align: right
 }
 
 .news .span2 {
 	text-align: right;
-	font-weight: bold;
+	font-family: "AsapBold";
 }
 
 /* ##################### detail page ######################*/
@@ -600,14 +653,16 @@ table td {
 	.edit-menu a {
 		color: #E70000;
 		margin: 0 2px;
+		font-family: "AsapItalic";
 	}
 	.edit-menu a:hover {
 		color: #A20000;
+		font-family: "AsapBoldItalic";
 	}
 	
 	.edit-menu a:hover:after {
 		color: #E70000;
-		font-weight: normal;
+		font-family: "AsapRegular";
 	}
 
 	.edit-menu a:after {
@@ -655,14 +710,20 @@ table td {
 	font-size: 16px;
 	color: #333;
 	background: none;
+	font-family: "AsapItalic";
 }
 	.search-navigation .btn-group .btn:hover {
+		font-family: "AsapBoldItalic";
 		text-decoration: none;
 	}
 	.search-navigation .btn-group.open .btn.dropdown-toggle {
 		box-shadow: none;
 		background: none;
 	}
+
+.search-headline button {
+	margin-left: 15px;
+}
 
 .search-navigation .sort-ascending,
 .search-navigation .sort-descending {
@@ -690,7 +751,7 @@ table td {
 	padding-left: 10px;
 }
 	.search-navigation .dropdown-menu a:hover {
-		font-weight: bold;
+		font-family: "AsapBoldItalic";
 	}
 	.search-navigation a.age {border-color: transparent;}
 	.search-navigation a.downloads {border-color: transparent;}
@@ -725,7 +786,7 @@ table td {
 	.pagination ul > .active > span {
 		background-color: #333;
 		color: white;
-		font-weight: bold;
+		font-family: "AsapBold";
 		margin-bottom: 7px;
 	}
 
@@ -830,15 +891,28 @@ table td {
 		display: inline;
 	}
 	
-	.slogan {
-		background-size: 90% 70%;
+	.slogan p {
+		padding: 20px 0px 25px 50px;
 	}
-	.slogan p{
-		margin-bottom: 0; 
+	
+	.like-links {
+		padding: 20px 0 0 0 ;
+		text-align: center;
 	}
+	
+		.like-links div {
+			display: inline;
+			text-align: center;
+		}
+
 	.shadow {
 		width: 775px;
 	}
+	
+	.popular-new {
+		background-position: 382px 0;
+	}
+	
 }
 
 /*#################################################### 767px*/
@@ -902,6 +976,18 @@ table td {
 		.news .row {
 			padding: 0px;
 		}
+	
+	.popular-new {
+		background: none;
+	}
+	
+	.thumbnails li.span2 {
+		width: 104px;
+		float: left;
+		margin-left: 20px;
+		margin-bottom: 20px;
+	}
+	
 }
 
 @media (max-width: 630px) {
@@ -931,6 +1017,12 @@ table td {
 	
 }	
 
+@media (max-width: 570px) {
+	.hidable a {
+		display: none;
+	}
+}
+
 
 @media (max-width: 300px) {
 	.paypal {
@@ -947,14 +1039,12 @@ table td {
 		margin: 9px 20px 5px 5px;
 		width: 20px;
 	}
-	
-	.slogan {
-		background-size: 80% 90%; 
+
+	.thumbnails li.span2 {
+		width: 100%;
+		display: block;
+		margin-left: 0;
 	}
-		.slogan p {
-			padding-left: 40px;
-		}
-		.slogan a {
-			margin-left: -10px;
-		}
+
+	
 }
