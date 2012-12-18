@@ -1,23 +1,7 @@
-{{#clipart_list}}
-<div class="thumbnail{{^user_fav}} can_fav{{/user_fav}}" data-id="{{id}}" data-favorite="{{user_fav}}">
-  <a href="/clipart/{{id}}/{{link}}{{forward_query}}" title="{{title}}">
-  <span class="thumbnail-image">
-  	<img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}">
-  </span>
-  <span class="thumbnail-title">{{title}}</span>
-  </a>
-  <div class="popup">
-    <a class="star" href="#">{{num_favorites}}</a>
-    <div class="box">
-      <a href="/clipart/{{id}}/{{link}}{{forward_query}}">
-      <img src="/image/190/{{username}}/{{filename_png}}{{forward_query}}">
-      </a>
-    </div>
-    <div>
-      <p class="title">{{title}}</p>
-      <p>by <a href="/user/{{username}}" class="author">{{username}}</a></p>
-      <p>{{human_date}}</p>
-    </div>
-  </div>
-</div>
-{{/clipart_list}}
+<ul class="thumbnails">
+  {{#clipart_list}}
+   
+  <li class="span2"><a href="/clipart/{{id}}/{{link}}{{forward_query}}" title="{{title}}"><img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}><h5>{{title}}</h5></a></li>
+  
+  {{/clipart_list}}
+</ul>
