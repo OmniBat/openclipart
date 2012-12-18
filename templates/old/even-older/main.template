@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang='en' dir='ltr'>
+<head>
+    <meta charset='utf-8' />
+    <title>Open Clipart Library</title>
+    <link rel="icon" href="{{root}}/images/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/rss+xml" title="New Cliparts" href="{{root}}/rss/new.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Top 10 Cliparts" href="{{root}}/rss/top.xml" />
+    <link rel="search" type="application/opensearchdescription+xml" title="Open Clipart Library" href="{{root}}/openclipart.xml" />
+    <meta name="google-site-verification" content="_8noWmEGgMpGsj7Gb6cFfOcGnr9Cav0mr_8uPyfb97A" />
+    <link rel="stylesheet" type="text/css"  href="/style.css"/>
+</head>
+<body class="{{class}}{{#editable}} editable{{/editable}}">
+    {{! start main(14) }}
+    <div id="main">
+        {{! HEADER LOGGED IN }}
+        {{! start header(21) }}
+        <div id="header" >
+            <h1 id="logo">
+                <a title="OpenClipart.org" href="{{root}}{{forward_query}}">
+                    <img alt="OpenClipart.org" style="width: 272px; height: 93px;" src="{{root}}/images/logo.jpg"/>
+                </a>
+            </h1>
+            <div id="logged">
+              {{#username}}
+                <ul>
+                    <li><a href="{{root}}/user/{{username}}{{forward_query}}" title="My Public Profile">{{username}}</a></li>
+                    <li>|</li>
+                    <li><a href="{{root}}/profile{{forward_query}}" title="Manage my profile" >Manage Profile</a></li>
+                    <li>|</li>
+                    <li><a href="{{root}}/manage/cliparts{{forward_query}}" title="Manage my cliparts">Manage Clipart</a></li>
+					{{#librarian}}
+                      <li>|</li>
+                      <li><a href="{{root}}/librarians{{forward_query}}">Librarian Tools</a></li>
+                    {{/librarian}}
+                    <li>|</li>
+                    <li><a href="{{root}}/logout{{forward_query}}{{redirect}}">Logout</a></li>
+                </ul>
+              {{/username}}
+              {{^username}}
+              <ul>
+                <li>{{lang}}</li>
+                <li><a href="{{root}}/login{{forward_query}}{{redirect}}">Log in</a></li>
+                <li>|</li>
+                <li><a href="{{root}}/register{{forward_query}}">Register</a></li>
+              </ul>
+              {{/username}}
+              <div class="clearfix"></div>
+            </div>
+            <form id="search" method="get" action="{{root}}/search">
+                <div>
+                  <input value="" name="query" id="search-i"/>
+                  <input type="submit" value="Search" id="s-button" title="Search tags, description, authors, uploaders" />
+                </div>
+            </form>
+            <div id="upload-menu">
+                <a href="/upload" title="Upload Clipart">
+                    <img height="12" src="{{root}}/images/arrow_up_white.png" alt="Upload Clipart"/>
+                    <span>Upload a Clipart</span>
+                </a>
+                <!--
+                <a href="/multiupload" title="Upload Multiple Clipart at once">
+                    <img height="12" src="/assets/images/arrow_divide_white.png" alt="Upload Multiple Clipart at once"/>
+                    <span>Upload Multi Clipart</span>
+                </a>
+                -->
+            </div>
+        </div>
+        {{! end header(21) }}
+        {{! start container(16) }}
+        <div id="container">
+            <ul class="clearfix" id="mainnav">
+                <li><a title="Openclipart Artists" href="{{root}}/artists">Artists</a></li>
+                <li><a title="Clipart Collections" href="{{root}}/collections">Collections</a></li>
+                <!--
+                <li><a title="Clipart Showcase" href="{{root}}/showcase">Showcase</a></li>
+                <li><a title="Request Page" href="{{root}}/request">Request</a></li>
+                -->
+                <li><a title="How can you help our project" href="{{root}}/participate">Participate</a></li>
+                <li><a title="IRC #openclipart Channel interface" href="{{root}}/chat">Chat</a></li>
+                <li><a title="About Open Clipart Library" href="{{root}}/about">About</a></li>
+                <li class="launchpad bugs"><a title="Got API?" href="{{root}}/docs/api">Need API?</a></li>
+                <li class="launchpad"><a title="Bugs?" href="http://bugs.launchpad.net/openclipart">Found Bugs?</a></li>
+                <li class="launchpad"><a title="Want Features?" href="http://blueprints.launchpad.net/openclipart">Want Features?</a></li>
+            </ul>
+        </div>
+        {{! end container(16) }}
+        {{! start notifications-bar(1975) }}
+
+        {{! SELECT COUNT(ocal_logs.id) as new_msgs FROM ocal_logs, ocal_msgs WHERE (ocal_logs.msg_id = ocal_msgs.id AND ocal_msgs.written_to = '[username]' AND ocal_logs.log_type = 1 AND ocal_logs.is_new = 1) -- WHY: ORDER BY ocal_logs.id DESC }}
+
+         <!--  You have ((new_msgs)) new <a href="/manage/profile">messages</a>.
+
+           or
+
+           message
+
+​        -->
+        <div id="notifications-bar">
+          {{#notifications}}
+          <div class="notifications-bar">
+            {{notifications}}
+          </div>
+          {{/notifications}}
+        </div>
+        {{#system_warnings}}
+          <div id="system-warnings">
+            <ul><li>{{.}}</li></ul>
+          </div>
+        {{/system_warnings}}
+        {{! start content(17)  [EMPTY] }}
+        <div id="content"  class="clearfix">
+          {{!start upload-box(865)}}
+
+          <!-- {{join.template}} || {{upload.template}} -->
+          <div id="sidebar-r">
+            {{>sidebar}}
+          </div>
+
+          {{>content}}
+
+         <!-- {{wellcome.template}} || {{activities.template}} -->
+
+        {{! start recent-collections-box(1195) }}
+
+        {{!SELECT set_list_titles.id, set_list_titles.username, set_list_titles.set_title, set_list_titles.date_added, set_list_contents.image_id FROM set_list_titles, set_list_contents WHERE set_list_titles.id = set_list_contents.set_list_id GROUP BY set_list_titles.id ORDER BY set_list_titles.id DESC LIMIT 3}}
+        <div id="recent-collections-box"  class="sidebox">
+
+        </div>
+      </div>
+      {{! start footer(20) }}
+      <div id="footer">
+        <div class="clearfix" id="forfooter">
+          <dl>
+            <dt><a href="{{root}}/"><img alt="Open ClipArt Library" src="{{root}}/images/ocal.png"/></a></dt>
+            <dd><a href="{{root}}/about">Open Clipart Library</a> is <a href="http://en.wikipedia.org/wiki/Open_Clip_Art_Library">the library</a> for high-quality free clipart. We create high quality <a href="http://en.wikipedia.org/wiki/Scalable_Vector_Graphics">vector graphics</a> for fun. <a href="http://bugs.launchpad.net/openclipart">Found Bugs?</a> <a href="http://blueprints.launchpad.net/openclipart">Want Features?</a> <a href="{{root}}/docs/api">Make Apps</a>.</dd>
+          </dl>
+          <dl>
+            <dt><a rel="license" href="http://sharism.org/agreement"><img alt="Sharing Agreement" src="{{root}}/images/sharism-pd.png"/></a></dt>
+            <dd>Unless noted, content on this site is waived of all copyright and related or neighboring rights under the <a rel="license" href="http://sharism.org/agreement">Sharing Agreement</a>. See <a href="{{root}}/policies">Policies</a>.</dd>
+          </dl>
+          <dl>
+            <dt><a href="https://en.wikipedia.org/wiki/Svg"><img alt="Scalable Vector Graphics" src="{{root}}/images/svg_white.png"/></a></dt>
+            <dd><a href="http://www.w3.org/Graphics/SVG/">Scalable Vector Graphics (SVG)</a> is a specifications of file format for 2D vector graphics, it's an open standard that has been under development by the <a href="http://www.w3.org/">World Wide Web Consortium (W3C)</a> since 1999.</dd>
+          </dl>
+        </div>
+        <div id="links">
+          <strong><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS">Donate to Support Hosting + Maintenance</a></strong>,
+          <a href="http://aikiframework.org/">Aiki Framework 爻</a>,
+          <a href="http://fabricatorz.com/">Fabricatorz 王</a>,
+          <a href="http://www.inkscape.org/">Inkscape</a>,
+          <a href="http://www.freepik.com/">freepik</a>,
+          <a href="http://gandi.net/">Gandi.net</a>,
+          <a href="http://linode.net/">Linode</a>,
+          <a href="http://www.openfontlibrary.org/">Open Font Library</a>,
+          <a href="http://sharism.org/">Sharism ✳</a>
+        </div>
+        {{#google_analytics}}
+        <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-7908533-1");
+            pageTracker._setDomainName(".openclipart.org");
+            pageTracker._trackPageview();
+        } catch(err) {}
+        </script>
+        {{/google_analytics}}
+        <script src="http://code.jquery.com/jquery-1.8.1.js"></script>
+        <script src="{{root}}/libs/json-rpc/json-rpc.js"></script>
+        <script src="{{root}}/libs/Modernizr.js"></script>
+        {{#editable}}
+          <script src="/libs/jquery-ui/jquery-ui-1.8.23.custom.min.js"></script>
+          <link href="/libs/jquery-ui/jquery-ui-1.8.23.custom.css" rel="stylesheet"/>
+          <link href="/libs/tag-it/css/jquery.tagit.css" rel="stylesheet"/>
+          <script src="/libs/tag-it/js/tag-it.js"></script>
+        {{/editable}}
+        <script src="{{root}}/script.js"></script>
+      </div><!-- #main -->
+      {{#debug}}
+        {{load_time}}
+      {{/debug}}
+</body>
+</html>

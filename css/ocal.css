@@ -1,0 +1,1099 @@
+@import url('bootstrap-responsive.css');
+
+@font-face {
+    font-family: 'AsapRegular';
+    src: url('../fonts/Asap-Regular-webfont.eot');
+    src: url('../fonts/Asap-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-Regular-webfont.woff') format('woff'),
+         url('../fonts/Asap-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-Regular-webfont.svg#AsapRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapItalic';
+    src: url('../fonts/Asap-Italic-webfont.eot');
+    src: url('../fonts/Asap-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-Italic-webfont.woff') format('woff'),
+         url('../fonts/Asap-Italic-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-Italic-webfont.svg#AsapItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapBold';
+    src: url('../fonts/Asap-Bold-webfont.eot');
+    src: url('../fonts/Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-Bold-webfont.woff') format('woff'),
+         url('../fonts/Asap-Bold-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-Bold-webfont.svg#AsapBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AsapBoldItalic';
+    src: url('../fonts/Asap-BoldItalic-webfont.eot');
+    src: url('../fonts/Asap-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Asap-BoldItalic-webfont.woff') format('woff'),
+         url('../fonts/Asap-BoldItalic-webfont.ttf') format('truetype'),
+         url('../fonts/Asap-BoldItalic-webfont.svg#AsapBoldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.center {
+	text-align: center;	
+}
+
+body {
+	font-size: 16px;
+	font-family: "AsapRegular";
+	background-color: #ececec;
+}
+
+a {
+	font-family: "AsapItalic";
+	color: #333;
+}
+
+	a:hover {
+		text-decoration: none;
+		font-family: "AsapBold";
+		color: black;		
+	}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-family: "AsapBold";
+}
+
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    font-family: "AsapRegular";
+}
+
+
+h3 {
+	font-size: 22px;
+	font-family: "AsapBold";
+}
+
+.btn-danger {
+	/*background-image: linear-gradient(to bottom, #e70000, #a20000); */
+	background: rgb(231,0,0); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(231,0,0,1) 0%, rgba(162,0,0,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(231,0,0,1)), color-stop(100%,rgba(162,0,0,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(231,0,0,1) 0%,rgba(162,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(231,0,0,1) 0%,rgba(162,0,0,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(231,0,0,1) 0%,rgba(162,0,0,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(231,0,0,1) 0%,rgba(162,0,0,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e70000', endColorstr='#a20000',GradientType=0 ); /* IE6-9 */
+}
+	.btn-danger:hover {
+		background-color: #a20000;
+		background-repeat: no-repeat;
+	}
+
+.section {
+	position: relative;
+}
+	.section h3 + * {
+		padding-top: 20px;
+	}
+	
+	.section h3,
+	footer {  /*creates black section bar*/
+		position: relative;
+		color: white;
+		font-size: 18px;
+		text-shadow: 0 2px 0 black;
+		margin: 0 -10px 30px -10px;
+		text-align: center;
+		padding: 2px 0 3px 0;
+		line-height: 28px;
+		/*background: -moz-linear-gradient(top, white 1px, black 1px, #333 12px);*/
+		background: rgb(255,255,255); /* Old browsers */
+		background: -moz-linear-gradient(top, rgba(255,255,255,1) 1px, rgba(0,0,0,1) 1px, rgba(51,51,51,1) 12px); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(1px,rgba(255,255,255,1)), color-stop(1px,rgba(0,0,0,1)), color-stop(12px,rgba(51,51,51,1))); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top, rgba(255,255,255,1) 1px,rgba(0,0,0,1) 1px,rgba(51,51,51,1) 12px); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top, rgba(255,255,255,1) 1px,rgba(0,0,0,1) 1px,rgba(51,51,51,1) 12px); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top, rgba(255,255,255,1) 1px,rgba(0,0,0,1) 1px,rgba(51,51,51,1) 12px); /* IE10+ */
+		background: linear-gradient(to bottom, rgba(255,255,255,1) 1px,rgba(0,0,0,1) 1px,rgba(51,51,51,1) 12px); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#333333',GradientType=0 ); /* IE6-9 */
+		z-index: 3;
+		border-top: 1px solid #d7d7d7;
+	}
+
+	.section h3:after { /*positiones the black triangle */
+		content: " ";
+		position: absolute;
+		display: block;
+		height: 12px;
+		width: 100%;
+		background: url(../img/headline-triangle.png) no-repeat center 0px;
+		z-index: 3;
+	}
+
+	div.section:after { /* adds smoothed border */
+		position: absolute;
+		content: " ";
+		display: block;
+		height: 300px;
+		width: 100%;
+		padding: 0 10px;
+		margin-left: -10px;
+		left: 0;
+		top: 0;
+		z-index: -1;
+		background: -moz-linear-gradient(top, rgba(255,255,255,1) 50px, rgba(255,255,255,0) 300px); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(50px,rgba(255,255,255,1)), color-stop(300px,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top, rgba(255,255,255,1) 50px,rgba(255,255,255,0) 300px); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top, rgba(255,255,255,1) 50px,rgba(255,255,255,0) 300px); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top, rgba(255,255,255,1) 50px,rgba(255,255,255,0) 300px); /* IE10+ */
+		background: linear-gradient(to bottom, rgba(255,255,255,1) 50px,rgba(255,255,255,0) 300px); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+	}
+
+a.thumbnail {
+	border: none;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    line-height: 20px;
+    padding: 0;
+    transition: all 0.2s ease-in-out 0s;
+    color: black;
+    font-family: "AsapRegular";
+}
+	
+	a.thumbnail:hover {
+		border: none;
+		box-shadow: none;
+		text-decoration: none;
+	}
+
+	a.thumbnail h5 {
+		font-size: 14px;
+		font-family: "AsapRegular";
+		color: #808080;
+		text-transform: lowercase;
+		text-align: center;
+	}
+	
+	a.thumbnail:hover h5 {
+		font-family: "AsapBold";
+	}
+
+.container.after-stripe {
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0px, rgba(255,255,255,0) 100px),
+				-moz-linear-gradient(left, rgba(255,255,255,1) 1px, rgba(215,215,215,1) 1px, rgba(215,215,215,1) 2px,  rgba(255,255,255,0) 2px),
+				-moz-linear-gradient(right, rgba(255,255,255,1) 1px, rgba(215,215,215,1) 1px, rgba(215,215,215,1) 2px, rgba(255,255,255,0) 2px);
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0px, rgba(255,255,255,0) 100px),
+				-o-linear-gradient(left, rgba(255,255,255,1) 1px, rgba(215,215,215,1) 1px, rgba(215,215,215,1) 2px,  rgba(255,255,255,0) 2px),
+				-o-linear-gradient(right, rgba(255,255,255,1) 1px, rgba(215,215,215,1) 1px, rgba(215,215,215,1) 2px, rgba(255,255,255,0) 2px);
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0px, rgba(255,255,255,0) 100px),
+				-ms-linear-gradient(left, rgba(255,255,255,1) 1px, rgba(215,215,215,1) 1px, rgba(215,215,215,1) 2px,  rgba(255,255,255,0) 2px),
+				-ms-linear-gradient(right, rgba(255,255,255,1) 1px, rgba(215,215,215,1) 1px, rgba(215,215,215,1) 2px, rgba(255,255,255,0) 2px);
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0px, rgba(255,255,255,0) 100px),
+				-webkit-linear-gradient(left, rgba(255,255,255,1) 1px, rgba(215,215,215,1) 1px, rgba(215,215,215,1) 2px,  rgba(255,255,255,0) 2px),
+				-webkit-linear-gradient(right, rgba(255,255,255,1) 1px, rgba(215,215,215,1) 1px, rgba(215,215,215,1) 2px, rgba(255,255,255,0) 2px);
+	background: linear-gradient(top, rgba(255,255,255,1) 0px, rgba(255,255,255,0) 100px),
+				linear-gradient(left, rgba(255,255,255,1) 1px, rgba(215,215,215,1) 1px, rgba(215,215,215,1) 2px,  rgba(255,255,255,0) 2px),
+				linear-gradient(right, rgba(255,255,255,1) 1px, rgba(215,215,215,1) 1px, rgba(215,215,215,1) 2px, rgba(255,255,255,0) 2px);			
+	padding: 0 10px;
+	margin-bottom: -30px;
+	background-color: #fff;
+}
+
+.triangle {
+	top: 0;
+	left: 46px;
+	position: absolute;
+	height:20px;
+	width: 70px;
+	background: url('../img/black-triangle.png') no-repeat 0px 0px;
+}
+
+.navbar a {
+	font-family: "AsapRegular";
+}
+
+.navbar .navbar-inner .container {
+	padding-top: 30px;
+}
+
+.navbar .brand {
+	left: 0px;
+	padding:  0 0 0 20px;
+	margin: -30px 0 -28px 0;
+	z-index: 3;
+	position: relative;
+}
+
+.logo-shadow {
+	position: absolute;
+	height: 34px;
+	width: 135px;
+	top: 72px;
+	left: 5px;
+	background: url('../img/logo-shadow.png') no-repeat center bottom;
+	z-index: 1;
+}
+
+.ocal-search{
+	float: left;
+    margin: 0;
+    padding: 0px 0px 15px 15px;
+}
+
+	.ocal-search input {
+		box-shadow: 0 0 0px rgba(0,0,0, 0);
+	}
+	.ocal-search input:focus {
+		box-shadow: 0 0 8px rgba(255,0,0, 0.25);
+	}
+
+	.ocal-search .input-append input {
+		border-color: black;
+		color: #GGG;
+		font-size: 16px;
+		font-family: "AsapRegular";
+		height: 15px;
+		width: 230px;
+	}
+
+	.ocal-search .input-append .search-query {
+		border-radius: 3px 0 0 3px;
+		height: 17px;
+	}
+
+	.form-search .input-append .btn {
+		border-radius: 0 3px 3px 0;
+		height: 27px;
+		padding-top: 4px;
+	}
+
+.paypal {
+	float: left;
+	padding: 0 0 0 32px;
+	margin: 0;
+	opacity: 0.75;
+	transition: all 0.15s linear 0s;
+}
+	.paypal:hover {
+		opacity: 1;
+	}
+
+.btn.ocal-collapse {
+	float: right;
+	margin: 0 15px 8px 0;
+	padding: 6px 8px;
+	display: none;
+	border-radius: 3px;
+}
+.btn.ocal-collapse .icon-bar {
+    background-color: white;
+    border-radius: 1px 1px 1px 1px;
+    box-shadow: none;
+    display: inline;
+    height: 2px;
+    width: 18px;
+	display: block;
+	margin-bottom: 2px;
+}
+.ocal-nav {
+	float: right;
+}
+
+.ocal-nav .nav > li > a {
+	padding-top: 0;
+	color: black;
+}
+
+	.navbar .nav li.dropdown.open > .dropdown-toggle,
+	.navbar .nav li.dropdown.active > .dropdown-toggle,
+	.navbar .nav li.dropdown.open.active > .dropdown-toggle {
+		background: none;
+		color: #333;
+	}
+
+	.dropdown-menu li > a:hover,
+	.dropdown-menu li > a:focus,
+	.dropdown-submenu:hover > a {
+		background: black;
+	}
+	.nav-collapse .nav > li > a,
+	.nav-collapse .nav > li > a:hover,
+	.nav-collapse .dropdown-menu a,
+	.nav-collapse .dropdown-menu a:hover{
+		font-family: "AsapRegular";
+		background: none;
+		padding: 3px 15px;
+	}
+	.nav-collapse .dropdown-menu a:hover {
+		background: black;
+	}
+	
+	.nav-collapse .nav > li > a:hover,
+	.navbar .nav li.dropdown.active > .dropdown-toggle {
+		color: #000;
+		border-radius: 3px;
+		background: #eee;
+	}
+
+.navbar-inner {
+    background-color: #FFFFFF;
+    background-image: none;
+    border: none;
+}
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
+}
+
+.nav-collapse .nav > li > a, .nav-collapse .dropdown-menu a {
+    font-weight: normal;
+}
+.ocal-ad-banner {
+	padding-top: 5px;
+}
+.ocal-ad-banner img {
+	height: 90px;
+	width: 728px;
+}
+.ocal-ad-banner .title {
+	color: white;
+	font-family: "AsapBoldItalic";
+	font-size: 22px;
+	text-align: center;
+	width: 150px;
+	padding-top: 30px;
+	text-shadow: 0 3px 0 black;
+}
+.like-links a img{
+	padding-bottom: 10px;
+}
+.ocal-ad-banner .ad a {
+	width: 728px;
+	height: 90px;
+}
+
+.container {
+	position: relative;
+	z-index: 2;
+}
+
+.stripe {
+	position: absolute;
+	height: 400px;
+	margin-top: -400px;
+	width: 100%;
+	z-index: 1;
+	left: 0;
+	border-bottom: 1px solid white;
+    background: #1a1a1a; /* Old browsers */
+	background:	 -moz-linear-gradient(bottom, #1a1a1a 0%, red 100%); /* FF3.6+ */
+	background: 	   -webkit-gradient(linear, left bottom, left top, color-stop(40%,#1a1a1a), color-stop(100%,#000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(bottom, #1a1a1a 40%,#000 100%); /* Chrome10+,Safari5.1+ */
+	background:	     -o-linear-gradient(bottom, #1a1a1a 40%,#000 100%); /* Opera 11.10+ */
+	background: 	-ms-linear-gradient(bottom, #1a1a1a 40%,#000 100%); /* IE10+ */
+	background:       url(../img/logo-background.png) no-repeat 0px 170px,   linear-gradient(to top, #1a1a1a 40%, #000 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a1a1a', endColorstr='#000',GradientType=0 ); /* IE6-9 */
+}
+
+.glow {
+	position: absolute;
+	height: 300px;
+	width: 100%;
+	z-index: 2;
+	left: 0;
+	width: 100%;
+	background: -moz-radial-gradient(top, ellipse cover, rgba(255,255,255,1) 50%,  rgba(255,255,255,0) 80%); /*not confirmed working everywhere*/
+	background: -webkit-radial-gradient(center top, ellipse cover, rgba(255,255,255,1) 50%,  rgba(255,255,255,0) 80%);
+	background: -o-radial-gradient(center top, ellipse cover, rgba(255,255,255,1) 50%,  rgba(255,255,255,0) 80%);
+	background: -ms-radial-gradient(center top, ellipse cover, rgba(255,255,255,1) 50%,  rgba(255,255,255,0) 80%);
+	background: radial-gradient(center top, ellipse cover, rgba(255,255,255,1) 50%,  rgba(255,255,255,0) 80%);
+
+}
+
+.shadow {
+	position: fixed;
+	width: 1300px;
+	margin: 0 auto;
+	z-index: 1;
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	background: -moz-linear-gradient(left, rgba(236,236,236,1) 6%, rgba(119,119,119,1) 50%, rgba(236,236,236,1) 95%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(6%,rgba(236,236,236,1)), color-stop(50%,rgba(119,119,119,1)), color-stop(95%,rgba(236,236,236,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, rgba(236,236,236,1) 6%,rgba(119,119,119,1) 50%,rgba(236,236,236,1) 95%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, rgba(236,236,236,1) 6%,rgba(119,119,119,1) 50%,rgba(236,236,236,1) 95%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, rgba(236,236,236,1) 6%,rgba(119,119,119,1) 50%,rgba(236,236,236,1) 95%); /* IE10+ */
+	background: linear-gradient(to right, rgba(236,236,236,1) 6%,rgba(119,119,119,1) 50%,rgba(236,236,236,1) 95%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ececec', endColorstr='#ececec',GradientType=1 ); /* IE6-9 */
+}
+
+.ocal-main-menu {
+	padding-left: 270px;
+}
+
+.ocal-main-menu a {
+	font-family: "AsapBold";
+}
+.ocal-main-menu li {
+	list-style: none outside none;
+	float: left;
+	color: white;
+	font-family: "AsapBold";
+	font-size: 18px;
+	padding: 9px 0px 9px 11px;
+	margin-left: 0px;
+	background: url(../img/menu-select.png) no-repeat center 40px;
+	   -moz-transition: background 0.1s ease-in-out 0s;
+	    -ms-transition: background 0.1s ease-in-out 0s;
+	     -o-transition: background 0.1s ease-in-out 0s;
+	-webkit-transition: background 0.1s ease-in-out 0s;
+	        transition: background 0.1s ease-in-out 0s;
+}
+	.ocal-main-menu li.active,
+	.ocal-main-menu li:hover {
+		background: url(../img/menu-select.png) no-repeat center 30px;
+	}
+	
+	.ocal-main-menu li a{
+		color: white;
+	}
+	
+	.ocal-main-menu li:after{
+		content: " ";
+		padding: 0 1px 11px 0;
+		margin-left: 11px;
+		background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 120%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 120%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 120%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 120%); /* IE10+ */
+		background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 120%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+	}
+	
+	.ocal-main-menu li:last-child:after{
+		content: none;
+		padding-right: 33px;
+		border: 1px dotted white;
+	}
+	.ocal-main-menu li:last-child{
+		padding-right: 11px;
+	}
+	.ocal-main-menu li a:hover{
+		text-decoration: none;
+	}
+
+.tags {
+	padding-bottom: 20px;
+}
+	.tags .btn-inverse {
+		font-family: "AsapItalic";
+		font-size: 16px;
+		margin: 9px 5px 0 0;
+		padding: 3px 7px;
+		border-radius: 7px;
+		text-transform: lowercase;
+		box-shadow: none;
+		text-shadow: 0 1px 0 black;
+		background: #333;
+		transition: background 0.2s ease-in-out 0s;
+	}
+	
+	.tags .btn-inverse:hover {
+		font-family: "AsapBoldItalic";
+		background: #222;
+		text-shadow: 0 1px 3px darkgay;
+	}
+
+	.tags .add-tag {
+		background: #ddd;
+		color: black;
+		text-shadow: 0 2px 2px white;
+		border-color: white;
+	}
+
+	.tags .add-tag:hover {
+		background: #eee;
+	}
+
+.footer-ad {
+	text-align: center;
+	padding: 20px 0 15px;
+}
+
+footer {
+	padding: 0;
+	margin-top: 20px;
+	font-size: 14px;
+	text-align: left;
+}
+	footer .span3 {
+		padding: 10px 0 20px 20px;
+		margin-right: -20px;
+	}
+	footer ul {
+		list-style-position: outside;
+		padding: 0;
+		margin:  0 0 0 0px;
+	}
+	footer ul li {
+		list-style-type: none;
+		padding: 5px 0 0 0;
+		margin: 0;
+	}
+
+	footer a,
+	footer a:hover {
+		color: white;
+		text-decoration: none;
+		font-family: "AsapRegular";
+	}
+	
+	footer a:hover {
+		font-family: "AsapBold";
+	}
+	
+	footer p a,
+	footer p a:hover {
+		text-decoration: underline;
+	}
+
+
+table td {
+	border-right: 3px solid white;
+	border-bottom: 3px solid white;
+	text-shadow: 0px -1px 0 white;
+	background: rgb(250,250,250);
+}
+	table th:last-of-type,
+	table td:last-of-type {
+		text-align: right;
+	}
+	table a {
+		color: black;
+	}
+	table td:hover a {
+		text-decoration: none;
+		text-shadow: 0 -2px 1px white;
+		font-family: "AsapBoldItalic";
+		color: black;
+	}
+	.table th, .table td {
+		border-top: none;
+	}
+
+
+/*#################################################### landing page*/
+
+.like-links {
+    margin: 0;
+    text-align: right;
+	padding: 15px 10px 0 0 ;
+}
+
+.slogan {
+	position: relative;
+	line-height: 45px;
+	clear: both;
+	margin: 10px 0 0 10px;
+}
+	.slogan p {
+		font-size: 22px;
+		font-family: "AsapItalic";
+		padding: 25px 0px 25px 200px;
+	}
+
+	.slogan a {
+		display: inline;
+		margin-left: 20px;
+	}
+	
+	.btn-ocal {
+		font-family: "AsapBoldItalic";
+		padding: 3px 7px 5px 7px;
+		box-shadow: 2px 4px 5px #cbcbcb;
+	}
+	.btn-ocal:hover {
+		box-shadow: 1px 2px 3px #cbcbcb;
+		font-family: "AsapBoldItalic";
+	}
+
+.popular-new {
+	background: -moz-linear-gradient(left, rgba(0,0,0,0) 0px
+										 , rgba(0,0,0,0.15) 1px
+										 , rgba(0,0,0,0) 1px);
+	background-position: 490px 0;
+}
+	
+.popular-new .ad-span img {
+	padding: 0 0 30px 0;
+}
+
+.ad-span img {
+	padding-bottom: 10px;
+}
+
+
+.news .span2 {
+	text-align: right;
+	font-family: "AsapBold";
+}
+
+/* ##################### detail page ######################*/
+
+.vote-star {
+	padding-right: 30px;
+}
+
+.vote-star a {
+	color: #808080;
+	font-size: 9px;
+	position: absolute;
+	height: 30px;
+	width: 30px;
+	margin: 3px 0px 0px 0px;
+	text-align: right;
+	line-height: 11px;
+	background: url(../img/ocal-icons.png) no-repeat 0 -90px;
+}
+	.vote-star a:hover,
+	.vote-star a.active {
+		text-decoration: none;
+		color: black;
+		background-position: -30px -90px;
+	}
+
+	.vote-star a.active {
+		background-position: 0 -60px;
+	}
+	.vote-star a.active:hover {
+		background-position: -30px -60px;
+	}
+
+.vote-star + small a:hover {
+	font-family: "AsapBoldItalic"
+}
+
+.detail-image {
+	z-index: 2;
+	margin: 0 auto;
+	width: 280px;
+	height: 280px;
+	padding-bottom: 10px;
+}
+
+.detail-image:hover ~ button {
+    background-position: 0 -15px;
+    transition: background-position 0.1s linear 0s;
+}
+
+.edit-menu {
+	padding: 10px 0px;
+}
+	.edit-menu a {
+		color: #E70000;
+		margin: 0 2px;
+		font-family: "AsapItalic";
+	}
+	.edit-menu a:hover {
+		color: #A20000;
+		font-family: "AsapBoldItalic";
+	}
+	
+	.edit-menu a:hover:after {
+		color: #E70000;
+		font-family: "AsapRegular";
+	}
+
+	.edit-menu a:after {
+		content: " |";
+	}
+	.edit-menu a:last-child:after {
+		content: "";
+	}
+
+.download-like-links a div{
+	position: relative;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background: url('../img/ocal-icons.png') no-repeat 30px 30px;
+}
+
+	.download-like-links a .facebook {background-position: 0 -450px;}
+	.download-like-links a:hover .facebook {background-position: -30px -450px;}
+	.download-like-links a .twitter {background-position: 0 -300px;}
+	.download-like-links a:hover .twitter {background-position: -30px -300px;}
+	.download-like-links a .googleplus {background-position: 0 -330px;}
+	.download-like-links a:hover .googleplus {background-position: -30px -330px;}
+	.download-like-links a .pinterest {background-position: 0 -390px;}
+	.download-like-links a:hover .pinterest {background-position: -30px -390px;}
+	.download-like-links a .more {background-position: 0 -270px;}
+	.download-like-links a:hover .more {background-position: -30px -270px;}
+
+.remixes {
+	padding-bottom:10px;
+}
+
+	.remixes img {
+		padding: 0 5px 0 0;	
+	} 
+
+.detail-ad {
+	padding: 20px 0 30px;
+}
+
+
+/* ##################### search page ######################*/
+.search-navigation {
+	margin-top: 10px;
+}
+
+.search-navigation .btn-group .btn {
+	padding: 0;
+	font-size: 16px;
+	color: #333;
+	background: none;
+	font-family: "AsapItalic";
+}
+	.search-navigation .btn-group .btn:hover {
+		font-family: "AsapBoldItalic";
+		text-decoration: none;
+	}
+	.search-navigation .btn-group.open .btn.dropdown-toggle {
+		box-shadow: none;
+		background: none;
+	}
+
+.search-headline button {
+	margin-left: 15px;
+}
+
+.search-navigation .sort-ascending,
+.search-navigation .sort-descending {
+	display: inline;
+	position: absolute;
+	background: url('../img/ocal-icons.png') -15px -35px no-repeat;
+	width: 20px;
+	height: 20px;
+	opacity: 0.65;
+}
+	.search-navigation .btn-group:hover .sort-ascending,
+	.search-navigation .btn-group:hover .sort-descending {
+		opacity: 1;
+	}
+	.search-navigation .sort-ascending {
+		background-position: -45px -35px;
+	}
+
+.search-navigation .dropdown-menu {
+	text-align: left;
+	min-width: 120px;
+}
+.search-navigation .dropdown-menu a {
+	border-left: 20px solid red;
+	padding-left: 10px;
+}
+	.search-navigation .dropdown-menu a:hover {
+		font-family: "AsapBoldItalic";
+	}
+	.search-navigation a.age {border-color: transparent;}
+	.search-navigation a.downloads {border-color: transparent;}
+	.search-navigation a.red {border-color: red;}
+	.search-navigation a.yellow {border-color: yellow;}
+	.search-navigation a.blue {border-color: blue;}
+	.search-navigation a.green {border-color: green;}
+	.search-navigation a.white {border-color: white;}
+	.search-navigation a.black {border-color: black;}
+
+
+.pagination {
+    margin-top: 10px;
+}
+
+.pagination ul {
+    border: none;
+    box-shadow: none;
+}
+	.pagination ul li {
+		float: left;
+	}
+
+	.pagination ul > li > a,
+	.pagination ul > li > span {
+		border: none;
+		box-shadow: none;
+	}
+
+	.pagination ul > li > a:hover,
+	.pagination ul > .active > a,
+	.pagination ul > .active > span {
+		background-color: #333;
+		color: white;
+		font-family: "AsapBold";
+		margin-bottom: 7px;
+	}
+
+	.pagination ul .active,
+	.pagination ul li:hover {
+		background: url('../img/ocal-icons.png') no-repeat center -470px;
+	}
+	.pagination ul li:first-of-type,
+	.pagination ul li:last-of-type,
+	.pagination ul li.disabeled {
+		background-image: none;
+	}
+
+	.pagination ul > .disabeled {
+		line-height: 30px;
+		float: left;
+		padding: 0 5px;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*#################################################### 1200px*/
+
+/*
+@media (max-width: 1200px) {
+
+	.ocal-main-menu {
+		padding-left: 210px;
+	}
+	
+	.slogan {
+		text-align: center;
+	}
+	.slogan {
+		background-size: 94% 60%;
+	}
+	
+	.shadow {
+		width: 1000px;
+	}
+	
+}
+*/
+
+
+
+/*#################################################### 979px*/
+@media (max-width: 979px) {
+
+	.logo-shadow {
+		display: none;
+	}
+
+	.navbar .container {
+		max-width: 724px;
+	  }
+	.navbar,
+	.container {
+		position: relative;
+	}
+	.navbar-fixed-top,
+	.navbar-fixed-top .navbar-inner {
+		padding: 0;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	
+	.ocal-ad-banner .title {
+		font-size: 20px;
+		text-align: center;
+		padding: 10px 0;
+		width: 100%;
+	}
+
+	.ocal-ad-banner .ad {
+		width: 100%;
+		margin-left: 0;
+	}
+	
+	.row.ocal-ad-banner{
+		margin: 0;
+	}
+	
+	.ocal-main-menu {
+		padding: 5px 0;
+		margin: 0 0 0 100px;
+		text-align: center;
+	}
+
+	.btn.ocal-collapse {
+		display: inline;
+	}
+	
+	.slogan p {
+		padding: 20px 0px 25px 50px;
+	}
+	
+	.like-links {
+		padding: 20px 0 0 0 ;
+		text-align: right;
+	}
+	
+		.like-links div {
+			display: inline;
+			text-align: center;
+		}
+
+	.shadow {
+		width: 775px;
+	}
+	
+	.popular-new {
+		background-position: 382px 0;
+	}
+	
+}
+
+/*#################################################### 767px*/
+@media (max-width: 767px) {
+	
+	.navbar .navbar-inner .container {
+		padding-top: 34px;
+	}
+
+	.ocal-search .input-append,
+	.ocal-search .input-append input {
+		width: 100%;
+	}
+	
+	.ocal-search .input-append input {
+		min-height: 27px;
+		max-width: 300px;
+	}
+
+	.ocal-main-menu {
+		padding-left: 0;
+		margin-left: 0;
+	}
+	.ocal-main-menu li,
+	.ocal-main-menu li.active,
+	.ocal-main-menu li:hover {
+		background: none;
+	}
+	.ocal-main-menu li.active *,
+	.ocal-main-menu li:hover a {
+		border-bottom: 3px solid white;
+	}
+	.ocal-main-menu li.active:after,
+	.ocal-main-menu li:after {
+		content: none;
+	}
+	.triangle {
+		display: none;
+	}
+	
+	.ocal-ad-banner .span3 div {
+		display: none;
+	}
+	
+	.paypal {
+		margin-left: 20px;
+	}
+	
+	.like-links {
+		margin: 0;
+		padding: 0 0 20px;
+	}
+	.shadow, .logo-shadow, .glow {
+		display: none;
+	}
+	
+	.news .span2 {
+		text-align: left;
+		padding-top: 10px;
+	}
+		.news .row {
+			padding: 0px;
+		}
+	
+	.popular-new {
+		background: none;
+	}
+	
+	.thumbnails li.span2 {
+		width: 104px;
+		float: left;
+		margin-left: 20px;
+		margin-bottom: 20px;
+	}
+	
+}
+
+@media (max-width: 630px) {
+	
+	.ocal-search {
+		position: absolute;
+		display: block;
+		width: auto;
+		left: 2px;
+		right: 58px;
+		padding: 0 0 0 130px;
+		top: 10px;
+		margin: 0;
+	}
+	
+	.btn.ocal-collapse {
+		float: right;
+		margin: 9px 20px 0 5px;
+		width: 20px;
+	}
+	
+	.paypal {
+		margin: 10px 0 0;
+		padding: 0;
+		position: absolute;
+	}
+	
+}	
+
+@media (max-width: 570px) {
+	.hidable a {
+		display: none;
+	}
+}
+
+
+@media (max-width: 300px) {
+	.paypal {
+		display: none;
+	}
+	.navbar .brand img{
+		width: 60%;
+	}
+	.ocal-search {
+	    padding: 0 0 0 100px;
+	}
+	.btn.ocal-collapse {
+		float: right;
+		margin: 9px 20px 5px 5px;
+		width: 20px;
+	}
+
+	.thumbnails li.span2 {
+		width: 100%;
+		display: block;
+		margin-left: 0;
+	}
+
+	
+}

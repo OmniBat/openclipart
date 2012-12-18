@@ -1,0 +1,39 @@
+{{#cliparts}}
+  <div class="r-img">
+    <div class="r-img-i">
+	  <a href="/clipart/{{id}}/{{link}}{{forward_query}}">
+	  <img alt="#" src="/image/90/{{username}}/{{filename_png}}{{forward_query}}"/>
+	  </a>
+	</div>
+	<h4>
+	  <a href="/clipart/{{id}}/{{link}}{{forward_query}}">{{title}}</a>
+	</h4>
+	<p>by <a href="/user/{{username}}{{forward_query}}">{{username}}</a><br />
+	{{human_date}}
+    </p>
+    <p class="thumbnail_info_downloaded"><a class="download_hook" href="/download/{{username}}/{{filename}}{{forward_query}}"><img src="/images/download-icon.png" height="12px" alt="{{upload_name}}" /></a> {{downloads}}</p>
+    <!-- is logged in? -->
+    <!-- inherit:1591 - favorite-icon-->
+    <!-- SELECT ocal_files.upload_name, aiki_users.username as artist_name, ocal_files.id, aiki_users.email FROM ocal_files, aiki_users WHERE ocal_files.username = aiki_users.username AND ocal_files.id = ((id)) LIMIT 1 -->
+    {{^userid}}
+      <div class="favorite-icon" data-id="{{id}}">
+        <div class="favorite-add"><!--
+          <img src="/image/12px/svg_to_png/OCAL_Favorites_Icon_Unselected.png" alt="#"/>
+        --></div>
+        <!-- SELECT COUNT(DISTINCT username) as num_favorites FROM ocal_favs WHERE clipart_id = ((id)) -->
+        <div class="clipart_favs_num">{{num_favorites}}</div>
+      </div>
+    {{/userid}}
+    {{#userid}}
+      <div class="favorite-icon active" data-id="{{id}}">
+        {{#user_fav}}
+          <a href="#" class="favorite-remove"></a>
+        {{/user_fav}}
+        {{^user_fav}}
+          <a href="#" class="favorite-add"></a>
+        {{/user_fav}}
+        <div class="clipart_favs_num">{{num_favorites}}</div>
+      </div>
+    {{/userid}}
+  </div>
+{{/cliparts}}

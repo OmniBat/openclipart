@@ -1,0 +1,10 @@
+<div>
+  <div class="center">
+    <h2>Wow, something happen on the server</h2>
+    <img src="/image/250/bnielsen/Cartoon_monkey_wrench.png"/>
+    <p>You can report this issue on <a href="https://github.com/openclipart/openclipart/issues/new">github</a>, you can also check the <a href="https://github.com/openclipart/openclipart">source code</a> if you're curious.</p>
+  </div>
+  <div>Exception <strong>"{{name}}"</strong>: <strong>{{message}}</strong> in file <strong>{{file}}</strong> at line <strong>{{line}}</strong></div>
+  <h2>Stack Trace</h2>
+  <pre>{{trace}}</pre>
+</div>
