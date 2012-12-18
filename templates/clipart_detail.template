@@ -1,11 +1,11 @@
 <div class="row">
         
         <div class="span6">
-          <h3>Orange<span class="vote-star"><a href="#" class="active">23</a></span><small>by <a href="#">joshihiro</a></small></h3>
+          <h3>{{title}}<span class="vote-star"><a href="#" class="active">{{favs}}</a></span><small>by <a href="#">{{#original_author}}{{original_author}}{{/original_author}}{{^original_author}}{{username}}{{/original_author}}</a></small></h3>
           <div>
-            <a href="#">
+            <a href="/download/svg/{{username}}/{{filename}}">
               <div class="detail-image">
-                <img src="img/280x280-thumbnail.png" alt="&Clip Art Title" title="&Clip Art Title"/>
+                <img src="/image/280/{{username}}/{{filename_png}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
               </div>
             </a>
           </div>
@@ -14,7 +14,7 @@
               <button class="btn btn-danger btn-large btn-ocal" type="button">download</button>
             </div>
             <div class="edit-menu">
-              <a href="#">edit</a>
+              <a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl={{file-url}}">edit</a>
               <a href="#">remix</a>
               <a href="#">export</a>
             </div>
@@ -42,58 +42,66 @@
             <div class="span6">
               <h5>Tags</h5>
                 <div class="tags">
-                  <a href="#"><button class="btn btn-inverse">dog</button></a>
-                  <a href="#"><button class="btn btn-inverse">juice</button></a>
-                  <a href="#"><button class="btn btn-inverse">house</button></a>
-                  <a href="#"><button class="btn btn-inverse">red</button></a>
-                  <a href="#"><button class="btn btn-inverse">people</button></a>
-                  <a href="#"><button class="btn btn-inverse">sun</button></a>
-                  <a href="#"><button class="btn btn-inverse">sports</button></a>
-                  <a href="#"><button class="btn btn-inverse">automobile</button></a>
-                  <a href="#"><button class="btn btn-inverse">motorbike</button></a>
-                  <a href="#"><button class="btn btn-inverse">headphones</button></a>
-                  <a href="#"><button class="btn btn-inverse add-tag">+add</button></a>
+                  {{#tags}}
+                    <a class="tag{{#system}} system{{/system}}" href="/tag/{{name}}"><button class="btn btn-inverse">{{name}}</button></a>
+                  {{/tags}}
+                  {{! <a href="#"><button class="btn btn-inverse add-tag">+add</button></a> }}
+                </div>
+            </div>
+            
+            <div class="span6">
+              <h5>Collections</h5>
+                <div class="collections">
+                  {{#collections}}
+                    <a class="tag{{#system}} system{{/system}}" href="/collection/{{username}}/{{id}}/{{name}}"><button class="btn btn-inverse">{{title}}</button></a>
+                 {{/collections}}
+                 {{! <a class="collection add" href="#"><button class="btn btn-inverse add-tag">+add</button></a> }}
                 </div>
             </div>
             
             <div class="span6">
               <h5>Description</h5>
-              <p>Fresh fruit. I like it. I could have been writing more details about this clipart but didn't do so. So here is just some more description.</p>
+              <p>
+                {{#description}}{{description}}{{/description}}
+                {{^description}}No description given{{/description}}
+              </p>
             </div>
-            
+             
+            {{#remix_count}}
             <div class="span6">
               <h5>Remixes</h5>
               <div class="remixes">
-                <a href="#"><img src="img/70x70-thumbnail.png" alt="" /></a>
-                <a href="#"><img src="img/70x70-thumbnail.png" alt="" /></a>
-                <a href="#"><img src="img/70x70-thumbnail.png" alt="" /></a>
-                <a href="#"><img src="img/70x70-thumbnail.png" alt="" /></a>          
+              {{#remixes}}
+                <a href="/clipart/{{id}}/{{link}}"><img src="/image/75/{{username}}/{{filename}}" /></a>
+              {{/remixes}}
               </div>
             </div>
+            {{/remix_count}}
+            
             
             <div class="span6">
               <h5>Details</h5>
               <table cellspacing="0" class="table table-condensed table-striped">
                 <tr>
-                  <td>uploader:</td><td>dries</td>
+                  <td>uploader:</td><td>{{username}}</td>
                 </tr>
                 <tr>
-                  <td>created:</td><td>2012-08-06 07:53:25</td>
+                  <td>created:</td><td>{{created}}</td>
                 </tr>
                 <tr>
-                  <td>downloads:</td><td>219</td>
+                  <td>downloads:</td><td>{{downloads}}</td>
                 </tr>
                 <tr>
-                  <td>comments:</td><td>3</td>
+                  <td>comments:</td><td>{{comment_count}}</td>
                 </tr>
                 <tr>
-                  <td>filesize:</td><td>368.39 KB</td>
+                  <td>filesize:</td><td>{{file_size}}</td>
                 </tr>
                 <tr>
-                  <td>remixes:</td><td>2</td>
+                  <td>remixes:</td><td>{{remix_count}}</td>
                 </tr>
                 <tr>
-                  <td>license:</td><td>public domain</td>
+                  <td>license:</td><td><a href="http://sharism.org/agreement/">public domain</a></td>
                 </tr>
               </table>
             </div>
