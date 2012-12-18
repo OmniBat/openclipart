@@ -1,15 +1,235 @@
-<div id="front-banner" class="grid_16 alpha omega">
-  <p>create, share & remix<br />free clip art</p>
-  <div><a href="/upload">upload clipart.</a></div>
-</div>
+<div class="row landing">
+        <div class="span10">
+          <div class="slogan">
+            <p>create, share + remix free clip art.<a class="btn-ocal btn btn-primary btn-danger btn-large ">upload&nbsp;your&nbsp;art.</a></p>
+            
+          </div>
+        </div>
+        <div class="span2">
+          <div class="like-links">
+            <div><a href="#"><img src="img/google.png"></a></div>
+            <div><a href="#"><img src="img/facebook.png"></a></div>
+            <div><a href="#"><img src="img/twitter.png"></a></div>
+          </div>
+        </div>
+      </div>
 
-<div id="front-left" class="grid_8 alpha">
-  <h2>Popular This Month</h2>
-  {{> popular_clipart}}
-</div><!--end right1-->
 
-<div id="front-right" class="grid_8 omega">
-  <h2>New Clipart</h2>
-  {{> new_clipart}}
-</div><!--end right2-->
+      <!-- Example row of columns -->
+      <div class="row popular-new">
+        <div class="span6 section">
+          <h3>Popular Clip Art</h3>
+          <ul class="thumbnails">
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+          </ul>
+        <div class="span6 center ad-span">
+          <img src="img/adsense_185665_adformat-text_234x60_en.png">
+        </div>
+        </div><!-- End Popular-->
 
+        <div class="span6 section">
+          <h3>New Clip Art</h3>
+          <ul class="thumbnails">
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img src="img/100x100-thumbnail.png" alt="">
+                <h5>Thumbnail label</h5>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="span6 center ad-span">
+          <img src="img/adsense_185665_adformat-text_234x60_en.png">
+        </div>
+      </div><!--end New-->
+      
+
+      
+      <div class="row">
+        <div class="span6 section">
+          <h3 class="section">Top Artists this month</h3>
+          <table class="table table-hover">
+            <tr>
+              <td><a href="#">Rick</a></td>
+              <td>16</td>
+            </tr>
+            <tr>
+              <td><a href="#">Elena</a></td>
+              <td>14</td>
+            </tr>
+            <tr>
+              <td><a href="#">Mark</a></td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td><a href="#">Twoism</a></td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td><a href="#">Melli</a></td>
+              <td>7</td>
+            </tr>
+            <tr>
+              <td><a href="#">Zigizigi</a></td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td><a href="#">Renbo88</a></td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td><a href="#">Tanja</a></td>
+              <td>1</td>
+            </tr>
+          </table>
+        </div>
+        
+        <div class="span6 section">
+          <h3>Popular Tags</h3>
+          <div class="tags center">
+            <button class="btn btn-inverse">dog</button>
+            <button class="btn btn-inverse">juice</button>
+            <button class="btn btn-inverse">house</button>
+            <button class="btn btn-inverse">red</button>
+            <button class="btn btn-inverse">people</button>
+            <button class="btn btn-inverse">sun</button>
+            <button class="btn btn-inverse">sports</button>
+            <button class="btn btn-inverse">automobile</button>
+            <button class="btn btn-inverse">motorbike</button>
+            <button class="btn btn-inverse">headphones</button>
+            <button class="btn btn-inverse">airplane</button>
+            <button class="btn btn-inverse">spider</button>
+            <button class="btn btn-inverse">halloween</button>
+            <button class="btn btn-inverse">orange</button>
+            <button class="btn btn-inverse">motorbike</button>
+            <button class="btn btn-inverse">lizard</button>
+            <button class="btn btn-inverse">lemonade</button>
+            <button class="btn btn-inverse">headphones</button>
+            <button class="btn btn-inverse">spider</button>
+            <button class="btn btn-inverse">halloween</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span12 section news">
+          <h3>Lastest News</h3>
+          <div class="row">
+            <div class="span2"><span>2012-11-02</span></div>
+            <div class="span9"><p><a href="#">We are rewriting OCAL</a></p></div>
+            <div class="span2"><span>2012-10-11</span></div>
+            <div class="span9"><p><a href="#">LGM begins in a few days...</a></p></div>
+            <div class="span2"><span>2012-09-02</span></div>
+            <div class="span9"><p><a href="#">RElease Social Markiting: Fabricatorz 2.0, and Open Clip Art Library 3.1</a></p></div>
+            <div class="span2"><span>2012-08-22</span></div>
+            <div class="span9"><p><a href="#">We are rewriting OCAL</a></p></div>
+          </div>
+        </div>
+      </div>      
+      
+      <div class="footer-ad">
+        <a href="#">
+          <img src="img/adsense_185679_adformat-link_728x15_en.png" alt="" />
+        </a>
+      </div>
