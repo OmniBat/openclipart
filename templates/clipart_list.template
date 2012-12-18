@@ -1,7 +1,7 @@
 {{#clipart_list}}
   <li class="span2">
     <a href="/clipart/{{id}}/{{link}}{{forward_query}}" title="{{title}}">
-      <img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}>
+      <img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}">
       <h5>{{title}}</h5>
     </a>
   </li>
