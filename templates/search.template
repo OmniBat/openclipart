@@ -1,81 +1,121 @@
-<div id="search" class="content">
-  <div class="grid_16">
-    <h1 class="page-title">Search for </h1><em>"random"</em>
-    <div class="download-button">
-      <a href="#">download all "random" clip art</a>
-      <p>(OCAL-random.tar.gz 5.3MB - 32 files)</p>
-    </div>
-  </div>
-  <div id="results-container">
-    <div id="results">
-
-      <div id="result-search">
-        <form method="get">
-          <input id="search-i" name="query" placeholder="search again...">
-          <input id="s-button" type="submit"  value="">
-        </form>
-      </div>
-
-      <div id="result-navigation">
-        <div id="search-sort">
-          <a class="title" href="#">sort by</a>
-          <div class="details">
-            <a class="popularity active" href="#">popularity</a>
-            <a class="downloads" href="#">downloads</a>
-            <a class="date" href="#">date</a>
-            <a class="color red" href="#">&nbsp</a>
-            <a class="color blue" href="#">&nbsp</a>
-            <a class="color yellow" href="#">&nbsp</a>
-            <a class="color green" href="#">&nbsp</a>
-            <a class="color white" href="#">&nbsp</a>
-            <a class="color black" href="#">&nbsp</a>
-          </div>
+<div class="row">
+        
+        <div class="span12 search-headline">
+          
+          <h3>Search results for <i>"term "</i> <span><button class="btn btn-danger btn-ocal" type="button">download "term".zip</button></span></h3>
+         
         </div>
-        <ul id="search-pagination">
-          <li><a class="first" href="#">&nbsp</a></li>
-          <li><a class="previous" href="#">&nbsp</a></li>
-          <li><a class="page" href="#">1</a></li>
-          <li><a class="page" href="#">2</a></li>
-          <li><a class="page" href="#">3</a></li>
-          <li><a class="page" href="#">4</a></li>
-          <li><a class="page" href="#">5</a></li>
-          <li><a class="page" href="#">6</a></li>
-          <li><a class="page" href="#">7</a></li>
-          <li><a class="page" href="#">8</a></li>
-          <li><a class="page" href="#">9</a></li>
-          <li><a class="next" href="#">&nbsp</a></li>
-          <li><a class="last" href="#">&nbsp</a></li>
-        </ul>
-      </div><!--end result-navigation-->
-
-      <ul id="result-list">
-        {{#clipart_list}}
-        <li>
-          <div class="thumbnail">
-            <a href="/clipart/{{id}}/{{link}}{{forward_query}}" class="" title="{{title}}">
-            <span class="thumbnail-image">
-              <img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}">
-            </span>
-            <span class="thumbnail-title">{{title}}</span>
-            </a>
-            <div class="popup">
-              <a class="star" href="#">{{num_favorites}}</a>
-              <div class="box">
-                <a href="/clipart/{{id}}/{{link}}{{forward_query}}">
-                <img src="/image/200/{{username}}/{{filename_png}}{{forward_query}}">
-                </a>
-              </div>
-              <div>
-                <p class="title">{{title}}</p>
-                <p>by <a href="/user/{{username}}" class="author">{{username}}</a></p>
-                <p>{{human_date}}</p>
-              </div>
+  
+        <div class="span12 center">
+          
+          <div class="search-navigation">
+            <span>sort by</span>
+            <div class="btn-group">
+              <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#">popularity</span></a><a href="#"><div class="sort-ascending"></div></a>
+              <ul class="dropdown-menu">
+                <li><a href="#" class="age">age </a></li>
+                <li><a href="#" class="downloads">downloads </a></li>
+                <li><a href="#" class="red">red</a></li>
+                <li><a href="#" class="yellow">yellow</a></li>
+                <li><a href="#" class="blue">blue</a></li>
+                <li><a href="#" class="green">green</a></li>
+                <li><a href="#" class="white">white</a></li>
+                <li><a href="#" class="black">black</a></li>
+              </ul>
             </div>
           </div>
-        </li>
-        {{/clipart_list}}
-      </ul>
-    </div><!--results-->
-  </div><!--results-container-->
-
-</div><!--end search-->
+          
+          <div class="pagination pagination-centered">
+            <ul>
+              <li><a href="#">«</a></li>
+              <li><a href="#">1</a></li>
+              <li class="hidable"><a href="#">2</a></li>
+              <li class="disabeled"> ... </li>
+              <li class="hidable"><a href="#">23</a></li>
+              <li><a href="#">24</a></li>
+              <li class="active"><a href="#">25</a></li>
+              <li><a href="#">26</a></li>
+              <li class="hidable"><a href="#">27</a></li>
+              <li class="disabeled"> ... </li>
+              <li class="hidable"><a href="#">122</a></li>
+              <li><a href="#">123</a></li>
+              <li><a href="#">»</a></li>
+            </ul>
+          </div>
+          
+        </div>
+        
+      </div><!--end row--> 
+      
+      <div class="row">
+        
+        <div class="span12">
+          
+          <ul class="thumbnails">
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+          </ul>
+          
+        </div>
+        <div class="span12 center ad-span">
+          <img src="img/shutterstock.png" />
+        </div>
+      </div>
+      <div class="row">
+       <div class="span12 section">
+          <h3>Similar Search Tags</h3>
+          <div class="tags center">
+            <button class="btn btn-inverse">dog</button>
+            <button class="btn btn-inverse">juice</button>
+            <button class="btn btn-inverse">house</button>
+            <button class="btn btn-inverse">red</button>
+            <button class="btn btn-inverse">people</button>
+            <button class="btn btn-inverse">sun</button>
+            <button class="btn btn-inverse">sports</button>
+            <button class="btn btn-inverse">automobile</button>
+            <button class="btn btn-inverse">motorbike</button>
+            <button class="btn btn-inverse">headphones</button>
+            <button class="btn btn-inverse">airplane</button>
+            <button class="btn btn-inverse">spider</button>
+            <button class="btn btn-inverse">halloween</button>
+            <button class="btn btn-inverse">orange</button>
+            <button class="btn btn-inverse">motorbike</button>
+            <button class="btn btn-inverse">lizard</button>
+            <button class="btn btn-inverse">lemonade</button>
+            <button class="btn btn-inverse">headphones</button>
+            <button class="btn btn-inverse">spider</button>
+            <button class="btn btn-inverse">halloween</button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-ad">
+        <a href="#">
+          <img src="img/adsense_185679_adformat-link_728x15_en.png" alt="" />
+        </a>
+      </div>

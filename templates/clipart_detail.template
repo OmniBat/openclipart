@@ -1,149 +1,186 @@
-<div id="detail" class="grid_16 alpha omega content">
-  <div class="grid_16 alpha omega">
-    <h1 class="page-title">{{title}}</h1>
-    <a class="star" href="#">{{favs}}</a>
-    {{! original author or uploader }}
-    <div class="author">by <em>{{#original_author}}{{original_author}}{{/original_author}}{{^original_author}}{{username}}{{/original_author}}</em></div>
-  </div>
-  <div id="detail-left" class="grid_8 alpha">
-    <a class="download" href="/download/svg/{{username}}/{{filename}}">
-      <span class="detail-image">
-        <div class="checker"></div>
-        <img src="/image/280/{{username}}/{{filename_png}}" title='"{{title}}" by {{username}}'>
-      </span>
-      <span class="detail-button">
-        <div class="button">download</div>
-      </span>
-    </a>
-    <ul id="detail-edit">
-      <li class="edit"><a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl={{file-url}}">edit</a></li>
-      <li class="remix"><a href="#">remix</a></li>
-      <li class="export">
-        <div class="accordion-container">
-          <input class="hidden" id="ac-export" name="accordion-export" type="checkbox" />
-          <label for="ac-export">export</label>
-            <div id="export-form" class="accordion-content">
-              <input id="dimension-i" name="query" value="width or height in px">
-              <input id="e-button" type="submit"  value="export">
+<div class="row">
+        
+        <div class="span6">
+          <h3>Orange<span class="vote-star"><a href="#" class="active">23</a></span><small>by <a href="#">joshihiro</a></small></h3>
+          <div>
+            <a href="#">
+              <div class="detail-image">
+                <img src="img/280x280-thumbnail.png" alt="&Clip Art Title" title="&Clip Art Title"/>
+              </div>
+            </a>
+          </div>
+          <div class="center"> 
+            <div>
+              <button class="btn btn-danger btn-large btn-ocal" type="button">download</button>
+            </div>
+            <div class="edit-menu">
+              <a href="#">edit</a>
+              <a href="#">remix</a>
+              <a href="#">export</a>
+            </div>
+            <div class="download-like-links">
+              <a href="#"><div class="facebook"></div></a>
+              <a href="#"><div class="twitter"></div></a>
+              <a href="#"><div class="googleplus"></div></a>
+              <a href="#"><div class="pinterest"></div></a>
+              <a href="#"><div class="more"></div></a>
+            </div>
+            
+            <div class="detail-ad">
+              <a href="#">
+                <img src="img/adsense_185666_adformat-display_200x200_en.jpg" alt="" />
+              </a>
             </div>
         </div>
-      </li>
-    </ul>
-  </div><!--end detail-left-->
-
-  <div id="detail-right" class="grid_8 alpha">
-    <ul class="tag-list">
-      {{#tags}}
-        <li><a class="tag{{#system}} system{{/system}}" href="/tag/{{name}}">{{name}}</a></li>
-      {{/tags}}
-      {{! <li><a class="tag add" href="#">+ icon</a></li> }}
-    </ul>
-
-    Collected in:
-    <ul class="collection-list">
-      {{#collections}}
-        <li><a class="collection" href="/collection/{{username}}/{{id}}/{{name}}">
-        {{title}}
-        </a></li>
-      {{/collections}}
-      <li><a class="collection add" href="#">+ collection</a></li>
-    </ul>
-
-    <p class="description">
-      {{#description}}{{description}}{{/description}}
-      {{^description}}No description given{{/description}}
-    </p>
-    {{#remix_count}}
-    Remixes:
-    <ul class="collection-list">
-      {{#remixes}}
-      <li>
-        <a class="remix" href="/clipart/{{id}}/{{link}}">
-          <img src="/image/75/{{username}}/{{filename}}" title="{{title}}"/>
-        </a>
-      </li>
-      {{/remixes}}
-    </ul>
-    {{/remix_count}}
-    
-    
-    <div class="accordion-container">
-      <input id="ac-details" class="hidden" name="accordion-details" type="checkbox" />
-      <label for="ac-details">Details</label>
-      <div class="accordion-content">
-        <table class="zebra">
-          <tr>
-            <td>uploader:</td><td>{{username}}</td>
-          </tr>
-          <tr>
-            <td>created:</td><td>{{created}}</td>
-          </tr>
-          <tr>
-            <td>downloads:</td><td>{{downloads}}</td>
-          </tr>
-          <tr>
-            <td>comments:</td><td>{{comment_count}}</td>
-          </tr>
-          <tr>
-            <td>filesize:</td><td>{{file_size}}</td>
-          </tr>
-          <tr>
-            <td>remixes:</td><td>{{remix_count}}</td>
-          </tr>
-          <tr>
-            <td>license:</td><td>public domain</td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    
-    <div class="controls">
-      <a href="#">report</a>
-      <a href="#">edit</a>
-    </div>
-    
-  </div><!--end detail-right-->
-
-</div><!--end detail-->
-
-<div id="comments" class="grid_16 alpha omega text">
-  <h2 class="comments-title">Comments</h2>
-  {{#comments}}
-    <div class="comment">
-      <div class="user grid_2 alpha">
-        {{#avatar}}
-          <img src="/image/75/{{username}}/{{avatar}}" title="{{username}} avatar"/>
-        {{/avatar}}
-        {{^avatar}}
-        {{#missing_avatar_image}}
-          <img src="/image/75/{{user}}/{{filename}}.png"/>
-        {{/missing_avatar_image}}
-        {{/avatar}}
-        <a class="username" href="/user/{{username}}">{{username}}</a>
-        <span>{{date}}</span>
-      </div>
-      <div class="comment-body grid_14 omega">
-        <p>{{comment}}</p>
-        <div class="controls">
-          <a href="#">edit</a>
-          <a href="#">delete</a>
+          
         </div>
+  
+        <div class="span6">
+          
+          <div class="row">
+            
+            <div class="span6">
+              <h5>Tags</h5>
+                <div class="tags">
+                  <a href="#"><button class="btn btn-inverse">dog</button></a>
+                  <a href="#"><button class="btn btn-inverse">juice</button></a>
+                  <a href="#"><button class="btn btn-inverse">house</button></a>
+                  <a href="#"><button class="btn btn-inverse">red</button></a>
+                  <a href="#"><button class="btn btn-inverse">people</button></a>
+                  <a href="#"><button class="btn btn-inverse">sun</button></a>
+                  <a href="#"><button class="btn btn-inverse">sports</button></a>
+                  <a href="#"><button class="btn btn-inverse">automobile</button></a>
+                  <a href="#"><button class="btn btn-inverse">motorbike</button></a>
+                  <a href="#"><button class="btn btn-inverse">headphones</button></a>
+                  <a href="#"><button class="btn btn-inverse add-tag">+add</button></a>
+                </div>
+            </div>
+            
+            <div class="span6">
+              <h5>Description</h5>
+              <p>Fresh fruit. I like it. I could have been writing more details about this clipart but didn't do so. So here is just some more description.</p>
+            </div>
+            
+            <div class="span6">
+              <h5>Remixes</h5>
+              <div class="remixes">
+                <a href="#"><img src="img/70x70-thumbnail.png" alt="" /></a>
+                <a href="#"><img src="img/70x70-thumbnail.png" alt="" /></a>
+                <a href="#"><img src="img/70x70-thumbnail.png" alt="" /></a>
+                <a href="#"><img src="img/70x70-thumbnail.png" alt="" /></a>          
+              </div>
+            </div>
+            
+            <div class="span6">
+              <h5>Details</h5>
+              <table cellspacing="0" class="table table-condensed table-striped">
+                <tr>
+                  <td>uploader:</td><td>dries</td>
+                </tr>
+                <tr>
+                  <td>created:</td><td>2012-08-06 07:53:25</td>
+                </tr>
+                <tr>
+                  <td>downloads:</td><td>219</td>
+                </tr>
+                <tr>
+                  <td>comments:</td><td>3</td>
+                </tr>
+                <tr>
+                  <td>filesize:</td><td>368.39 KB</td>
+                </tr>
+                <tr>
+                  <td>remixes:</td><td>2</td>
+                </tr>
+                <tr>
+                  <td>license:</td><td>public domain</td>
+                </tr>
+              </table>
+            </div>
+            
+          </div><!--end row-->
+          
+        </div>
+        
+      </div><!--end row-->
+      
+      <div class="row"> 
+      
+        <div class="span12 section ad-span">
+          
+          <h3>We are social</h3>  
+          <div class="row">
+            <div class="span6 center">
+              <a href="#"><img src="img/facebook-plugin.png"></a>
+            </div>
+            <div class="span6 center">
+              <a href="#"><img src="img/google-plugin.png"></a>
+            </div>
+          </div><!--end row--> 
+
+        </div>
+        
       </div>
-    </div>
-  {{/comments}}
-  {{#userid}}
-  <div class="comment add">
-    <div class="user grid_2 alpha">
-      <img src="img/user-thumbnail.png" title="{{username}} avatar"/>
-      <a class="username" href="#">{{username}}</a>
-    </div>
-    <div class="comment-body grid_14 omega">
-      <form action="/comment/{{id}}">
-        <textarea name="Text" rows="6" cols="54" placeholder="add your comment here...">
-        </textarea>
-        <input type="submit" value=" comment ">
-      </form>
-    </div>
-  </div>
-  {{/userid}}
-</div><!--end comments-->
+      
+      <div class="row">
+        
+        <div class="span12 section">
+
+          <h3>Comments</h3>
+
+          <div class="media"><!--start comment-->
+            <a class="pull-left" href="#">
+              <img class="media-object" src="http://placehold.it/75x75">
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading">User name <small>2012-06-03</small></h4>
+              <p>This is really a nice clipart. I used it for the birthday cards of my brother.
+    thanks! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</p>
+              <div class="pull-right edit-menu">
+                <a href="#">edit</a>
+                <a href="#">hide</a>
+                <a href="#">delete</a>
+              </div>
+            </div>
+          </div><!--end comment-->
+
+          <div class="media"><!--start comment-->
+            <a class="pull-left" href="#">
+              <img class="media-object" src="http://placehold.it/75x75">
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading">User name <small>2012-06-03</small></h4>
+              <p>This is really a nice clipart. I used it for the birthday cards of my brother.
+    thanks! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</p>
+              <div class="pull-right edit-menu">
+                <a href="#">edit</a>
+                <a href="#">hide</a>
+                <a href="#">delete</a>
+              </div>
+            </div>
+          </div><!--end comment-->
+
+          <div class="media"><!--start comment-->
+            <a class="pull-left" href="#">
+              <img class="media-object" src="http://placehold.it/75x75">
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading">User name <small>2012-06-03</small></h4>
+              <p>This is really a nice clipart. I used it for the birthday cards of my brother.
+    thanks! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</p>
+              <div class="pull-right edit-menu">
+                <a href="#">edit</a>
+                <a href="#">hide</a>
+                <a href="#">delete</a>
+              </div>
+            </div>
+          </div><!--end comment-->
+        </div>
+        
+      </div><!--end row-->   
+
+      <div class="footer-ad">
+        <a href="#">
+          <img src="img/adsense_185679_adformat-link_728x15_en.png" alt="" />
+        </a>
+      </div>
