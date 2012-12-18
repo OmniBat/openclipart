@@ -1,3 +1,4 @@
+<ul class="thumbnails">
 {{#clipart_list}}
   <li class="span2">
     <a href="/clipart/{{id}}/{{link}}{{forward_query}}" title="{{title}}">
@@ -6,4 +7,4 @@
     </a>
   </li>
 {{/clipart_list}}
-
+</ul>
