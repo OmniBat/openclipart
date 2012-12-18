@@ -1,7 +1,7 @@
 <div class="row landing">
         <div class="span10">
           <div class="slogan">
-            <p>create, share + remix free clip art.<a class="btn-ocal btn btn-primary btn-danger btn-large ">upload&nbsp;your&nbsp;art.</a></p>
+            <p>create, share + remix free clip art.<a class="btn-ocal btn btn-primary btn-danger btn-large" href="/upload">upload&nbsp;your&nbsp;art.</a></p>
             
           </div>
         </div>
@@ -19,62 +19,7 @@
       <div class="row popular-new">
         <div class="span6 section">
           <h3>Popular Clip Art</h3>
-          <ul class="thumbnails">
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-          </ul>
+          {{> popular_clipart}}
         <div class="span6 center ad-span">
           <img src="img/adsense_185665_adformat-text_234x60_en.png">
         </div>
@@ -82,62 +27,7 @@
 
         <div class="span6 section">
           <h3>New Clip Art</h3>
-          <ul class="thumbnails">
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-            <li class="span2">
-              <a href="#" class="thumbnail">
-                <img src="img/100x100-thumbnail.png" alt="">
-                <h5>Thumbnail label</h5>
-              </a>
-            </li>
-          </ul>
+          {{> new_clipart}}
         </div>
         <div class="span6 center ad-span">
           <img src="img/adsense_185665_adformat-text_234x60_en.png">
