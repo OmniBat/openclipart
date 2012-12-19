@@ -37,7 +37,7 @@
       <div class="navbar-inner">
         <div class="container">
           <div class="logo-shadow"></div>
-          <a class="brand" href="#"><img src="img/logo.png" alt="OCAL"  style="z-index: 2;"/></a>
+          <a class="brand" href="#"><img src="/img/logo.png" alt="OCAL"  style="z-index: 2;"/></a>
           
           <form class="form-search ocal-search">
             <div class="input-append">
@@ -46,7 +46,7 @@
             </div>
           </form>
           
-          <a class="paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS"><img src="img/donation-paypal.png" /></a>
+          <a class="paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS"><img src="/img/donation-paypal.png" /></a>
           
           
           <a class="btn btn-inverse ocal-collapse" data-toggle="collapse" data-target=".nav-collapse">
@@ -101,7 +101,7 @@
             </div>
             <div class="span9 ad pull-right">
               <a href="#">
-                <img src="img/adsense_185666_adformat-display_728x90_en.jpg" alt="" />
+                <img src="/img/adsense_185666_adformat-display_728x90_en.jpg" alt="" />
               </a>
             </div>
           </div>
