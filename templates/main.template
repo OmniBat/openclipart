@@ -39,10 +39,10 @@
           <div class="logo-shadow"></div>
           <a class="brand" href="#"><img src="/img/logo.png" alt="OCAL"  style="z-index: 2;"/></a>
           
-          <form class="form-search ocal-search">
+          <form class="form-search ocal-search" action="/search" method="GET">
             <div class="input-append">
-              <input type="text" class="span2 search-query" placeholder="Search">
-              <button type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
+              <input id="search-i" name="query" type="text" class="span2 search-query" placeholder="Search">
+              <button id="s-button" type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
             </div>
           </form>
           
@@ -126,9 +126,10 @@
     <div class="glow"></div>
     
 
-    <div class="container after-stripe">     
+    <div class="container after-stripe {{#editable}} editable{{/editable}}{{#userid}} logged{{/userid}}{{#class}} {{class}}-template{{/class}}">     
       <div class="triangle"></div>
-
+      <img style="position: absolute; top: 0px; right: 0px; border: 0; z-index: 100;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+      
       {{> content}}     
 
       <footer>
