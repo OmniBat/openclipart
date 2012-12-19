@@ -52,36 +52,16 @@
         <div class="span12">
           
           <ul class="thumbnails">
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
-            <li class="span2"><a href="#" class="thumbnail"><img src="img/100x100-thumbnail.png" alt=""><h5>Thumbnail label</h5></a></li>
+            {{#clipart_list}}
+            <li class="span2">
+              <a href="/clipart/{{id}}/{{link}}{{forward_query}}" class="thumbnail" title="{{title}}">
+                <img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}">
+                <h5>{{title}}</h5>
+              </a>
+            </li>
+            {{/clipart_list}}
           </ul>
-          
+  
         </div>
         <div class="span12 center ad-span">
           <img src="img/shutterstock.png" />
