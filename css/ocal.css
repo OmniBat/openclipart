@@ -178,7 +178,7 @@ a.thumbnail {
 		right: 0;
 		bottom: 0;
 		left: 0;
-		margin: auto;
+		margin: 0 auto;
 	}
 
 	a.thumbnail:hover {
