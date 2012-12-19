@@ -1,7 +1,7 @@
 <ul class="thumbnails">
 {{#clipart_list}}
   <li class="span2">
-    <a href="/clipart/{{id}}/{{link}}{{forward_query}}" title="{{title}}">
+    <a href="/clipart/{{id}}/{{link}}{{forward_query}}" title="{{title}}" class="thumbnail">
       <div class="image-center">  
         <img src="/image/100/{{username}}/{{filename_png}}{{forward_query}}">
       </div>
