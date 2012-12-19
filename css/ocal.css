@@ -154,7 +154,7 @@ h3 {
 	}
 
 a.thumbnail {
-	border: none;
+		border: none;
     border-radius: 0;
     box-shadow: none;
     display: block;
@@ -163,6 +163,7 @@ a.thumbnail {
     transition: all 0.2s ease-in-out 0s;
     color: black;
     font-family: "AsapRegular";
+    height: 180px;
 }
 	
 	a.thumbnail .image-center {
@@ -178,7 +179,7 @@ a.thumbnail {
 		right: 0;
 		bottom: 0;
 		left: 0;
-		margin: 0 auto;
+		margin: auto;
 	}
 
 	a.thumbnail:hover {
