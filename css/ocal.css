@@ -166,14 +166,13 @@ a.thumbnail {
 }
 	
 	a.thumbnail .image-center {
-		display: block;
 		position: relative;
 		width: 100px;
 		height: 100px;
 	}
 
 	a.thumbnail.image-center img {
-		position: relative;
+		position: absolute;
 		top: 0;
 		right: 0;
 		bottom: 0;
