@@ -406,13 +406,14 @@ a.thumbnail {
 	z-index: 1;
 	left: 0;
 	border-bottom: 1px solid white;
-    background: #1a1a1a; /* Old browsers */
+  background: #1a1a1a; /* Old browsers */
 	background:	 -moz-linear-gradient(bottom, #1a1a1a 0%, red 100%); /* FF3.6+ */
 	background: 	   -webkit-gradient(linear, left bottom, left top, color-stop(40%,#1a1a1a), color-stop(100%,#000)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(bottom, #1a1a1a 40%,#000 100%); /* Chrome10+,Safari5.1+ */
 	background:	     -o-linear-gradient(bottom, #1a1a1a 40%,#000 100%); /* Opera 11.10+ */
 	background: 	-ms-linear-gradient(bottom, #1a1a1a 40%,#000 100%); /* IE10+ */
-	background:       url(../img/logo-background.png) no-repeat 0px 170px,   linear-gradient(to top, #1a1a1a 40%, #000 100%); /* W3C */
+	/*background:       url(../img/logo-background.png) no-repeat 0px 170px,   linear-gradient(to top, #1a1a1a 40%, #000 100%);*/ /* W3C */
+	background:       linear-gradient(to top, #1a1a1a 40%, #000 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a1a1a', endColorstr='#000',GradientType=0 ); /* IE6-9 */
 }
 
