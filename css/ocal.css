@@ -698,6 +698,7 @@ table td {
 }
 
 .detail-image {
+	position: relative;
 	z-index: 2;
 	margin: 0 auto;
 	width: 280px;
@@ -705,6 +706,14 @@ table td {
 	padding-bottom: 10px;
 	text-align: center;
 }
+	.detail-image img {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto;
+	}
 
 .detail-image:hover ~ button {
     background-position: 0 -15px;
