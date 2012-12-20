@@ -280,7 +280,7 @@ a.thumbnail {
 
 	.ocal-search .input-append .search-query {
 		border-radius: 3px 0 0 3px;
-		height: 17px;
+		height: 27px;
 	}
 
 	.form-search .input-append .btn {
@@ -546,7 +546,7 @@ a.thumbnail {
 
 footer {
 	padding: 0;
-	margin: 20px 0 0 0;
+	margin-bottom: 0;
 	font-size: 14px;
 	text-align: left;
 }

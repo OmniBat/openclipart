@@ -2,7 +2,7 @@
         
         <div class="span12 search-headline">
           
-          <h3>Search results for <i>"term "</i> <span><button class="btn btn-danger btn-ocal" type="button">download "term".zip</button></span></h3>
+          <h3>Search results for "term" <span><button class="btn btn-danger btn-ocal" type="button">download "term".zip</button></span></h3>
          
         </div>
   
