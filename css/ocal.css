@@ -252,7 +252,7 @@ a.thumbnail {
 	width: 135px;
 	top: 72px;
 	left: 5px;
-	/*background: url('../img/logo-shadow.png') no-repeat center bottom;*/
+	background: url('../img/logo-shadow.png') no-repeat center bottom;
 	z-index: 1;
 }
 

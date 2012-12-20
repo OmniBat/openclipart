@@ -39,7 +39,7 @@
       <div class="navbar-inner">
         <div class="container">
           <div class="logo-shadow"></div>
-          <a class="brand" href="#"><img src="/img/logo.png" alt="OCAL"  style="z-index: 2;"/></a>
+          <a class="brand" href="/"><img src="/img/logo.png" alt="OCAL"  style="z-index: 2;"/></a>
           
           <form class="form-search ocal-search" action="/search" method="GET">
             <div class="input-append">
@@ -114,12 +114,12 @@
       <div class="row"> 
         <div class="span12">
           <ul class="ocal-main-menu">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#">Collections</a></li>
             <li><a href="#">Artists</a></li>
             <li><a href="#">Showcase</a></li>
             <li class="active"><span>Participate</span></li>
-            <li><a href="#">About</a></li>
+            <li><a href="/about">About</a></li>
           </ul>
         </div>
       </div>
