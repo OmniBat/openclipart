@@ -50,7 +50,6 @@
             </div>
             
             
-            {{#collections}}
             <div class="span6">
               <h5>Collections</h5>
                 <div class="collections">
@@ -60,7 +59,6 @@
                  {{! <a class="collection add" href="#"><button class="btn btn-inverse add-tag">+add</button></a> }}
                 </div>
             </div>
-            {{/collections}}
             
             <div class="span6">
               <h5>Description</h5>
