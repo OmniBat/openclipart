@@ -8,8 +8,9 @@
               <div class="detail-image">
                 <div class="checker"></div>
                 <img src="/image/280/{{username}}/{{filename_png}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
+              </div>
             </a>
-            </div>
+            
           </div>
           <div class="center"> 
             <div>
