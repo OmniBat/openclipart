@@ -4,8 +4,10 @@
           <h3>{{title}}<span class="vote-star"><a href="#" class="active">{{favs}}</a></span><small>by <a href="#">{{#original_author}}{{original_author}}{{/original_author}}{{^original_author}}{{username}}{{/original_author}}</a></small></h3>
           <div>
             <a href="/download/svg/{{username}}/{{filename}}">
-              <div class="detail-image">
-                <img src="/image/280/{{username}}/{{filename_png}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
+              <div class="checker">
+                <div class="detail-image">
+                  <img src="/image/280/{{username}}/{{filename_png}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
+                </div>
               </div>
             </a>
           </div>
