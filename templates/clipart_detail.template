@@ -55,7 +55,7 @@
             
             <div class="span6">
               <h5>Collections</h5>
-                <div class="collections">
+                <div class="tags collections">
                   {{#collections}}
                     <a class="tag{{#system}} system{{/system}}" href="/collection/{{username}}/{{id}}/{{name}}"><button class="btn btn-inverse">{{title}}</button></a>
                  {{/collections}}
