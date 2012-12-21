@@ -650,11 +650,14 @@ table td {
 										 , rgba(0,0,0,0) 1px);
 	background-position: 490px 0;
 }
-	
-.popular-new .ad-span img {
+
+.popular-new .ad-span {
   display: block;
   margin-left: 0;
   width: 100%;
+}
+	
+.popular-new .ad-span img {
 	padding: 0 0 30px 0;
 }
 
