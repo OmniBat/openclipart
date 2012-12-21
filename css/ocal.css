@@ -281,6 +281,9 @@ a.thumbnail {
 	.ocal-search .input-append .search-query {
 		border-radius: 3px 0 0 3px;
 		height: 17px;
+		   -moz-box-sizing: border-box; 
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 	}
 
 	.form-search .input-append .btn {
