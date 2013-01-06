@@ -2,7 +2,7 @@
         <div class="span10">
           <div class="slogan">
             <p>create, share + remix free clip art.<a class="btn-ocal btn btn-primary btn-danger btn-large" href="/upload">upload&nbsp;your&nbsp;art.</a></p>
-            
+
           </div>
         </div>
         <div class="span2">
@@ -33,9 +33,9 @@
         </div>
         </div>
       </div>
-      
 
-      
+
+
       <div class="row">
         <div class="span6 section">
           <h3 class="section">Top Artists this month</h3>
@@ -74,30 +74,13 @@
             </tr>
           </table>
         </div>
-        
+
         <div class="span6 section">
           <h3>Popular Tags</h3>
           <div class="tags center">
-            <button class="btn btn-inverse">dog</button>
-            <button class="btn btn-inverse">juice</button>
-            <button class="btn btn-inverse">house</button>
-            <button class="btn btn-inverse">red</button>
-            <button class="btn btn-inverse">people</button>
-            <button class="btn btn-inverse">sun</button>
-            <button class="btn btn-inverse">sports</button>
-            <button class="btn btn-inverse">automobile</button>
-            <button class="btn btn-inverse">motorbike</button>
-            <button class="btn btn-inverse">headphones</button>
-            <button class="btn btn-inverse">airplane</button>
-            <button class="btn btn-inverse">spider</button>
-            <button class="btn btn-inverse">halloween</button>
-            <button class="btn btn-inverse">orange</button>
-            <button class="btn btn-inverse">motorbike</button>
-            <button class="btn btn-inverse">lizard</button>
-            <button class="btn btn-inverse">lemonade</button>
-            <button class="btn btn-inverse">headphones</button>
-            <button class="btn btn-inverse">spider</button>
-            <button class="btn btn-inverse">halloween</button>
+            {{#tags}}
+              <a href="/tag/{{name}}" class="btn btn-inverse">{{name}}</a>
+            {{/tags}}
           </div>
         </div>
       </div>
@@ -116,8 +99,8 @@
             <div class="span9"><p><a href="#">We are rewriting OCAL</a></p></div>
           </div>
         </div>
-      </div>      
-      
+      </div>
+
       <div class="footer-ad">
         <a href="#">
           <img src="img/adsense_185679_adformat-link_728x15_en.png" alt="" />
