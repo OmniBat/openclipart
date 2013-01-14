@@ -25,7 +25,7 @@
             </div>
           </div>
           
-          <div class="pagination pagination-centered">
+          <div class="ocal-pagination pagination-centered">
             <ul>
               <li><a href="#">«</a></li>
               <li><a href="#">1</a></li>
