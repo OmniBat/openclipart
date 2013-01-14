@@ -891,7 +891,7 @@ table td {
 		background-color: #333;
 		color: white;
 		font-family: "AsapBold";
-		margin-bottom: 7px;
+		margin: 0 0 7px;
 	}
 
 	.pagination ul .active,
