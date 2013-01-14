@@ -867,45 +867,45 @@ table td {
 	.search-navigation a.black {border-color: black;}
 
 
-.ocal-pagination {
+.pagination {
     margin-top: 10px;
 }
 
-.ocal-pagination ul {
+.pagination ul {
     border: none;
     box-shadow: none;
 }
-	.ocal-pagination ul li {
+	.pagination ul li {
 		float: left;
 	}
 
-	.ocal-pagination ul > li > a,
-	.ocal-pagination ul > li > span {
+	.pagination ul > li > a,
+	.pagination ul > li > span {
 		border: none;
 		box-shadow: none;
 	}
 
-	.ocal-pagination ul > li > a:hover,
-	.ocal-pagination ul > .active > a,
-	.ocal-pagination ul > .active > span {
+	.pagination ul > li > a:hover,
+	.pagination ul > .active > a,
+	.pagination ul > .active > span {
 		background-color: #333;
 		color: white;
 		font-family: "AsapBold";
 		margin: 0 0 7px;
 	}
 
-	.ocal-pagination ul .active,
-	.ocal-pagination ul li:hover {
+	.pagination ul .active,
+	.pagination ul li:hover {
 		background: url('../img/ocal-icons.png') no-repeat center -470px;
 		margin: 0 0 7px;
 	}
-	.ocal-pagination ul li:first-of-type,
-	.ocal-pagination ul li:last-of-type,
-	.ocal-pagination ul li.disabeled {
+	.pagination ul li:first-of-type,
+	.pagination ul li:last-of-type,
+	.pagination ul li.disabeled {
 		background-image: none;
 	}
 
-	.ocal-pagination ul > .disabeled {
+	.pagination ul > .disabeled {
 		line-height: 30px;
 		float: left;
 		padding: 0 5px;
