@@ -883,6 +883,7 @@ table td {
 	.pagination ul > li > span {
 		border: none;
 		box-shadow: none;
+		margin-right: 0;
 	}
 
 	.pagination ul > li > a:hover,
@@ -897,6 +898,7 @@ table td {
 	.pagination ul .active,
 	.pagination ul li:hover {
 		background: url('../img/ocal-icons.png') no-repeat center -470px;
+		margin: 0 0 7px;
 	}
 	.pagination ul li:first-of-type,
 	.pagination ul li:last-of-type,
