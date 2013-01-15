@@ -235,10 +235,10 @@ $app->map('/register', function() use ($app) {
         } else {
             require('libs/picatcha/picatchalib.php');
             $response = picatcha_check_answer($app->config->picatcha['private_key'],
-				$_SERVER['REMOTE_ADDR'],
-				$_SERVER['HTTP_USER_AGENT'],
-				$_POST['picatcha']['token'],
-				$_POST['picatcha']['r']);
+                $_SERVER['REMOTE_ADDR'],
+                $_SERVER['HTTP_USER_AGENT'],
+                $_POST['picatcha']['token'],
+                $_POST['picatcha']['r']);
             if ($response->error == "incorrect-answer") {
                 $msg = 'You give wrong anwser to Picatcha';
                 $username = $_POST['username'];
@@ -313,32 +313,32 @@ $app->get("/clipart/:args+", function($args) use ($app) {
         'content' => new Template('clipart_detail', function() use ($id, $row) {
             global $app;
             // TODO: this SQLs can be put into Clipart class
-
+            
             // TAGS
             $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = $id";
             $tags = $app->db->get_column($query);
-
+            
             $tag_rank = $app->tag_counts($tags);
             $best_term = $tag_rank[0]['name'];
-
+            
             // COMMENTS
             $query = "select openclipart_comments.id, username, comment, date, openclipart_clipart.filename as avatar from openclipart_comments inner join openclipart_users on user = openclipart_users.id LEFT OUTER JOIN openclipart_clipart ON avatar = openclipart_clipart.id where clipart = $id";
             $comments = $app->db->get_array($query);
-
+            
             $svg = 'people/' . $row['username'] . '/' . $row['filename'];
-
+            
             // COLLECTIONS
             $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";
             $collections = $app->db->get_array($query);
-
+            
             // REMIXES
             $query = "SELECT openclipart_clipart.id, filename, title, link, username FROM openclipart_remixes INNER JOIN openclipart_clipart ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON owner = openclipart_users.id WHERE original = $id";
             $remixes = array_map(function($remix) {
                 $remix['filename'] = preg_replace("/\.svg$/", ".png", $remix['filename']);
                 return $remix;
             }, $app->db->get_array($query));
-
-
+            
+            
             $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
             return array_merge($row, array(
                 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename']),
@@ -417,7 +417,7 @@ $app->get("/", function() {
         $rows = $app->db->get_array($query);
         shuffle($rows);
         $normalize = size('20', $max);
-
+        
         return array(
             'editable' => false, // librarian functions
             'login-dialog' => new Template('login-dialog', null),
