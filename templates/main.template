@@ -141,7 +141,8 @@
         </ul>
         {{/system_warnings}}
       
-      {{> content}}     
+      {{>content}}
+      {{body}}
 
       <footer>
         <div class="row">
@@ -193,7 +194,6 @@
     <link href="/libs/jquery-ui/jquery-ui-1.8.24.custom.css" rel="stylesheet"/>
     <link href="/libs/tag-it/css/jquery.tagit.css" rel="stylesheet"/>
     <script src="/libs/tag-it/js/tag-it.js"></script>
-    <script src="http://api.picatcha.com/static/client/picatcha.js" type="text/javascript"></script>
     <link href="http://api.picatcha.com/static/client/picatcha.css" type="text/css" rel="stylesheet"/>
     <script src="{{root}}/script.js"></script>
     <!-- end old js -->

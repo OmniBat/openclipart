@@ -212,7 +212,6 @@ $app->get("/logout", function() {
     }
 });
 
-
 $app->map('/register', function() use ($app) {
     // TODO: try catch that show json on ajax and throw exception so it will be cached
     //       by main error handler
@@ -225,8 +224,8 @@ $app->map('/register', function() use ($app) {
         || !isset($_POST['password']) 
         || !isset($_POST['email'])
     ) return new Template('main', array(
-        'content' => new Template('register', array(
-            'use_picatcha' => $user_picatcha
+        'content' => new Template('registration/register', array(
+            'use_picatcha' => $use_picatcha
         ))
     ));
     
@@ -243,18 +242,29 @@ $app->map('/register', function() use ($app) {
             $message = "Dear $username:\n\nYour registration at Open Clipart "
                 . "Library was successful.\nPlease visit our site to sign in "
                 . "and get started:\n$url";
-            $app->system_email($email, $subject, $message);
+            error_log("sending message to : $email");
+            if(!$app->system_email($email, $subject, $message)){
+                $msg = 'Your account was created but there was an error sending'
+                    . 'your registration email';
+                $success = false;
+            }
         }
+        // respond AJAX request
         if($app->request()->isAjax())
             return json_encode(array('message' => $msg, 'status' => $success));
         
-        if($success) return new Template('main', array('content' => $msg));
+        // success response
+        if($success) return new Template('main', array(
+            'body' => $msg
+        ));
+        // failure response
         else return new Template('main', array(
-            'content' => new Template('register', array(
+            'content' => new Template('registration/register', array(
                 'error' => $msg
                 // so users don't need to type it twice
                 , 'email' => $email
                 , 'username' => $username
+                , 'use_picatcha' => $use_picatcha
             ))
         ));
     };
@@ -266,17 +276,17 @@ $app->map('/register', function() use ($app) {
         . 'letters, numbers and underscore)', false);
     
     if(!filter_var($email, FILTER_VALIDATE_EMAIL))
-        return $response('Sorry, but email is invalid', false);
+        return $response('Sorry, but that email is invalid', false);
     
     if($app->user_exist($username))
         // TODO: check if email exists - don't allow for two accounts with the 
         // same email
-        return $response("Sorry, but this user already exist", false);
+        return $response("Sorry, but the username \"$username\" already exists", false);
     
     if($use_picatcha && !isset($_POST['picatcha']['r']))
-        return $response("Sorry, but you need to solve picatcha to prove that "
-            . "you're human", false);
-    
+        return $response("Sorry, but you need to solve the picatcha to prove "
+            . "that you're human", false);
+
     if($use_picatcha){
         require('libs/picatcha/picatchalib.php');
         $res = picatcha_check_answer($app->config->picatcha['private_key']
@@ -284,14 +294,13 @@ $app->map('/register', function() use ($app) {
             , $_SERVER['HTTP_USER_AGENT']
             , $_POST['picatcha']['token']
             , $_POST['picatcha']['r']);
-        if($res->error === "incorrect-answer"){
+        if($res->error === "incorrect-answer")
             return $response('You gave the wrong answer to Picatcha', false);
-        }
     }
     
     if(!$app->register($username, $password, $email))
-        return $response('Sorry, but something wrong happened and we couldn\'t create your '
-            . 'account', false);
+        return $response("Sorry, but something wrong happened and we couldn't "
+            . "create your account", false);
     // Success!
     else return $response('Your account has been created', true);
     

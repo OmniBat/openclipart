@@ -1,8 +1,10 @@
 <div id="register-form" class="">
-  <h3>Register</h3>
-  <p>(*Fields are case sensitive)</p>
+  <h2>Register <small>(*Fields are case sensitive)</small></h2>
   {{#error}}
-    <p class="error">{{error}}</p>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      {{error}}
+    </div>
   {{/error}}
   <form class="form-horizontal" action="/register" method="POST">
     
@@ -48,9 +50,10 @@
         </div>
       </div>
     {{/use_picatcha}}
-    
     <div class="control-group">
-      <button type="submit" class="btn">Sign in</button>
+        <div class="controls">
+          <button type="submit" class="btn">Sign in</button>
+        </div>
     </div>
   </form>
   {{debug}}

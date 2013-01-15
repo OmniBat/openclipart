@@ -412,9 +412,4 @@ $(function() {
             return false;
         });
     });
-
-    Picatcha.API_SERVER = 'http://api.picatcha.com';
-    Picatcha.PUBLIC_KEY = 'qjSWPO6lV1MO_uJUDq2xmWlleGAUVQfRiul52kYm';
-    Picatcha.create('picatcha');
-
 });
