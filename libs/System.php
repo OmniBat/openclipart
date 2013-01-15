@@ -103,7 +103,9 @@ class System extends Slim {
         }
         //query paramters that will be forward to urls
         // TODO: this is Template specific code should be in different place
-        $clean_uri = $_SERVER['SCRIPT_URL'];
+        if(isset($_SERVER['SCRIPT_URL'])) 
+            $clean_uri = $_SERVER['SCRIPT_URL'];
+        else $clean_uri = '';
         if (($forward = $this->get_forward_args()) != array()) {
             $settings['forward_query'] = '?' . query_sring($forward);
             $settings['redirect'] = '&';
