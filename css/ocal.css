@@ -692,8 +692,8 @@ table td {
 	.vote-star a:hover,
 	.vote-star a.active {
 		text-decoration: none;
-		color: black;
 		background-position: -30px -90px;
+		font-family: "AsapItalic";
 	}
 
 	.vote-star a.active {
