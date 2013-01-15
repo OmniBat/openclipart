@@ -522,13 +522,14 @@ a.thumbnail {
 		box-shadow: none;
 		text-shadow: 0 1px 0 black;
 		background: #333;
-		transition: background 0.2s ease-in-out 0s;
 	}
 	
 	.tags .btn-inverse:hover {
 		font-family: "AsapBoldItalic";
-		background: #222;
-		text-shadow: 0 1px 3px darkgay;
+		color: #333;
+		background: #f1f1f1;
+		text-shadow: 0 1px 3px white;
+		border-color: transparent;
 	}
 
 	.tags .add-tag {
@@ -691,8 +692,8 @@ table td {
 	.vote-star a:hover,
 	.vote-star a.active {
 		text-decoration: none;
-		color: black;
 		background-position: -30px -90px;
+		font-family: "AsapItalic";
 	}
 
 	.vote-star a.active {
