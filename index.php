@@ -24,6 +24,11 @@ ini_set('display_errors', 'On');
 
 define('DEBUG', true);
 
+/** we do this to prevent MAMP's include_path settings from interfering. 
+	* specificially: MAMP/bin/php/php5.4.4/lib/php/System.php
+	*/
+set_include_path('.:');
+
 require_once('libs/utils.php');
 require_once('libs/Template.php');
 require_once('libs/System.php');
