@@ -4,19 +4,25 @@
   {{#error}}
     <p class="error">{{error}}</p>
   {{/error}}
+  {{#alert-success}}
+    <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert-success">&times;</button>
+      {{alert-success}}
+    </div>
+  {{/alert-success}}
   <form action="/login{{#redirect}}?redirect={{redirect}}{{/redirect}}" method="POST">
     <div class="field">
       <label for="login">Login:</label>
-      <input id="login" name="login" value="{{login}}"/>
-	</div>
-	<div class="field">
-	  <label for="password">Passoword:</label>
-      <input id="password" type="password" name="password"/>
-	</div>
-    <div>
-      <input class="button" type="submit" name="submit" value="Login"/>
+      <input type="text" id="login" name="login" value="{{login}}"/>
     </div>
-    <div id="action-links">
+    <div class="field">
+      <label for="password">Passoword:</label>
+      <input id="password" type="password" name="password"/>
+    </div>
+    <div>
+      <button type="submit" name="submit" class="btn">Sign in</button>
+    </div>
+    <div id="action-links" style="margin-top:20px">
       <a href="/forget-password">Lost Password?</a>
       |
       <a href="/register">Register</a>

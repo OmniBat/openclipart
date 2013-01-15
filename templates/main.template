@@ -60,36 +60,28 @@
           
           <div class="nav-collapse collapse pull-right ocal-nav">
             <ul class="nav">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">username <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/profile">my profile</a></li>
-                  <li><a href="#">my messages</a></li>
-                  <li><a href="#">my clipart</a></li>
-                  <li><a href="#">my page</a></li>
-                  <li><a id="logout" href="/logout">logout</a></li>
-                </ul>
+              {{#username}}
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{username}} <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/profile">my profile</a></li>
+                    <li><a href="#">my messages</a></li>
+                    <li><a href="#">my clipart</a></li>
+                    <li><a href="#">my page</a></li>
+                    <li><a id="logout" href="/logout">logout</a></li>
+                  </ul>
+                </li>
+              {{/username}}
+              <li>
+                {{#username}}
+                  <a id="login-link" href="/logout"> sign-out </a>
+                {{/username}}
+                {{^username}}
+                  <a id="login-link" href="/login"> sign-in </a>
+                  {{/username}}
               </li>
-              <!--<li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Librarian Tools <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">search username</a></li>
-                  <li><a href="#">search comments</a></li>
-                  <li><a href="#">QwikEdit</a></li>
-                  <li><a href="#">clipart_issue tag</a></li>
-                  <li><a href="#">pd_issue tag</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">list...</li>
-                  <li><a href="#">hidden clip art</a></li>
-                  <li><a href="#">untagged clip art</a></li>
-                  <li><a href="#">comments</a></li>
-                  <li><a href="#">librarians</a></li>
-                </ul>
-              </li>-->
-              <li><a id="login-link" href="/login">sign-in</a></li>
             </ul>
           </div><!--/.nav-collapse -->
-       
         </div>
       </div>
     </div>
@@ -140,9 +132,10 @@
           {{/system_warnings}}
         </ul>
         {{/system_warnings}}
-      
-      {{>content}}
-      {{body}}
+      <div class="content">
+        {{>content}}
+        {{body}}
+      </div>
 
       <footer>
         <div class="row">
@@ -181,7 +174,7 @@
             </ul>
           </div>
         </div>
-      </footer>   
+      </footer>
  
     </div> <!-- /container -->
 

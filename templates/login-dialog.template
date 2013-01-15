@@ -14,15 +14,15 @@
         <h2>login</h2>
         <div class="question">have no account? <label for="tab-register" class="label-register">register</label></div>
         <form action="/login" method="POST">
-		    <div class="input">
-		        <label for="login">username:</label>
-			    <input id="login" name="login"/>
-			    <label for="password">password:</label>
-			    <input type="password" name="password" id="password"/>
-			</div>
-		    <a class="lost-password" href="#">lost your password?</a>
-		    <span><input class="remember-me" type="checkbox" name="name" value="value" checked="checked"  title="remember me next time when i visit the site"/> remember me!</span>
-		    <input id="login-submit" class="add-button" type="submit"  value="login"/>
+          <div class="input">
+            <label for="login">username:</label>
+            <input id="login" name="login"/>
+            <label for="password">password:</label>
+            <input type="password" name="password" id="password"/>
+          </div>
+          <a class="lost-password" href="#">lost your password?</a>
+          <span><input class="remember-me" type="checkbox" name="name" value="value" checked="checked"  title="remember me next time when i visit the site"/> remember me!</span>
+          <input id="login-submit" class="add-button" type="submit"  value="login"/>
         </form>
         <div class="login-alternative">
           <h2>or login with</h2>
@@ -34,9 +34,9 @@
           </span>
         </div>
       </div><!-- end -tab-login-->
-
+      
       <!-- REGISTER -->
-
+      
       <div id="tab-register" class="pop-up-tab">
         <a href="#" id="close"><div class="popup-close"></div></a>
         <h2>register</h2>

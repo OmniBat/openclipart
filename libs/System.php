@@ -59,6 +59,7 @@ class System extends Slim {
     public $db;
     public $GET;
     private $db_prefix;
+    // TODO: rename `$rest_user_data` just `$user_data`
     private $rest_user_data;
     function __construct($settings) {
         Slim::__construct(array('debug' => false));
@@ -235,7 +236,7 @@ class System extends Slim {
             return false;
         }
     }
-
+    
     // ---------------------------------------------------------------------------------
     function register($username, $password, $email) {
         $username = $this->db->escape($username);
@@ -243,7 +244,7 @@ class System extends Slim {
         $email = $this->db->escape($email);
         return $this->db->query("INSERT INTO openclipart_users(username, password, email, creation_date) VALUES('$username', md5(md5('$password')), '$email', now())");
     }
-
+    
     // ---------------------------------------------------------------------------------
     function is($group) {
         return in_array($group, $this->groups);
@@ -274,14 +275,14 @@ class System extends Slim {
         $this->rest_user_data = $db_user;
         $this->groups = $this->fetch_groups(intval($this->id));
     }
-
+    
     // ---------------------------------------------------------------------------------
     // TODO: move to User
     private function fetch_groups($user) {
         $query = "SELECT name FROM openclipart_user_groups INNER JOIN openclipart_groups ON id = user_group WHERE user = " . $user;
         return $this->db->get_column($query);
     }
-
+    
     // ---------------------------------------------------------------------------------
     function get_forward_args() {
         if (isset($this->settings['forward_query_list'])) {
@@ -293,11 +294,11 @@ class System extends Slim {
             return array();
         }
     }
-
+    
     function __isset($name) {
         return array_key_exists($name, $this->rest_user_data);
     }
-
+    
     // ---------------------------------------------------------------------------------
     function __get($name) {
         //throw new Exception("Name $name not found");
@@ -308,25 +309,25 @@ class System extends Slim {
                                 "property ");
         }
     }
-
+    
     // ---------------------------------------------------------------------------------
     function logout() {
         unset($_SESSION['userid']);
         session_destroy();
         $this->rest_user_data = array();
     }
-
+    
     // ---------------------------------------------------------------------------------
     function can_overwrite_config() {
         return $this->is_admin();
     }
-
+    
     // ---------------------------------------------------------------------------------
     // this user can set data passed to mustache via query string
     function can_overwrite() {
         return $this->is_admin();
     }
-
+    
     // ---------------------------------------------------------------------------------
     function overwrite_data() {
         if ($this->can_overwrite()) {
@@ -335,32 +336,37 @@ class System extends Slim {
             return array();
         }
     }
-
+    
     // ---------------------------------------------------------------------------------
     function globals() {
         return array_merge($this->config_array, $this->rest_user_data);
     }
-
+    
     // ---------------------------------------------------------------------------------
     function track() {
         return $this->GET->get('track', true);
     }
-
+    
     // ---------------------------------------------------------------------------------
     function is_logged() {
         return isset($this->config->userid) && is_numeric($this->config->userid);
     }
-
+    
     // ---------------------------------------------------------------------------------
     function is_admin() {
         return $this->is_logged() && $this->is('admin');
     }
-
+    
     // ---------------------------------------------------------------------------------
     function exception($handler) {
         $this->error = $handler;
     }
-
+    
+    function redirect($loc, $qs = array(), $code = 302){
+        header("Location: $loc?" . http_build_query($qs), true, $code);
+        exit();
+    }
+    
     // ---------------------------------------------------------------------------------
     function __call($method, $argv) {
         if (have_method($this->functions, $method)) {

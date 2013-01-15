@@ -146,23 +146,27 @@ $app->map('/login', function() use ($app) {
         $redirect = isset($app->GET->redirect) ? $app->GET->redirect : $app->config->root;
         // TODO: redirect don't work
         try {
-            //$app->redirect($redirect);
-            //return;
-            return $app->login($_POST['login'], $_POST['password']) === NULL ? 'null' : 'false';
+            $app->login($_POST['login'], $_POST['password']);
+            // login successful
+            return $app->redirect('/profile');
         } catch (LoginException $e) {
             $error = $e->getMessage();
         }
     }
-    return new Template('main', function() use ($error) {
+    if(isset($_GET['alert-success'])) $alert_success = $_GET['alert-success'];
+    else $alert_success = NULL;
+    
+    return new Template('main', function() use ($error, $alert_success) {
         return array(
             'login-dialog' => new Template('login-dialog', null),
-            'content' => array(new Template('login', function() use ($error) {
+            'content' => array(new Template('login', function() use ($error, $alert_success) {
                 global $app;
                 return array(
                     // fill login on second attempt
                     'login' => isset($_POST['login']) ? $_POST['login'] : '',
                     'error' => $error,
                     'redirect' => isset($app->GET->redirect) ? $app->GET->redirect : ''
+                    , 'alert-success' => $alert_success
                 );
             }))
         );
@@ -191,11 +195,12 @@ $app->map('/forget-password', function() use ($app) {
     }
 })->via('GET', 'POST');
 
-$app->get("/profile", function() {
-    return new Template('main', array('content' => '<p>user profile</p>'));
+$app->get("/profile", function() use($app) {
+    return new Template('main', array(
+        'body' => '<p>user profile</p>'
+        , 'loggedin' => $app->is_logged()
+    ));
 });
-
-
 
 
 $app->get("/logout", function() {
@@ -212,6 +217,11 @@ $app->get("/logout", function() {
     }
 });
 
+$app->map('/template', function() use ($app) {
+    $msg = 'this is a test message';
+    $app->redirect('/login', array('alert-success' => $msg));
+})->via('GET');
+
 $app->map('/register', function() use ($app) {
     // TODO: try catch that show json on ajax and throw exception so it will be cached
     //       by main error handler
@@ -224,7 +234,7 @@ $app->map('/register', function() use ($app) {
         || !isset($_POST['password']) 
         || !isset($_POST['email'])
     ) return new Template('main', array(
-        'content' => new Template('registration/register', array(
+        'content' => new Template('register', array(
             'use_picatcha' => $use_picatcha
         ))
     ));
@@ -235,6 +245,7 @@ $app->map('/register', function() use ($app) {
     $password = $_POST['password'];
     $email = $_POST['email'];
     
+    
     $response = function($msg, $success) use($app, $email, $username){
         if($success){
             $url = $app->config->root . "/login";
@@ -242,7 +253,6 @@ $app->map('/register', function() use ($app) {
             $message = "Dear $username:\n\nYour registration at Open Clipart "
                 . "Library was successful.\nPlease visit our site to sign in "
                 . "and get started:\n$url";
-            error_log("sending message to : $email");
             if(!$app->system_email($email, $subject, $message)){
                 $msg = 'Your account was created but there was an error sending'
                     . 'your registration email';
@@ -254,12 +264,11 @@ $app->map('/register', function() use ($app) {
             return json_encode(array('message' => $msg, 'status' => $success));
         
         // success response
-        if($success) return new Template('main', array(
-            'body' => $msg
-        ));
+        if($success)
+            return $app->redirect('/login', array('alert-success' => $msg));
         // failure response
         else return new Template('main', array(
-            'content' => new Template('registration/register', array(
+            'content' => new Template('register', array(
                 'error' => $msg
                 // so users don't need to type it twice
                 , 'email' => $email
@@ -302,7 +311,7 @@ $app->map('/register', function() use ($app) {
         return $response("Sorry, but something wrong happened and we couldn't "
             . "create your account", false);
     // Success!
-    else return $response('Your account has been created', true);
+    else return $response('Your account has been created. Now you can login.', true);
     
 })->via('GET', 'POST');
 

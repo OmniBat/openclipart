@@ -1,0 +1,6 @@
+{{#msg}}
+  <div class="alert alert-{{status}}">
+    <button type="button" class="close" data-dismiss="{{status}}">&times;</button>
+    {{msg}}
+  </div>
+{{/msg}}
