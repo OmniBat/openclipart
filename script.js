@@ -253,7 +253,7 @@ $(function() {
 
 
 
-    var img = $('#viewimg img, #shutterstock img').bg();
+    //var img = $('#viewimg img, #shutterstock img').bg();
 
     rpc({url: '/rpc/main', error: function(e) {
         if (e.error) {

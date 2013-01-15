@@ -216,73 +216,85 @@ $app->get("/logout", function() {
 $app->map('/register', function() use ($app) {
     // TODO: try catch that show json on ajax and throw exception so it will be cached
     //       by main error handler
-    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
-        $msg = null;
-        $success = false;
-        $username = null;
-        if (strip_tags($_POST['username']) != $_POST['username'] ||
-            preg_match('/^[0-9A-Za-z_]+$/', $_POST['username']) == 0) {
-            $msg = 'Sorry, but the username is invalid (you can use only letters, numbers'.
-                ' and underscore)';
-        } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            $msg = 'Sorry, but email is invalid';
-        } else if ($app->user_exist($_POST['username'])) {
-            // TODO: check if email exists - don't allow for two accounts with the same email
-            $msg = "Sorry, but this user already exist";
-        } else if (!isset($_POST['picatcha']['r'])) {
-            $msg = "Sorry, but you need to solve picatcha to prove that you're human";
-            $username = $_POST['username'];
-        } else {
-            require('libs/picatcha/picatchalib.php');
-            $response = picatcha_check_answer($app->config->picatcha['private_key'],
-                $_SERVER['REMOTE_ADDR'],
-                $_SERVER['HTTP_USER_AGENT'],
-                $_POST['picatcha']['token'],
-                $_POST['picatcha']['r']);
-            if ($response->error == "incorrect-answer") {
-                $msg = 'You give wrong anwser to Picatcha';
-                $username = $_POST['username'];
-            } else {
-                if ($app->register($_POST['username'], $_POST['password'], $_POST['email'])) {
-                    $msg = 'Your account has been created';
-                    $success = true;
-                } else {
-                    $msg = 'Sorry, but something wrong happen and we couldn\'t create '.
-                        'your account';
-                    $username = $_POST['username'];
-                }
-            }
-        }
-        if ($success) {
+    
+    $use_picatcha = $app->config->picatcha['enabled'];
+    
+    // GET - just render the register page
+    if(
+        !isset($_POST['username']) 
+        || !isset($_POST['password']) 
+        || !isset($_POST['email'])
+    ) return new Template('main', array(
+        'content' => new Template('register', array(
+            'use_picatcha' => $user_picatcha
+        ))
+    ));
+    
+    $msg = null;
+    $success = true;
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $email = $_POST['email'];
+    
+    $response = function($msg, $success) use($app, $email, $username){
+        if($success){
             $url = $app->config->root . "/login";
             $subject = 'Welcome to Open Clipart Library';
-            $username = $_POST['username'];
-            $message = "Dear $username:\n\nYour registration at Open Clipart Library was " .
-                "successful.\nPlease visit our site to sign in and get started:\n$url";
-            $app->system_email($_POST['email'], $subject, $message);
+            $message = "Dear $username:\n\nYour registration at Open Clipart "
+                . "Library was successful.\nPlease visit our site to sign in "
+                . "and get started:\n$url";
+            $app->system_email($email, $subject, $message);
         }
-        if ($app->request()->isAjax()) {
+        if($app->request()->isAjax())
             return json_encode(array('message' => $msg, 'status' => $success));
-        } else {
-            if ($success) {
-                return new Template('main', array(
-                    'content' => $msg
-                ));
-            } else {
-                return new Template('main', array(
-                    'content' => new Template('register', array(
-                        'error' => $msg,
-                        'email' => $_POST['email'], // so users don't need to type it twice
-                        'username' => $username     // if user fail or forget picatcha
-                    ))
-                ));
-            }
-        }
-    } else {
-        return new Template('main', array(
-            'content' => new Template('register', null)
+        
+        if($success) return new Template('main', array('content' => $msg));
+        else return new Template('main', array(
+            'content' => new Template('register', array(
+                'error' => $msg
+                // so users don't need to type it twice
+                , 'email' => $email
+                , 'username' => $username
+            ))
         ));
+    };
+    
+    
+    if ( strip_tags($username) !== $username 
+        || preg_match('/^[0-9A-Za-z_]+$/', $username ) === 0
+    ) return $response('Sorry, but the username is invalid (you can use only '
+        . 'letters, numbers and underscore)', false);
+    
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+        return $response('Sorry, but email is invalid', false);
+    
+    if($app->user_exist($username))
+        // TODO: check if email exists - don't allow for two accounts with the 
+        // same email
+        return $response("Sorry, but this user already exist", false);
+    
+    if($use_picatcha && !isset($_POST['picatcha']['r']))
+        return $response("Sorry, but you need to solve picatcha to prove that "
+            . "you're human", false);
+    
+    if($use_picatcha){
+        require('libs/picatcha/picatchalib.php');
+        $res = picatcha_check_answer($app->config->picatcha['private_key']
+            , $_SERVER['REMOTE_ADDR']
+            , $_SERVER['HTTP_USER_AGENT']
+            , $_POST['picatcha']['token']
+            , $_POST['picatcha']['r']);
+        if($res->error === "incorrect-answer"){
+            return $response('You gave the wrong answer to Picatcha', false);
+        }
     }
+    
+    if(!$app->register($username, $password, $email))
+        return $response('Sorry, but something wrong happened and we couldn\'t create your '
+            . 'account', false);
+    // Success!
+    else return $response('Your account has been created', true);
+    
 })->via('GET', 'POST');
 
 
