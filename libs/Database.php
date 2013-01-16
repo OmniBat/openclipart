@@ -45,7 +45,7 @@ class Database {
         }
         return $ret;
     }
-    function get_array($query) {
+    function get_array($query){
         $result = array();
         $ret = $this->query($query);
         if ($ret->num_rows == 0) {
