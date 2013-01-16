@@ -727,21 +727,6 @@ $app->get("/download/collection/:name", function($name) {
     }
 });
 
-// -------------------------------------------------------------------------------
-// :: TEST CODE
-
-
-$app->get("/throw-exception", function() use ($app) {
-    $array = array();
-    return $array['x'];
-});
-
-$app->get("/foo", function() {
-    return new Template('main', function() {
-        return array('content' => 'hello');
-    });
-});
-
 $app->get("/about", function() {
     return new Template('main', function() {
         return array('content' => array(new Template('about', null)));
@@ -758,6 +743,15 @@ $app->get("/why-the-ads", function() {
     return new Template('main', function() {
         return array('content' => array(new Template('why-the-ads', null)));
     });
+});
+
+// -------------------------------------------------------------------------------
+// :: TEST CODE
+
+
+$app->get("/throw-exception", function() use ($app) {
+    $array = array();
+    return $array['x'];
 });
 
 $app->get("/search", function() use($app) {
@@ -819,30 +813,6 @@ $app->get("/search", function() use($app) {
         );
     });
 });
-
-$app->get("/test", function() {
-    global $app;
-
-    return;
-    $app->xx();
-    echo isset($_GET['lang']) ? $_GET['lang'] : 'undefined';
-    $app->response()->header('Content-Type', 'text/plain');
-    print_r($_SERVER) . "\n";
-    echo $_SERVER['REQUEST_URI'] . "\n";
-    echo 'nsfw: ' . $app->nsfw() ? 'true' : 'false';
-    echo "\n";
-    echo (empty($_GET) ? 'true' : 'false') . "\n";
-    return "xxx";
-    $main = new Template('test', function() {
-        return array('foo' => function($query) {
-            global $app;
-            $array = $app->db->get_array($query);
-            return implode(' | ', $array[0]);
-        });
-    });
-    echo $main->render();
-}); //->conditions(array('name' => '[0-9]*'));
-
 
 $app->run();
 ?>
