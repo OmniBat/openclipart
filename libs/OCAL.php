@@ -20,16 +20,17 @@
  */
 
 require_once('System.php');
+require_once('config.php');
 
 // Main class extend System to OCAL specific functions
-class OCAL extends System {
+class OCAL extends System{
 
     private $shutterstock_api_url = "http://api.shutterstock.com/images/search.json?all=0&page_number=1&category_id=29";
     private $shutterstock_api_login = "openclipart";
     private $shutterstock_api_key = "75f6916e802d2969ce255ad03f0316a817535922";
 
-    function __construct($settings) {
-        $config = json_decode(file_get_contents('config.json'), true);
+    function __construct($settings){
+        global $config;
         $protocol = (isset($_SERVER['HTTPS'])) ? 'https' : 'http';
         $config['root'] = $protocol . '://' . $_SERVER['HTTP_HOST'];
         $config['root_directory'] = $_SERVER['DOCUMENT_ROOT'];
