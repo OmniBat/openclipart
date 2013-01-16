@@ -814,6 +814,15 @@ table td {
 		background-position: -30px -240px;
 	}
 
+img.avatar-image {
+	padding: 0 20px 20px 0;
+	float: left;
+}
+
+.user-links {
+	margin-top: 60px;
+}
+
 /* ##################### search page ######################*/
 .search-navigation {
 	margin-top: 10px;
