@@ -2,28 +2,54 @@
 
 SET default_storage_engine=MYISAM;
 
-DROP TABLE IF EXISTS openclipart_clipart;
-DROP TABLE IF EXISTS openclipart_users;
-DROP TABLE IF EXISTS openclipart_remixes;
-DROP TABLE IF EXISTS openclipart_favorites;
-DROP TABLE IF EXISTS openclipart_comments;
-DROP TABLE IF EXISTS openclipart_clipart_issues;
-DROP TABLE IF EXISTS openclipart_tags;
-DROP TABLE IF EXISTS openclipart_clipart_tags;
-DROP TABLE IF EXISTS openclipart_groups;
-DROP TABLE IF EXISTS openclipart_user_groups;
-DROP TABLE IF EXISTS openclipart_file_usage;
-DROP TABLE IF EXISTS openclipart_links;
-DROP TABLE IF EXISTS openclipart_messages;
-DROP TABLE IF EXISTS openclipart_contests;
-DROP TABLE IF EXISTS openclipart_collections;
-DROP TABLE IF EXISTS openclipart_collection_clipart;
-DROP TABLE IF EXISTS openclipart_log_type;
-DROP TABLE IF EXISTS openclipart_logs;
-DROP TABLE IF EXISTS openclipart_log_meta_type;
-DROP TABLE IF EXISTS openclipart_log_meta;
+TRUNCATE openclipart_clipart;
+TRUNCATE openclipart_users;
+TRUNCATE openclipart_remixes;
+TRUNCATE openclipart_favorites;
+TRUNCATE openclipart_comments;
+TRUNCATE openclipart_clipart_issues;
+TRUNCATE openclipart_tags;
+TRUNCATE openclipart_clipart_tags;
+TRUNCATE openclipart_groups;
+TRUNCATE openclipart_user_groups;
+TRUNCATE openclipart_file_usage;
+TRUNCATE openclipart_links;
+TRUNCATE openclipart_messages;
+TRUNCATE openclipart_contests;
+TRUNCATE openclipart_collections;
+TRUNCATE openclipart_collection_clipart;
+TRUNCATE openclipart_log_type;
+TRUNCATE openclipart_logs;
+TRUNCATE openclipart_log_meta_type;
+TRUNCATE openclipart_log_meta;
 
-INSERT INTO openclipart_clipart(id, filename, title, description, owner, sha1, downloads, hidden, created) SELECT ocal_files.id, filename, upload_name, upload_description, users.userid, sha1, file_num_download, not upload_published, upload_date FROM ocal_files LEFT JOIN aiki_users users ON users.username = ocal_files.user_name INNER JOIN (SELECT MIN(userid) as userid FROM aiki_users GROUP by username) minids ON minids.userid = users.userid;
+INSERT INTO openclipart_clipart(
+  id, 
+  filename, 
+  title, 
+  description, 
+  owner, 
+  sha1, 
+  downloads, 
+  hidden, 
+  created
+) SELECT 
+  ocal_files.id, 
+  filename, 
+  upload_name, 
+  upload_description, 
+  users.userid, 
+  sha1, 
+  file_num_download, 
+  not upload_published, 
+  upload_date 
+FROM ocal_files 
+LEFT JOIN aiki_users users ON users.username = ocal_files.user_name 
+INNER JOIN (
+  SELECT MIN(userid) as userid 
+  FROM aiki_users 
+  GROUP by username
+) minids ON minids.userid = users.userid;
 
 -- copy non duplicate aiki_users
 -- i commented this out for now because it was throwing errors during import -- vicapow

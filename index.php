@@ -197,8 +197,7 @@ $app->map('/forget-password', function() use ($app) {
 
 $app->get("/profile", function() use($app) {
     return new Template('main', array(
-        'body' => '<p>user profile</p>'
-        , 'loggedin' => $app->is_logged()
+        'content' => new Template('profile')
     ));
 });
 
@@ -326,17 +325,23 @@ $app->get("/chat", function() {
 
 $app->get("/clipart/:id", function($id) use ($app) {
     $id = intval($id);
+    /*
     $query = "SELECT openclipart_clipart.id, title, filename, link, created, 
             username, count(DISTINCT user) as favs, created, downloads, description 
         FROM openclipart_clipart 
         INNER JOIN openclipart_users ON owner = openclipart_users.id 
         INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id 
         WHERE openclipart_clipart.id = $id";
+    */
+    $query = "SELECT openclipart_clipart.id, title, filename, link, created, 
+        username, created, downloads, description 
+        FROM openclipart_clipart 
+        INNER JOIN openclipart_users ON owner = openclipart_users.id 
+        WHERE openclipart_clipart.id = $id";
+    
     $row = $app->db->get_row($query);
     var_dump($row);
-    if (empty($row)) {
-        $app->notFound();
-    }
+    if (empty($row)) return $app->notFound();
     $editable = false;
     if (isset($app->username)) {
         if ($app->username == $row['username'] || $app->is('librarian')) {
@@ -344,11 +349,9 @@ $app->get("/clipart/:id", function($id) use ($app) {
         }
     }
     return new Template('main', array(
-        'login-dialog' => new Template('login-dialog', null),
-        'editable' => $editable,
-        'content' => new Template('clipart_detail', function() use ($id, $row) {
-            global $app;
-            // TODO: this SQLs can be put into Clipart class
+        'login-dialog' => new Template('login-dialog', null)
+        , 'editable' => $editable
+        , 'content' => new Template('clipart_detail', function() use ($id, $row, $app) {
             
             // TAGS
             $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = $id";
