@@ -751,9 +751,9 @@ $app->get("/why-the-ads", function() {
     });
 });
 
-$app->get("/profile", function() { //added just to be able to work on css. can be removed once profiles are available
+$app->get("/profile-test", function() { //added just to be able to work on css. can be removed once profiles are available
     return new Template('main', function() {
-        return array('content' => array(new Template('profile', null)));
+        return array('content' => array(new Template('profile-test', null)));
     });
 });
 
