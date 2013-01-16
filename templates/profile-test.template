@@ -110,3 +110,18 @@
   </div>
 
 </div>
+
+<div class="row">
+  <div class="span12 section">
+    <h3 class="section">recently uploaded</h3>
+  </div>
+  
+  {{> new_clipart}}
+  
+  <div class="span12 section">
+    <h3 class="section">top downloads</h3>
+  </div>
+  
+  {{> new_clipart}}
+  
+</div>
