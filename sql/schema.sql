@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart(
   modifed datetime, 
   PRIMARY KEY(id), 
   FOREIGN KEY(owner) REFERENCES openclipart_users(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
 
@@ -40,16 +40,17 @@ CREATE TABLE IF NOT EXISTS openclipart_users(
   token_expiration datetime default null, 
   PRIMARY KEY(id), 
   FOREIGN KEY(avatar) REFERENCES openclipart_clipart(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
+-- REMIXES
 CREATE TABLE IF NOT EXISTS openclipart_remixes(
   clipart integer NOT NULL, 
   original integer NOT NULL, 
   PRIMARY KEY(clipart, original), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(original) REFERENCES openclipart_clipart(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- FAVORITES
 
@@ -60,7 +61,7 @@ CREATE TABLE IF NOT EXISTS openclipart_favorites(
   PRIMARY KEY(clipart, user), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- COMMENTS
 
@@ -73,7 +74,7 @@ CREATE TABLE IF NOT EXISTS openclipart_comments(
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- ISSUES
 
@@ -88,7 +89,7 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart_issues(
   PRIMARY KEY(id), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(user) REFERENCES openclipart_user(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- TAGS
 
@@ -96,7 +97,7 @@ CREATE TABLE IF NOT EXISTS openclipart_tags(
   id integer NOT NULL auto_increment,
   name varchar(255) UNIQUE, 
   PRIMARY KEY(id)
-);
+)  CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS openclipart_clipart_tags(
   clipart integer NOT NULL, 
@@ -104,7 +105,7 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart_tags(
   PRIMARY KEY(clipart, tag), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(tag) REFERENCES openclipart_tags(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- TAG COLLECTIONS
 
@@ -115,7 +116,7 @@ CREATE TABLE IF NOT EXISTS openclipart_tags_collection(
   created DATETIME, 
   last_archive_date DATETIME DEFAULT NULL, 
   PRIMARY KEY(id), FOREIGN KEY(creator) REFERENCES openclipart_users(id)
-);
+)  CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS openclipart_tags_collection_tag(
   tag INTEGER NOT NULL, 
@@ -124,7 +125,7 @@ CREATE TABLE IF NOT EXISTS openclipart_tags_collection_tag(
   PRIMARY KEY(tag, collection), 
   FOREIGN KEY(tag) REFERENCES openclipart_tags(id), 
   FOREIGN KEY(collection) REFERENCES tag_collection(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- GROUPS
 
@@ -132,7 +133,7 @@ CREATE TABLE IF NOT EXISTS openclipart_groups(
   id integer NOT NULL auto_increment, 
   name varchar(255) UNIQUE, 
   PRIMARY KEY(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS openclipart_user_groups(
   user_group INTEGER NOT NULL, 
@@ -140,7 +141,7 @@ CREATE TABLE IF NOT EXISTS openclipart_user_groups(
   PRIMARY KEY(user_group, user), 
   FOREIGN KEY(user_group) REFERENCES openclipart_groups(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
 -- CLIPART in USE [NEW]
@@ -153,7 +154,7 @@ CREATE TABLE IF NOT EXISTS openclipart_file_usage(
   primary key(id), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- LINKS
 
@@ -164,7 +165,7 @@ CREATE TABLE IF NOT EXISTS openclipart_links(
   user INTEGER NOT NULL, 
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- MESSAGES
 
@@ -181,7 +182,7 @@ CREATE TABLE IF NOT EXISTS openclipart_messages(
   FOREIGN KEY(sender) REFERENCES openclipart_users(id), 
   FOREIGN KEY(receiver) REFERENCES openclipart_users(id), 
   FOREIGN KEY(reply_to) REFERENCES openclipart_messages(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
 -- CONTESTS
@@ -198,7 +199,7 @@ CREATE TABLE IF NOT EXISTS openclipart_contests(
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id), 
   FOREIGN KEY(image) REFERENCES openclipart_clipart(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- COLLECTIONS
 
@@ -210,15 +211,16 @@ CREATE TABLE IF NOT EXISTS openclipart_collections(
   user INTEGER NOT NULL, 
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-CREATE TABLE IF NOT EXISTS openclipart_collection_clipart(
+CREATE TABLE IF NOT EXISTS
+openclipart_collection_clipart(
   clipart INTEGER NOT NULL, 
   collection INTEGER NOT NULL, 
   PRIMARY KEY(clipart, collection), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(collection) REFERENCES openclipart_collections(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- LOGS
 
@@ -226,7 +228,7 @@ CREATE TABLE IF NOT EXISTS openclipart_log_type(
   id INTEGER NOT NULL auto_increment,
   name VARCHAR(100) UNIQUE, 
   PRIMARY KEY(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS openclipart_logs(
   id INTEGER NOT NULL auto_increment, 
@@ -236,13 +238,14 @@ CREATE TABLE IF NOT EXISTS openclipart_logs(
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id), 
   FOREIGN KEY(type) REFERENCES openclipart_log_type(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 
 CREATE TABLE IF NOT EXISTS openclipart_log_meta_type(
   id INTEGER NOT NULL auto_increment, 
   name VARCHAR(100), 
   PRIMARY KEY(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS openclipart_log_meta(
   log INTEGER NOT NULL, 
@@ -251,7 +254,7 @@ CREATE TABLE IF NOT EXISTS openclipart_log_meta(
   PRIMARY KEY(log, type), 
   FOREIGN KEY(log) REFERENCES openclipart_logs(id), 
   FOREIGN KEY(type) REFERENCES openclipart_log_meta_type(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- NEWS
 
@@ -264,4 +267,4 @@ CREATE TABLE IF NOT EXISTS openclipart_news(
   content TEXT, 
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-);
+) CHARACTER SET utf8 COLLATE utf8_general_ci;

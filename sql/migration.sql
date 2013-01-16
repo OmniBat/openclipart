@@ -1,6 +1,12 @@
 -- DATABASE CREATION FILE (WITH MIGRATION CODE FROM OLD AIKI+CCHOST DATABASE)
 
 SET default_storage_engine=MYISAM;
+SET character_set_server=utf8;
+SET character_set_database=utf8;
+SET character_set_results=utf8;
+SET character_set_connection=utf8;
+SET collation_database=utf8_general_ci;
+SET collation_server=utf8_general_ci;
 
 TRUNCATE openclipart_clipart;
 TRUNCATE openclipart_users;
@@ -77,6 +83,7 @@ INSERT INTO openclipart_users(
          notify, 
          nsfwfilter 
   FROM aiki_users users 
+    -- use only the min user id, incase there are two usrs with the same user id
     INNER JOIN ( SELECT MIN(userid) as userid 
        FROM aiki_users 
        GROUP by username ) minids 
@@ -89,7 +96,9 @@ INSERT INTO openclipart_users(
 
 -- REMIXES
 
-INSERT INTO openclipart_remixes SELECT distinct tree_child, tree_parent FROM cc_tbl_tree;
+INSERT INTO openclipart_remixes 
+  SELECT distinct tree_child, tree_parent 
+  FROM cc_tbl_tree;
 
 -- FAVORITES
 

@@ -131,15 +131,6 @@ $app->error(function($exception) {
     });
 });
 
-
-$app->notFound(function () use ($app) {
-    return new Template('main', function() {
-        return array('content' => new Template('error_404', null));
-    });
-});
-
-
-
 $app->map('/login', function() use ($app) {
     $error = null;
     if (isset($_POST['login']) && isset($_POST['password'])) {
@@ -745,9 +736,6 @@ $app->get("/why-the-ads", function() {
     });
 });
 
-// -------------------------------------------------------------------------------
-// :: TEST CODE
-
 
 $app->get("/throw-exception", function() use ($app) {
     $array = array();
@@ -811,6 +799,13 @@ $app->get("/search", function() use($app) {
                 );
             })
         );
+    });
+});
+
+
+$app->notFound(function () use ($app) {
+    return new Template('main', function() {
+        return array('content' => new Template('errors/404'));
     });
 });
 
