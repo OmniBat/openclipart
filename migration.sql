@@ -1,5 +1,7 @@
 -- DATABASE CREATION FILE (WITH MIGRATION CODE FROM OLD AIKI+CCHOST DATABASE)
 
+SET default_storage_engine=MYISAM;
+
 DROP TABLE IF EXISTS openclipart_clipart;
 DROP TABLE IF EXISTS openclipart_users;
 DROP TABLE IF EXISTS openclipart_remixes;
@@ -23,17 +25,81 @@ DROP TABLE IF EXISTS openclipart_log_meta;
 
 
 -- FILES
-CREATE TABLE openclipart_clipart(id integer NOT NULL auto_increment, filename varchar(255), title varchar(255), link varchar(255), description TEXT, owner integer NOT NULL, original_author VARCHAR(255) DEFAULT NULL, sha1 varchar(40), filesize INTEGER, downloads integer, hidden boolean default 0, created datetime, modifed datetime, PRIMARY KEY(id), FOREIGN KEY(owner) REFERENCES openclipart_users(id));
+CREATE TABLE openclipart_clipart(
+  id integer NOT NULL auto_increment, 
+  filename varchar(255), 
+  title varchar(255), 
+  link varchar(255), 
+  description TEXT, 
+  owner integer NOT NULL, 
+  original_author VARCHAR(255) DEFAULT NULL, 
+  sha1 varchar(40), 
+  filesize INTEGER, 
+  downloads integer, 
+  hidden boolean default 0, 
+  created datetime, 
+  modifed datetime, 
+  PRIMARY KEY(id), 
+  FOREIGN KEY(owner) REFERENCES openclipart_users(id)
+);
 
 INSERT INTO openclipart_clipart(id, filename, title, description, owner, sha1, downloads, hidden, created) SELECT ocal_files.id, filename, upload_name, upload_description, users.userid, sha1, file_num_download, not upload_published, upload_date FROM ocal_files LEFT JOIN aiki_users users ON users.username = ocal_files.user_name INNER JOIN (SELECT MIN(userid) as userid FROM aiki_users GROUP by username) minids ON minids.userid = users.userid;
 
 
 -- USERS
-CREATE TABLE openclipart_users(id integer NOT NULL auto_increment, username varchar(255) UNIQUE, password varchar(60), full_name varchar(255), country varchar(255), email varchar(255), avatar integer, homepage varchar(255), creation_date datetime, notify boolean, nsfw_filter boolean, token varchar(40), token_expiration datetime default null, PRIMARY KEY(id), FOREIGN KEY(avatar) REFERENCES openclipart_clipart(id));
+CREATE TABLE openclipart_users(
+  id integer NOT NULL auto_increment, 
+  username varchar(255) UNIQUE, 
+  password varchar(60), 
+  full_name varchar(255), 
+  country varchar(255), 
+  email varchar(255), 
+  avatar integer, 
+  homepage varchar(255), 
+  creation_date datetime, 
+  notify boolean, 
+  nsfw_filter boolean, 
+  token varchar(40), 
+  token_expiration datetime default null, 
+  PRIMARY KEY(id), 
+  FOREIGN KEY(avatar) REFERENCES openclipart_clipart(id)
+);
 
 -- copy non duplicate aiki_users
-
-INSERT INTO openclipart_users(id, username, password, full_name, country, email, avatar, homepage, user_group, creation_date, notify, nsfw_filter) SELECT minids.userid, username, password, full_name, country, email, clip.id as avatar, homepage, first_login, notify, nsfwfilter FROM aiki_users users INNER JOIN (SELECT MIN(userid) as userid FROM aiki_users GROUP by username) minids ON minids.userid = users.userid LEFT OUTER JOIN openclipart_clipart clip ON clip.owner = users.userid AND RIGHT (users.avatar, 3) = 'svg' AND clip.filename = users.avatar;
+-- i commented this out for now because it was throwing errors during import -- vicapow
+-- INSERT INTO openclipart_users(
+--   id, 
+--   username, 
+--   password, 
+--   full_name, 
+--   country, 
+--   email, 
+--   avatar, 
+--   homepage, 
+--   user_group, 
+--   creation_date, 
+--   notify, 
+--   nsfw_filter
+-- ) SELECT   minids.userid, 
+--          username, 
+--          password, 
+--          full_name, 
+--          country, 
+--          email, 
+--          clip.id as avatar, 
+--          homepage, 
+--          first_login, 
+--          notify, 
+--          nsfwfilter 
+--   FROM aiki_users users 
+--     INNER JOIN ( SELECT MIN(userid) as userid 
+--        FROM aiki_users 
+--        GROUP by username ) minids 
+--      ON minids.userid = users.userid 
+--     LEFT OUTER JOIN openclipart_clipart clip 
+--       ON clip.owner = users.userid 
+--       AND RIGHT (users.avatar, 3) = 'svg' 
+--       AND clip.filename = users.avatar;
 
 -- REMIXES
 
@@ -53,11 +119,22 @@ CREATE TABLE openclipart_comments(id INTEGER NOT NULL auto_increment, clipart IN
 
 INSERT INTO openclipart_comments SELECT topic_id, topic_upload, openclipart_users.id, topic_text, topic_date FROM cc_tbl_topics left join openclipart_users on openclipart_users.username = cc_tbl_topics.username WHERE topic_deleted = 0 AND topic_upload != 0;
 
-SELECT topic_id, topic_upload, openclipart_users.id, topic_text, topic_date FROM cc_tbl_topics left join openclipart_users on openclipart_users.username = cc_tbl_topics.username where topic_id = 2213
+SELECT topic_id, topic_upload, openclipart_users.id, topic_text, topic_date FROM cc_tbl_topics left join openclipart_users on openclipart_users.username = cc_tbl_topics.username where topic_id = 2213;
 
 -- ISSUES [NEW]
 
-CREATE TABLE openclipart_clipart_issues(id integer NOT NULL auto_increment, date datetime, clipart integer NOT NULL, user integer NOT NULL, title VARCHAR(255), comment TEXT, closed boolean, PRIMARY KEY(id), FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), FOREIGN KEY(user) REFERENCES openclipart_user(id));
+CREATE TABLE openclipart_clipart_issues(
+  id integer NOT NULL auto_increment, 
+  date datetime, 
+  clipart integer NOT NULL, 
+  user integer NOT NULL, 
+  title VARCHAR(255), 
+  comment TEXT, 
+  closed boolean, 
+  PRIMARY KEY(id), 
+  FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
+  FOREIGN KEY(user) REFERENCES openclipart_user(id)
+);
 
 -- TODO: USER == null - anonymous issues (unlogged captcha)
 

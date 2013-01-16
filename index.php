@@ -24,6 +24,11 @@ ini_set('display_errors', 'On');
 
 define('DEBUG', true);
 
+/** we do this to prevent MAMP's include_path settings from interfering. 
+	* specificially: MAMP/bin/php/php5.4.4/lib/php/System.php
+	*/
+set_include_path('.:');
+
 require_once('libs/utils.php');
 require_once('libs/Template.php');
 require_once('libs/System.php');
@@ -141,23 +146,27 @@ $app->map('/login', function() use ($app) {
         $redirect = isset($app->GET->redirect) ? $app->GET->redirect : $app->config->root;
         // TODO: redirect don't work
         try {
-            //$app->redirect($redirect);
-            //return;
-            return $app->login($_POST['login'], $_POST['password']) === NULL ? 'null' : 'false';
+            $app->login($_POST['login'], $_POST['password']);
+            // login successful
+            return $app->redirect('/profile');
         } catch (LoginException $e) {
             $error = $e->getMessage();
         }
     }
-    return new Template('main', function() use ($error) {
+    if(isset($_GET['alert-success'])) $alert_success = $_GET['alert-success'];
+    else $alert_success = NULL;
+    
+    return new Template('main', function() use ($error, $alert_success) {
         return array(
             'login-dialog' => new Template('login-dialog', null),
-            'content' => array(new Template('login', function() use ($error) {
+            'content' => array(new Template('login', function() use ($error, $alert_success) {
                 global $app;
                 return array(
                     // fill login on second attempt
                     'login' => isset($_POST['login']) ? $_POST['login'] : '',
                     'error' => $error,
                     'redirect' => isset($app->GET->redirect) ? $app->GET->redirect : ''
+                    , 'alert-success' => $alert_success
                 );
             }))
         );
@@ -186,11 +195,12 @@ $app->map('/forget-password', function() use ($app) {
     }
 })->via('GET', 'POST');
 
-$app->get("/profile", function() {
-    return new Template('main', array('content' => '<p>user profile</p>'));
+$app->get("/profile", function() use($app) {
+    return new Template('main', array(
+        'body' => '<p>user profile</p>'
+        , 'loggedin' => $app->is_logged()
+    ));
 });
-
-
 
 
 $app->get("/logout", function() {
@@ -207,77 +217,102 @@ $app->get("/logout", function() {
     }
 });
 
+$app->map('/template', function() use ($app) {
+    $msg = 'this is a test message';
+    $app->redirect('/login', array('alert-success' => $msg));
+})->via('GET');
 
 $app->map('/register', function() use ($app) {
     // TODO: try catch that show json on ajax and throw exception so it will be cached
     //       by main error handler
-    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
-        $msg = null;
-        $success = false;
-        $username = null;
-        if (strip_tags($_POST['username']) != $_POST['username'] ||
-            preg_match('/^[0-9A-Za-z_]+$/', $_POST['username']) == 0) {
-            $msg = 'Sorry, but the username is invalid (you can use only letters, numbers'.
-                ' and underscore)';
-        } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            $msg = 'Sorry, but email is invalid';
-        } else if ($app->user_exist($_POST['username'])) {
-            // TODO: check if email exists - don't allow for two accounts with the same email
-            $msg = "Sorry, but this user already exist";
-        } else if (!isset($_POST['picatcha']['r'])) {
-            $msg = "Sorry, but you need to solve picatcha to prove that you're human";
-            $username = $_POST['username'];
-        } else {
-            require('libs/picatcha/picatchalib.php');
-            $response = picatcha_check_answer($app->config->picatcha['private_key'],
-				$_SERVER['REMOTE_ADDR'],
-				$_SERVER['HTTP_USER_AGENT'],
-				$_POST['picatcha']['token'],
-				$_POST['picatcha']['r']);
-            if ($response->error == "incorrect-answer") {
-                $msg = 'You give wrong anwser to Picatcha';
-                $username = $_POST['username'];
-            } else {
-                if ($app->register($_POST['username'], $_POST['password'], $_POST['email'])) {
-                    $msg = 'Your account has been created';
-                    $success = true;
-                } else {
-                    $msg = 'Sorry, but something wrong happen and we couldn\'t create '.
-                        'your account';
-                    $username = $_POST['username'];
-                }
-            }
-        }
-        if ($success) {
+    
+    $use_picatcha = $app->config->picatcha['enabled'];
+    
+    // GET - just render the register page
+    if(
+        !isset($_POST['username']) 
+        || !isset($_POST['password']) 
+        || !isset($_POST['email'])
+    ) return new Template('main', array(
+        'content' => new Template('register', array(
+            'use_picatcha' => $use_picatcha
+        ))
+    ));
+    
+    $msg = null;
+    $success = true;
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $email = $_POST['email'];
+    
+    
+    $response = function($msg, $success) use($app, $email, $username){
+        if($success){
             $url = $app->config->root . "/login";
             $subject = 'Welcome to Open Clipart Library';
-            $username = $_POST['username'];
-            $message = "Dear $username:\n\nYour registration at Open Clipart Library was " .
-                "successful.\nPlease visit our site to sign in and get started:\n$url";
-            $app->system_email($_POST['email'], $subject, $message);
-        }
-        if ($app->request()->isAjax()) {
-            return json_encode(array('message' => $msg, 'status' => $success));
-        } else {
-            if ($success) {
-                return new Template('main', array(
-                    'content' => $msg
-                ));
-            } else {
-                return new Template('main', array(
-                    'content' => new Template('register', array(
-                        'error' => $msg,
-                        'email' => $_POST['email'], // so users don't need to type it twice
-                        'username' => $username     // if user fail or forget picatcha
-                    ))
-                ));
+            $message = "Dear $username:\n\nYour registration at Open Clipart "
+                . "Library was successful.\nPlease visit our site to sign in "
+                . "and get started:\n$url";
+            if(!$app->system_email($email, $subject, $message)){
+                $msg = 'Your account was created but there was an error sending'
+                    . 'your registration email';
+                $success = false;
             }
         }
-    } else {
-        return new Template('main', array(
-            'content' => new Template('register', null)
+        // respond AJAX request
+        if($app->request()->isAjax())
+            return json_encode(array('message' => $msg, 'status' => $success));
+        
+        // success response
+        if($success)
+            return $app->redirect('/login', array('alert-success' => $msg));
+        // failure response
+        else return new Template('main', array(
+            'content' => new Template('register', array(
+                'error' => $msg
+                // so users don't need to type it twice
+                , 'email' => $email
+                , 'username' => $username
+                , 'use_picatcha' => $use_picatcha
+            ))
         ));
+    };
+    
+    
+    if ( strip_tags($username) !== $username 
+        || preg_match('/^[0-9A-Za-z_]+$/', $username ) === 0
+    ) return $response('Sorry, but the username is invalid (you can use only '
+        . 'letters, numbers and underscore)', false);
+    
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+        return $response('Sorry, but that email is invalid', false);
+    
+    if($app->user_exist($username))
+        // TODO: check if email exists - don't allow for two accounts with the 
+        // same email
+        return $response("Sorry, but the username \"$username\" already exists", false);
+    
+    if($use_picatcha && !isset($_POST['picatcha']['r']))
+        return $response("Sorry, but you need to solve the picatcha to prove "
+            . "that you're human", false);
+
+    if($use_picatcha){
+        require('libs/picatcha/picatchalib.php');
+        $res = picatcha_check_answer($app->config->picatcha['private_key']
+            , $_SERVER['REMOTE_ADDR']
+            , $_SERVER['HTTP_USER_AGENT']
+            , $_POST['picatcha']['token']
+            , $_POST['picatcha']['r']);
+        if($res->error === "incorrect-answer")
+            return $response('You gave the wrong answer to Picatcha', false);
     }
+    
+    if(!$app->register($username, $password, $email))
+        return $response("Sorry, but something wrong happened and we couldn't "
+            . "create your account", false);
+    // Success!
+    else return $response('Your account has been created. Now you can login.', true);
+    
 })->via('GET', 'POST');
 
 
@@ -308,32 +343,32 @@ $app->get("/clipart/:args+", function($args) use ($app) {
         'content' => new Template('clipart_detail', function() use ($id, $row) {
             global $app;
             // TODO: this SQLs can be put into Clipart class
-
+            
             // TAGS
             $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = $id";
             $tags = $app->db->get_column($query);
-
+            
             $tag_rank = $app->tag_counts($tags);
             $best_term = $tag_rank[0]['name'];
-
+            
             // COMMENTS
             $query = "select openclipart_comments.id, username, comment, date, openclipart_clipart.filename as avatar from openclipart_comments inner join openclipart_users on user = openclipart_users.id LEFT OUTER JOIN openclipart_clipart ON avatar = openclipart_clipart.id where clipart = $id";
             $comments = $app->db->get_array($query);
-
+            
             $svg = 'people/' . $row['username'] . '/' . $row['filename'];
-
+            
             // COLLECTIONS
             $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";
             $collections = $app->db->get_array($query);
-
+            
             // REMIXES
             $query = "SELECT openclipart_clipart.id, filename, title, link, username FROM openclipart_remixes INNER JOIN openclipart_clipart ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON owner = openclipart_users.id WHERE original = $id";
             $remixes = array_map(function($remix) {
                 $remix['filename'] = preg_replace("/\.svg$/", ".png", $remix['filename']);
                 return $remix;
             }, $app->db->get_array($query));
-
-
+            
+            
             $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
             return array_merge($row, array(
                 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename']),
@@ -412,7 +447,7 @@ $app->get("/", function() {
         $rows = $app->db->get_array($query);
         shuffle($rows);
         $normalize = size('20', $max);
-
+        
         return array(
             'editable' => false, // librarian functions
             'login-dialog' => new Template('login-dialog', null),
@@ -716,45 +751,61 @@ $app->get("/why-the-ads", function() {
     });
 });
 
-$app->get("/profile", function() { //added just to be able to work on css. can be removed once profiles are available
-    return new Template('main', function() {
-        return array('content' => array(new Template('profile', null)));
-    });
-});
-
-$app->get("/search", function() {
-    return new Template('main', function() {
+$app->get("/search", function() use($app) {
+    return new Template('main', function() use($app) {
         return array(
             'class' => 'search',
-            'content' => new Template('search', function() {
-                global $app;
-                if (isset($_GET['query'])) {
-                    $term = $app->db->escape($_GET['query']);
-                    if ($app->is_logged()) {
-                        $fav_check = $app->get_user_id() . ' in '.
-                            '(SELECT user_error FROM openclipart_favorites'.
-                            ' WHERE openclipart_clipart.id = clipart)';
-                    } else {
-                        $fav_check = '0';
-                    }
-                    if ($app->nsfw()) {
-                        $nsfw = "AND openclipart_clipart.id not in (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE name = 'nsfw')";
-                    } else {
-                        $nsfw = '';
-                    }
-                    $order_by = "date";
-                    $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, count(DISTINCT user) as num_favorites, created, date, $fav_check as user_fav, downloads FROM openclipart_clipart INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON openclipart_users.id = owner WHERE openclipart_clipart.id NOT IN (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON openclipart_tags.id = tag WHERE clipart = openclipart_clipart.id AND openclipart_tags.name = 'pd_issue') $nsfw AND (title rlike '^$term$|^$term | $term | $term$' or '$term' in (SELECT name FROM openclipart_tags INNER JOIN openclipart_clipart_tags ON id = tag WHERE clipart = openclipart_clipart.id)) GROUP BY openclipart_clipart.id ORDER BY $order_by DESC LIMIT 42";
-                    echo $query;
-                    return array(
-                        'clipart_list' => array_map(function($result) {
-                            $png = preg_replace('/.svg$/', '.png', $result['filename']);
-                            return array_merge($result, array(
-                                'filename_png' => $png,
-                                'human_date' => human_date($result['date'])
-                            ));
-                        }, $app->db->get_array($query))
-                    );
+            'content' => new Template('search', function() use($app) {
+                // TODO: handle error when no query param
+                if(!isset($_GET['query'])) return;
+                $term = $app->db->escape($_GET['query']);
+                // TODO: idk what this is supposed to do but it's broken so 
+                // I'm commenting it out for now. - vicapow
+                // if ($app->is_logged()) {
+                //     $fav_check = $app->get_user_id() . ' in ' 
+                //      . '(SELECT user_error FROM openclipart_favorites' 
+                //      . ' WHERE openclipart_clipart.id = clipart)';
+                // } else {
+                //     $fav_check = '0';
+                // }
+                $fav_check = '0';
+                
+                if ($app->nsfw()) {
+                    $nsfw = "AND openclipart_clipart.id not in (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE name = 'nsfw')";
+                } else {
+                    $nsfw = '';
                 }
+                $order_by = "date";
+                $query = " SELECT openclipart_clipart.id, title, filename, link, 
+                    created, username, count(DISTINCT user) as num_favorites, 
+                    date, downloads 
+                    FROM openclipart_clipart 
+                        INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id 
+                        INNER JOIN openclipart_users ON openclipart_users.id = owner 
+                        WHERE openclipart_clipart.id NOT IN (
+                            SELECT clipart 
+                            FROM openclipart_clipart_tags 
+                                INNER JOIN openclipart_tags ON openclipart_tags.id = tag 
+                            WHERE clipart = openclipart_clipart.id AND openclipart_tags.name = 'pd_issue'
+                        ) $nsfw AND (title rlike '^$term$|^$term | $term | $term$' or '$term' in (
+                            SELECT name 
+                            FROM openclipart_tags 
+                            INNER JOIN openclipart_clipart_tags ON id = tag 
+                            WHERE clipart = openclipart_clipart.id)) 
+                            GROUP BY openclipart_clipart.id 
+                            ORDER BY $order_by 
+                            DESC LIMIT 42";
+                $result = $app->db->get_array($query);
+                var_dump($result);
+                return array(
+                    'clipart_list' => array_map(function($result) {
+                        $png = preg_replace('/.svg$/', '.png', $result['filename']);
+                        return array_merge($result, array(
+                            'filename_png' => $png,
+                            'human_date' => human_date($result['date'])
+                        ));
+                    }, $result)
+                );
             })
         );
     });

@@ -135,12 +135,24 @@ class OCAL extends System {
             return array();
         }
     }
+    function get_user_id(){
+        return -1;
+    }
     function tag_counts($tags) {
         $db = $this->db;
+        if(!is_array($tags) || sizeof($tags) === 0 ) return;
         $tags = implode(", ", array_map(function($tag) use ($db) {
             return "'". $db->escape($tag) . "'";
         }, $tags));
-        $query = "select name, count(name) as count from openclipart_clipart_tags inner join openclipart_tags on tag = id where name in ($tags) group by name order by count desc";
+        $query = "SELECT name, COUNT(name) as count 
+            FROM openclipart_clipart_tags 
+            INNER JOIN openclipart_tags 
+            ON tag = id 
+            WHERE name IN ($tags) 
+            GROUP BY name 
+            ORDER BY count 
+            DESC";
+        var_dump($query);
         return $db->get_array($query);
     }
 }

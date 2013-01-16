@@ -109,7 +109,6 @@ class Template implements Renderable {
                         }
                     }
                 }
-
                 $data = array_merge($global,
                                     $data,
                                     $overwrite);

@@ -253,7 +253,7 @@ $(function() {
 
 
 
-    var img = $('#viewimg img, #shutterstock img').bg();
+    //var img = $('#viewimg img, #shutterstock img').bg();
 
     rpc({url: '/rpc/main', error: function(e) {
         if (e.error) {
@@ -412,9 +412,4 @@ $(function() {
             return false;
         });
     });
-
-    Picatcha.API_SERVER = 'http://api.picatcha.com';
-    Picatcha.PUBLIC_KEY = 'qjSWPO6lV1MO_uJUDq2xmWlleGAUVQfRiul52kYm';
-    Picatcha.create('picatcha');
-
 });
