@@ -615,7 +615,7 @@ table td {
 .like-links {
     margin: 0;
     text-align: right;
-	padding: 15px 10px 0 0 ;
+	padding: 0px 10px 0 0 ;
 }
 
 .slogan {
@@ -627,7 +627,7 @@ table td {
 	.slogan p {
 		font-size: 22px;
 		font-family: "AsapItalic";
-		padding: 25px 0px 25px 200px;
+		padding: 0px 0px 25px 200px;
 	}
 
 	.slogan a {
