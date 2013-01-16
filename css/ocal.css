@@ -804,6 +804,15 @@ table td {
 	padding: 20px 0 30px;
 }
 
+/* ##################### profile page ######################*/
+
+.vote-star.achievements a{
+	background: url(../img/ocal-icons.png) no-repeat 0 -240px;
+}
+	.vote-star.achievements a:hover,
+	.vote-star.achievements a.active {
+		background-position: -30px -240px;
+	}
 
 /* ##################### search page ######################*/
 .search-navigation {

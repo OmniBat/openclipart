@@ -1,7 +1,7 @@
 <div class="row">
   
   <div class="span6">
-    <h3>John Doe<span class="achievements-star"><a href="#" class="active">7</a></span></h3>
+    <h3>John Doe<span class="vote-star achievements"><a href="#" class="active">7</a></span></h3>
     <img class="avatar-image" src="http://placehold.it/75x75" />
     <div class="user-details">
       <div>John Harold Doe</div>
@@ -15,7 +15,7 @@
       <div><a href="#">twitter</a></div>
       <div><a href="#">send message</a></div>
     </div>
-    <div class="edit-menu">
+    <div class="edit-menu pull-right">
       <a href="#">edit your profile</a>
     </div>
   </div>
