@@ -324,10 +324,16 @@ $app->get("/chat", function() {
 });
 
 
-$app->get("/clipart/:args+", function($args) use ($app) {
-    $id = intval($args[0]);
-    $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, count(DISTINCT user) as favs, created, downloads, description FROM openclipart_clipart INNER JOIN openclipart_users ON owner = openclipart_users.id INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id WHERE openclipart_clipart.id = $id";
+$app->get("/clipart/:id", function($id) use ($app) {
+    $id = intval($id);
+    $query = "SELECT openclipart_clipart.id, title, filename, link, created, 
+            username, count(DISTINCT user) as favs, created, downloads, description 
+        FROM openclipart_clipart 
+        INNER JOIN openclipart_users ON owner = openclipart_users.id 
+        INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id 
+        WHERE openclipart_clipart.id = $id";
     $row = $app->db->get_row($query);
+    var_dump($row);
     if (empty($row)) {
         $app->notFound();
     }

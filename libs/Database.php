@@ -93,7 +93,7 @@ class Database {
             $ret->close();
             return $result[0];
         } else {
-            return $detault;
+            return $result;
         }
     }
     function __call($name, $argv) {
