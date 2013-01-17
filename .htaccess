@@ -6,6 +6,8 @@ RewriteEngine On
 #
 # RewriteBase /
 
+RewriteRule !^public/ public%{REQUEST_URI}
+
 # Subdomain to lang redirect
 RewriteCond %{HTTP_HOST} ^(.*)\.openclipart.org
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -30,12 +32,13 @@ RewriteCond %{REQUEST_FILENAME} config.json
 RewriteCond %{REQUEST_FILENAME} recreate_tags.php [OR]
 RewriteRule .* - [F]
 
+
 # Display maintenance page if we're doing some work on the site
 RewriteCond %{DOCUMENT_ROOT}/maintenance.html -f
 RewriteCond %{REQUEST_URI} !^/style.css
 RewriteCond %{REQUEST_URI} !^/images(.*)
 #RewriteCond %{REQUEST_URI} !^/people(.*)
-RewriteRule ^.*$ maintenance.html
+RewriteRule ^.*$ public/maintenance.html
 
 <ifModule mod_headers.c>
     Header set Access-Control-Allow-Origin "*"

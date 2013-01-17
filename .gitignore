@@ -6,3 +6,5 @@ TRASH
 /config.json
 /people
 /vendor
+composer.phar
+.DS_Store
