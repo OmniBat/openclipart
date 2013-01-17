@@ -31,7 +31,6 @@ set_include_path('.:');
 
 require_once ('vendor/autoload.php');
 require_once ('libs/utils.php');
-require_once ('libs/Template.php');
 require_once ('libs/System.php');
 require_once ('libs/Clipart.php');
 require_once ('libs/OCAL.php');
