@@ -177,14 +177,14 @@
     
     <!-- begin old js -->
     <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-    <script src="{{root}}/libs/json-rpc/json-rpc.js"></script>
-    <script src="{{root}}/libs/Modernizr.js"></script>
-    <script src="/libs/jquery-ui/jquery-ui-1.8.24.custom.min.js"></script>
-    <link href="/libs/jquery-ui/jquery-ui-1.8.24.custom.css" rel="stylesheet"/>
-    <link href="/libs/tag-it/css/jquery.tagit.css" rel="stylesheet"/>
-    <script src="/libs/tag-it/js/tag-it.js"></script>
+    <script src="/js/json-rpc/json-rpc.js"></script>
+    <script src="/js/modernizr.js"></script>
+    <script src="/js/jquery-ui/jquery-ui-1.8.24.custom.min.js"></script>
+    <link href="/js/jquery-ui/jquery-ui-1.8.24.custom.css" rel="stylesheet"/>
+    <link href="/css/tag-it/css/jquery.tagit.css" rel="stylesheet"/>
+    <script src="/js/tag-it.js"></script>
     <link href="http://api.picatcha.com/static/client/picatcha.css" type="text/css" rel="stylesheet"/>
-    <script src="{{root}}/script.js"></script>
+    <script src="/script.js"></script>
     <!-- end old js -->
     
     
