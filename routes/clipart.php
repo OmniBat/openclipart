@@ -52,7 +52,7 @@ $app->get("/clipart/:id", function($id) use ($app, $twig) {
     
     $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
     
-    echo $twig->render('clipart/detail.template', array_merge($row, array(
+    return $twig->render('clipart/detail.template', array_merge($row, array(
         'editable' => $editable
         , 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename'])
         , 'remixes' => $remixes
