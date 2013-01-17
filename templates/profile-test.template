@@ -1,5 +1,6 @@
+{% extends 'main.template' %}
+{% block content %}
 <div class="row">
-  
   <div class="span6">
     <h3>John Doe<span class="vote-star achievements"><a href="#" class="active">7</a></span></h3>
     <img class="avatar-image" src="http://placehold.it/75x75" />
@@ -116,12 +117,9 @@
     <h3 class="section">recently uploaded</h3>
   </div>
   
-  {{> new_clipart}}
-  
   <div class="span12 section">
     <h3 class="section">top downloads</h3>
   </div>
   
-  {{> new_clipart}}
-  
 </div>
+{% endblock %}
