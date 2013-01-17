@@ -4,3 +4,6 @@
 [submodule "libs/picatcha"]
 	path = libs/picatcha
 	url = https://github.com/picatcha/picatcha-php.git
+[submodule "libs/json-rpc"]
+	path = libs/json-rpc
+	url = git://github.com/jcubic/json-rpc.git
