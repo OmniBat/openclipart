@@ -2,15 +2,6 @@
 $app->get("/search", function() use($app, $twig) {
     if(!isset($_GET['query'])) return $app->pass();
     $term = $app->db->escape($_GET['query']);
-    // TODO: idk what this is supposed to do but it's broken so 
-    // I'm commenting it out for now. - vicapow
-    // if ($app->is_logged()) {
-    //     $fav_check = $app->get_user_id() . ' in ' 
-    //      . '(SELECT user_error FROM openclipart_favorites' 
-    //      . ' WHERE openclipart_clipart.id = clipart)';
-    // } else {
-    //     $fav_check = '0';
-    // }
     $fav_check = '0';
     
     if ($app->nsfw()) {

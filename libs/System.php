@@ -58,8 +58,8 @@ class System extends Slim {
     public $db;
     public $GET;
     private $db_prefix;
-    // TODO: rename `$rest_user_data` just `$user_data`
-    private $rest_user_data;
+    // TODO: rename `$user` just `$user`
+    private $user;
     function __construct($settings) {
         Slim::__construct(array('debug' => false));
         session_start();
@@ -76,7 +76,7 @@ class System extends Slim {
                                  $settings['db_name']);
         $this->groups = array();
         $this->db_prefix = $settings['db_prefix'];
-        $this->rest_user_data = array();
+        $this->user = array();
         // restore from session
         if (isset($_SESSION['userid'])) {
             try {
@@ -193,11 +193,11 @@ class System extends Slim {
         try {
             $this->__authorize($where);
         } catch (AuthorizationException $e) {
-            $this->rest_user_data = array();
+            $this->user = array();
             throw new LoginException("Invalid Username");
         }
         if ($this->password != md5(md5($password))) {
-            $this->rest_user_data = array();
+            $this->user = array();
             throw new LoginException("Invalid Password");
         }
         $_SESSION['userid'] = $this->id;
@@ -267,11 +267,11 @@ class System extends Slim {
             throw new AuthorizationException("Where '$where' is invalid");
         }
         /*
-        $this->rest_user_data = filter_pair($db_user, function($k, $v) {
+        $this->user = filter_pair($db_user, function($k, $v) {
             return $k != 'password';
         });
         */
-        $this->rest_user_data = $db_user;
+        $this->user = $db_user;
         $this->groups = $this->fetch_groups(intval($this->id));
     }
     
@@ -295,14 +295,14 @@ class System extends Slim {
     }
     
     function __isset($name) {
-        return array_key_exists($name, $this->rest_user_data);
+        return array_key_exists($name, $this->user);
     }
     
     // ---------------------------------------------------------------------------------
     function __get($name) {
         //throw new Exception("Name $name not found");
-        if (array_key_exists($name, $this->rest_user_data)) {
-            return $this->rest_user_data[$name];
+        if (array_key_exists($name, $this->user)) {
+            return $this->user[$name];
         } else {
             throw new Exception("'" . get_class($this) . "' have no $name " .
                                 "property ");
@@ -313,7 +313,11 @@ class System extends Slim {
     function logout() {
         unset($_SESSION['userid']);
         session_destroy();
-        $this->rest_user_data = array();
+        $this->user = array();
+    }
+    
+    function user(){
+        return $this->user;
     }
     
     // ---------------------------------------------------------------------------------
@@ -338,7 +342,7 @@ class System extends Slim {
     
     // ---------------------------------------------------------------------------------
     function globals() {
-        return array_merge($this->config_array, $this->rest_user_data);
+        return array_merge($this->config_array, $this->user);
     }
     
     // ---------------------------------------------------------------------------------

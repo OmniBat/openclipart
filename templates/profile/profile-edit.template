@@ -1,0 +1,48 @@
+{% extends 'main.template' %}
+{% block content %}
+<h1> Your Profile </h1>
+<form class="form-horizontal" method="POST">
+  <include type="hidden" name="id" value="{{profile.id}}">
+  <div class="control-group">
+    <label class="control-label" for="inputFullname">Full name</label>
+    <div class="controls">
+      <input name="full_name" type="text" id="inputFullname" placeholder="Your Name" value="{{profile.full_name}}">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputUsername">Username</label>
+    <div class="controls">
+      <input name="username" type="text" id="inputUsername" placeholder="username" value="{{profile.username}}">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">Email</label>
+    <div class="controls">
+      <input name="email" type="text" id="inputEmail" placeholder="email" value="{{profile.email}}">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputHomepage">Homepage</label>
+    <div class="controls">
+      <input name="homepage" type="text" id="inputHomepage" placeholder="http://example.com" value={{profile.homepage}}>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputTwitter">Twitter</label>
+    <div class="controls">
+      <input name="twitter" type="text" id="inputTwitter" placeholder="@twitter" value={{profile.twitter}}>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputAbout">Bio</label>
+    <div class="controls">
+      <textarea name="about" rows="3" id="inputAbout"></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn">Update</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

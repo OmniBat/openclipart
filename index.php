@@ -111,18 +111,9 @@ $app = new OCAL(array(
     ),
 ));
 
-require_once('routes/errors.php');
-require_once('routes/index.php');
-require_once('routes/login.php');
-require_once('routes/forgot-password.php');
-require_once('routes/profile.php');
-require_once('routes/logout.php');
-require_once('routes/register.php');
-require_once('routes/chat.php');
-require_once('routes/clipart.php');
-require_once('routes/download.php');
-require_once('routes/image.php');
-require_once('routes/search.php');
+$app->notFound(function () use ($twig) {
+    return $twig->render('errors/404.template');
+});
 
 $app->get("/about", function() use($twig) {
     return $twig->render('about.template');
@@ -140,9 +131,18 @@ $app->get('/test', function() use($twig){
     return $twig->render('test.template');
 });
 
-$app->notFound(function () use ($twig) {
-    return $twig->render('errors/404.template');
-});
+require_once('routes/errors.php');
+require_once('routes/index.php');
+require_once('routes/login.php');
+require_once('routes/forgot-password.php');
+require_once('routes/profile.php');
+require_once('routes/logout.php');
+require_once('routes/register.php');
+require_once('routes/chat.php');
+require_once('routes/clipart.php');
+require_once('routes/download.php');
+require_once('routes/image.php');
+require_once('routes/search.php');
 
 $app->run();
 

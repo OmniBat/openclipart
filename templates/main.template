@@ -181,7 +181,7 @@
     <script src="/js/modernizr.js"></script>
     <script src="/js/jquery-ui/jquery-ui-1.8.24.custom.min.js"></script>
     <link href="/js/jquery-ui/jquery-ui-1.8.24.custom.css" rel="stylesheet"/>
-    <link href="/css/tag-it/css/jquery.tagit.css" rel="stylesheet"/>
+    <link href="/css/jquery.tagit.css" rel="stylesheet"/>
     <script src="/js/tag-it.js"></script>
     <link href="http://api.picatcha.com/static/client/picatcha.css" type="text/css" rel="stylesheet"/>
     <script src="/script.js"></script>
