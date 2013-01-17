@@ -1,4 +1,7 @@
+{% extends 'main.template' %}
+{% block content %}
 <div class="grid_16 alpha omega content text">
   <h1>WHY THE ADS?</h1>
   <p>Some text.</p>
 </div>
+{% endblock %}

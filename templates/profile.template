@@ -1,3 +1,5 @@
+{% extends 'main.template' %}
+{% block content %}
 <h1> Your Profile </h1>
 <form class="form-horizontal" method="POST">
   <div class="control-group">
@@ -30,3 +32,4 @@
     </div>
   </div>
 </form>
+{% endblock %}

@@ -1,16 +1,18 @@
+{% extends 'main.template' %}
+{% block content %}
 <div id="login-form" class="grid_16">
   <h3>Login</h3>
   <p>(*Fields are case sensitive)</p>
-  {{#error}}
+  {% if error %}
     <p class="error">{{error}}</p>
-  {{/error}}
-  {{#alert-success}}
+  {% endif %}
+  {% if alert_success %}
     <div class="alert alert-success">
       <button type="button" class="close" data-dismiss="alert-success">&times;</button>
-      {{alert-success}}
+      {{alert_success}}
     </div>
-  {{/alert-success}}
-  <form action="/login{{#redirect}}?redirect={{redirect}}{{/redirect}}" method="POST">
+  {% endif %}
+  <form action="/login{{redirect ? '?redirect=' ~ redirect }}" method="POST">
     <div class="field">
       <label for="login">Login:</label>
       <input type="text" id="login" name="login" value="{{login}}"/>
@@ -30,3 +32,4 @@
   </form>
   {{debug}}
 </div>
+{% endblock %}

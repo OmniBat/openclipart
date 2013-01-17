@@ -1,15 +1,8 @@
 <?php
-$app->get("/logout", function() {
-    global $app;
+$app->get("/logout", function() use($app, $twig){
     $app->logout();
-    if (isset($app->GET->redirect)) {
-        $app->redirect($app->GET->redirect);
-    } else {
-        return new Template('main', function() {
-            return array(
-                'content' => '<p>You are now logged out</p>'
-            );
-        });
-    }
+    if (isset($app->GET->redirect))
+        return $app->redirect($app->GET->redirect);
+    return $twig->render('main.template', array('body' => 'You are now logged out'));
 });
 ?>

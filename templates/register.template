@@ -1,60 +1,63 @@
-<div id="register-form" class="">
-  <h2>Register <small>(*Fields are case sensitive)</small></h2>
-  {{#error}}
-    <div class="alert">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      {{error}}
-    </div>
-  {{/error}}
-  <form class="form-horizontal" action="/register" method="POST">
-    
-    <div class="control-group">
-      <label class="control-label" for="inputUsername">Username</label>
-      <div class="controls">
-        <input type="text" name="username" id="inputUsername" placeholder="">
+{% extends 'main.template' %}
+{% block content %}
+  <div id="register-form" class="">
+    <h2>Register <small>(*Fields are case sensitive)</small></h2>
+    {% if error %}
+      <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{error}}
       </div>
-    </div>
+    {% endif %}
+    <form class="form-horizontal" action="/register" method="POST">
     
-    <div class="control-group">
-      <label class="control-label" for="inputPassword">Password</label>
-      <div class="controls">
-        <input type="password" name="password" id="inputPassword" placeholder="">
-      </div>
-    </div>
-    
-    <div class="control-group">
-      <label class="control-label" for="inputEmail">Email</label>
-      <div class="controls">
-        <input type="text" name="email" id="inputEmail" placeholder="">
-      </div>
-    </div>
-    
-    <div class="control-group">
-      <label class="control-label" for="inputFullname">Full Name</label>
-      <div class="controls">
-        <input type="text" name="fullname" id="inputFullname" placeholder="">
-      </div>
-    </div>
-    {{#use_picatcha}}
       <div class="control-group">
-        <label class="control-label" for="inputPicatcha">Are you human?</label>
+        <label class="control-label" for="inputUsername">Username</label>
         <div class="controls">
-          <div id="picatcha">
-            <script type="text/javascript" src="http://api.picatcha.com/static/client/picatcha.js"></script>
-            <link rel="stylesheet" type="text/css" href="http://api.picatcha.com/static/client/picatcha.css"/>
-            <script type="text/javascript">
-                Picatcha.API_SERVER = 'http://api.picatcha.com';
-                Picatcha.PUBLIC_KEY = 'qjSWPO6lV1MO_uJUDq2xmWlleGAUVQfRiul52kYm';
-            </script>
+          <input type="text" name="username" id="inputUsername" placeholder="">
+        </div>
+      </div>
+    
+      <div class="control-group">
+        <label class="control-label" for="inputPassword">Password</label>
+        <div class="controls">
+          <input type="password" name="password" id="inputPassword" placeholder="">
+        </div>
+      </div>
+    
+      <div class="control-group">
+        <label class="control-label" for="inputEmail">Email</label>
+        <div class="controls">
+          <input type="text" name="email" id="inputEmail" placeholder="">
+        </div>
+      </div>
+    
+      <div class="control-group">
+        <label class="control-label" for="inputFullname">Full Name</label>
+        <div class="controls">
+          <input type="text" name="fullname" id="inputFullname" placeholder="">
+        </div>
+      </div>
+      {% if use_picatcha %}
+        <div class="control-group">
+          <label class="control-label" for="inputPicatcha">Are you human?</label>
+          <div class="controls">
+            <div id="picatcha">
+              <script type="text/javascript" src="http://api.picatcha.com/static/client/picatcha.js"></script>
+              <link rel="stylesheet" type="text/css" href="http://api.picatcha.com/static/client/picatcha.css"/>
+              <script type="text/javascript">
+                  Picatcha.API_SERVER = 'http://api.picatcha.com';
+                  Picatcha.PUBLIC_KEY = 'qjSWPO6lV1MO_uJUDq2xmWlleGAUVQfRiul52kYm';
+              </script>
+            </div>
           </div>
         </div>
+      {% endif %}
+      <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn">Sign in</button>
+          </div>
       </div>
-    {{/use_picatcha}}
-    <div class="control-group">
-        <div class="controls">
-          <button type="submit" class="btn">Sign in</button>
-        </div>
-    </div>
-  </form>
-  {{debug}}
-</div>
+    </form>
+    {{debug}}
+  </div>
+{% endblock %}

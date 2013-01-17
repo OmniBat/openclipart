@@ -1,7 +1,5 @@
 <?php
-$app->get("/chat", function() {
-    return new Template('main', function() {
-        return array('content' => array(new Template('chat', null)));
-    });
+$app->get("/chat", function() use($twig) {
+    return $twig->render('chat.template');
 });
 ?>

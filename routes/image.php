@@ -1,6 +1,5 @@
 <?php
-$app->get("/image/:width/:user/:filename", function($w, $user, $file) {
-    global $app;
+$app->get("/image/:width/:user/:filename", function($w, $user, $file, $app) {
     $width = intval($w);
     $svg_filename = preg_replace("/.png$/", '.svg', $file);
     $png = $app->config->root_directory . "/people/$user/${width}px-$file";

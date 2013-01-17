@@ -29,12 +29,16 @@ define('DEBUG', true);
 	*/
 set_include_path('.:');
 
+require_once 'vendor/autoload.php';
 require_once('libs/utils.php');
 require_once('libs/Template.php');
 require_once('libs/System.php');
 require_once('libs/Clipart.php');
 require_once('libs/OCAL.php');
 
+// config twig
+$loader = new Twig_Loader_Filesystem('templates');
+$twig = new Twig_Environment($loader);
 
 
 
@@ -85,34 +89,33 @@ $app = new OCAL(array(
     // desc     for sort true or false
     // lang     for translation system
     'forward_query_list' => array(
-      'nsfw' => '/^(true|false)$/i',
-      'track' => '/^(true|false)$/i',
-      'user' => '/^[0-9]+$/',
-      'size' => '/^[0-9]+(px|%)?$/i',
-      'token' => '/^[0-9a-f]{40}$/i',
-      'sort' => '/^(name|date|download|favorites)$/i',
-      'desc' => '/^(true|false)$/i',
-      'lang' => '/^(pl|es|js|de|zh)$/i'
+      'nsfw'    => '/^(true|false)$/i',
+      'track'   => '/^(true|false)$/i',
+      'user'    => '/^[0-9]+$/',
+      'size'    => '/^[0-9]+(px|%)?$/i',
+      'token'   => '/^[0-9a-f]{40}$/i',
+      'sort'    => '/^(name|date|download|favorites)$/i',
+      'desc'    => '/^(true|false)$/i',
+      'lang'    => '/^(pl|es|js|de|zh)$/i'
     ),
     'nsfw_image' => array(
-        'user' => 'h0us3s',
-        'filename' => 'h0us3s_Signs_Hazard_Warning_1'
+        'user' => 'h0us3s'
+        , 'filename' => 'h0us3s_Signs_Hazard_Warning_1'
     ),
     'pd_issue_image' => array(
-        'user' => 'h0us3s',
-        'filename' => 'h0us3s_Signs_Hazard_Warning_1'
+        'user' => 'h0us3s'
+        , 'filename' => 'h0us3s_Signs_Hazard_Warning_1'
     ),
     'missing_avatar_image' => array(
-        'user' => 'pianoBrad',
-        'filename' => 'openclipart-logo-grey'
+        'user' => 'pianoBrad'
+        , 'filename' => 'openclipart-logo-grey'
     ),
 ));
 
-require_once('routes/test.php');
 require_once('routes/errors.php');
 require_once('routes/index.php');
 require_once('routes/login.php');
-require_once('routes/forget-password.php');
+require_once('routes/forgot-password.php');
 require_once('routes/profile.php');
 require_once('routes/logout.php');
 require_once('routes/register.php');
@@ -122,31 +125,26 @@ require_once('routes/download.php');
 require_once('routes/image.php');
 require_once('routes/search.php');
 
-// routing /people/*.svg
-
-$app->get("/about", function() {
-    return new Template('main', function() {
-        return array('content' => array(new Template('about', null)));
-    });
+$app->get("/about", function() use($twig) {
+    return $twig->render('about.template');
 });
 
-$app->get("/participate", function() {
-    return new Template('main', function() {
-        return array('content' => array(new Template('participate', null)));
-    });
+$app->get("/participate", function() use($twig){
+    return $twig->render('participate.template');
 });
 
-$app->get("/why-the-ads", function() {
-    return new Template('main', function() {
-        return array('content' => array(new Template('why-the-ads', null)));
-    });
+$app->get("/why-the-ads", function() use($twig){
+    return $twig->render('why-the-ads.template');
 });
 
-$app->notFound(function () use ($app) {
-    return new Template('main', function() {
-        return array('content' => new Template('errors/404'));
-    });
+$app->get('/test', function() use($twig){
+    return $twig->render('test.template');
+});
+
+$app->notFound(function () use ($twig) {
+    return $twig->render('errors/404.template');
 });
 
 $app->run();
+
 ?>

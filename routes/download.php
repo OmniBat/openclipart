@@ -1,7 +1,6 @@
 <?php
 
-$app->get("/download/svg/:user/:filename", function($user, $filename) {
-    global $app;
+$app->get("/download/svg/:user/:filename", function($user, $filename) use($app) {
 
     // TODO: code should look like this: classes User and Clipart System Operate on Users
     //       OCALUser extend User and OCAL overwrite method that get user, so it return
@@ -44,8 +43,7 @@ $app->get("/download/svg/:user/:filename", function($user, $filename) {
     }
 });
 
-$app->get("/download/collection/:name", function($name) {
-    global $app;
+$app->get("/download/collection/:name", function($name) use($app){
     // TODO:
     // name exists
     // check last count in field

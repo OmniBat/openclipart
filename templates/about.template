@@ -1,3 +1,5 @@
+{% extends 'main.template' %}
+{% block content %}
 <div class="grid_16 alpha omega content text">
   <h3>ABOUT THE OPEN CLIP ART LIBRARY</h3>
    
@@ -20,3 +22,4 @@
   <p>If you want to talk to someone urgently, please use their name to get their attention, as we are very busy people and are not actively monitoring the chat, even if we are logged in. Using their name will make their window flash for attention.</p>
   <iframe id="webclient" src="http://webchat.freenode.net/?channels=openclipart" width="630" height="600"></iframe>
 </div>
+{% endblock %}
