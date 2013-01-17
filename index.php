@@ -145,6 +145,10 @@ $app->notFound(function () use ($twig) {
     return $twig->render('errors/404.template');
 });
 
+$app->get("/profile-test", function() { //added just to be able to work on css. can be removed once profiles are available
+    return $twig->render('profile-test.template');
+});
+
 $app->run();
 
 ?>

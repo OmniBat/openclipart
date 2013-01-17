@@ -1,0 +1,127 @@
+<div class="row">
+  
+  <div class="span6">
+    <h3>John Doe<span class="vote-star achievements"><a href="#" class="active">7</a></span></h3>
+    <img class="avatar-image" src="http://placehold.it/75x75" />
+    <div class="user-details">
+      <div>John Harold Doe</div>
+      <div>librarian from Canada</div>
+    </div>
+  </div>
+  
+  <div class="span6">
+    <div class="user-links">
+      <div><a href="#">Homepage</a></div>
+      <div><a href="#">twitter</a></div>
+      <div><a href="#">send message</a></div>
+    </div>
+    <div class="edit-menu pull-right">
+      <a href="#">edit your profile</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="span6 section">
+    <h3 class="section">Achievements (12/98)</h3>
+    <table class="table table-hover achievements-table">
+      <tr>
+        <td>tag a clipart that you didn't upload</td>
+      </tr>
+      <tr>
+        <td>tag 10 cliparts you didn't upload</td>
+      </tr>
+      <tr>
+        <td>upload and tag a clipart</td>
+      </tr>
+      <tr>
+        <td>upload and tag 10 cliparts</td>
+      </tr>
+      <tr>
+        <td>upload and tag 100 cliparts</td>
+      </tr>
+      <tr>
+        <td>tag 1000 cliparts total</td>
+      </tr>
+      <tr>
+        <td>be the author of a clipart of the week</td>
+      </tr>
+      <tr>
+        <td>be the author of a aclipart of the month</td>
+      </tr>
+      <tr>
+        <td>have 100 downloads of all your cliparts</td>
+      </tr>
+      <tr>
+        <td>have 1000 downloads of all your cliparts</td>
+      </tr>
+      <tr>
+        <td>have 10 downloads for one single clipart</td>
+      </tr>
+      <tr>
+        <td>have 100 downloads for one single </td>
+      </tr>
+    </table>
+   
+    
+  </div>
+  <div class="span6 section">
+    <h3 class="section">Stats</h3>
+    <table class="table table-hover">
+      <tr>
+        <td>Joined</td>
+        <td>2010.4.8</td>
+      </tr>
+      <tr>
+        <td>Role</td>
+        <td>librerian</td>
+      </tr>
+      <tr>
+        <td>time since last upload</td>
+        <td>16 days</td>
+      </tr>
+      <tr>
+        <td>Uploads</td>
+        <td>128</td>
+      </tr>
+      <tr>
+        <td>Remixes</td>
+        <td>24</td>
+      </tr>
+      <tr>
+        <td>Remixed</td>
+        <td>11</td>
+      </tr>
+      <tr>
+        <td>Comments</td>
+        <td>32</td>
+      </tr>
+      <tr>
+        <td>Total likes</td>
+        <td>160</td>
+      </tr>
+      <tr>
+        <td>Tags</td>
+        <td>604</td>
+      </tr>
+      
+    </table>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="span12 section">
+    <h3 class="section">recently uploaded</h3>
+  </div>
+  
+  {{> new_clipart}}
+  
+  <div class="span12 section">
+    <h3 class="section">top downloads</h3>
+  </div>
+  
+  {{> new_clipart}}
+  
+</div>
