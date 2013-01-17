@@ -7,6 +7,7 @@ RewriteEngine On
 # RewriteBase /
 
 RewriteRule !^public/ public%{REQUEST_URI}
+RewriteRule /json-rpc/json-rpc.js libs/json-rpc/json-rpc.js
 
 # Subdomain to lang redirect
 RewriteCond %{HTTP_HOST} ^(.*)\.openclipart.org

@@ -1,49 +1,6 @@
 {
-    "hash": "698c6c97bb4d329ec8989c9463e9e87a",
+    "hash": "21db1abe5b66d7a7ca660a11e294a93e",
     "packages": [
-        {
-            "name": "slim/slim",
-            "version": "2.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/codeguy/Slim",
-                "reference": "2.2.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/codeguy/Slim/archive/2.2.0.zip",
-                "reference": "2.2.0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "time": "2012-12-13 02:15:50",
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Slim": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Josh Lockhart",
-                    "email": "info@joshlockhart.com",
-                    "homepage": "http://www.joshlockhart.com/"
-                }
-            ],
-            "description": "Slim Framework, a PHP micro framework",
-            "homepage": "http://github.com/codeguy/Slim",
-            "keywords": [
-                "microframework",
-                "rest",
-                "router"
-            ]
-        },
         {
             "name": "twig/twig",
             "version": "v1.12.1",

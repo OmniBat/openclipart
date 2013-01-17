@@ -29,12 +29,12 @@ define('DEBUG', true);
 	*/
 set_include_path('.:');
 
-require_once 'vendor/autoload.php';
-require_once('libs/utils.php');
-require_once('libs/Template.php');
-require_once('libs/System.php');
-require_once('libs/Clipart.php');
-require_once('libs/OCAL.php');
+require_once ('vendor/autoload.php');
+require_once ('libs/utils.php');
+require_once ('libs/Template.php');
+require_once ('libs/System.php');
+require_once ('libs/Clipart.php');
+require_once ('libs/OCAL.php');
 
 // config twig
 $loader = new Twig_Loader_Filesystem('templates');
@@ -152,3 +152,4 @@ $app->get("/profile-test", function() use($twig) { //added just to be able to wo
 $app->run();
 
 ?>
+

@@ -19,7 +19,6 @@
  *  author: Jakub Jankiewicz <http://jcubic.pl>
  */
 
-
 require_once('Slim/Slim/Slim.php');
 require_once('Database.php');
 require_once('ArrayObjectFacade.php');
