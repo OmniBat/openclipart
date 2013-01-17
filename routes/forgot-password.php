@@ -1,7 +1,7 @@
 <?php
-$app->map('/forgot-password', function() use ($app, $twig) {
+$app->map('/forgot-password', function() use ($app) {
     if(!isset($_GET['email'])) 
-        return $twig->render('forgot-password.template');
+        return $app->render('forgot-password');
     $email = $_GET['email'];
     if ($app->send_reset_password_link($email, $app->config->token_expiration)) {
         $msg = "Instant access link was send to your email";
@@ -13,7 +13,7 @@ $app->map('/forgot-password', function() use ($app, $twig) {
     if ($app->request()->isAjax()){
         return json_encode(array('result' => $msg, 'error' => $error));
     }else{
-        return $twig->render('main', array('content' => $msg));
+        return $app->render('main', array('content' => $msg));
     }
 })->via('GET', 'POST');
 

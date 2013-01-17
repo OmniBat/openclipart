@@ -34,6 +34,7 @@ require_once ('libs/utils.php');
 require_once ('libs/System.php');
 require_once ('libs/Clipart.php');
 require_once ('libs/OCAL.php');
+require_once ('libs/View.php');
 
 // config twig
 $loader = new Twig_Loader_Filesystem('templates');
@@ -111,24 +112,26 @@ $app = new OCAL(array(
     ),
 ));
 
-$app->notFound(function () use ($twig) {
-    return $twig->render('errors/404.template');
+$app->view(new View());
+
+$app->get("/about", function() use($app) {
+    return $app->render('about');
 });
 
-$app->get("/about", function() use($twig) {
-    return $twig->render('about.template');
+$app->get("/participate", function() use($app){
+    return $app->render('participate');
 });
 
-$app->get("/participate", function() use($twig){
-    return $twig->render('participate.template');
+$app->get("/why-the-ads", function() use($app){
+    return $app->render('why-the-ads');
 });
 
-$app->get("/why-the-ads", function() use($twig){
-    return $twig->render('why-the-ads.template');
+$app->get('/test', function() use($app){
+    return $app->render('test');
 });
 
-$app->get('/test', function() use($twig){
-    return $twig->render('test.template');
+$app->notFound(function () use ($app) {
+    return $app->render('errors/404');
 });
 
 require_once('routes/errors.php');

@@ -304,8 +304,8 @@ class System extends Slim {
         if (array_key_exists($name, $this->user)) {
             return $this->user[$name];
         } else {
-            throw new Exception("'" . get_class($this) . "' have no $name " .
-                                "property ");
+            throw new Exception("'" . get_class($this) . "' have no $name " 
+                . "property ");
         }
     }
     

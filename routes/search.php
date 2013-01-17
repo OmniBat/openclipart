@@ -1,5 +1,5 @@
 <?php
-$app->get("/search", function() use($app, $twig) {
+$app->get("/search", function() use($app) {
     if(!isset($_GET['query'])) return $app->pass();
     $term = $app->db->escape($_GET['query']);
     $fav_check = '0';
@@ -30,7 +30,7 @@ $app->get("/search", function() use($app, $twig) {
                 ORDER BY $order_by 
                 DESC LIMIT 42";
     $results = $app->db->get_array($query);
-    return $twig->render('search.template', array(
+    return $app->render('search', array(
         'clipart_list' => array_map(function($result) {
             $png = preg_replace('/.svg$/', '.png', $result['filename']);
             return array_merge($result, array(

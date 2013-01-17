@@ -1,5 +1,5 @@
 <?php
-$app->map('/register', function() use ($app, $twig) {
+$app->map('/register', function() use ($app) {
     // TODO: try catch that show json on ajax and throw exception so it will be cached
     //       by main error handler
     
@@ -10,7 +10,7 @@ $app->map('/register', function() use ($app, $twig) {
         !isset($_POST['username']) 
         || !isset($_POST['password']) 
         || !isset($_POST['email'])
-    ) return $twig->render('register.template', array(
+    ) return $app->render('register', array(
         'use_picatcha' => $use_picatcha
     ));
     
@@ -42,7 +42,7 @@ $app->map('/register', function() use ($app, $twig) {
         if($success)
             return $app->redirect('/login', array('alert-success' => $msg));
         // failure response
-        else return $twig->render('register.template', array(
+        else return $app->render('register', array(
             'error' => $msg
             // so users don't need to type it twice
             , 'email' => $email

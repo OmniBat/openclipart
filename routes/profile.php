@@ -16,25 +16,25 @@ $app->get("/profile", function() use($app){
     $app->redirect("/profile/" . $app->user()['username']);
 });
 
-$app->get("/profile/:username", function($username) use($app, $twig) {
+$app->get("/profile/:username", function($username) use($app) {
     $profile = get_profile($username);
     if(!$profile) return $app->pass();
-    return $twig->render('profile/profile.template', array(
+    return $app->render('profile/profile', array(
         'profile' => $profile
         , 'userid' => $app->config->userid
     ));
 });
 
-$app->get("/profile/:username/edit", function($username) use($app, $twig){
+$app->get("/profile/:username/edit", function($username) use($app){
     $profile = get_profile($username);
     if(!$profile || $profile['id'] !== $app->user()['id']) 
-        return $app->response()->isForbidden();
-    return $twig->render('profile/profile-edit.template', array(
+        return $app->notFound();
+    return $app->render('profile/profile-edit', array(
         'profile' => $profile
     ));
 });
 
-$app->post("/profile/:username/edit", function($username) use($app, $twig){
+$app->post("/profile/:username/edit", function($username) use($app){
     $id = $_POST['id'];
     $username = $_POST['username'];
     $full_name = $_POST['full_name'];
@@ -44,7 +44,7 @@ $app->post("/profile/:username/edit", function($username) use($app, $twig){
     $about = $_POST['about'];
     
     // users can edit their own profile
-    if($id !== $app->user()['id']) return $app->pass();
+    if($id !== $app->user()['id']) return $app->notFound();
     
     return;
 });
