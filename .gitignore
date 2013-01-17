@@ -4,7 +4,7 @@
 TRASH
 \.\#
 /config.json
-/people
+/public/people
 /vendor
 composer.phar
 .DS_Store
