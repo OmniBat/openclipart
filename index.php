@@ -21,7 +21,6 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
-
 define('DEBUG', true);
 
 /** we do this to prevent MAMP's include_path settings from interfering. 
@@ -32,16 +31,17 @@ set_include_path('.:');
 require_once('libs/Twig/lib/Twig/Autoloader.php');
 Twig_Autoloader::register();
 
+
 require_once ('libs/utils.php');
 require_once ('libs/System.php');
 require_once ('libs/Clipart.php');
 require_once ('libs/OCAL.php');
 require_once ('libs/View.php');
 
-// config twig
+
+// Config twig
 $loader = new Twig_Loader_Filesystem('templates');
 $twig = new Twig_Environment($loader);
-
 
 
 /* TODO: logs (using slim) - same as apacha with gzip and numbering

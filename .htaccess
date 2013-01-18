@@ -6,6 +6,8 @@ RewriteEngine On
 #
 # RewriteBase /
 
+php_value error_log errors.log
+
 # remove trailing slashes
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
