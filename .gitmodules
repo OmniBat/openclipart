@@ -7,3 +7,6 @@
 [submodule "libs/Twig"]
 	path = libs/Twig
 	url = https://github.com/fabpot/Twig.git
+[submodule "libs/Slim"]
+	path = libs/Slim
+	url = git://github.com/codeguy/Slim.git
