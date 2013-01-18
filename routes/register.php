@@ -1,5 +1,5 @@
 <?php
-$app->map('/register', function() use ($app, $twig) {
+$app->map('/register', function() use ($app) {
     // TODO: try catch that show json on ajax and throw exception so it will be cached
     //       by main error handler
     
@@ -10,7 +10,7 @@ $app->map('/register', function() use ($app, $twig) {
         !isset($_POST['username']) 
         || !isset($_POST['password']) 
         || !isset($_POST['email'])
-    ) return $twig->render('register.template', array(
+    ) return $app->render('register', array(
         'use_picatcha' => $use_picatcha
     ));
     
@@ -19,6 +19,7 @@ $app->map('/register', function() use ($app, $twig) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
+    $full_name = $_POST['full_name'];
     
     
     $response = function($msg, $success) use($app, $email, $username){
@@ -42,7 +43,7 @@ $app->map('/register', function() use ($app, $twig) {
         if($success)
             return $app->redirect('/login', array('alert-success' => $msg));
         // failure response
-        else return $twig->render('register.template', array(
+        else return $app->render('register', array(
             'error' => $msg
             // so users don't need to type it twice
             , 'email' => $email
@@ -80,7 +81,7 @@ $app->map('/register', function() use ($app, $twig) {
             return $response('You gave the wrong answer to Picatcha', false);
     }
     
-    if(!$app->register($username, $password, $email))
+    if(!$app->register($username, $password, $email, $full_name))
         return $response("Sorry, but something wrong happened and we couldn't "
             . "create your account", false);
     // Success!

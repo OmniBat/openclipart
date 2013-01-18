@@ -29,12 +29,14 @@ define('DEBUG', true);
 	*/
 set_include_path('.:');
 
-require_once 'vendor/autoload.php';
-require_once('libs/utils.php');
-require_once('libs/Template.php');
-require_once('libs/System.php');
-require_once('libs/Clipart.php');
-require_once('libs/OCAL.php');
+require_once('libs/Twig/lib/Twig/Autoloader.php');
+Twig_Autoloader::register();
+
+require_once ('libs/utils.php');
+require_once ('libs/System.php');
+require_once ('libs/Clipart.php');
+require_once ('libs/OCAL.php');
+require_once ('libs/View.php');
 
 // config twig
 $loader = new Twig_Loader_Filesystem('templates');
@@ -112,6 +114,30 @@ $app = new OCAL(array(
     ),
 ));
 
+$app->view(new View());
+
+$app->get("/about", function() use($app) {
+    return $app->render('about');
+});
+
+
+
+$app->get("/participate", function() use($app){
+    return $app->render('participate');
+});
+
+$app->get("/why-the-ads", function() use($app){
+    return $app->render('why-the-ads');
+});
+
+$app->get('/test', function() use($app){
+    return $app->render('test');
+});
+
+$app->notFound(function () use ($app) {
+    return $app->render('errors/404');
+});
+
 require_once('routes/errors.php');
 require_once('routes/index.php');
 require_once('routes/login.php');
@@ -125,30 +151,7 @@ require_once('routes/download.php');
 require_once('routes/image.php');
 require_once('routes/search.php');
 
-$app->get("/about", function() use($twig) {
-    return $twig->render('about.template');
-});
-
-$app->get("/participate", function() use($twig){
-    return $twig->render('participate.template');
-});
-
-$app->get("/why-the-ads", function() use($twig){
-    return $twig->render('why-the-ads.template');
-});
-
-$app->get('/test', function() use($twig){
-    return $twig->render('test.template');
-});
-
-$app->notFound(function () use ($twig) {
-    return $twig->render('errors/404.template');
-});
-
-$app->get("/profile-test", function() use($twig) { //added just to be able to work on css. can be removed once profiles are available
-    return $twig->render('profile-test.template');
-});
-
 $app->run();
 
 ?>
+

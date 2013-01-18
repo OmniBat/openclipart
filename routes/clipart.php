@@ -1,5 +1,5 @@
 <?php
-$app->get("/clipart/:id", function($id) use ($app, $twig) {
+$app->get("/clipart/:id", function($id) use ($app) {
     $id = intval($id);
     /*
     $query = "SELECT openclipart_clipart.id, title, filename, link, created, 
@@ -52,7 +52,7 @@ $app->get("/clipart/:id", function($id) use ($app, $twig) {
     
     $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
     
-    echo $twig->render('clipart/detail.template', array_merge($row, array(
+    return $app->render('clipart/detail', array_merge($row, array(
         'editable' => $editable
         , 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename'])
         , 'remixes' => $remixes

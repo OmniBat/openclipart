@@ -6,7 +6,15 @@ RewriteEngine On
 #
 # RewriteBase /
 
+# remove trailing slashes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{HTTP_HOST} !^\.localhost$ [NC]
+RewriteRule ^(.+[^/])/$ http://%{HTTP_HOST}/$1 [R=301,L]
+
+
 RewriteRule !^public/ public%{REQUEST_URI}
+RewriteRule /json-rpc/json-rpc.js libs/json-rpc/json-rpc.js
 
 # Subdomain to lang redirect
 RewriteCond %{HTTP_HOST} ^(.*)\.openclipart.org

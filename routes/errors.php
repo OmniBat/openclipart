@@ -3,9 +3,9 @@
 /**
   * Error handler
   */
-$app->error(function($exception) use($app, $twig) {
+$app->error(function($exception) use($app) {
     //return full_exception_string($exception, "<br/>");
-    return $twig->render('exception', array(
+    return $app->render('exception', array(
         'name' => get_class($exception)
         , 'message' => $exception->getMessage()
         , 'file' => str_replace(

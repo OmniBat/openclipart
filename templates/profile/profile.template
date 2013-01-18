@@ -2,23 +2,25 @@
 {% block content %}
 <div class="row">
   <div class="span6">
-    <h3>John Doe<span class="vote-star achievements"><a href="#" class="active">7</a></span></h3>
+    <h3>{{profile.username}}<span class="vote-star achievements"><a href="#" class="active">7</a></span></h3>
     <img class="avatar-image" src="http://placehold.it/75x75" />
     <div class="user-details">
-      <div>John Harold Doe</div>
-      <div>librarian from Canada</div>
+      <div>{{profile.full_name}}</div>
+      <div>{{profile.about}}</div>
     </div>
   </div>
   
   <div class="span6">
     <div class="user-links">
-      <div><a href="#">Homepage</a></div>
-      <div><a href="#">twitter</a></div>
+      <div><a target="_blank" href="{{profile.homepage}}">Homepage</a></div>
+      <div><a target="_blank" href="http://twitter.com/{{profile.twitter}}">twitter</a></div>
       <div><a href="#">send message</a></div>
     </div>
-    <div class="edit-menu pull-right">
-      <a href="#">edit your profile</a>
-    </div>
+    {% if profile.id == userid %}
+      <div class="edit-menu pull-right">
+        <a href="/profile/{{profile.username}}/edit">edit your profile</a>
+      </div>
+    {% endif %}
   </div>
 
 </div>
@@ -26,6 +28,7 @@
 <div class="row">
   <div class="span6 section">
     <h3 class="section">Achievements (12/98)</h3>
+    <small> this feature is still being developeed </small>
     <table class="table table-hover achievements-table">
       <tr>
         <td>tag a clipart that you didn't upload</td>
@@ -64,15 +67,14 @@
         <td>have 100 downloads for one single </td>
       </tr>
     </table>
-   
-    
   </div>
+  
   <div class="span6 section">
     <h3 class="section">Stats</h3>
     <table class="table table-hover">
       <tr>
         <td>Joined</td>
-        <td>2010.4.8</td>
+        <td>{{profile.creation_date}}</td>
       </tr>
       <tr>
         <td>Role</td>
@@ -106,7 +108,6 @@
         <td>Tags</td>
         <td>604</td>
       </tr>
-      
     </table>
   </div>
 

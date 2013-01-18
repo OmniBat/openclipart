@@ -1,16 +1,7 @@
 <?php
-$app->get("/search", function() use($app, $twig) {
+$app->get("/search", function() use($app) {
     if(!isset($_GET['query'])) return $app->pass();
     $term = $app->db->escape($_GET['query']);
-    // TODO: idk what this is supposed to do but it's broken so 
-    // I'm commenting it out for now. - vicapow
-    // if ($app->is_logged()) {
-    //     $fav_check = $app->get_user_id() . ' in ' 
-    //      . '(SELECT user_error FROM openclipart_favorites' 
-    //      . ' WHERE openclipart_clipart.id = clipart)';
-    // } else {
-    //     $fav_check = '0';
-    // }
     $fav_check = '0';
     
     if ($app->nsfw()) {
@@ -39,7 +30,7 @@ $app->get("/search", function() use($app, $twig) {
                 ORDER BY $order_by 
                 DESC LIMIT 42";
     $results = $app->db->get_array($query);
-    return $twig->render('search.template', array(
+    return $app->render('search', array(
         'clipart_list' => array_map(function($result) {
             $png = preg_replace('/.svg$/', '.png', $result['filename']);
             return array_merge($result, array(

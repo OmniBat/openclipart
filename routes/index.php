@@ -1,6 +1,6 @@
 <?php
 
-$app->get("/", function() use($app, $twig){
+$app->get("/", function() use($app){
     // tags
     $query = "SELECT count(openclipart_tags.id) as tag_count 
         FROM openclipart_clipart_tags 
@@ -23,10 +23,11 @@ $app->get("/", function() use($app, $twig){
     $last_week = "(SELECT WEEK(max(date)) FROM openclipart_favorites) = " 
         . "WEEK(date) AND YEAR(NOW()) = YEAR(date)";
     
-    echo $twig->render('landing.template', array(
+    echo $app->render('landing', array(
         'editable' => false // librarian functions
         , 'clipart_list' => $app->list_clipart($last_week, 'last_date')
         , 'new_clipart' => $app->list_clipart(null, 'created')
+        , 'user' => $app->user()
         , 'tags' => array_map(function($row) use ($normalize) {
             return array(
                 'name' => $row['name']

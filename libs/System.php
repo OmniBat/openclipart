@@ -19,13 +19,15 @@
  *  author: Jakub Jankiewicz <http://jcubic.pl>
  */
 
-
 require_once('Slim/Slim/Slim.php');
+\Slim\Slim::registerAutoloader();
+
 require_once('Database.php');
 require_once('ArrayObjectFacade.php');
 require_once('Restrict.php');
 require_once('utils.php');
 require_once('json-rpc/json-rpc.php');
+require_once ('validators.php');
 
 
 class SystemException extends Exception { }
@@ -51,7 +53,7 @@ Class SystemFunctions {
     }
 }
 
-class System extends Slim {
+class System extends \Slim\Slim {
     public $groups;
     private $original_config;
     private $logged_user;
@@ -59,10 +61,12 @@ class System extends Slim {
     public $db;
     public $GET;
     private $db_prefix;
-    // TODO: rename `$rest_user_data` just `$user_data`
-    private $rest_user_data;
+    // TODO: rename `$user` just `$user`
+    private $user;
+    public $validate;
     function __construct($settings) {
-        Slim::__construct(array('debug' => false));
+        global $validate;
+        \Slim\Slim::__construct(array('debug' => false));
         session_start();
         if (gettype($settings) !== 'array') {
             throw new Exception("System Argument need to be an array " .
@@ -77,7 +81,8 @@ class System extends Slim {
                                  $settings['db_name']);
         $this->groups = array();
         $this->db_prefix = $settings['db_prefix'];
-        $this->rest_user_data = array();
+        $this->user = array();
+        $this->validate = $validate;
         // restore from session
         if (isset($_SESSION['userid'])) {
             try {
@@ -177,6 +182,10 @@ class System extends Slim {
         )));
         */
     }
+    function validate($fields){
+      $cb = $this->validate;
+      return $cb($fields);
+    }
     function random_token() {
         return sha1(array_sum(explode(' ', microtime())));
     }
@@ -194,11 +203,11 @@ class System extends Slim {
         try {
             $this->__authorize($where);
         } catch (AuthorizationException $e) {
-            $this->rest_user_data = array();
+            $this->user = array();
             throw new LoginException("Invalid Username");
         }
         if ($this->password != md5(md5($password))) {
-            $this->rest_user_data = array();
+            $this->user = array();
             throw new LoginException("Invalid Password");
         }
         $_SESSION['userid'] = $this->id;
@@ -229,7 +238,11 @@ class System extends Slim {
                 return false;
             }
             $url = $this->config->root . '/profile?token=' . $token;
-            $message = "Hi $user,\n\nDid you forget your password?\n\nHere is a link to your profile where you can change it, you will have access to the whole site using a token in this url, it will expire after an hour. $url\n\nRegards\nOpen Clipart Team";
+            $message = "Hi $user,\n\nDid you forget your password?\n\nHere is "
+                . "a link to your profile where you can change it, you will "
+                . "have access to the whole site using a token in this url, it "
+                . "will expire after an hour. $url\n\nRegards\nOpen Clipart "
+                . "Team";
             $subject = "Open Clipart Access Link";
             return $this->system_email($email, $subject, $message);
         } else {
@@ -238,11 +251,25 @@ class System extends Slim {
     }
     
     // ---------------------------------------------------------------------------------
-    function register($username, $password, $email) {
+    function register($username, $password, $email, $full_name) {
         $username = $this->db->escape($username);
         $password = $this->db->escape($password);
         $email = $this->db->escape($email);
-        return $this->db->query("INSERT INTO openclipart_users(username, password, email, creation_date) VALUES('$username', md5(md5('$password')), '$email', now())");
+        $full_name = $this->db->escape($full_name);
+        return $this->db->query("INSERT INTO 
+            openclipart_users(
+                username
+                , password
+                , email
+                , creation_date
+                , full_name
+            ) VALUES(
+                '$username'
+                , md5(md5('$password'))
+                , '$email'
+                , now()
+                , '$full_name'
+            )");
     }
     
     // ---------------------------------------------------------------------------------
@@ -268,11 +295,11 @@ class System extends Slim {
             throw new AuthorizationException("Where '$where' is invalid");
         }
         /*
-        $this->rest_user_data = filter_pair($db_user, function($k, $v) {
+        $this->user = filter_pair($db_user, function($k, $v) {
             return $k != 'password';
         });
         */
-        $this->rest_user_data = $db_user;
+        $this->user = $db_user;
         $this->groups = $this->fetch_groups(intval($this->id));
     }
     
@@ -296,17 +323,17 @@ class System extends Slim {
     }
     
     function __isset($name) {
-        return array_key_exists($name, $this->rest_user_data);
+        return array_key_exists($name, $this->user);
     }
     
     // ---------------------------------------------------------------------------------
     function __get($name) {
         //throw new Exception("Name $name not found");
-        if (array_key_exists($name, $this->rest_user_data)) {
-            return $this->rest_user_data[$name];
+        if (array_key_exists($name, $this->user)) {
+            return $this->user[$name];
         } else {
-            throw new Exception("'" . get_class($this) . "' have no $name " .
-                                "property ");
+            throw new Exception("'" . get_class($this) . "' have no $name " 
+                . "property ");
         }
     }
     
@@ -314,7 +341,11 @@ class System extends Slim {
     function logout() {
         unset($_SESSION['userid']);
         session_destroy();
-        $this->rest_user_data = array();
+        $this->user = array();
+    }
+    
+    function user(){
+        return $this->user;
     }
     
     // ---------------------------------------------------------------------------------
@@ -339,7 +370,7 @@ class System extends Slim {
     
     // ---------------------------------------------------------------------------------
     function globals() {
-        return array_merge($this->config_array, $this->rest_user_data);
+        return array_merge($this->config_array, $this->user);
     }
     
     // ---------------------------------------------------------------------------------
