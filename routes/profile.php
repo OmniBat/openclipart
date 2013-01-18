@@ -11,10 +11,11 @@ function get_profile($username){
     return $profile;
 }
 
-$app->get("/profile", function() use($app){
+/*$app->get("/profile", function() use($app){
     if(!$app->is_logged()) return $app->pass();
-    $app->redirect("/profile/" . $app->user()['username']);
-});
+    $username = $app->user()['username'];
+    $app->redirect("/profile/$username");
+});*/
 
 $app->get("/profile/:username", function($username) use($app) {
     $profile = get_profile($username);
@@ -25,6 +26,7 @@ $app->get("/profile/:username", function($username) use($app) {
     ));
 });
 
+/*
 $app->get("/profile/:username/edit", function($username) use($app){
     $profile = get_profile($username);
     if(!$profile || $profile['id'] !== $app->user()['id']) 
@@ -34,8 +36,9 @@ $app->get("/profile/:username/edit", function($username) use($app){
         , 'back' => "/profile/" . $app->user()['username']
     ));
 });
+*/
 
-$app->post("/profile/:username/edit", function($username) use($app){
+/*$app->post("/profile/:username/edit", function($username) use($app){
     
     // users can edit their own profile
     if($_POST['id'] !== $app->user()['id']) return $app->notFound();
@@ -92,5 +95,6 @@ $app->post("/profile/:username/edit", function($username) use($app){
       . 'please submit a bug request');
     return $app->redirect("/profile/" . $username . "/edit");
 });
+*/
 
 ?>
