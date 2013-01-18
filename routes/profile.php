@@ -29,24 +29,68 @@ $app->get("/profile/:username/edit", function($username) use($app){
     $profile = get_profile($username);
     if(!$profile || $profile['id'] !== $app->user()['id']) 
         return $app->notFound();
-    return $app->render('profile/profile-edit', array(
+    return $app->render('profile/edit', array(
         'profile' => $profile
+        , 'back' => "/profile/" . $app->user()['username']
     ));
 });
 
 $app->post("/profile/:username/edit", function($username) use($app){
-    $id = $_POST['id'];
-    $username = $_POST['username'];
-    $full_name = $_POST['full_name'];
-    $email = $_POST['email'];
-    $homepage = $_POST['homepage'];
-    $twitter = $_POST['twitter'];
-    $about = $_POST['about'];
     
     // users can edit their own profile
-    if($id !== $app->user()['id']) return $app->notFound();
+    if($_POST['id'] !== $app->user()['id']) return $app->notFound();
     
-    return;
+    $id         = $_POST['id'];
+    $username   = $_POST['username'];
+    $full_name  = $_POST['full_name'];
+    $email      = $_POST['email'];
+    $homepage   = $_POST['homepage'];
+    $twitter    = $_POST['twitter'];
+    $about      = $_POST['about'];
+    
+    $errors = $app->validate(array(
+      'username' => array( $username => 'username')
+      , 'full_name' => array( $full_name => 'fullname')
+      , 'email' => array( $email => 'email')
+      , 'homepage' => array( $homepage => 'homepage')
+      , 'twitter' => array( $twitter => 'twitter')
+    ));
+    
+    if(sizeof($errors)){
+      $profile = get_profile($username);
+      if(!$profile) return $app->pass();
+      return $app->render('profile/edit', array(
+          'profile' => array_merge($profile, $_POST)
+          , 'back' => "/profile/" . $app->user()['username']
+          , 'errors' => $errors
+      ));
+    }
+    
+    $e = function($str) use($app){
+        return $app->db->escape($str);
+    };
+    
+    $id = $e($id);
+    $username = $e($username);
+    $full_name = $e($full_name);
+    $email = $e($email);
+    $homepage = $e($homepage);
+    $twitter = $e($twitter);
+    $about = $e($about);
+    
+    $query = "UPDATE openclipart_users SET 
+        username = '$username'
+        , full_name = '$full_name'
+        , email = '$email'
+        , homepage = '$homepage'
+        , twitter = '$twitter'
+        , about = '$about' WHERE id=$id";
+    
+    if ($app->db->query($query)) 
+        return $app->redirect("/profile/" . $username );
+    $app->flash('error','Unable to save you edits. If this problem continues, '
+      . 'please submit a bug request');
+    return $app->redirect("/profile/" . $username . "/edit");
 });
 
 ?>

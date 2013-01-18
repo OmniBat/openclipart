@@ -19,6 +19,7 @@ $app->map('/register', function() use ($app) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
+    $full_name = $_POST['full_name'];
     
     
     $response = function($msg, $success) use($app, $email, $username){
@@ -80,7 +81,7 @@ $app->map('/register', function() use ($app) {
             return $response('You gave the wrong answer to Picatcha', false);
     }
     
-    if(!$app->register($username, $password, $email))
+    if(!$app->register($username, $password, $email, $full_name))
         return $response("Sorry, but something wrong happened and we couldn't "
             . "create your account", false);
     // Success!

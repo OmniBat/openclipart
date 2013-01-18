@@ -2,46 +2,53 @@
 {% block content %}
 <h1> Your Profile </h1>
 <form class="form-horizontal" method="POST">
-  <include type="hidden" name="id" value="{{profile.id}}">
-  <div class="control-group">
+  <input type="hidden" name="id" value="{{profile.id}}">
+  <div class="control-group {{ errors.full_name ? 'error' }}">
     <label class="control-label" for="inputFullname">Full name</label>
     <div class="controls">
       <input name="full_name" type="text" id="inputFullname" placeholder="Your Name" value="{{profile.full_name}}">
+      <span class="help-inline">{{errors.full_name}}</span>
     </div>
   </div>
-  <div class="control-group">
+  <div class="control-group {{ errors.username ? 'error' }}">
     <label class="control-label" for="inputUsername">Username</label>
     <div class="controls">
       <input name="username" type="text" id="inputUsername" placeholder="username" value="{{profile.username}}">
+      <span class="help-inline">{{errors.username}}</span>
     </div>
   </div>
-  <div class="control-group">
+  <div class="control-group {{ errors.email ? 'error' }}">
     <label class="control-label" for="inputEmail">Email</label>
     <div class="controls">
       <input name="email" type="text" id="inputEmail" placeholder="email" value="{{profile.email}}">
+      <span class="help-inline">{{errors.email}}</span>
     </div>
   </div>
-  <div class="control-group">
+  <div class="control-group {{ errors.homepage ? 'error' }}">
     <label class="control-label" for="inputHomepage">Homepage</label>
     <div class="controls">
       <input name="homepage" type="text" id="inputHomepage" placeholder="http://example.com" value={{profile.homepage}}>
+      <span class="help-inline">{{errors.homepage}}</span>
     </div>
   </div>
-  <div class="control-group">
+  <div class="control-group {{ errors.twitter ? 'error' }}">
     <label class="control-label" for="inputTwitter">Twitter</label>
     <div class="controls">
       <input name="twitter" type="text" id="inputTwitter" placeholder="@twitter" value={{profile.twitter}}>
+      <span class="help-inline">{{errors.twitter}}</span>
     </div>
   </div>
-  <div class="control-group">
+  <div class="control-group {{ errors.about ? 'error' }}">
     <label class="control-label" for="inputAbout">Bio</label>
     <div class="controls">
-      <textarea name="about" rows="3" id="inputAbout"></textarea>
+      <textarea name="about" rows="3" id="inputAbout">{{profile.about}}</textarea>
+      <span class="help-inline">{{errors.about}}</span>
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
-      <button type="submit" class="btn">Update</button>
+      <button type="submit" class="btn btn-primary">Update</button>
+      <a href="{{back}}" class="btn"> Cancel </a>
     </div>
   </div>
 </form>

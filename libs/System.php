@@ -25,6 +25,7 @@ require_once('ArrayObjectFacade.php');
 require_once('Restrict.php');
 require_once('utils.php');
 require_once('json-rpc/json-rpc.php');
+require_once ('validators.php');
 
 
 class SystemException extends Exception { }
@@ -60,7 +61,9 @@ class System extends Slim {
     private $db_prefix;
     // TODO: rename `$user` just `$user`
     private $user;
+    public $validate;
     function __construct($settings) {
+        global $validate;
         Slim::__construct(array('debug' => false));
         session_start();
         if (gettype($settings) !== 'array') {
@@ -77,6 +80,7 @@ class System extends Slim {
         $this->groups = array();
         $this->db_prefix = $settings['db_prefix'];
         $this->user = array();
+        $this->validate = $validate;
         // restore from session
         if (isset($_SESSION['userid'])) {
             try {
@@ -176,6 +180,10 @@ class System extends Slim {
         )));
         */
     }
+    function validate($fields){
+      $cb = $this->validate;
+      return $cb($fields);
+    }
     function random_token() {
         return sha1(array_sum(explode(' ', microtime())));
     }
@@ -228,7 +236,11 @@ class System extends Slim {
                 return false;
             }
             $url = $this->config->root . '/profile?token=' . $token;
-            $message = "Hi $user,\n\nDid you forget your password?\n\nHere is a link to your profile where you can change it, you will have access to the whole site using a token in this url, it will expire after an hour. $url\n\nRegards\nOpen Clipart Team";
+            $message = "Hi $user,\n\nDid you forget your password?\n\nHere is "
+                . "a link to your profile where you can change it, you will "
+                . "have access to the whole site using a token in this url, it "
+                . "will expire after an hour. $url\n\nRegards\nOpen Clipart "
+                . "Team";
             $subject = "Open Clipart Access Link";
             return $this->system_email($email, $subject, $message);
         } else {
@@ -237,11 +249,25 @@ class System extends Slim {
     }
     
     // ---------------------------------------------------------------------------------
-    function register($username, $password, $email) {
+    function register($username, $password, $email, $full_name) {
         $username = $this->db->escape($username);
         $password = $this->db->escape($password);
         $email = $this->db->escape($email);
-        return $this->db->query("INSERT INTO openclipart_users(username, password, email, creation_date) VALUES('$username', md5(md5('$password')), '$email', now())");
+        $full_name = $this->db->escape($full_name);
+        return $this->db->query("INSERT INTO 
+            openclipart_users(
+                username
+                , password
+                , email
+                , creation_date
+                , full_name
+            ) VALUES(
+                '$username'
+                , md5(md5('$password'))
+                , '$email'
+                , now()
+                , '$full_name'
+            )");
     }
     
     // ---------------------------------------------------------------------------------

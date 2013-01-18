@@ -118,6 +118,8 @@ $app->get("/about", function() use($app) {
     return $app->render('about');
 });
 
+
+
 $app->get("/participate", function() use($app){
     return $app->render('participate');
 });

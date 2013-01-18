@@ -13,7 +13,7 @@
   <div class="span6">
     <div class="user-links">
       <div><a target="_blank" href="{{profile.homepage}}">Homepage</a></div>
-      <div><a href="{{profile.twitter}}">twitter</a></div>
+      <div><a target="_blank" href="http://twitter.com/{{profile.twitter}}">twitter</a></div>
       <div><a href="#">send message</a></div>
     </div>
     {% if profile.id == userid %}
