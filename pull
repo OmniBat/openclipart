@@ -2,4 +2,3 @@
 # NEED TO HAVE chmod g+s
 umask 0002
 git pull 2>&1
-php composer.phar update
