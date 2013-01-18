@@ -29,7 +29,9 @@ define('DEBUG', true);
 	*/
 set_include_path('.:');
 
-require_once ('vendor/autoload.php');
+require_once('libs/Twig/lib/Twig/Autoloader.php');
+Twig_Autoloader::register();
+
 require_once ('libs/utils.php');
 require_once ('libs/System.php');
 require_once ('libs/Clipart.php');

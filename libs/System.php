@@ -20,6 +20,8 @@
  */
 
 require_once('Slim/Slim/Slim.php');
+\Slim\Slim::registerAutoloader();
+
 require_once('Database.php');
 require_once('ArrayObjectFacade.php');
 require_once('Restrict.php');
@@ -51,7 +53,7 @@ Class SystemFunctions {
     }
 }
 
-class System extends Slim {
+class System extends \Slim\Slim {
     public $groups;
     private $original_config;
     private $logged_user;
@@ -64,7 +66,7 @@ class System extends Slim {
     public $validate;
     function __construct($settings) {
         global $validate;
-        Slim::__construct(array('debug' => false));
+        \Slim\Slim::__construct(array('debug' => false));
         session_start();
         if (gettype($settings) !== 'array') {
             throw new Exception("System Argument need to be an array " .

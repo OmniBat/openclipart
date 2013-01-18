@@ -7,3 +7,6 @@
 [submodule "libs/json-rpc"]
 	path = libs/json-rpc
 	url = git://github.com/jcubic/json-rpc.git
+[submodule "libs/Twig"]
+	path = libs/Twig
+	url = https://github.com/fabpot/Twig.git
