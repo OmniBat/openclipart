@@ -20,6 +20,8 @@
  */
 
 require_once('Slim/Slim/Slim.php');
+use \Slim\Slim as Slim;
+Slim::registerAutoloader();
 require_once('Database.php');
 require_once('ArrayObjectFacade.php');
 require_once('Restrict.php');
