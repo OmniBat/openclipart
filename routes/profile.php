@@ -13,7 +13,8 @@ function get_profile($username){
 
 $app->get("/profile", function() use($app){
     if(!$app->is_logged()) return $app->pass();
-    $username = $app->user()['username'];
+    $user = $app->user();
+    $username = $user['username'];
     $app->redirect("/profile/$username");
 });
 
@@ -28,18 +29,20 @@ $app->get("/profile/:username", function($username) use($app) {
 
 $app->get("/profile/:username/edit", function($username) use($app){
     $profile = get_profile($username);
-    if(!$profile || $profile['id'] !== $app->user()['id']) 
+    $user = $app->user();
+    if(!$profile || $profile['id'] !== $user['id']) 
         return $app->notFound();
     return $app->render('profile/edit', array(
         'profile' => $profile
-        , 'back' => "/profile/" . $app->user()['username']
+        , 'back' => "/profile/" . $user['username']
     ));
 });
 
 $app->post("/profile/:username/edit", function($username) use($app){
     
     // users can edit their own profile
-    if($_POST['id'] !== $app->user()['id']) return $app->notFound();
+    $user = $app->user();
+    if($_POST['id'] !== $user['id']) return $app->notFound();
     
     $id         = $_POST['id'];
     $username   = $_POST['username'];
@@ -62,7 +65,7 @@ $app->post("/profile/:username/edit", function($username) use($app){
       if(!$profile) return $app->pass();
       return $app->render('profile/edit', array(
           'profile' => array_merge($profile, $_POST)
-          , 'back' => "/profile/" . $app->user()['username']
+          , 'back' => "/profile/" . $user['username']
           , 'errors' => $errors
       ));
     }
