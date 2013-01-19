@@ -7,3 +7,6 @@
 [submodule "libs/Slim"]
 	path = libs/Slim
 	url = git://github.com/codeguy/Slim.git
+[submodule "libs/json-rpc"]
+	path = libs/json-rpc
+	url = git@github.com:openclipart/json-rpc.git
