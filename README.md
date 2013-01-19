@@ -6,4 +6,4 @@ This is reimplementaion of [Open Clipart Library](http://openclipart.org/) web s
 
 # Installation
 
-NOTE: When clone you need to clone all submodules as well so use --recursive option, The main code use jcubic/Slim/string-handlers branch (that is pull request for Slim).
+NOTE: When clone you need to clone all submodules as well so use --recursive option
