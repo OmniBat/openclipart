@@ -3,8 +3,8 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
     
     $width = intval($width);
     $svg_filename = preg_replace("/.png$/", '.svg', $file);
-    $png = $app->config->root_directory . "/people/$user/${width}px-$file";
-    $svg = $app->config->root_directory . "/people/$user/" . $svg_filename;
+    $png = $app->config->root_directory . "/public/people/$user/${width}px-$file";
+    $svg = $app->config->root_directory . "/public/people/$user/" . $svg_filename;
     $response = $app->response();
     /*
     //speed up loading - problem: nsfw can change and this may display old generated image
@@ -40,8 +40,8 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
         if ($app->nsfw() && $app->db->get_value($query) != 0) {
             $user = $app->config->nsfw_image['user'];
             $filename = $app->config->nsfw_image['filename'];
-            $png = $app->config->root_directory . "/people/$user/${width}px-$file-nsfw.png";
-            $svg = $app->config->root_directory . "/people/$user/$filename.svg";
+            $png = $app->config->root_directory . "/public/people/$user/${width}px-$file-nsfw.png";
+            $svg = $app->config->root_directory . "/public/people/$user/$filename.svg";
         }
 
 

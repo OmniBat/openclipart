@@ -36,7 +36,7 @@ $app->get("/clipart/:id", function($id) use ($app) {
     $query = "select openclipart_comments.id, username, comment, date, openclipart_clipart.filename as avatar from openclipart_comments inner join openclipart_users on user = openclipart_users.id LEFT OUTER JOIN openclipart_clipart ON avatar = openclipart_clipart.id where clipart = $id";
     $comments = $app->db->get_array($query);
     
-    $svg = 'people/' . $row['username'] . '/' . $row['filename'];
+    $svg = 'public/people/' . $row['username'] . '/' . $row['filename'];
     
     // COLLECTIONS
     $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";
