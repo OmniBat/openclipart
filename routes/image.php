@@ -1,6 +1,7 @@
 <?php
-$app->get("/image/:width/:user/:filename", function($w, $user, $file, $app) {
-    $width = intval($w);
+$app->get("/image/:width/:user/:filename", function($width, $user, $file) use($app) {
+    
+    $width = intval($width);
     $svg_filename = preg_replace("/.png$/", '.svg', $file);
     $png = $app->config->root_directory . "/people/$user/${width}px-$file";
     $svg = $app->config->root_directory . "/people/$user/" . $svg_filename;
@@ -14,18 +15,28 @@ $app->get("/image/:width/:user/:filename", function($w, $user, $file, $app) {
         return file_get_contents($png);
     }
     */
-
-    if ($width > $app->config->bitmap_resolution_limit) {
+    $max_res = $app->config->bitmap_resolution_limit;
+    if ($width > $max_res) {
         $response->status(400);
         // TODO: Generate Error Image
-        echo "Resolution couldn't be higher then 3840px! Please download SVG and " .
-            "produce such huge bitmap locally.";
+        echo "Resolution couldn't be higher then $max_res px! Please download SVG and " .
+            "produce the bitmap locally.";
     } else if (!file_exists($svg) || filesize($svg) == 0) {
         // NOTE: you don't need to check user and file for script injection because
         //       file_exists will prevent this
         return $app->notFound();
     } else {
-        $query = "SELECT count(*) FROM openclipart_clipart INNER JOIN openclipart_users ON owner = openclipart_users.id INNER JOIN openclipart_clipart_tags ON clipart = openclipart_clipart.id INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE filename = '$file' AND username = '$user' AND name = 'nsfw'";
+        $file = $app->db->escape($file);
+        $user = $app->db->escape($user);
+        $query = "SELECT count(*) 
+          FROM openclipart_clipart 
+          INNER JOIN openclipart_users 
+          ON owner = openclipart_users.id 
+          INNER JOIN openclipart_clipart_tags ON clipart = openclipart_clipart.id 
+          INNER JOIN openclipart_tags ON tag = openclipart_tags.id 
+          WHERE filename = '$file' 
+            AND username = '$user' 
+            AND name = 'nsfw'";
         if ($app->nsfw() && $app->db->get_value($query) != 0) {
             $user = $app->config->nsfw_image['user'];
             $filename = $app->config->nsfw_image['filename'];

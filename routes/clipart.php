@@ -52,33 +52,37 @@ $app->get("/clipart/:id", function($id) use ($app) {
     
     $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
     
-    return $app->render('clipart/detail', array_merge($row, array(
-        'editable' => $editable
-        , 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename'])
-        , 'remixes' => $remixes
-        , 'remix_count' => count($remixes)
-        , 'tags' => array_map(function($tag) use($system_tags) {
-            return array(
-                'name' => $tag,
-                'system' => in_array($tag, $system_tags)
-            );
-        }, $tags)
-        , 'comments' => array_map(function($comment) {
-            $avatar = preg_replace('/.svg$/', '.png', $comment['avatar']);
-            $comment['avatar'] = $avatar;
-            // owner of the comment
-            if (isset($app->username) && $coment['username'] == $app->username) {
-                $comment['editable'] = true;
-            }
-            return $comment;
-        }, $comments)
-        , 'file_size' => human_size(filesize($svg))
-        , 'collection_count' => count($collections)
-        , 'collections' => array_map(function($row) {
-            $row['human_date'] = human_date($row['date']);
-            return $row;
-        }, $collections),
-        'nsfw' => in_array('nsfw', $tags)
-    )));
+    try{
+      return $app->render('clipart/detail', array_merge($row, array(
+          'editable' => $editable
+          , 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename'])
+          , 'remixes' => $remixes
+          , 'remix_count' => count($remixes)
+          , 'tags' => array_map(function($tag) use($system_tags) {
+              return array(
+                  'name' => $tag,
+                  'system' => in_array($tag, $system_tags)
+              );
+          }, $tags)
+          , 'comments' => array_map(function($comment) {
+              $avatar = preg_replace('/.svg$/', '.png', $comment['avatar']);
+              $comment['avatar'] = $avatar;
+              // owner of the comment
+              if (isset($app->username) && $coment['username'] == $app->username) {
+                  $comment['editable'] = true;
+              }
+              return $comment;
+          }, $comments)
+          , 'file_size' => human_size(filesize($svg))
+          , 'collection_count' => count($collections)
+          , 'collections' => array_map(function($row) {
+              $row['human_date'] = human_date($row['date']);
+              return $row;
+          }, $collections),
+          'nsfw' => in_array('nsfw', $tags)
+      )));
+    }catch(Exception $e){
+      return $app->notFound();
+    }
 });
 ?>
