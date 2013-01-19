@@ -23,7 +23,7 @@ $app->get("/image/:width/:user/:filename", function($w, $user, $file, $app) {
     } else if (!file_exists($svg) || filesize($svg) == 0) {
         // NOTE: you don't need to check user and file for script injection because
         //       file_exists will prevent this
-        $app->notFound();
+        return $app->notFound();
     } else {
         $query = "SELECT count(*) FROM openclipart_clipart INNER JOIN openclipart_users ON owner = openclipart_users.id INNER JOIN openclipart_clipart_tags ON clipart = openclipart_clipart.id INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE filename = '$file' AND username = '$user' AND name = 'nsfw'";
         if ($app->nsfw() && $app->db->get_value($query) != 0) {

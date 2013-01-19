@@ -138,6 +138,10 @@ $app->notFound(function () use ($app) {
     return $app->render('errors/404');
 });
 
+$app->get('/module/:module', function($module) use($app){
+  echo ' loaded: ' . extension_loaded($module);
+});
+
 require_once('routes/errors.php');
 require_once('routes/index.php');
 require_once('routes/login.php');
