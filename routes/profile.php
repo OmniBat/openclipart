@@ -21,9 +21,11 @@ $app->get("/profile", function() use($app){
 $app->get("/profile/:username", function($username) use($app) {
     $profile = get_profile($username);
     if(!$profile) return $app->pass();
+    if(isset($app->config->userid)) $userid = $app->config->userid;
+    else $userid = -1;
     return $app->render('profile/profile', array(
         'profile' => $profile
-        , 'userid' => $app->config->userid
+        , 'is_owner' => $profile['id'] == $userid
     ));
 });
 

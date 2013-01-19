@@ -16,7 +16,7 @@
       <div><a target="_blank" href="http://twitter.com/{{profile.twitter}}">twitter</a></div>
       <div><a href="#">send message</a></div>
     </div>
-    {% if profile.id == userid %}
+    {% if is_owner %}
       <div class="edit-menu pull-right">
         <a href="/profile/{{profile.username}}/edit">edit your profile</a>
       </div>
