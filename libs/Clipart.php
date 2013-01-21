@@ -70,7 +70,12 @@ class Clipart {
         $where = "WHERE id = $id";
       }
       // query for the clipart by username and filename
-      $query = "SELECT * 
+      $query = "SELECT 
+                  username
+                  , owner
+                  , openclipart_clipart.id as id
+                  , filename
+                  , downloads
                   FROM openclipart_clipart
                   INNER JOIN openclipart_users ON owner = openclipart_users.id 
                   $where";
@@ -107,6 +112,7 @@ class Clipart {
     }
     
     function have_issues() {
+      
     }
     
     function inc_download() {
@@ -114,7 +120,7 @@ class Clipart {
         $id = $this->data->id;
         $query = "UPDATE openclipart_clipart 
                     SET downloads = downloads + 1 
-                    WHERE owner = $id";
+                    WHERE id = $id";
         $app->db->query($query);
     }
 }

@@ -16,7 +16,6 @@
       </h3>
       <div>
         <a href="/download/svg/{{username}}/{{filename}}">
-      
           <div class="detail-image">
             <div class="checker"></div>
             <img src="/image/280/{{username}}/{{filename_png}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
@@ -25,7 +24,7 @@
       </div>
       <div class="center"> 
         <div>
-          <button class="btn btn-danger btn-large btn-ocal" type="button">download</button>
+          <a class="btn btn-danger btn-large btn-ocal" href="/download/svg/{{username}}/{{filename}}">download</a>
         </div>
         <div class="edit-menu">
           <a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl={{file-url}}">edit</a>

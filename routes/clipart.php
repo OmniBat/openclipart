@@ -14,7 +14,6 @@ $app->get("/clipart/:id", function($id) use ($app) {
         FROM openclipart_clipart 
         INNER JOIN openclipart_users ON owner = openclipart_users.id 
         WHERE openclipart_clipart.id = $id";
-    
     $row = $app->db->get_row($query);
     if (empty($row)) return $app->notFound();
     $editable = false;
