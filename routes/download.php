@@ -18,25 +18,28 @@ $app->get("/download/svg/:user/:filename", function($user, $filename) use($app) 
         }
     }
     */
-
-    $clipart = Clipart::by_name($user, $filename);
-    if (!$clipart->exists($filename) || $clipart->size() == 0) {
+    if($app->config->svg_debug){
+      $user = 'rejon';
+      $filename = 'rejon_Supergirl.svg';
+    }
+    $clipart = new Clipart($user, $filename);
+    if(!$clipart->exists() || $clipart->size() == 0){
         // old OCAL have some 0 size files
         $app->notFound();
-    } else {
+    }else{
         $response = $app->response()->header('Content-Type', 'application/octet-stream');
-        if ($app->track()) {
+        if($app->track()){
             $clipart->inc_download();
         }
-        if ($app->nsfw() && $clipart->nsfw()) {
+        if($app->nsfw() && $clipart->nsfw()){
             $filename = $app->config->root_directory . "/people/" .
                 $app->config->nsfw_image['user'] . "/" .
                 $app->config->nsfw_image['filename'] . ".svg";
-        } else if ($clipart->have_pd_issue()) {
+        }else if($clipart->have_pd_issue()){
             $filename = $app->config->root_directory . "/people/" .
                 $app->config->pd_issue_image['user'] . "/" .
                 $app->config->pd_issue_image['filename'] . ".svg";
-        } else {
+        }else{
             $filename = $clipart->full_path();
         }
         echo file_get_contents($filename);
@@ -55,7 +58,7 @@ $app->get("/download/collection/:name", function($name) use($app){
     $collection = $app->db->get_row($query);
     $base = $app->config->root_directory . '/collections/' . $name . '-';
     // remove old collection archive
-    if ($collection['last_archive_date'] != $collection['last_date']) {
+    if($collection['last_archive_date'] != $collection['last_date']){
         unlink($base . $collection['last_archive_date'] . '.zip');
         $zip_filename = $base . $collection['last_date'] . '.zip';
         $res = $zip->open($zip_filename, ZipArchive::CREATE);
@@ -84,8 +87,13 @@ $app->get("/download/collection/:name", function($name) use($app){
                 $archive[$row['filename']] = 1;
             }
             $in_archive[] = $row['filename'];
-            $filename = $app->config->root_directory . '/people/' .
-                $row['user'] . '/' . $row['filename'];
+            if(!$app->config->svg_debug){
+              $filename = $app->config->root_directory 
+                . '/people/' . $row['user'] . '/' . $row['filename'];
+            }else{
+              $filename = $app->config->root_directory
+                . $app->config->example_svg;
+            }
             if (!$zip->addFile($filename, $local_filename)) {
                 throw new Exception("Couldn't add file '$local_filename' to ".
                                     "the archive");

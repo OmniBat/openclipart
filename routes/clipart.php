@@ -16,7 +16,6 @@ $app->get("/clipart/:id", function($id) use ($app) {
         WHERE openclipart_clipart.id = $id";
     
     $row = $app->db->get_row($query);
-    var_dump($row);
     if (empty($row)) return $app->notFound();
     $editable = false;
     if (isset($app->username)) {
@@ -37,11 +36,11 @@ $app->get("/clipart/:id", function($id) use ($app) {
     $comments = $app->db->get_array($query);
     
     if(!$app->config->svg_debug){
-      $svg = 'public/people/' . $row['username'] . '/' . $row['filename'];
+      $svg = $app->config->root_directory . '/people/' . $row['username'] . '/' . $row['filename'];
     }else{
       // use this file for dev/debugging so we dont have to always download
       // the entire set of svgs for testing locally
-      $svg = "public/people/rejon/rejon_Supergirl.svg";
+      $svg = $app->config->root_directory . $app->config->example_svg;
     }
     
     // COLLECTIONS
@@ -54,7 +53,6 @@ $app->get("/clipart/:id", function($id) use ($app) {
         $remix['filename'] = preg_replace("/\.svg$/", ".png", $remix['filename']);
         return $remix;
     }, $app->db->get_array($query));
-    
     
     $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
     

@@ -241,7 +241,6 @@ $(function() {
         });
     }
     /*
-
     (function(button) {
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(location);
         button.attr('href', url).click(function() {
@@ -255,161 +254,158 @@ $(function() {
 
     //var img = $('#viewimg img, #shutterstock img').bg();
 
-    rpc({url: '/rpc/main', error: function(e) {
-        if (e.error) {
-            alert(e.error.message + ' file ' + e.error.file + ' at ' + e.error.at + '\n' +
-                  e.error.line);
-        } else {
-            alert(e.message || e);
-        }
-    }})(function(main) {
-        window.main = main;
-        function editable() {
-            var tag_list = $('.tags ul');
-            var tags = tag_list.find('li').detach();
-            var finish = false;
-            var clipart = tag_list.data('clipart');
-            tag_list = tag_list.tagit({
-                allowSpaces: true,
-                triggerKeys: ['enter', 'comma', 'tab'],
-                onTagClicked: $.noop,
-                animate: false,
-                onTagAdded: function(event, tag) {
-                    if (finish) {
-                        main.add_tag(clipart, $(tag).find('.tagit-label').text())($.noop);
-                    }
-                },
-                onTagRemoved: function(event, tag) {
-                    main.remove_tag(clipart, $(tag).find('.tagit-label').text())($.noop);
-                }
-            });
-            tags.each(function() {
-                var a = $(this).find('a');
-                tag_list.tagit("createTag", a.text()).
-                    tagit('widget').find('.tagit-label:last')
-                    .attr('href', a.attr('href'));
-            });
-            finish = true;
-            $('dd:eq(2), #view h2').mouseover(function() {
-                if (!$(this).find('textarea').length) {
-                    $(this).addClass('inline-selected');
-                }
-            }).mouseout(function() {
-                $(this).removeClass('inline-selected');
-            }).click(function() {
-                var self = $(this);
-                if (!self.find('textarea').length) {
-                    var content = self.text();
-                    self.data('original', content);
-                    var inline = '<textarea>' + content + '</textarea><a class="save button">Save</a><a class="cancel">Cancel</a>';
-                    self.html(inline).find('.button').button();
-                }
-                self.removeClass('inline-selected');
-            }).filter('dd').wrapInner('<p/>');
-
-            $('dd:eq(2) .cancel, #view h2 .cancel').live('click', function() {
-                var parent = $(this).parent();
-                parent.html(parent.data('original'));
-                return false;
-            });
-            $('dd:eq(2) .button').live('click', function() {
-                var self = $(this);
-                var text = self.prev().val();
-                var parent = self.parent();
-                var original = parent.data('original');
-                if (text == original) {
-                    parent.html(text);
-                } else {
-                    main.set_description(clipart, text)(function(result) {
-                        parent.html(result ? text : original);
-                    });
-                }
-            });
-
-            $('h2 .button').live('click', function() {
-                var self = $(this);
-                var text = self.prev().val();
-                var parent = self.parent();
-                var original = parent.data('original');
-                if (text == original) {
-                    parent.html(text);
-                } else {
-                    main.set_title(clipart, text)(function(result) {
-                        parent.html(result ? text : original);
-                    });
-                }
-            });
-        }
-
-        if ($('.editable').length) {
-            editable();
-        }
-
-
-        /*
-          var urls = [
-          "http://s7.addthis.com/js/250/addthis_widget.js#username=boobalooasync=1&domready=1",
-          "//api.flattr.com/js/0.6/load.js?mode=auto&uid=fabricatorz&popout=1&category=Images"];
-          $.each(urls, function(_, url) {
-          $.getScript(url);
-          });
-        */
-
-        var login_dialog = $('#login-dialog');
-        $('#login-register-language #login-link').click(function() {
-            login_dialog.fadeIn();
-            return false;
-        });
-        $('.overlay').click(function() {
-            $(this).parent().fadeOut();
-        });
-        $('#login-dialog #popup-window #login-submit').click(function() {
-            var login = $('#login').val();
-            var pass = $('#password').val();
-            main.login(login, pass)(function(ret) {
-                if (ret) {
-                    // TODO: detect if user own a clipart or is librarian
-                    $('#container').addClass('logged');
-                    editable();
-                    login_dialog.fadeOut();
-                } else {
-
-                }
-            });
-            return false;
-        });
-        $('#login-popup-window #close').click(function() {
-            login_dialog.fadeOut();
-            return false;
-        });
-        $('#logout').click(function() {
-            main.logout()(function() {
-                $('#container').removeClass('editable logged');
-            });
-            return false;
-        });
-        $('.logged .star').live('click', function() {
-            var self = $(this);
-            var thumb = self.parents('.thumbnail');
-            var clipart = thumb.data('id');
-            // !!+ string "0" or "1" to int and then to boolean
-            //if (!!+thumb.data('favorite')) {
-            if (!thumb.hasClass('can_fav')) {
-                main.unfavorite(clipart)(function(removed) {
-                    if (removed) {
-                        self.text(self.text()-1);
-                        thumb.addClass('can_fav');
-                    }
-                });
-            } else {
-                main.favorite(clipart)(function(added) {
-                    if (added) {
-                        self.text(+self.text()+1);
-                        thumb.removeClass('can_fav');
-                    }
-                });
-            }
-            return false;
-        });
-    });
+    // pc({url: '/rpc/main', error: function(e) {
+    //     if (e.error) {
+    //         alert(e.error.message + ' file ' + e.error.file + ' at ' + e.error.at + '\n' +
+    //               e.error.line);
+    //     } else {
+    //         alert(e.message || e);
+    //     }
+    // }})(function(main) {
+    //     window.main = main;
+    //     function editable() {
+    //         var tag_list = $('.tags ul');
+    //         var tags = tag_list.find('li').detach();
+    //         var finish = false;
+    //         var clipart = tag_list.data('clipart');
+    //         tag_list = tag_list.tagit({
+    //             allowSpaces: true,
+    //             triggerKeys: ['enter', 'comma', 'tab'],
+    //             onTagClicked: $.noop,
+    //             animate: false,
+    //             onTagAdded: function(event, tag) {
+    //                 if (finish) {
+    //                     main.add_tag(clipart, $(tag).find('.tagit-label').text())($.noop);
+    //                 }
+    //             },
+    //             onTagRemoved: function(event, tag) {
+    //                 main.remove_tag(clipart, $(tag).find('.tagit-label').text())($.noop);
+    //             }
+    //         });
+    //         tags.each(function() {
+    //             var a = $(this).find('a');
+    //             tag_list.tagit("createTag", a.text()).
+    //                 tagit('widget').find('.tagit-label:last')
+    //                 .attr('href', a.attr('href'));
+    //         });
+    //         finish = true;
+    //         $('dd:eq(2), #view h2').mouseover(function() {
+    //             if (!$(this).find('textarea').length) {
+    //                 $(this).addClass('inline-selected');
+    //             }
+    //         }).mouseout(function() {
+    //             $(this).removeClass('inline-selected');
+    //         }).click(function() {
+    //             var self = $(this);
+    //             if (!self.find('textarea').length) {
+    //                 var content = self.text();
+    //                 self.data('original', content);
+    //                 var inline = '<textarea>' + content + '</textarea><a class="save button">Save</a><a class="cancel">Cancel</a>';
+    //                 self.html(inline).find('.button').button();
+    //             }
+    //             self.removeClass('inline-selected');
+    //         }).filter('dd').wrapInner('<p/>');
+    // 
+    //         $('dd:eq(2) .cancel, #view h2 .cancel').live('click', function() {
+    //             var parent = $(this).parent();
+    //             parent.html(parent.data('original'));
+    //             return false;
+    //         });
+    //         $('dd:eq(2) .button').live('click', function() {
+    //             var self = $(this);
+    //             var text = self.prev().val();
+    //             var parent = self.parent();
+    //             var original = parent.data('original');
+    //             if (text == original) {
+    //                 parent.html(text);
+    //             } else {
+    //                 main.set_description(clipart, text)(function(result) {
+    //                     parent.html(result ? text : original);
+    //                 });
+    //             }
+    //         });
+    // 
+    //         $('h2 .button').live('click', function() {
+    //             var self = $(this);
+    //             var text = self.prev().val();
+    //             var parent = self.parent();
+    //             var original = parent.data('original');
+    //             if (text == original) {
+    //                 parent.html(text);
+    //             } else {
+    //                 main.set_title(clipart, text)(function(result) {
+    //                     parent.html(result ? text : original);
+    //                 });
+    //             }
+    //         });
+    //     }
+    // 
+    //     if ($('.editable').length) {
+    //         editable();
+    //     }
+    // 
+    //       // var urls = [
+    //       // "http://s7.addthis.com/js/250/addthis_widget.js#username=boobalooasync=1&domready=1",
+    //       // "//api.flattr.com/js/0.6/load.js?mode=auto&uid=fabricatorz&popout=1&category=Images"];
+    //       // $.each(urls, function(_, url) {
+    //       // $.getScript(url);
+    //       // });
+    // 
+    //     var login_dialog = $('#login-dialog');
+    //     $('#login-register-language #login-link').click(function() {
+    //         login_dialog.fadeIn();
+    //         return false;
+    //     });
+    //     $('.overlay').click(function() {
+    //         $(this).parent().fadeOut();
+    //     });
+    //     $('#login-dialog #popup-window #login-submit').click(function() {
+    //         var login = $('#login').val();
+    //         var pass = $('#password').val();
+    //         main.login(login, pass)(function(ret) {
+    //             if (ret) {
+    //                 // TODO: detect if user own a clipart or is librarian
+    //                 $('#container').addClass('logged');
+    //                 editable();
+    //                 login_dialog.fadeOut();
+    //             } else {
+    // 
+    //             }
+    //         });
+    //         return false;
+    //     });
+    //     $('#login-popup-window #close').click(function() {
+    //         login_dialog.fadeOut();
+    //         return false;
+    //     });
+    //     $('#logout').click(function() {
+    //         main.logout()(function() {
+    //             $('#container').removeClass('editable logged');
+    //         });
+    //         return false;
+    //     });
+    //     $('.logged .star').live('click', function() {
+    //         var self = $(this);
+    //         var thumb = self.parents('.thumbnail');
+    //         var clipart = thumb.data('id');
+    //         // !!+ string "0" or "1" to int and then to boolean
+    //         //if (!!+thumb.data('favorite')) {
+    //         if (!thumb.hasClass('can_fav')) {
+    //             main.unfavorite(clipart)(function(removed) {
+    //                 if (removed) {
+    //                     self.text(self.text()-1);
+    //                     thumb.addClass('can_fav');
+    //                 }
+    //             });
+    //         } else {
+    //             main.favorite(clipart)(function(added) {
+    //                 if (added) {
+    //                     self.text(+self.text()+1);
+    //                     thumb.removeClass('can_fav');
+    //                 }
+    //             });
+    //         }
+    //         return false;
+    //     });
+    // });
 });

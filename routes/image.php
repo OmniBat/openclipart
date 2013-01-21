@@ -4,10 +4,10 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
     $width = intval($width);
     $dir = $app->config->root_directory;
     $svg_filename = preg_replace("/.png$/", '.svg', $file);
-    $png = $dir . "/public/people/$user/${width}px-$file";
+    $png = $dir . "/people/$user/${width}px-$file";
     if(!$app->config->svg_debug)
-      $svg = $dir . "/public/people/$user/" . $svg_filename;
-    else $svg = $dir . "/public/people/rejon/rejon_Supergirl.svg";
+      $svg = $dir . "/people/$user/" . $svg_filename;
+    else $svg = $dir . $app->config->example_svg;
     $response = $app->response();
     
     /*
@@ -42,12 +42,12 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
         if ($app->nsfw() && $app->db->get_value($query) != 0) {
             $user = $app->config->nsfw_image['user'];
             $filename = $app->config->nsfw_image['filename'];
-            $png = $dir . "/public/people/$user/${width}px-$file-nsfw.png";
+            $png = $dir . "/people/$user/${width}px-$file-nsfw.png";
             if(!$app->config->svg_debug){
-              $svg = $dir . "/public/people/$user/$filename.svg";
+              $svg = $dir . "/people/$user/$filename.svg";
             }else{
               // for develoment so we dont have to rsync ALL the images, just always load the same one
-              $svg = $dir . "/public/people/rejon/rejon_Supergirl.svg";
+              $svg = $dir . $app->config->example_svg;
             }
         }
 

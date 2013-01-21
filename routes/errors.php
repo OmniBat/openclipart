@@ -11,10 +11,10 @@ $app->error(function($exception) use($app) {
         , 'file' => str_replace(
             $app->config->root_directory
             , ''
-            , $exception->getFile()),
-        'line' => $exception->getLine()
-        //->getTraceAsString()
-        , 'trace' => implode("\n", get_trace($exception))
+            , $exception->getFile())
+            , 'line' => $exception->getLine()
+            , 'trace' => implode("\n", get_trace($exception)
+          )
     ));
 });
 
