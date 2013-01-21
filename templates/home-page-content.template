@@ -16,7 +16,7 @@
 
 
       <!-- Example row of columns -->
-      <div class="row popular-new">
+      <div class="row popular-new row-split">
         <div class="span6 section">
           <h3>Popular Clip Art</h3>
           {{> popular_clipart}}
