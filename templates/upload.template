@@ -1,0 +1,22 @@
+{% extends 'main.template' %}
+{% block content %}
+  <h3>Upload Clip Art</h3>
+  <div class="row">
+    <div class="span12 section">
+      <h3>
+        <div class="step">1</div>
+        guarantee
+      </h3>
+      this is something else
+    </div>
+  </div>
+  <form action="upload" method="post" enctype="multipart/form-data">
+  <div class="control-group">
+    <label  class="control-label" for="inputFile">File</label>
+    <div class="controls">
+      <input type="file" name="inputFile" id="file"></input>
+    </div>
+  </div>
+  <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+  </form>
+{% endblock %}

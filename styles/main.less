@@ -1,0 +1,168 @@
+/**
+  * this file is written in LESS
+  * see: http://lesscss.org/
+  * for more details
+  */
+
+@import url('bootstrap-responsive.css');
+@import "font.less";
+@import "mixins.less";
+@import "ui.less";
+@import "section.less";
+@import "footer.less";
+@import "thumbnail.less";
+@import "navbar.less";
+@import "ads.less";
+@import "menu.less";
+@import "tags.less";
+@import "pages/landing.less";
+@import "pages/detail.less";
+@import "components/login-popup.less";
+@import "media/max-979px.less";
+@import "media/max-767px.less";
+@import "media/max-630px.less";
+@import "media/max-570px.less";
+@import "media/max-300px.less";
+
+.center {
+  text-align: center;
+}
+
+body {
+  font-size: 16px;
+  font-family: "AsapRegular";
+  background-color: #ececec;
+}
+
+a {
+  font-family: "AsapItalic";
+  color: #333;
+}
+
+a:hover {
+  text-decoration: none;
+  font-family: "AsapBold";
+  color: black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-family: "AsapBold";
+}
+
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    font-family: "AsapRegular";
+}
+
+
+h3 {
+  font-size: 22px;
+  font-family: "AsapBold";
+}
+
+.container{
+  position: relative;
+  z-index: 2;
+  &.after-stripe {
+    padding: 25px 10px 0 10px;
+    margin-bottom: -30px;
+    background-color: white;
+  }
+  
+  .triangle {
+    top: 0;
+    left: 46px;
+    position: absolute;
+    height:20px;
+    width: 70px;
+    background: url('../img/black-triangle.png') no-repeat 0px 0px;
+  }
+  .landing{
+    .like-links{
+      margin: 0;
+      text-align: right;
+      padding: 0px 10px 0 0 ;
+      a img{
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+
+.stripe {
+  position: absolute;
+  height: 400px;
+  margin-top: -400px;
+  width: 100%;
+  z-index: 1;
+  left: 0;
+  border-bottom: 1px solid white;
+  background: #1a1a1a; /* Old browsers */
+  background:   -moz-linear-gradient(bottom, #1a1a1a 0%, red 100%); /* FF3.6+ */
+  background:      -webkit-gradient(linear, left bottom, left top, color-stop(40%,#1a1a1a), color-stop(100%,#000)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(bottom, #1a1a1a 40%,#000 100%); /* Chrome10+,Safari5.1+ */
+  background:       -o-linear-gradient(bottom, #1a1a1a 40%,#000 100%); /* Opera 11.10+ */
+  background:   -ms-linear-gradient(bottom, #1a1a1a 40%,#000 100%); /* IE10+ */
+  /*background:       url(../img/logo-background.png) no-repeat 0px 170px,   linear-gradient(to top, #1a1a1a 40%, #000 100%);*/ /* W3C */
+  background:       linear-gradient(to top, #1a1a1a 40%, #000 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a1a1a', endColorstr='#000',GradientType=0 ); /* IE6-9 */
+}
+
+.glow {
+  position: absolute;
+  height: 300px;
+  width: 100%;
+  z-index: 2;
+  left: 0;
+  width: 100%;
+  background: -moz-radial-gradient(top, ellipse cover, rgba(255,255,255,1) 50%,  rgba(255,255,255,0) 80%); /*not confirmed working everywhere*/
+  background: -webkit-radial-gradient(center top, ellipse cover, rgba(255,255,255,1) 50%,  rgba(255,255,255,0) 80%);
+  background: -o-radial-gradient(center top, ellipse cover, rgba(255,255,255,1) 50%,  rgba(255,255,255,0) 80%);
+  background: -ms-radial-gradient(center top, ellipse cover, rgba(255,255,255,1) 50%,  rgba(255,255,255,0) 80%);
+  background: radial-gradient(center top, ellipse cover, rgba(255,255,255,1) 50%,  rgba(255,255,255,0) 80%);
+}
+
+.shadow {
+  position: fixed;
+  width: 1300px;
+  margin: 0 auto;
+  z-index: 1;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: -moz-linear-gradient(left, rgba(236,236,236,1) 6%, rgba(119,119,119,1) 50%, rgba(236,236,236,1) 95%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(6%,rgba(236,236,236,1)), color-stop(50%,rgba(119,119,119,1)), color-stop(95%,rgba(236,236,236,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left, rgba(236,236,236,1) 6%,rgba(119,119,119,1) 50%,rgba(236,236,236,1) 95%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left, rgba(236,236,236,1) 6%,rgba(119,119,119,1) 50%,rgba(236,236,236,1) 95%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left, rgba(236,236,236,1) 6%,rgba(119,119,119,1) 50%,rgba(236,236,236,1) 95%); /* IE10+ */
+  background: linear-gradient(to right, rgba(236,236,236,1) 6%,rgba(119,119,119,1) 50%,rgba(236,236,236,1) 95%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ececec', endColorstr='#ececec',GradientType=1 ); /* IE6-9 */
+}
+
+table{
+  td {
+    border-right: 3px solid white;
+    border-bottom: 3px solid white;
+    text-shadow: 0px -1px 0 white;
+    background: rgb(250,250,250);
+    &:hover a{
+      text-decoration: none;
+      text-shadow: 0 -2px 1px white;
+      font-family: "AsapBoldItalic";
+      color: black;
+    }
+  }
+  th:last-of-type,
+  td:last-of-type {
+    text-align: right;
+  }
+  a{
+    color: black;
+  }
+}
+.table{
+  th, td{
+    border-top: none;
+  }
+}

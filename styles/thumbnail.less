@@ -1,0 +1,41 @@
+a.thumbnail {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  display: block;
+  line-height: 20px;
+  padding: 0;
+  transition: all 0.2s ease-in-out 0s;
+  color: black;
+  font-family: "AsapRegular";
+  height: 180px;
+  .image-center {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    img{
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+    }
+  }
+  &:hover {
+    border: none;
+    box-shadow: none;
+    text-decoration: none;
+  }
+  h5 {
+    font-size: 14px;
+    font-family: "AsapRegular";
+    color: #808080;
+    text-transform: lowercase;
+    text-align: center;
+    &:hover{
+      font-family: "AsapBold";
+    }
+  }
+}

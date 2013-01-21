@@ -140,6 +140,7 @@ $app->notFound(function () use ($app) {
 
 require_once('routes/errors.php');
 require_once('routes/index.php');
+require_once('routes/upload.php');
 require_once('routes/login.php');
 require_once('routes/forgot-password.php');
 require_once('routes/profile.php');
