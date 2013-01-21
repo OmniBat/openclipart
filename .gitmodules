@@ -1,18 +1,12 @@
-[submodule "libs/Slim"]
-	path = libs/Slim
-	url = git@github.com:jcubic/Slim.git
-[submodule "libs/mustache.php"]
-	path = libs/mustache.php
-	url = https://github.com/bobthecow/mustache.php.git
-[submodule "libs/json-rpc"]
-	path = libs/json-rpc
-	url = https://github.com/jcubic/json-rpc.git
 [submodule "libs/picatcha"]
 	path = libs/picatcha
 	url = https://github.com/picatcha/picatcha-php.git
-[submodule "libs/jquery-tagit"]
-	path = libs/jquery-tagit
-	url = https://github.com/hailwood/jQuery-Tagit
-[submodule "libs/tag-it"]
-	path = libs/tag-it
-	url = https://github.com/aehlke/tag-it.git
+[submodule "libs/Twig"]
+	path = libs/Twig
+	url = https://github.com/fabpot/Twig.git
+[submodule "libs/Slim"]
+	path = libs/Slim
+	url = git://github.com/codeguy/Slim.git
+[submodule "libs/json-rpc"]
+	path = libs/json-rpc
+	url = git@github.com:openclipart/json-rpc.git

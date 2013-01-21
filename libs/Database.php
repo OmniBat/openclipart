@@ -35,9 +35,11 @@ class Database {
                                         $this->conn->connect_error);
         }
     }
+    
     function escape($string) {
         return $this->conn->real_escape_string($string);
     }
+    
     function query($query) {
         $ret = $this->conn->query($query);
         if (!$ret) {
@@ -45,6 +47,7 @@ class Database {
         }
         return $ret;
     }
+    
     function get_array($query){
         $result = array();
         $ret = $this->query($query);
@@ -57,6 +60,7 @@ class Database {
         $ret->close();
         return $result;
     }
+    
     function get_row($query) {
         $result = array();
         $ret = $this->query($query);
@@ -64,6 +68,7 @@ class Database {
         $ret->close();
         return $result;
     }
+    
     function get_assoc($query) {
         $ret = $this->query($query);
         if ($ret->num_rows == 0) {
@@ -73,6 +78,15 @@ class Database {
         $ret->close();
         return $result;
     }
+    
+    function get_obj($query){
+      $ret = $this->query($query);
+      if($ret->num_rows === 0) return new stdClass();
+      $result = $ret->fetch_object();
+      $ret->close();
+      return $result;
+    }
+    
     function get_column($query) {
         $result = array();
         $ret = $this->query($query);
@@ -85,6 +99,7 @@ class Database {
         $ret->close();
         return $result;
     }
+    
     function get_value($query, $detaul=null) {
         $result = array();
         $ret = $this->query($query);
@@ -93,9 +108,10 @@ class Database {
             $ret->close();
             return $result[0];
         } else {
-            return $detault;
+            return $result;
         }
     }
+    
     function __call($name, $argv) {
         return call_user_func_array(array($this->conn, $name), $argv);
     }

@@ -20,19 +20,20 @@
  */
 
 require_once('System.php');
+require_once('config.php');
 
 // Main class extend System to OCAL specific functions
-class OCAL extends System {
+class OCAL extends System{
 
     private $shutterstock_api_url = "http://api.shutterstock.com/images/search.json?all=0&page_number=1&category_id=29";
     private $shutterstock_api_login = "openclipart";
     private $shutterstock_api_key = "75f6916e802d2969ce255ad03f0316a817535922";
 
-    function __construct($settings) {
-        $config = json_decode(file_get_contents('config.json'), true);
+    function __construct($settings){
+        global $config;
         $protocol = (isset($_SERVER['HTTPS'])) ? 'https' : 'http';
         $config['root'] = $protocol . '://' . $_SERVER['HTTP_HOST'];
-        $config['root_directory'] = $_SERVER['DOCUMENT_ROOT'];
+        $config['root_directory'] = $_SERVER['DOCUMENT_ROOT'] . '/public';
         System::__construct(array_merge($config, $settings));
     }
     function nsfw() {
@@ -103,21 +104,21 @@ class OCAL extends System {
         $auth_code = base64_encode($this->shutterstock_api_login . ":" .
                                    $this->shutterstock_api_key);
         $headers = array();
-		$headers[] = "Authorization: Basic $auth_code";
-
-		$terms = trim($terms);
-		$terms = preg_replace('/\s+/','+',$terms);
+        $headers[] = "Authorization: Basic $auth_code";
+        
+        $terms = trim($terms);
+        $terms = preg_replace('/\s+/','+',$terms);
         $url = $this->shutterstock_api_url;
         if ($terms != null) {
             $url .= '&searchterm='. $terms;
         }
         $ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-		$resp = curl_exec($ch);
-		$response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $resp = curl_exec($ch);
+        $response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ( $response_code != '200' ) {
             return null;
         } else {
@@ -134,9 +135,6 @@ class OCAL extends System {
         } else {
             return array();
         }
-    }
-    function get_user_id(){
-        return -1;
     }
     function tag_counts($tags) {
         $db = $this->db;

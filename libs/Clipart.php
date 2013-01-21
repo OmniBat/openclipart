@@ -20,6 +20,8 @@
  */
 
 class Clipart {
+    private $data;
+    private $full_path;
     static function by_name($user, $filename) {
         global $app;
         $user = $app->db->escape($user);
@@ -28,9 +30,15 @@ class Clipart {
             // so we don't need to care about the extension
             $filename = preg_replace("/\.png|\.jpg$/", ".svg", $filename);
         }
-        $query = "SELECT openclipart_tags.name FROM openclipart_clipart INNER JOIN openclipart_users ON owner = openclipart_users.id INNER JOIN openclipart_clipart_tags ON clipart = openclipart_clipart.id INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE filename = '$filename' AND username = '$user'";
-        
-        $clipart = new Clipart();
+        $query = "SELECT openclipart_tags.name 
+                    FROM openclipart_clipart 
+                    INNER JOIN openclipart_users ON owner = openclipart_users.id 
+                    INNER JOIN openclipart_clipart_tags ON clipart = openclipart_clipart.id 
+                    INNER JOIN openclipart_tags ON tag = openclipart_tags.id 
+                    WHERE filename = '$filename' AND username = '$user'";
+        $tags = $app->db->get_column($query);
+        $clipart = new Clipart($user, $filename);
+        return $clipart;
     }
     static function by_id($id) {
         global $app;
@@ -41,34 +49,78 @@ class Clipart {
         $clipart = new Clipart($tags);
         $clipart->fetch_tags($id);
     }
-    function __construct($clipart, $tags) {
-        $this->clipart = $clipart;
-        $this->tags = $tags;
-        $this->full_path = $app->config->root_directory . "/people/$user/$filename";
+    function __construct($user, $filename) {
+      global $app;
+      $this->data = $this->hydrate($user, $filename);
+      $user = $this->data->username;
+      $filename = $this->data->filename;
+      $this->full_path = $app->config->root_directory . "/people/$user/$filename";
+    }
+    
+    private function hydrate($id, $filename){
+      global $app;
+      if(isset($filename)){
+        $username = $id;
+        unset($id);
+        $username = $app->db->escape($username);
+        $filename = $app->db->escape($filename);
+        $where = "WHERE filename = '$filename' AND username = '$username'";
+      }else{
+        $id = (int) $app->db->escape($id);
+        $where = "WHERE id = $id";
+      }
+      // query for the clipart by username and filename
+      $query = "SELECT 
+                  username
+                  , owner
+                  , openclipart_clipart.id as id
+                  , filename
+                  , downloads
+                  FROM openclipart_clipart
+                  INNER JOIN openclipart_users ON owner = openclipart_users.id 
+                  $where";
+      return $app->db->get_obj($query);
     }
     function __isset($name) {
-        return isset($this->clipart);
+        return isset($this->data);
     }
+    
     function __get($name) {
-        return $this->clipart[$name];
+        return $this->data[$name];
     }
+    
     function exists() {
-        return file_exists($this->full_path());
+        return file_exists($this->full_path);
     }
+    
     function size() {
-        return filesize($this->full_path());
+        return filesize($this->full_path);
     }
+    
+    function full_path(){
+      return $this->full_path;
+    }
+    
     function nsfw() {
-        return in_array('nsfw', $this->tags);
+      // TODO: implement nsfw tags
+      return false;
     }
+    
     function have_pd_issue() {
-        return in_array('pd_issue', $this->tags);
+        // TODO: figure out what pd issue means...
+        return false;
     }
+    
     function have_issues() {
+      
     }
+    
     function inc_download() {
         global $app;
-        $query = "UPDATE openclipart_clipart SET downloads = downloads + 1 WHERE owner = (SELECT id FROM openclipart_users WHERE $id = " . $this->id;
+        $id = $this->data->id;
+        $query = "UPDATE openclipart_clipart 
+                    SET downloads = downloads + 1 
+                    WHERE id = $id";
         $app->db->query($query);
     }
 }

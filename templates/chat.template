@@ -1,6 +1,9 @@
+{% extends 'main.template' %}
+{%block content %}
 <div id="chat">
   <h2>Live Chat</h2>
   <p>If you want to talk to someone urgently, please use their name to get their attention, as we are very busy people and are not actively monitoring the chat, even if we are logged in. Using their name will make their window flash for attention.</p>
   <iframe src="http://webchat.freenode.net/?channels=openclipart" width="800" height="400"></iframe>
   <p><strong>Problem?</strong> <a href="http://webchat.freenode.net/?channels=openclipart">Try this link</a>. If you want to change your name, type: <code>/nick YOUR_NICK</code></p>
 </div>
+{% endblock %}
