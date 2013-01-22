@@ -72,6 +72,9 @@
 .section h3 + * {
   padding-top: 20px;
 }
+.section > .row {
+  padding-top: inherit;
+}
 .section h3 {
   position: relative;
   color: white;
@@ -120,6 +123,37 @@
   width: 100%;
   background: url(../img/headline-triangle.png) no-repeat center 0px;
   z-index: 3;
+}
+.section h3 .step-container {
+  width: 1px;
+  height: 1px;
+  background-color: none;
+  display: inline-block;
+  position: relative;
+}
+.section h3 .step-container .step {
+  background-color: white;
+  margin-bottom: -3px;
+  width: 60px;
+  font-size: 30px;
+  line-height: 20px;
+  vertical-align: center;
+  color: black;
+  text-decoration: none;
+  height: 30px;
+  padding-top: 5px;
+  position: relative;
+  right: 70px;
+  top: -22px;
+}
+.section h3 .step-container .check-green {
+  background: url('/img/upload-icons.png');
+  background-position: 0px -16px;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: -15px;
+  top: -30px;
 }
 .section:after {
   /* adds smoothed border */
@@ -679,6 +713,37 @@ a.thumbnail h5:hover {
 .detail-ad {
   padding: 20px 0 30px;
 }
+.page-upload .gaurantee h4 {
+  color: #666;
+}
+.page-upload .gaurantee ul {
+  list-style: none;
+}
+.page-upload .gaurantee ul li {
+  margin-bottom: 20px;
+  line-height: 20px;
+  font-size: 14px;
+}
+.page-upload .gaurantee .icon-copyright,
+.page-upload .gaurantee .icon-trademark,
+.page-upload .gaurantee .icon-publicdomain {
+  background: url('/img/upload-icons.png');
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+.page-upload .gaurantee .icon-copyright {
+  background-position: 0px -119px;
+}
+.page-upload .gaurantee .icon-trademark {
+  background-position: 0px -219px;
+}
+.page-upload .gaurantee .icon-publicdomain {
+  background-position: 0px -319px;
+}
+.page-upload .gaurantee strong {
+  font-family: "AsapBold";
+}
 #popup-window {
   position: absolute;
   width: 445px;
@@ -945,6 +1010,9 @@ span.picatcha_td {
 }
 .center {
   text-align: center;
+}
+strong {
+  font-family: 'AsapBold';
 }
 body {
   font-size: 16px;
