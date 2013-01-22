@@ -5,7 +5,7 @@ $app->map('/register', function() use ($app) {
     
     if(isset($app->config->picatcha['enabled']))
       $use_picatcha = $app->config->picatcha['enabled'];
-    else $use_picatch = false;
+    else $use_picatcha = false;
     
     // GET - just render the register page
     if(
