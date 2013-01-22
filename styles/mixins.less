@@ -1,0 +1,22 @@
+/*creates black section bar*/
+.section-shading(){
+  position: relative;
+  color: white;
+  font-size: 18px;
+  text-shadow: 0 2px 0 black;
+  margin: 0 -10px 30px -10px;
+  text-align: center;
+  padding: 2px 0 3px 0;
+  line-height: 28px;
+  /*background: -moz-linear-gradient(top, white 1px, black 1px, #333 12px);*/
+  background: rgb(255,255,255); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(255,255,255,1) 1px, rgba(0,0,0,1) 1px, rgba(51,51,51,1) 12px); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1px,rgba(255,255,255,1)), color-stop(1px,rgba(0,0,0,1)), color-stop(12px,rgba(51,51,51,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 1px,rgba(0,0,0,1) 1px,rgba(51,51,51,1) 12px); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(255,255,255,1) 1px,rgba(0,0,0,1) 1px,rgba(51,51,51,1) 12px); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(255,255,255,1) 1px,rgba(0,0,0,1) 1px,rgba(51,51,51,1) 12px); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 1px,rgba(0,0,0,1) 1px,rgba(51,51,51,1) 12px); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#333333',GradientType=0 ); /* IE6-9 */
+  z-index: 3;
+  border-top: 1px solid #d7d7d7;
+}

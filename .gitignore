@@ -5,6 +5,7 @@ TRASH
 \.\#
 /config.json
 /public/people
+/public/image
 /vendor
 composer.phar
 .DS_Store

@@ -1,0 +1,96 @@
+{% extends 'main.template' %}
+{% block content %}
+  <div class="page-upload">
+    <h3>Upload Clip Art</h3>
+    <div class="row">
+      <div class="span12 section">
+        <h3>
+          <div class="step-container">
+            <div class="step">1</div>
+            <div class="check-green"></div>
+          </div>
+          guarantee
+        </h3>
+        <div class="row">
+          <div class="span2"></div>
+          <div class="span8">
+            <div class="well gaurantee">
+              <h4>By Submitting this work, you guarantee that:</h4>
+              <ul>
+                <li>
+                  <div class="icon-copyright pull-left"></div>
+                  <strong>You</strong> created the image, can prove you have been assigned copyright over the image or have made sure the image is free
+                </iL>
+                <li>
+                  <div class="icon-trademark pull-left"></div>
+                  <strong>No Trademarks!</strong>
+                  <br />
+                  It does not contain anyone else's characters, logos, or
+                </li>
+                <li>
+                  <div class="icon-publicdomain pull-left"></div>
+                  <strong>Public Domain!</strong>
+                  <br />
+                  You are waiving all copyright and related or neighboring rights under the CCO Public Domain Dedication.
+                </li>
+              </ul>
+            </div>
+            <p> 
+              For more details, see the <strong>CC Zero Public Domain Dedication</strong> and our <strong>policies</strong> for more information.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12 section">
+        <h3>
+          <div class="step-container">
+            <div class="step">2</div>
+            {% if user %}
+              <div class="check-green"></div>
+            {% endif %}
+          </div>
+          login
+        </h3>
+        <div class="login-info">
+          {% if not user %}
+            <p>You're not logged in yet.</p>
+            <a href="/login?redirect=%2Fupload">login now</a>
+            <br />
+            <br />
+          {% endif %}
+          {% if user %}
+            <p> You're logged in! </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12 section">
+        <h3>
+          <div class="step-container"><div class="step">3</div></div>
+          upload
+        </h3>
+        <div class="row">
+          <div class="span3"></div>
+          <div class="span6">
+            <p>
+              <strong>SVG Only!</strong>
+              Please note that only <strong>SVG</strong> files may be uploaded. Read over the <strong>guidelines for creating</strong>
+            </p>
+          </div>
+        </div>
+        <form action="upload" method="post" enctype="multipart/form-data">
+        <div class="control-group">
+          <label  class="control-label" for="inputFile">File</label>
+          <div class="controls">
+            <input class="file-upload" type="file" name="inputFile" id="file" accept="image/svg+xml" multiple="multiple">
+          </div>
+        </div>
+        <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

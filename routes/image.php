@@ -1,11 +1,15 @@
 <?php
 $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($app) {
-    
+
     $width = intval($width);
+    $dir = $app->config->root_directory;
     $svg_filename = preg_replace("/.png$/", '.svg', $file);
-    $png = $app->config->root_directory . "/public/people/$user/${width}px-$file";
-    $svg = $app->config->root_directory . "/public/people/$user/" . $svg_filename;
+    $png = $dir . "/people/$user/${width}px-$file";
+    if(!$app->config->svg_debug)
+      $svg = $dir . "/people/$user/" . $svg_filename;
+    else $svg = $dir . $app->config->example_svg;
     $response = $app->response();
+    
     /*
     //speed up loading - problem: nsfw can change and this may display old generated image
     $maybe_nsfw = preg_replace('/.png$/', '-nsfw.png', $png);
@@ -21,10 +25,8 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
         // TODO: Generate Error Image
         echo "Resolution couldn't be higher then $max_res px! Please download SVG and " .
             "produce the bitmap locally.";
-    } else if (!file_exists($svg) || filesize($svg) == 0) {
-        // NOTE: you don't need to check user and file for script injection because
-        //       file_exists will prevent this
-        return $app->notFound();
+    } else if ( !file_exists($svg) || filesize($svg) == 0 ){
+      return $app->notFound();
     } else {
         $file = $app->db->escape($file);
         $user = $app->db->escape($user);
@@ -40,8 +42,13 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
         if ($app->nsfw() && $app->db->get_value($query) != 0) {
             $user = $app->config->nsfw_image['user'];
             $filename = $app->config->nsfw_image['filename'];
-            $png = $app->config->root_directory . "/public/people/$user/${width}px-$file-nsfw.png";
-            $svg = $app->config->root_directory . "/public/people/$user/$filename.svg";
+            $png = $dir . "/people/$user/${width}px-$file-nsfw.png";
+            if(!$app->config->svg_debug){
+              $svg = $dir . "/people/$user/$filename.svg";
+            }else{
+              // for develoment so we dont have to rsync ALL the images, just always load the same one
+              $svg = $dir . $app->config->example_svg;
+            }
         }
 
 
@@ -63,23 +70,34 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
             $height  = str_replace("pt", "", $height);
             $height = intval($height);
 
-            if ($width < $height) {
-                $newhight = $newvalue;
-                $newwidth = round(($newvalue * $width) / $height);
-            } elseif ($width == $height) {
-                $newhight = $newvalue;
-                $newwidth = $newvalue;
-            } else {
-                $newwidth = $newvalue;
-                $newhight = round(($newvalue * $height) / $width);
+            if($width < $height){
+              $newheight = $newvalue;
+              $newwidth = round(($newvalue * $width) / $height);
+            }elseif($width == $height){
+              $newheight = $newvalue;
+              $newwidth = $newvalue;
+            }else{
+              $newwidth = $newvalue;
+              $newheight = round(($newvalue * $height) / $width);
             }
-
-            exec("rsvg --width $newwidth --height $newhight $svg $png");
-            if (!file_exists($png)) {
-                $app->pass();
-            } else {
-                $response->header('Content-Type', 'image/png');
-                echo file_get_contents($png);
+            
+            $output_dir = dirname($png);
+            // make sure the directory exists
+            exec("mkdir -p $output_dir");
+            
+            if($app->config->svg_converter === "svg2png"){
+              // used for local development using MAMP on OS X with svg2png installed via `brew install svg2png`
+              // the DYLD_LIBRARY_PATH bit is to prevent svg2png from linking against MAMPs outdated libs
+              $cmd = "DYLD_LIBRARY_PATH=\"\" /usr/local/bin/svg2png -w $newwidth -h $newheight $svg $png";
+            }else{
+              $cmd = "rsvg --width $newwidth --height $newheight $svg $png";
+            }
+            exec($cmd);
+            if(!file_exists($png)){
+              $app->pass();
+            }else{
+              $response->header('Content-Type', 'image/png');
+              echo file_get_contents($png);
             }
         }
     }

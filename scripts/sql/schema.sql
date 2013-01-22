@@ -1,6 +1,7 @@
 
 SET default_storage_engine=MYISAM;
 
+USE OCAL;
 
 -- FILES
 CREATE TABLE IF NOT EXISTS openclipart_clipart(

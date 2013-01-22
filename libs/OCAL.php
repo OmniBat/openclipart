@@ -33,7 +33,7 @@ class OCAL extends System{
         global $config;
         $protocol = (isset($_SERVER['HTTPS'])) ? 'https' : 'http';
         $config['root'] = $protocol . '://' . $_SERVER['HTTP_HOST'];
-        $config['root_directory'] = $_SERVER['DOCUMENT_ROOT'];
+        $config['root_directory'] = $_SERVER['DOCUMENT_ROOT'] . '/public';
         System::__construct(array_merge($config, $settings));
     }
     function nsfw() {

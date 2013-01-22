@@ -113,8 +113,16 @@ $app = new OCAL(array(
         , 'filename' => 'openclipart-logo-grey'
     ),
 ));
-
 $app->view(new View());
+
+$app->hook('slim.before', function() use($app){
+  // make the user visible to the view template
+  if($app->user()){
+    $app->view()->appendData(array(
+      'user' => $app->user()
+    ));
+  }
+});
 
 $app->get("/about", function() use($app) {
     return $app->render('about');
@@ -140,6 +148,7 @@ $app->notFound(function () use ($app) {
 
 require_once('routes/errors.php');
 require_once('routes/index.php');
+require_once('routes/upload.php');
 require_once('routes/login.php');
 require_once('routes/forgot-password.php');
 require_once('routes/profile.php');

@@ -75,10 +75,10 @@ class System extends Slim {
         $this->settings = array_merge(array(
             'debug' => false,
         ), $settings);
-        $this->db = new Database($settings['db_host'],
-                                 $settings['db_user'],
-                                 $settings['db_pass'],
-                                 $settings['db_name']);
+        $this->db = new Database($settings['db_host']
+                      , $settings['db_user']
+                      , $settings['db_pass']
+                      , $settings['db_name']);
         $this->groups = array();
         $this->db_prefix = $settings['db_prefix'];
         $this->user = array();
@@ -285,8 +285,8 @@ class System extends Slim {
     // param $where is part of sql that will authorize
     function __authorize($where = null) {
         if ($where == null || $where == '') {
-            throw new Exception("where argument to __authorize private method " .
-                                "can't be null or empty");
+            throw new Exception("where argument to __authorize private "
+              . "method can't be null or empty");
         }
         $table = $this->db_prefix . '_users';
         $query = "SELECT * FROM $table WHERE $where";
@@ -294,11 +294,6 @@ class System extends Slim {
         if (empty($db_user)) {
             throw new AuthorizationException("Where '$where' is invalid");
         }
-        /*
-        $this->user = filter_pair($db_user, function($k, $v) {
-            return $k != 'password';
-        });
-        */
         $this->user = $db_user;
         $this->groups = $this->fetch_groups(intval($this->id));
     }
