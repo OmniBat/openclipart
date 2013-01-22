@@ -8,6 +8,8 @@ SET character_set_connection=utf8;
 SET collation_database=utf8_general_ci;
 SET collation_server=utf8_general_ci;
 
+USE ocal;
+
 TRUNCATE openclipart_clipart;
 TRUNCATE openclipart_users;
 TRUNCATE openclipart_remixes;

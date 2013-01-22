@@ -1,4 +1,27 @@
 .page-upload{
+  
+  .icon-copyright,
+  .icon-trademark,
+  .icon-publicdomain,
+  .icon-svg{
+    background: url('/img/upload-icons.png');
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  .icon-copyright{
+    background-position: 0px -119px;
+  }
+  .icon-trademark{
+    background-position: 0px -219px;
+  }
+  .icon-publicdomain{
+    background-position: 0px -319px;
+  }
+  .icon-svg{
+    background-position: 0px -419px;
+  }
+  
   /* GAURANTEE SECTION*/
   .gaurantee{
     h4{
@@ -12,23 +35,6 @@
         font-size: 14px;
       }
     }
-    .icon-copyright,
-    .icon-trademark,
-    .icon-publicdomain{
-      background: url('/img/upload-icons.png');
-      width: 50px;
-      height: 50px;
-      margin-right: 10px;
-    }
-    .icon-copyright{
-      background-position: 0px -119px;
-    }
-    .icon-trademark{
-      background-position: 0px -219px;
-    }
-    .icon-publicdomain{
-      background-position: 0px -319px;
-    }
     strong{
       font-family: "AsapBold";
     }
@@ -40,7 +46,21 @@
       color: red;
     }
   }
-  .file-upload{
-    /*background-color: blue;*/
+  form.image-upload{
+    .file-upload{
+      visibility: hidden;
+      position: absolute;
+      top: -50px;
+      left: -50px;
+    }
+    .upload-controls{
+      text-align: center;
+      .file-select{
+        color: red;
+      }
+      .btn-upload{
+        margin-top: 10px;
+      }
+    }
   }
 }
