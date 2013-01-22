@@ -144,7 +144,12 @@ $app->get('/test', function() use($app){
 
 $app->post('/pull', function() use($app){
   $ip = $_SERVER['REMOTE_ADDR'];
-  if($ip == '207.97.227.253' || $ip == '50.57.128.197' || $ip == '108.171.174.178' ){
+  if( 
+      $ip == '207.97.227.253' 
+      || $ip == '50.57.128.197' 
+      || $ip == '108.171.174.178' 
+      || $ip == '50.57.231.61' 
+  ){
     error_log('request to update repo');
     system("./pull");
     return $app->halt(200);
