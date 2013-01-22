@@ -142,7 +142,7 @@ $app->get('/test', function() use($app){
     return $app->render('test');
 });
 
-$app->get('/pull', function() use($app){
+$app->post('/pull', function() use($app){
   $ip = $_SERVER['REMOTE_ADDR'];
   if($ip == '207.97.227.253' || $ip == '50.57.128.197' || $ip == '108.171.174.178' ){
     error_log('request to update repo');
