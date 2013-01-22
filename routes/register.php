@@ -3,7 +3,9 @@ $app->map('/register', function() use ($app) {
     // TODO: try catch that show json on ajax and throw exception so it will be cached
     //       by main error handler
     
-    $use_picatcha = $app->config->picatcha['enabled'];
+    if(isset($app->config->picatcha['enabled']))
+      $use_picatcha = $app->config->picatcha['enabled'];
+    else $use_picatch = false;
     
     // GET - just render the register page
     if(
