@@ -142,6 +142,15 @@ $app->get('/test', function() use($app){
     return $app->render('test');
 });
 
+$app->get('/pull', function() use($app){
+  $ip = $_SERVER['REMOTE_ADDR'];
+  if($ip == '207.97.227.253' || $ip == '50.57.128.197' || $ip == '108.171.174.178' ){
+    error_log('request to update repo');
+    system("./pull");
+    return $app->halt(200);
+  }else return $app->halt(401,'It appears this request to update the repo did not originate from Github.');
+});
+
 $app->notFound(function () use ($app) {
     return $app->render('errors/404');
 });
