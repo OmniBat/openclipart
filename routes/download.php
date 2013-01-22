@@ -18,7 +18,7 @@ $app->get("/download/svg/:user/:filename", function($user, $filename) use($app) 
         }
     }
     */
-    if($app->config->svg_debug){
+    if(isset($app->config->svg_debug) && $app->config->svg_debug){
       $user = 'rejon';
       $filename = 'rejon_Supergirl.svg';
     }
@@ -87,7 +87,7 @@ $app->get("/download/collection/:name", function($name) use($app){
                 $archive[$row['filename']] = 1;
             }
             $in_archive[] = $row['filename'];
-            if(!$app->config->svg_debug){
+            if(!isset($app->config->svg_debug) || !$app->config->svg_debug){
               $filename = $app->config->root_directory 
                 . '/people/' . $row['user'] . '/' . $row['filename'];
             }else{
