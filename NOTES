@@ -1,3 +1,10 @@
+
+-- LESS to CSS just run
+make css
+
+-- if you want to search all the CSS for a particular element use grep
+grep "my-element" -IRn styles
+
 -- TAG CLOUD
 SELECT openclipart_tags.name, count(openclipart_tags.id) as tag_count FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON openclipart_tags.id = tag GROUP BY tag ORDER BY tag_count DESC LIMIT 10;
 
