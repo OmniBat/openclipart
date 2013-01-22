@@ -47,10 +47,23 @@
         <h3>
           <div class="step-container">
             <div class="step">2</div>
-            <div class="check-green"></div>
+            {% if user %}
+              <div class="check-green"></div>
+            {% endif %}
           </div>
           login
         </h3>
+        <div class="login-info">
+          {% if not user %}
+            <p>You're not logged in yet.</p>
+            <a href="/login?redirect=%2Fupload">login now</a>
+            <br />
+            <br />
+          {% endif %}
+          {% if user %}
+            <p> You're logged in! </p>
+          {% endif %}
+        </div>
       </div>
     </div>
     <div class="row">
@@ -59,11 +72,20 @@
           <div class="step-container"><div class="step">3</div></div>
           upload
         </h3>
+        <div class="row">
+          <div class="span3"></div>
+          <div class="span6">
+            <p>
+              <strong>SVG Only!</strong>
+              Please note that only <strong>SVG</strong> files may be uploaded. Read over the <strong>guidelines for creating</strong>
+            </p>
+          </div>
+        </div>
         <form action="upload" method="post" enctype="multipart/form-data">
         <div class="control-group">
           <label  class="control-label" for="inputFile">File</label>
           <div class="controls">
-            <input type="file" name="inputFile" id="file"></input>
+            <input class="file-upload" type="file" name="inputFile" id="file" accept="image/svg+xml" multiple="multiple">
           </div>
         </div>
         <input class="btn btn-primary" type="submit" name="submit" value="Submit">

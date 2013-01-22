@@ -7,7 +7,10 @@ $app->map('/login', function() use ($app) {
         try {
             $app->login($_POST['login'], $_POST['password']);
             // login successful
-            return $app->redirect('/profile');
+            if(isset($app->GET->redirect))
+              return $app->redirect($app->GET->redirect);
+            else 
+              return $app->redirect('/profile');
         } catch (LoginException $e) {
             $error = $e->getMessage();
         }

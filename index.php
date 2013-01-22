@@ -113,8 +113,16 @@ $app = new OCAL(array(
         , 'filename' => 'openclipart-logo-grey'
     ),
 ));
-
 $app->view(new View());
+
+$app->hook('slim.before', function() use($app){
+  // make the user visible to the view template
+  if($app->user()){
+    $app->view()->appendData(array(
+      'user' => $app->user()
+    ));
+  }
+});
 
 $app->get("/about", function() use($app) {
     return $app->render('about');
