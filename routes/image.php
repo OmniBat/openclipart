@@ -5,7 +5,7 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
     $dir = $app->config->root_directory;
     $svg_filename = preg_replace("/.png$/", '.svg', $file);
     $png = $dir . "/people/$user/${width}px-$file";
-    if(!$app->config->svg_debug)
+    if(!isset($app->config->svg_debug) || !$app->config->svg_debug)
       $svg = $dir . "/people/$user/" . $svg_filename;
     else $svg = $dir . $app->config->example_svg;
     $response = $app->response();
@@ -43,7 +43,7 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
             $user = $app->config->nsfw_image['user'];
             $filename = $app->config->nsfw_image['filename'];
             $png = $dir . "/people/$user/${width}px-$file-nsfw.png";
-            if(!$app->config->svg_debug){
+            if(!isset($app->config->svg_debug) || !$app->config->svg_debug){
               $svg = $dir . "/people/$user/$filename.svg";
             }else{
               // for develoment so we dont have to rsync ALL the images, just always load the same one

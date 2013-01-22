@@ -34,7 +34,7 @@ $app->get("/clipart/:id", function($id) use ($app) {
     $query = "select openclipart_comments.id, username, comment, date, openclipart_clipart.filename as avatar from openclipart_comments inner join openclipart_users on user = openclipart_users.id LEFT OUTER JOIN openclipart_clipart ON avatar = openclipart_clipart.id where clipart = $id";
     $comments = $app->db->get_array($query);
     
-    if(!$app->config->svg_debug){
+    if(!isset($app->config->svg_debug) || !$app->config->svg_debug){
       $svg = $app->config->root_directory . '/people/' . $row['username'] . '/' . $row['filename'];
     }else{
       // use this file for dev/debugging so we dont have to always download
