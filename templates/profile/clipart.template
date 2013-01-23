@@ -1,0 +1,4 @@
+{% extends 'main.template' %}
+{% block content %}
+<h1> Your Clipart </h1>
+{% endblock %}
