@@ -100,7 +100,20 @@ $app->post("/profile/:username/edit", function($username) use($app){
 });
 
 $app->get("/profile/:username/clipart", function($username) use($app){
-  return $app->render("profile/clipart");
+  return $app->redirect("/profile/$username/clipart/0");
+});
+$app->get("/profile/:username/clipart/:page", function($username, $page) use($app){
+  $results_per_page = 20; // results per page
+  $total = $app->num_user_clipart($username);
+  $cliparts = $app->user_clipart($username, $page, $results_per_page);
+  return $app->render("profile/clipart", array(
+    'cliparts' => $cliparts
+    , 'username' => $username
+    , 'pagination' => array(
+      'pages' => round( $total / $results_per_page, 0, PHP_ROUND_HALF_UP)
+      , 'current' => $page
+    )
+  ));
 });
 
 ?>

@@ -1,4 +1,12 @@
 {% extends 'main.template' %}
 {% block content %}
-<h1> Your Clipart </h1>
+  <h2 class="center"> {{username}}'s clipart </h2>
+  {% include 'components/pagination.template' %}
+  <div class="row">
+    {% for clipart in cliparts %}
+      {% include 'clipart/item.template' %}
+    {% endfor %}
+  </div>
+  {% include 'components/pagination.template' %}
+  <br />
 {% endblock %}

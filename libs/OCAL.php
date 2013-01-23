@@ -136,6 +136,34 @@ class OCAL extends System{
             return array();
         }
     }
+    function clipart_filename_png($filename){
+      return preg_replace("/.svg$/",".png", $filename);
+    }
+    function num_user_clipart($username){
+      $username = $this->db->escape($username);
+      $query = "SELECT COUNT(*) 
+                FROM openclipart_clipart 
+                INNER JOIN openclipart_users
+                WHERE owner = openclipart_users.id 
+                AND openclipart_users.username = '$username'";
+      return $this->db->get_value($query);
+    }
+    function user_clipart($username, $page, $results_per_page){
+      $username = $this->db->escape($username);
+      $start = $page * $results_per_page;
+      $end = $start + $results_per_page;
+      $query = "SELECT * 
+                  FROM openclipart_clipart 
+                  INNER JOIN openclipart_users 
+                  WHERE owner = openclipart_users.id AND openclipart_users.username = '$username'
+                  LIMIT $start, $end";
+      $cliparts = $this->db->get_array($query);
+      // set the filename_png
+      foreach($cliparts as $index => $clipart){
+        $cliparts[$index]['filename_png'] = $this->clipart_filename_png($clipart['filename']);
+      }
+      return $cliparts;
+    }
     function tag_counts($tags) {
         $db = $this->db;
         if(!is_array($tags) || sizeof($tags) === 0 ) return;
@@ -150,7 +178,6 @@ class OCAL extends System{
             GROUP BY name 
             ORDER BY count 
             DESC";
-        var_dump($query);
         return $db->get_array($query);
     }
 }
