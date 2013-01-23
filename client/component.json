@@ -2,7 +2,13 @@
   "dependencies": {
     "component/jquery": "*"
   },
-  "scripts" : [
-    "index.js"
+  "name": "openclipart",
+  "scripts": [
+    "index.js",
+    "templates/upload-item.js",
+    "upload.js"
+  ],
+  "styles" : [
+    "../styles/main.css"
   ]
 }

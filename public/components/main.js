@@ -9613,78 +9613,653 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 })( window );
 
 });
+require.register("component-event/index.js", function(exports, require, module){
+
+/**
+ * Bind `el` event `type` to `fn`.
+ *
+ * @param {Element} el
+ * @param {String} type
+ * @param {Function} fn
+ * @param {Boolean} capture
+ * @return {Function}
+ * @api public
+ */
+
+exports.bind = function(el, type, fn, capture){
+  if (el.addEventListener) {
+    el.addEventListener(type, fn, capture);
+  } else {
+    el.attachEvent('on' + type, fn);
+  }
+  return fn;
+};
+
+/**
+ * Unbind `el` event `type`'s callback `fn`.
+ *
+ * @param {Element} el
+ * @param {String} type
+ * @param {Function} fn
+ * @param {Boolean} capture
+ * @return {Function}
+ * @api public
+ */
+
+exports.unbind = function(el, type, fn, capture){
+  if (el.removeEventListener) {
+    el.removeEventListener(type, fn, capture);
+  } else {
+    el.detachEvent('on' + type, fn);
+  }
+  return fn;
+};
+
+});
+require.register("component-keyname/index.js", function(exports, require, module){
+
+/**
+ * Key name map.
+ */
+
+var map = {
+  8: 'backspace',
+  9: 'tab',
+  13: 'enter',
+  16: 'shift',
+  17: 'ctrl',
+  18: 'alt',
+  20: 'capslock',
+  27: 'esc',
+  32: 'space',
+  33: 'pageup',
+  34: 'pagedown',
+  35: 'end',
+  36: 'home',
+  37: 'left',
+  38: 'up',
+  39: 'right',
+  40: 'down',
+  45: 'ins',
+  46: 'del',
+  91: 'meta',
+  93: 'meta',
+  224: 'meta'
+};
+
+/**
+ * Return key name for `n`.
+ *
+ * @param {Number} n
+ * @return {String}
+ * @api public
+ */
+
+module.exports = function(n){
+  return map[n];
+};
+});
+require.register("component-emitter/index.js", function(exports, require, module){
+
+/**
+ * Expose `Emitter`.
+ */
+
+module.exports = Emitter;
+
+/**
+ * Initialize a new `Emitter`.
+ *
+ * @api public
+ */
+
+function Emitter(obj) {
+  if (obj) return mixin(obj);
+};
+
+/**
+ * Mixin the emitter properties.
+ *
+ * @param {Object} obj
+ * @return {Object}
+ * @api private
+ */
+
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
+  }
+  return obj;
+}
+
+/**
+ * Listen on the given `event` with `fn`.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.on = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks[event] = this._callbacks[event] || [])
+    .push(fn);
+  return this;
+};
+
+/**
+ * Adds an `event` listener that will be invoked a single
+ * time then automatically removed.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.once = function(event, fn){
+  var self = this;
+  this._callbacks = this._callbacks || {};
+
+  function on() {
+    self.off(event, on);
+    fn.apply(this, arguments);
+  }
+
+  fn._off = on;
+  this.on(event, on);
+  return this;
+};
+
+/**
+ * Remove the given callback for `event` or all
+ * registered callbacks.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  var callbacks = this._callbacks[event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks[event];
+    return this;
+  }
+
+  // remove specific handler
+  var i = callbacks.indexOf(fn._off || fn);
+  if (~i) callbacks.splice(i, 1);
+  return this;
+};
+
+/**
+ * Emit `event` with the given args.
+ *
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+  var args = [].slice.call(arguments, 1)
+    , callbacks = this._callbacks[event];
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+/**
+ * Return array of callbacks for `event`.
+ *
+ * @param {String} event
+ * @return {Array}
+ * @api public
+ */
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks[event] || [];
+};
+
+/**
+ * Check if this emitter has `event` handlers.
+ *
+ * @param {String} event
+ * @return {Boolean}
+ * @api public
+ */
+
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
+};
+
+});
+require.register("component-set/index.js", function(exports, require, module){
+
+/**
+ * Expose `Set`.
+ */
+
+module.exports = Set;
+
+/**
+ * Initialize a new `Set` with optional `vals`
+ *
+ * @param {Array} vals
+ * @api public
+ */
+
+function Set(vals) {
+  if (!(this instanceof Set)) return new Set(vals);
+  this.vals = [];
+  if (vals) {
+    for (var i = 0; i < vals.length; ++i) {
+      this.add(vals[i]);
+    }
+  }
+}
+
+/**
+ * Add `val`.
+ *
+ * @param {Mixed} val
+ * @api public
+ */
+
+Set.prototype.add = function(val){
+  if (this.has(val)) return;
+  this.vals.push(val);
+};
+
+/**
+ * Check if this set has `val`.
+ *
+ * @param {Mixed} val
+ * @return {Boolean}
+ * @api public
+ */
+
+Set.prototype.has = function(val){
+  return !! ~this.indexOf(val);
+};
+
+/**
+ * Return the indexof `val`.
+ *
+ * @param {Mixed} val
+ * @return {Number}
+ * @api private
+ */
+
+Set.prototype.indexOf = function(val){
+  for (var i = 0, len = this.vals.length; i < len; ++i) {
+    var obj = this.vals[i];
+    if (obj.equals && obj.equals(val)) return i;
+    if (obj == val) return i;
+  }
+  return -1;
+};
+
+/**
+ * Iterate each member and invoke `fn(val)`.
+ *
+ * @param {Function} fn
+ * @return {Set}
+ * @api public
+ */
+
+Set.prototype.each = function(fn){
+  for (var i = 0; i < this.vals.length; ++i) {
+    fn(this.vals[i]);
+  }
+  return this;
+};
+
+/**
+ * Return the values as an array.
+ *
+ * @return {Array}
+ * @api public
+ */
+
+Set.prototype.values = 
+Set.prototype.toJSON = function(){
+  return this.vals;
+};
+
+/**
+ * Return the set size.
+ *
+ * @return {Number}
+ * @api public
+ */
+
+Set.prototype.size = function(){
+  return this.vals.length;
+};
+
+/**
+ * Empty the set and return old values.
+ *
+ * @return {Array}
+ * @api public
+ */
+
+Set.prototype.clear = function(){
+  var old = this.vals;
+  this.vals = [];
+  return old;
+};
+
+/**
+ * Remove `val`, returning __true__ when present, otherwise __false__.
+ *
+ * @param {Mixed} val
+ * @return {Mixed}
+ * @api public
+ */
+
+Set.prototype.remove = function(val){
+  var i = this.indexOf(val);
+  if (~i) this.vals.splice(i, 1);
+  return !! ~i;
+};
+
+/**
+ * Perform a union on `set`.
+ *
+ * @param {Set} set
+ * @return {Set} new set
+ * @api public
+ */
+
+Set.prototype.union = function(set){
+  var ret = new Set;
+  var a = this.vals;
+  var b = set.vals;
+  for (var i = 0; i < a.length; ++i) ret.add(a[i]);
+  for (var i = 0; i < b.length; ++i) ret.add(b[i]);
+  return ret;
+};
+
+/**
+ * Perform an intersection on `set`.
+ *
+ * @param {Set} set
+ * @return {Set} new set
+ * @api public
+ */
+
+Set.prototype.intersect = function(set){
+  var ret = new Set;
+  var a = this.vals;
+  var b = set.vals;
+
+  for (var i = 0; i < a.length; ++i) {
+    if (set.has(a[i])) {
+      ret.add(a[i]);
+    }
+  }
+
+  for (var i = 0; i < b.length; ++i) {
+    if (this.has(b[i])) {
+      ret.add(b[i]);
+    }
+  }
+
+  return ret;
+};
+
+/**
+ * Check if the set is empty.
+ *
+ * @return {Boolean}
+ * @api public
+ */
+
+Set.prototype.isEmpty = function(){
+  return 0 == this.vals.length;
+};
+
+
+});
+require.register("component-pillbox/index.js", function(exports, require, module){
+
+/**
+ * Module dependencies.
+ */
+
+var Emitter = require('emitter')
+  , keyname = require('keyname')
+  , event = require('event')
+  , Set = require('set');
+
+/**
+ * Expose `Pillbox`.
+ */
+
+module.exports = Pillbox
+
+/**
+ * Initialize a `Pillbox` with the given
+ * `input` element and `options`.
+ *
+ * @param {Element} input
+ * @param {Object} options
+ * @api public
+ */
+
+function Pillbox(input, options) {
+  if (!(this instanceof Pillbox)) return new Pillbox(input, options);
+  var self = this
+  this.options = options || {}
+  this.input = input;
+  this.tags = new Set;
+  this.el = document.createElement('div');
+  this.el.className = 'pillbox';
+  this.el.style = input.style;
+  this.ul = document.createElement('ul');
+  this.el.appendChild(this.ul);
+  input.parentNode.insertBefore(this.el, input);
+  input.parentNode.removeChild(input);
+  this.el.appendChild(input);
+  event.bind(this.el, 'click', input.focus.bind(input));
+  event.bind(this.el, 'keydown', this.onkeyup.bind(this));
+}
+
+/**
+ * Mixin emitter.
+ */
+
+Emitter(Pillbox.prototype);
+
+/**
+ * Handle keyup.
+ *
+ * @api private
+ */
+
+Pillbox.prototype.onkeyup = function(e){
+  switch (keyname(e.which)) {
+    case 'enter':
+      e.preventDefault();
+      this.add(e.target.value);
+      e.target.value = '';
+      break;
+    case 'backspace':
+      if ('' == e.target.value) {
+        this.remove(this.last());
+      }
+      break;
+  }
+};
+
+/**
+ * Return an array of the tag strings.
+ *
+ * @return {Array}
+ * @api public
+ */
+
+Pillbox.prototype.values = function(){
+  return this.tags.values();
+};
+
+/**
+ * Return the last member of the set.
+ *
+ * @return {String}
+ * @api private
+ */
+
+Pillbox.prototype.last = function(){
+  return this.tags.vals[this.tags.vals.length - 1];
+};
+
+/**
+ * Add `tag`.
+ *
+ * @param {String} tag
+ * @return {Pillbox} self
+ * @api public
+ */
+
+Pillbox.prototype.add = function(tag) {
+  var self = this
+  tag = tag.trim();
+
+  // blank
+  if ('' == tag) return;
+
+  // exists
+  if (this.tags.has(tag)) return;
+
+  // lowercase
+  if (this.options.lowercase) tag = tag.toLowerCase();
+
+  // add it
+  this.tags.add(tag);
+
+  // list item
+  var li = document.createElement('li');
+  li.setAttribute('data', tag);
+  li.appendChild(document.createTextNode(tag));
+  li.onclick = function(e) {
+    e.preventDefault();
+    self.input.focus();
+  };
+
+  // delete link
+  var del = document.createElement('a');
+  del.appendChild(document.createTextNode('✕'));
+  del.href = '#';
+  del.onclick = this.remove.bind(this, tag);
+  li.appendChild(del);
+
+  this.ul.appendChild(li);
+  this.emit('add', tag);
+
+  return this;
+}
+
+/**
+ * Remove `tag`.
+ *
+ * @param {String} tag
+ * @return {Pillbox} self
+ * @api public
+ */
+
+Pillbox.prototype.remove = function(tag) {
+  if (!this.tags.has(tag)) return this;
+  this.tags.remove(tag);
+
+  var li;
+  for (var i = 0; i < this.ul.childNodes.length; ++i) {
+    li = this.ul.childNodes[i];
+    if (tag == li.getAttribute('data')) break;
+  }
+
+  this.ul.removeChild(li);
+  this.emit('remove', tag);
+
+  return this;
+}
+
+
+});
 require.register("openclipart/index.js", function(exports, require, module){
 var $ = window.jQuery = require('jquery');
-});
-require.register("openclipart/templates/upload-item.js", function(exports, require, module){
-module.exports = '<div class="upload-item row">\n  <div class="span2"></div>\n  <div class="span1 thumb-container"></div>\n  <div class="span6">\n    <div class="controls controls-row">\n      <input type="text" name="title[]" class="title span3" placeholder="title...">\n      <input type="text" name="author[]" class="author span3" placeholder="author...">\n    </div>\n    <div class="controls controls-row">\n      <textarea type="text" name="description[]" class="description span3" placeholder="description..."></textarea>\n      <input type="text" name="tags[]" class="tags span3" placeholder="tags...">\n    </div>\n  </div>\n</div>';
 });
 require.register("openclipart/upload.js", function(exports, require, module){
 
 var $ = require('jquery');
-//var upload_item = require('templates/upload-item.js')
-
-var upload_item_template = require('./templates/upload-item.js');
+var Pillbox = require('pillbox');
 
 $(function(){
   
   var $form = $('form.image-upload');
-  var num = 0;
   
-  $form.on('submit', function(e){
-    if(num === 0){
-      e.preventDefault();
-      return false;
-    }
-  })
+  var tags = $('.tags', $form)[0];
+  console.log(tags)
+  var input = Pillbox(tags)
+  console.log(input)
   
   $('.file-select', $form).on('click', function(e){
     e.preventDefault();
-    $('input.file-upload', $form).click();
+    $('.file-upload', $form).click();
+    $('.file-upload').on('change', function(){
+      alert('file changes');
+      var files = this.files;
+      loadFiles(files);
+    });
     return false;
   });
-  
-  $('input.file-upload').on('change', function(){
-    $('.upload-items',$form).empty();
-    num = readFiles(this.files);
-    if(num > 0 ) $('.btn-upload').removeClass('disabled');
-    else $('.btn-upload').addClass('disabled');
-  });
-  
-  function readFiles(files){
-    var num = 0;
-    for (var i = 0; i < files.length; i++) {
-      var file = files[i];
-      var imageType = /image\/svg\+xml/;
-      if (!file.type.match(imageType)) continue;
-      var reader = new FileReader();
-      reader.onloadend = (function(num){
-        return function(e) { loadImage(e.target.result, num); };
-      })(num);
-      reader.readAsDataURL(file);
-      num++
-    }
-    return num;
-  }
-  
-  function loadImage(src, id){
-    var $img = $('<img>');
-    $img[0].file = file;
-    $img.on('load', function(){
-      $item = $(upload_item_template);
-      // $('input, textarea', $item).each(function(i, input){
-      //   var $input = $(input);
-      //   $input.attr('name', $input.attr('name') + '_' + id)
-      //   console.log($input.attr('name'))
-      // });
-      
-      $('.upload-items', $form).append($item);
-      $('.thumb-container',$item).append($img);
-    })
-    $img.attr('src', src);
-  }
-  
+  // function loadFiles(files){
+  //   for (var i = 0; i < files.length; i++) {
+  //     var file = files[i];
+  //     var imageType = 'image/svg+xml';
+  // 
+  //     if (!file.type.match(imageType)) continue;
+  //     
+  //     $img = $('<img>')
+  //     $img.file = file;
+  //     $form
+  //     img.classList.add("obj");
+  //     img.file = file;
+  //     preview.appendChild(img);
+  // 
+  //     var reader = new FileReader();
+  //     reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+  //     reader.readAsDataURL(file);
+  //   }
+  // }
 });
 });
 require.alias("component-jquery/index.js", "openclipart/deps/jquery/index.js");
+
+require.alias("component-pillbox/index.js", "openclipart/deps/pillbox/index.js");
+require.alias("component-event/index.js", "component-pillbox/deps/event/index.js");
+
+require.alias("component-keyname/index.js", "component-pillbox/deps/keyname/index.js");
+
+require.alias("component-emitter/index.js", "component-pillbox/deps/emitter/index.js");
+
+require.alias("component-set/index.js", "component-pillbox/deps/set/index.js");
 

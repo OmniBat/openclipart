@@ -99,4 +99,8 @@ $app->post("/profile/:username/edit", function($username) use($app){
     return $app->redirect("/profile/" . $username . "/edit");
 });
 
+$app->get("/profile/:username/clipart", function($username) use($app){
+  return $app->render("profile/clipart");
+});
+
 ?>

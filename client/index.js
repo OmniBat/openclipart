@@ -1,4 +1,1 @@
-var $ = require('jquery');
-$(function(){
-  alert('read!');
-})
+var $ = window.jQuery = require('jquery');
