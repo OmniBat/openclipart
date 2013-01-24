@@ -9,9 +9,7 @@
         </span>
         <small>
           by 
-          <a href="#">
-            {{ original_author ?: username }}
-          </a>
+          <a href="/profile/{{username}}">{{username}}</a>
         </small>
       </h3>
       <div>

@@ -82,7 +82,40 @@ class OCAL extends System{
         if ($where != '' && $where != null) {
             $where = "AND $where";
         }
-        $query = "SELECT openclipart_clipart.id, title, filename, link, created, username, (SELECT count(DISTINCT user) FROM openclipart_favorites WHERE clipart = openclipart_clipart.id) as num_favorites, (SELECT max(date) FROM openclipart_favorites WHERE clipart = openclipart_clipart.id) as last_date, created, date, $fav_check as user_fav, downloads FROM openclipart_clipart INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON openclipart_users.id = owner WHERE openclipart_clipart.id NOT IN (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON openclipart_tags.id = tag WHERE clipart = openclipart_clipart.id AND openclipart_tags.name = 'pd_issue') $nsfw $where GROUP BY openclipart_clipart.id ORDER BY $order_by DESC LIMIT " . $this->config->home_page_thumbs_limit;
+        $query = "SELECT openclipart_clipart.id, 
+                    title, 
+                    filename, 
+                    link, 
+                    created, 
+                    username, 
+                    (
+                      SELECT count(DISTINCT user) 
+                      FROM openclipart_favorites 
+                      WHERE clipart = openclipart_clipart.id
+                    ) as num_favorites, 
+                    (
+                      SELECT max(date) 
+                      FROM openclipart_favorites 
+                      WHERE clipart = openclipart_clipart.id
+                    ) as last_date, 
+                    created, 
+                    date, 
+                    $fav_check as user_fav, 
+                    downloads 
+                  FROM openclipart_clipart 
+                  INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id 
+                  INNER JOIN openclipart_users ON openclipart_users.id = owner 
+                  WHERE openclipart_clipart.id NOT 
+                    IN (
+                      SELECT clipart 
+                      FROM openclipart_clipart_tags 
+                      INNER JOIN openclipart_tags ON openclipart_tags.id = tag 
+                      WHERE clipart = openclipart_clipart.id 
+                      AND openclipart_tags.name = 'pd_issue'
+                    ) $nsfw $where 
+                  GROUP BY openclipart_clipart.id 
+                  ORDER BY $order_by 
+                  DESC LIMIT " . $this->config->home_page_thumbs_limit;
         $clipart_list = array();
         foreach ($this->db->get_array($query) as $row) {
             $filename_png = preg_replace("/.svg$/",
@@ -136,6 +169,50 @@ class OCAL extends System{
             return array();
         }
     }
+    function clipart_filename_png($filename){
+      return preg_replace("/.svg$/",".png", $filename);
+    }
+    function num_user_clipart($username){
+      $username = $this->db->escape($username);
+      $query = "SELECT COUNT(*) 
+                FROM openclipart_clipart 
+                INNER JOIN openclipart_users
+                WHERE owner = openclipart_users.id 
+                AND openclipart_users.username = '$username'";
+      return $this->db->get_value($query);
+    }
+    function user_clipart($username, $page, $results_per_page){
+      $username = $this->db->escape($username);
+      $start = $page * $results_per_page;
+      $end = $start + $results_per_page;
+      $query = "SELECT openclipart_clipart.id as id, 
+                  title, 
+                  filename, 
+                  link, 
+                  created, 
+                  username
+                  FROM openclipart_clipart 
+                  INNER JOIN openclipart_users 
+                  WHERE owner = openclipart_users.id AND openclipart_users.username = '$username'
+                  LIMIT $start, $end";
+      $cliparts = $this->db->get_array($query);
+      // set the filename_png
+      return $this->add_filename($cliparts);
+    }
+    function user_recent_clipart($id, $limit){
+      $id = $this->db->escape($id);
+      $query = "SELECT id, title, filename, link, created
+                FROM openclipart_clipart
+                WHERE owner = '$id' ORDER BY created DESC LIMIT $limit";
+      $cliparts = $this->db->get_array($query);
+      return $this->add_filename($cliparts);
+    }
+    function add_filename(&$cliparts){
+      foreach($cliparts as $index => $clipart){
+        $cliparts[$index]['filename_png'] = $this->clipart_filename_png($clipart['filename']);
+      }
+      return $cliparts;
+    }
     function tag_counts($tags) {
         $db = $this->db;
         if(!is_array($tags) || sizeof($tags) === 0 ) return;
@@ -150,7 +227,6 @@ class OCAL extends System{
             GROUP BY name 
             ORDER BY count 
             DESC";
-        var_dump($query);
         return $db->get_array($query);
     }
 }
