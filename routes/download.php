@@ -18,7 +18,7 @@ $app->get("/download/svg/:user/:filename", function($user, $filename) use($app) 
         }
     }
     */
-    if($app->config->svg_debug){
+    if(isset($app->config->svg_debug) && $app->config->svg_debug){
       $user = 'rejon';
       $filename = 'rejon_Supergirl.svg';
     }
@@ -27,20 +27,19 @@ $app->get("/download/svg/:user/:filename", function($user, $filename) use($app) 
         // old OCAL have some 0 size files
         $app->notFound();
     }else{
+        
         $response = $app->response()->header('Content-Type', 'application/octet-stream');
-        if($app->track()){
-            $clipart->inc_download();
-        }
+        
+        if($app->track()) $clipart->inc_download();
+        
+        $nsfw_image = $app->config->nsfw_image;
+        
         if($app->nsfw() && $clipart->nsfw()){
-            $filename = $app->config->root_directory . "/people/" .
-                $app->config->nsfw_image['user'] . "/" .
-                $app->config->nsfw_image['filename'] . ".svg";
+          $filename = clipart_path($nsfw_image['user'], $nsfw_image['filename']);
         }else if($clipart->have_pd_issue()){
-            $filename = $app->config->root_directory . "/people/" .
-                $app->config->pd_issue_image['user'] . "/" .
-                $app->config->pd_issue_image['filename'] . ".svg";
+          $filename = clipart_path($nsfw_image['user'], $nsfw_image['filename']);
         }else{
-            $filename = $clipart->full_path();
+          $filename = $clipart->full_path();
         }
         echo file_get_contents($filename);
     }
@@ -87,7 +86,7 @@ $app->get("/download/collection/:name", function($name) use($app){
                 $archive[$row['filename']] = 1;
             }
             $in_archive[] = $row['filename'];
-            if(!$app->config->svg_debug){
+            if(!isset($app->config->svg_debug) || !$app->config->svg_debug){
               $filename = $app->config->root_directory 
                 . '/people/' . $row['user'] . '/' . $row['filename'];
             }else{

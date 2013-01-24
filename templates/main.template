@@ -2,36 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Open Clip Art Library</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    
-    <!-- Le styles -->
-    <link href='http://fonts.googleapis.com/css?family=Asap:400,700italic,400italic,700|Permanent+Marker' rel='stylesheet' type='text/css'>
-    <link href="/css/bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 72px;
-        padding-bottom: 0px;
-      }
-    </style>
-    <link href="/css/ocal.css" rel="stylesheet">
-    
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    
-    <!-- Fav and touch icons -->
+    <!-- icons -->
     <link rel="shortcut icon" href="/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
-    <link rel="search" type="application/opensearchdescription+xml" title="Open Clipart Library" href="{{root}}/openclipart.xml" />
+    <link rel="search" type="application/opensearchdescription+xml" title="Open Clipart Library" href="/openclipart.xml" />
+    
+    <title>Open Clip Art Library</title>
+    
+    <!-- styles -->
+    <link href="/css/main.css" rel="stylesheet">
+    <!--<link href="http://api.picatcha.com/static/client/picatcha.css" type="text/css" rel="stylesheet"/>-->
+    
+    <!-- js -->
+    <script type="text/javascript" src="/js/modernizr.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript">
+      require('openclipart/index.js');
+    </script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    {% block js %}{% endblock %}
   </head>
-  
   <body>
     <div class="navbar navbar-fixed-top">
       {% include 'login_dialog.template' %}
@@ -49,14 +43,11 @@
           </form>
           
           <a class="paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS"><img src="/img/donation-paypal.png" /></a>
-          
-          
           <a class="btn btn-inverse ocal-collapse" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>  
-          
+          </a>
           <div class="nav-collapse collapse pull-right ocal-nav">
             <ul class="nav">
               {% if user %}
@@ -65,7 +56,7 @@
                   <ul class="dropdown-menu">
                     <li><a href="/profile">my profile</a></li>
                     <li><a href="#">my messages</a></li>
-                    <li><a href="#">my clipart</a></li>
+                    <li><a href="/profile/{{user.username}}/clipart">my clipart</a></li>
                     <li><a href="#">my page</a></li>
                     <li><a id="logout" href="/logout">logout</a></li>
                   </ul>
@@ -109,7 +100,7 @@
             <li><a href="#">Collections</a></li>
             <li><a href="#">Artists</a></li>
             <li><a href="#">Showcase</a></li>
-            <li class="active"><span>Participate</span></li>
+            <li><a href="#">Participate</a></li>
             <li><a href="/about">About</a></li>
           </ul>
         </div>
@@ -171,28 +162,6 @@
           </div>
         </div>
       </footer>
-    
     </div> <!-- /container -->
-    
-    
-    <!-- begin old js -->
-    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-    <script src="/js/json-rpc/json-rpc.js"></script>
-    <script src="/js/modernizr.js"></script>
-    <script src="/js/jquery-ui/jquery-ui-1.8.24.custom.min.js"></script>
-    <link href="/js/jquery-ui/jquery-ui-1.8.24.custom.css" rel="stylesheet"/>
-    <link href="/css/jquery.tagit.css" rel="stylesheet"/>
-    <script src="/js/tag-it.js"></script>
-    <link href="http://api.picatcha.com/static/client/picatcha.css" type="text/css" rel="stylesheet"/>
-    <script src="/script.js"></script>
-    <!-- end old js -->
-    
-    
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/js/jquery-1.8.3.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-
   </body>
 </html>

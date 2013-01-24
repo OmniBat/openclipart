@@ -8,6 +8,8 @@ SET character_set_connection=utf8;
 SET collation_database=utf8_general_ci;
 SET collation_server=utf8_general_ci;
 
+USE ocal;
+
 TRUNCATE openclipart_clipart;
 TRUNCATE openclipart_users;
 TRUNCATE openclipart_remixes;
@@ -106,9 +108,22 @@ INSERT IGNORE INTO openclipart_favorites SELECT DISTINCT openclipart_clipart.id,
 
 -- COMMENTS
 
-INSERT INTO openclipart_comments SELECT topic_id, topic_upload, openclipart_users.id, topic_text, topic_date FROM cc_tbl_topics left join openclipart_users on openclipart_users.username = cc_tbl_topics.username WHERE topic_deleted = 0 AND topic_upload != 0;
+INSERT INTO openclipart_comments 
+  SELECT topic_id, topic_upload
+    , openclipart_users.id
+    , topic_text
+    , topic_date 
+  FROM cc_tbl_topics 
+  LEFT JOIN openclipart_users ON openclipart_users.username = cc_tbl_topics.username 
+  WHERE topic_deleted = 0 AND topic_upload != 0;
 
-SELECT topic_id, topic_upload, openclipart_users.id, topic_text, topic_date FROM cc_tbl_topics left join openclipart_users on openclipart_users.username = cc_tbl_topics.username where topic_id = 2213;
+SELECT topic_id
+  , topic_upload
+  , openclipart_users.id
+  , topic_text
+  , topic_date 
+  FROM cc_tbl_topics LEFT JOIN openclipart_users ON openclipart_users.username = cc_tbl_topics.username 
+  WHERE topic_id = 2213;
 
 -- TODO: USER == null - anonymous issues (unlogged captcha)
 

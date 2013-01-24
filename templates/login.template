@@ -27,7 +27,7 @@
     <div id="action-links" style="margin-top:20px">
       <a href="/forget-password">Lost Password?</a>
       |
-      <a href="/register">Register</a>
+      <a href="/register{{redirect ? '?redirect=' ~ redirect}}">Register</a>
     </div>
   </form>
   {{debug}}

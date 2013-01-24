@@ -113,8 +113,16 @@ $app = new OCAL(array(
         , 'filename' => 'openclipart-logo-grey'
     ),
 ));
-
 $app->view(new View());
+
+$app->hook('slim.before', function() use($app){
+  // make the user visible to the view template
+  if($app->user()){
+    $app->view()->appendData(array(
+      'user' => $app->user()
+    ));
+  }
+});
 
 $app->get("/about", function() use($app) {
     return $app->render('about');
@@ -134,12 +142,31 @@ $app->get('/test', function() use($app){
     return $app->render('test');
 });
 
+$app->post('/pull', function() use($app){
+  $ip = $_SERVER['REMOTE_ADDR'];
+  if( 
+      $ip == '207.97.227.253' 
+      || $ip == '50.57.128.197' 
+      || $ip == '108.171.174.178' 
+      || $ip == '50.57.231.61' 
+  ){
+    error_log('request to update repo');
+    system("./pull");
+    return $app->halt(200);
+  }else return $app->halt(401,'It appears this request to update the repo did not originate from Github.');
+});
+
+$app->get('/recreate-tags', function() use($app){
+  require_once('./resources/scripts/recreate_tags.php');
+});
+
 $app->notFound(function () use ($app) {
-    return $app->render('errors/404');
+  return $app->render('errors/404');
 });
 
 require_once('routes/errors.php');
 require_once('routes/index.php');
+require_once('routes/upload.php');
 require_once('routes/login.php');
 require_once('routes/forgot-password.php');
 require_once('routes/profile.php');
@@ -150,6 +177,7 @@ require_once('routes/clipart.php');
 require_once('routes/download.php');
 require_once('routes/image.php');
 require_once('routes/search.php');
+require_once('routes/tags.php');
 
 $app->run();
 

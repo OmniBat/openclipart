@@ -9,9 +9,7 @@
         </span>
         <small>
           by 
-          <a href="#">
-            {{ original_author ?: username }}
-          </a>
+          <a href="/profile/{{username}}">{{username}}</a>
         </small>
       </h3>
       <div>
@@ -49,7 +47,7 @@
       <h5>Tags</h5>
         <div class="tags">
           {% for tag in tags %}
-            <a class="tag {{ system ? 'system' }}" href="/tag/{{tag.name}}">
+            <a class="tag {{ system ? 'system' }}" href="/tags/{{tag.name}}">
               <button class="btn btn-inverse">{{tag.name}}</button>
             </a>
           {% endfor %}

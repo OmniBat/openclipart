@@ -3,7 +3,9 @@ $app->map('/register', function() use ($app) {
     // TODO: try catch that show json on ajax and throw exception so it will be cached
     //       by main error handler
     
-    $use_picatcha = $app->config->picatcha['enabled'];
+    if(isset($app->config->picatcha['enabled']))
+      $use_picatcha = $app->config->picatcha['enabled'];
+    else $use_picatcha = false;
     
     // GET - just render the register page
     if(
@@ -22,7 +24,7 @@ $app->map('/register', function() use ($app) {
     $full_name = $_POST['full_name'];
     
     
-    $response = function($msg, $success) use($app, $email, $username){
+    $response = function($msg, $success) use($app, $email, $username, $use_picatcha){
         if($success){
             $url = $app->config->root . "/login";
             $subject = 'Welcome to Open Clipart Library';
