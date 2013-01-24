@@ -115,6 +115,11 @@
 <div class="row">
   <div class="span12 section">
     <h3 class="section">recently uploaded</h3>
+    <div class="row thumbnails">
+      {% for clipart in cliparts %}
+        {% include 'clipart/item.template' %}
+      {% endfor %}
+    </div>
   </div>
   
   <div class="span12 section">

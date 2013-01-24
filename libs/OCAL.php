@@ -197,6 +197,17 @@ class OCAL extends System{
                   LIMIT $start, $end";
       $cliparts = $this->db->get_array($query);
       // set the filename_png
+      return $this->add_filename($cliparts);
+    }
+    function user_recent_clipart($id, $limit){
+      $id = $this->db->escape($id);
+      $query = "SELECT id, title, filename, link, created
+                FROM openclipart_clipart
+                WHERE owner = '$id' ORDER BY created DESC LIMIT $limit";
+      $cliparts = $this->db->get_array($query);
+      return $this->add_filename($cliparts);
+    }
+    function add_filename(&$cliparts){
       foreach($cliparts as $index => $clipart){
         $cliparts[$index]['filename_png'] = $this->clipart_filename_png($clipart['filename']);
       }
