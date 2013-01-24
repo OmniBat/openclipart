@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart(
   original_author VARCHAR(255) DEFAULT NULL, 
   sha1 varchar(40), 
   filesize INTEGER, 
-  downloads integer, 
+  downloads INTEGER NOT NULL, 
   hidden boolean default 0, 
   created datetime, 
   modified datetime, 

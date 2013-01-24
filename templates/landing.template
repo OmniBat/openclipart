@@ -4,7 +4,6 @@
     <div class="span10">
       <div class="slogan">
         <p>create, share + remix free clip art.<a class="btn-ocal btn btn-primary btn-danger btn-large" href="/upload">upload&nbsp;your&nbsp;art.</a></p>
-
       </div>
     </div>
     <div class="span2">
@@ -15,9 +14,7 @@
       </div>
     </div>
   </div>
-
-
-  <!-- Example row of columns -->
+  <!-- Example -->
   <div class="row popular-new">
     <div class="span6 section">
       <h3>Popular Clip Art</h3>
@@ -43,9 +40,7 @@
     </div>
     </div>
   </div>
-
-
-
+  
   <div class="row">
     <div class="span6 section">
       <h3 class="section">Top Artists this month</h3>

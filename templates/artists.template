@@ -2,9 +2,7 @@
 {% block content %}
 <div class="row">
   <div class="span12 section">
-    <h3 class="section">Participate</h3>
-    <h4> How to participate </h4>
-    <p> Some text. </p>
+    <h3 class="section">Artists</h3>
   </div>
 </div>
 {% endblock %}

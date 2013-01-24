@@ -5,10 +5,13 @@ $app->get("/upload", function() use($app){
 });
 
 $app->post("/upload", function() use($app){
+  error_log('post upload');
   if(!$app->is_logged()) return $app->redirect('/');
   $files = $_FILES['files'];
+  error_log('file: ' . $_FILES['files']['name'][0]);
+  $userid = $app->config->userid;
   foreach($files['name'] as $ind => $filename){
-    $app->clipart_create($app->config->userid, array(
+    $app->clipart_create($userid, array(
       'filename' => $filename
       , 'title' => $_POST['title'][$ind]
       , 'description' => $_POST['description'][$ind]

@@ -9632,10 +9632,57 @@ $(function(){
   var num = 0;
   
   $form.on('submit', function(e){
-    if(num === 0){
-      e.preventDefault();
-      return false;
-    }
+    e.preventDefault();
+    // inspired by: http://stackoverflow.com/questions/166221/how-can-i-upload-files-asynchronously-with-jquery
+    $.ajax({
+        url: '/upload',
+        type: 'POST',
+        xhr: function() {  // custom xhr
+            myXhr = $.ajaxSettings.xhr();
+            // check if upload property exists
+            if(myXhr.upload)
+                myXhr.upload.addEventListener('progress', function(e){
+                  var position = e.position || e.loaded;
+                  var total = e.totalSize || e.total;
+                  var percentage = Math.round( (position / total) * 100) ;
+                  $('.progress .bar').css('width', percentage + '%')
+                }, false);
+            return myXhr;
+        },
+        //Ajax events
+        beforeSend: function(){
+          $('.progress').show();
+        }
+        , success: function(res){
+          console.log(res);
+          // success handler
+          $('.progress').hide();
+          $file_input = $('input.file-upload',$form);
+          $file_input.replaceWith( $file_input.val('').clone( true ) );
+          var $upload_items = $('.upload-items',$form);
+          var num = $upload_items.children().length;
+          $upload_items.empty();
+          $('.message-center').append(
+            '<div class="alert alert-success">'
+            + '<strong> Success! </strong> Upload complete.'
+            + '</div>')
+          setTimeout(function(){
+            $('.message-center').remove();
+          },2000);
+        }
+        , error: function(e){
+          // error handler
+          console.log(e);
+          $('.progress').hide();
+        }
+        // Form data
+        , data: new FormData($form[0])
+        //Options to tell JQuery not to process data or worry about content-type
+        , cache: false
+        , contentType: false
+        , processData: false
+    });
+    return false;
   })
   
   $('.file-select', $form).on('click', function(e){
@@ -9644,7 +9691,7 @@ $(function(){
     return false;
   });
   
-  $('input.file-upload').on('change', function(){
+  $('input.file-upload', $form).on('change', function(){
     $('.upload-items',$form).empty();
     num = readFiles(this.files);
     if(num > 0 ) $('.btn-upload').removeClass('disabled');

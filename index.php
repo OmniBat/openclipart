@@ -178,6 +178,8 @@ require_once('routes/download.php');
 require_once('routes/image.php');
 require_once('routes/search.php');
 require_once('routes/tags.php');
+require_once('routes/artists.php');
+require_once('routes/participate.php');
 
 $app->run();
 

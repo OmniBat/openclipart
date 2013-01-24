@@ -120,6 +120,16 @@
         {% include 'clipart/item.template' %}
       {% endfor %}
     </div>
+    <div class="row">
+      <div class="span12 center">
+        {% if cliparts|length == 0 %}
+          <p>
+            You haven't uploaded any clipart. 
+            <a class="btn-ocal btn btn-primary btn-danger btn-large" href="/upload"> upload some art. </a>
+          </p>
+        {% endif %}
+      </div>
+    </div>
   </div>
   
   <div class="span12 section">
