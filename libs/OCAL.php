@@ -36,6 +36,7 @@ class OCAL extends System{
         $config['root_directory'] = $_SERVER['DOCUMENT_ROOT'] . '/public';
         System::__construct(array_merge($config, $settings));
     }
+    
     function nsfw() {
         return $this->config->get('nsfw', true);
         if ($this->is_logged()) {
@@ -44,6 +45,7 @@ class OCAL extends System{
             return true;
         }
     }
+    
     function favorite($clipart) {
         if (!$this->is_logged()) {
             throw new Exception("You can't favorite a clipart if you are not logged in");
@@ -54,6 +56,7 @@ class OCAL extends System{
             return $this->db->query($query);
         }
     }
+    
     // ---------------------------------------------------------------------------------
     function unfavorite($clipart) {
         if (!$this->is_logged()) {
@@ -65,6 +68,7 @@ class OCAL extends System{
             return $this->db->query($query);
         }
     }
+    
     // ---------------------------------------------------------------------------------
     function list_clipart($where, $order_by) {
         if ($this->nsfw()) {
@@ -158,6 +162,7 @@ class OCAL extends System{
             return json_decode($resp);
         }
     }
+    
     function shutterstock($terms = null) {
         $shutter = $this->shutterstock_json($terms);
         if (!$shutter || $shutter->count == 0) {
@@ -169,6 +174,7 @@ class OCAL extends System{
             return array();
         }
     }
+    
     function num_user_clipart($username){
       $username = $this->db->escape($username);
       $query = "SELECT COUNT(*) 
@@ -178,6 +184,7 @@ class OCAL extends System{
                 AND openclipart_users.username = '$username'";
       return $this->db->get_value($query);
     }
+    
     function user_clipart($username, $page, $results_per_page){
       $username = $this->db->escape($username);
       $start = $page * $results_per_page;
@@ -197,6 +204,7 @@ class OCAL extends System{
       // set the filename_png
       return $this->add_filename($cliparts);
     }
+    
     function user_recent_clipart($username, $limit){
       $username = $this->db->escape($username);
       $query = "SELECT openclipart_clipart.id as id
