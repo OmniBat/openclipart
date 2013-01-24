@@ -185,7 +185,12 @@ class OCAL extends System{
       $username = $this->db->escape($username);
       $start = $page * $results_per_page;
       $end = $start + $results_per_page;
-      $query = "SELECT * 
+      $query = "SELECT openclipart_clipart.id as id, 
+                  title, 
+                  filename, 
+                  link, 
+                  created, 
+                  username
                   FROM openclipart_clipart 
                   INNER JOIN openclipart_users 
                   WHERE owner = openclipart_users.id AND openclipart_users.username = '$username'
