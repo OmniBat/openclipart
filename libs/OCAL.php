@@ -276,19 +276,27 @@ class OCAL extends System{
     }
     
     function clipart_by_tag($tag){
+      
       $tag = $this->db->escape($tag);
-      $query = "SELECT openclipart_clipart.id as id, filename, title, owner
-                FROM openclipart_clipart
+      
+      $query = "SELECT username, clipart.id as id, filename, title
+                FROM openclipart_users
                 INNER JOIN
-                  ( -- all of the clipart ids with the tag $tag
-                    SELECT * FROM openclipart_tags
-                    INNER JOIN openclipart_clipart_tags 
-                      ON openclipart_tags.id = openclipart_clipart_tags.tag
-                      WHERE name = '$tag'
-                  ) tags
-                ON tags.clipart = openclipart_clipart.id
-                ORDER BY downloads
-                LIMIT 10";
+                (
+                  SELECT openclipart_clipart.id as id, filename, title, owner
+                  FROM openclipart_clipart
+                  INNER JOIN
+                    ( -- all of the clipart ids with the tag $tag
+                      SELECT * FROM openclipart_tags
+                      INNER JOIN openclipart_clipart_tags 
+                        ON openclipart_tags.id = openclipart_clipart_tags.tag
+                        WHERE name = '$tag'
+                    ) tags
+                  ON tags.clipart = openclipart_clipart.id
+                  ORDER BY downloads
+                  LIMIT 10
+                ) clipart
+                ON clipart.owner = openclipart_users.id";
       
       $cliparts = $this->db->get_array($query);
       return $this->add_filename($cliparts);
