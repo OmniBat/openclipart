@@ -2,7 +2,7 @@
 {% block content %}
   <h2 class="center"> {{username}}'s clipart </h2>
   {% include 'components/pagination.template' %}
-  <div class="row">
+  <div class="row thumbnails">
     {% for clipart in cliparts %}
       {% include 'clipart/item.template' %}
     {% endfor %}
