@@ -205,6 +205,14 @@ class OCAL extends System{
       return $this->add_filename($cliparts);
     }
     
+    function username_from_id($id){
+      $id = $this->db->escape($id);
+      if(isset($this->user) && $this->user->id == $id) 
+        return $this->user->username;
+      $query = "SELECT username FROM openclipart_users WHERE id = '$id'";
+      return $this->db->get_value($query);
+    }
+    
     function user_recent_clipart($username, $limit){
       $username = $this->db->escape($username);
       $query = "SELECT openclipart_clipart.id as id
@@ -221,6 +229,46 @@ class OCAL extends System{
                 DESC LIMIT $limit";
       $cliparts = $this->db->get_array($query);
       return $this->add_filename($cliparts);
+    }
+    
+    function get_clipart_path($username, $filename){
+      return $this->config->root_directory . '/people/' . $username . '/' . $filename;
+    }
+    
+    function clipart_create($owner, $clipart){
+      
+      $app = $this;
+      $e = function($str) use($app){
+        return $app->db->escape($str);
+      };
+      
+      $filename =     $e($clipart['filename']);
+      $title =        $e($clipart['title']);
+      $description =  $e($clipart['description']);
+      $owner =        $e($owner);
+      $filesize =     $e($clipart['filesize']);
+      
+      $query = "INSERT INTO openclipart_clipart ( 
+                  filename
+                  , title
+                  , description
+                  , owner
+                  , filesize
+                  , created
+                  , modifed
+                ) VALUES (
+                  '$filename'
+                  , '$title'
+                  , '$description'
+                  , $owner
+                  , $filesize
+                  , NOW()
+                  , NOW()
+                )";
+      $ret = $this->db->query($query);
+      $username = $this->username_from_id($owner);
+      $path = $this->get_clipart_path( $username, $clipart['filename'] );
+      $move_result = move_uploaded_file( $clipart['tmp_name'],  $path);
     }
     
     function clipart_filename_png($filename){
