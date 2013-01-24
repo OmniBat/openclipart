@@ -26,7 +26,7 @@ $app->get("/profile/:username", function($username) use($app) {
     return $app->render('profile/profile', array(
         'profile' => $profile
         , 'is_owner' => $profile['id'] == $userid
-        , 'cliparts' => $app->user_recent_clipart($profile['id'], 12)
+        , 'cliparts' => $app->user_recent_clipart($username, 12)
     ));
 });
 

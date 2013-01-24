@@ -169,9 +169,6 @@ class OCAL extends System{
             return array();
         }
     }
-    function clipart_filename_png($filename){
-      return preg_replace("/.svg$/",".png", $filename);
-    }
     function num_user_clipart($username){
       $username = $this->db->escape($username);
       $query = "SELECT COUNT(*) 
@@ -185,34 +182,50 @@ class OCAL extends System{
       $username = $this->db->escape($username);
       $start = $page * $results_per_page;
       $end = $start + $results_per_page;
-      $query = "SELECT openclipart_clipart.id as id, 
-                  title, 
-                  filename, 
-                  link, 
-                  created, 
-                  username
+      $query = "SELECT openclipart_clipart.id as id
+                  , title
+                  , filename
+                  , link
+                  , created
+                  , username
                   FROM openclipart_clipart 
                   INNER JOIN openclipart_users 
-                  WHERE owner = openclipart_users.id AND openclipart_users.username = '$username'
+                  WHERE owner = openclipart_users.id 
+                  AND openclipart_users.username = '$username'
                   LIMIT $start, $end";
       $cliparts = $this->db->get_array($query);
       // set the filename_png
       return $this->add_filename($cliparts);
     }
-    function user_recent_clipart($id, $limit){
-      $id = $this->db->escape($id);
-      $query = "SELECT id, title, filename, link, created
+    function user_recent_clipart($username, $limit){
+      $username = $this->db->escape($username);
+      $query = "SELECT openclipart_clipart.id as id
+                  , title
+                  , filename
+                  , link
+                  , created
+                  , username
                 FROM openclipart_clipart
-                WHERE owner = '$id' ORDER BY created DESC LIMIT $limit";
+                INNER JOIN openclipart_users
+                WHERE owner = openclipart_users.id 
+                AND openclipart_users.username = '$username'
+                ORDER BY created 
+                DESC LIMIT $limit";
       $cliparts = $this->db->get_array($query);
       return $this->add_filename($cliparts);
     }
+    
+    function clipart_filename_png($filename){
+      return preg_replace("/.svg$/",".png", $filename);
+    }
+    
     function add_filename(&$cliparts){
       foreach($cliparts as $index => $clipart){
         $cliparts[$index]['filename_png'] = $this->clipart_filename_png($clipart['filename']);
       }
       return $cliparts;
     }
+    
     function tag_counts($tags) {
         $db = $this->db;
         if(!is_array($tags) || sizeof($tags) === 0 ) return;
