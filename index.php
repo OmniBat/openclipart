@@ -156,8 +156,12 @@ $app->post('/pull', function() use($app){
   }else return $app->halt(401,'It appears this request to update the repo did not originate from Github.');
 });
 
+$app->get('/recreate-tags', function() use($app){
+  require_once('./resources/scripts/recreate_tags.php');
+});
+
 $app->notFound(function () use ($app) {
-    return $app->render('errors/404');
+  return $app->render('errors/404');
 });
 
 require_once('routes/errors.php');
@@ -173,6 +177,7 @@ require_once('routes/clipart.php');
 require_once('routes/download.php');
 require_once('routes/image.php');
 require_once('routes/search.php');
+require_once('routes/tags.php');
 
 $app->run();
 

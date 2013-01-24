@@ -35,7 +35,7 @@ $app->get("/clipart/:id", function($id) use ($app) {
     $comments = $app->db->get_array($query);
     
     if(!isset($app->config->svg_debug) || !$app->config->svg_debug){
-      $svg = $app->get_clipart_path($row['username'], $row['filename']);
+      $svg = $app->clipart_path($row['username'], $row['filename']);
     }else{
       // use this file for dev/debugging so we dont have to always download
       // the entire set of svgs for testing locally

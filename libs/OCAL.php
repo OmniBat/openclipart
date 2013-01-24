@@ -231,7 +231,7 @@ class OCAL extends System{
       return $this->add_filename($cliparts);
     }
     
-    function get_clipart_path($username, $filename){
+    function clipart_path($username, $filename){
       return $this->config->root_directory . '/people/' . $username . '/' . $filename;
     }
     
@@ -255,7 +255,7 @@ class OCAL extends System{
                   , owner
                   , filesize
                   , created
-                  , modifed
+                  , modified
                 ) VALUES (
                   '$filename'
                   , '$title'
@@ -267,12 +267,31 @@ class OCAL extends System{
                 )";
       $ret = $this->db->query($query);
       $username = $this->username_from_id($owner);
-      $path = $this->get_clipart_path( $username, $clipart['filename'] );
+      $path = $this->clipart_path( $username, $clipart['filename'] );
       $move_result = move_uploaded_file( $clipart['tmp_name'],  $path);
     }
     
     function clipart_filename_png($filename){
       return preg_replace("/.svg$/",".png", $filename);
+    }
+    
+    function clipart_by_tag($tag){
+      $tag = $this->db->escape($tag);
+      $query = "SELECT openclipart_clipart.id as id, filename, title, owner
+                FROM openclipart_clipart
+                INNER JOIN
+                  ( -- all of the clipart ids with the tag $tag
+                    SELECT * FROM openclipart_tags
+                    INNER JOIN openclipart_clipart_tags 
+                      ON openclipart_tags.id = openclipart_clipart_tags.tag
+                      WHERE name = '$tag'
+                  ) tags
+                ON tags.clipart = openclipart_clipart.id
+                ORDER BY downloads
+                LIMIT 10";
+      
+      $cliparts = $this->db->get_array($query);
+      return $this->add_filename($cliparts);
     }
     
     function add_filename(&$cliparts){

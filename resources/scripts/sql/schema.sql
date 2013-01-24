@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart(
   downloads integer, 
   hidden boolean default 0, 
   created datetime, 
-  modifed datetime, 
+  modified datetime, 
   PRIMARY KEY(id), 
   FOREIGN KEY(owner) REFERENCES openclipart_users(id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci;

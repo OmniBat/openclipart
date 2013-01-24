@@ -54,7 +54,7 @@ class Clipart {
       $this->data = $this->hydrate($user, $filename);
       $user = $this->data->username;
       $filename = $this->data->filename;
-      $this->full_path = $app->config->root_directory . "/people/$user/$filename";
+      $this->full_path = $app->clipart_path($user,$filename);
     }
     
     private function hydrate($id, $filename){

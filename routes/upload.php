@@ -6,8 +6,6 @@ $app->get("/upload", function() use($app){
 
 $app->post("/upload", function() use($app){
   if(!$app->is_logged()) return $app->redirect('/');
-  var_dump($_FILES);
-  var_dump($_POST);
   $files = $_FILES['files'];
   foreach($files['name'] as $ind => $filename){
     $app->clipart_create($app->config->userid, array(
@@ -19,7 +17,6 @@ $app->post("/upload", function() use($app){
       , 'type' => $files['type'][$ind]
     ));
   }
-  return;
 });
 
 ?>
