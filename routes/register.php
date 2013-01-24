@@ -24,7 +24,7 @@ $app->map('/register', function() use ($app) {
     $full_name = $_POST['full_name'];
     
     
-    $response = function($msg, $success) use($app, $email, $username){
+    $response = function($msg, $success) use($app, $email, $username, $use_picatcha){
         if($success){
             $url = $app->config->root . "/login";
             $subject = 'Welcome to Open Clipart Library';

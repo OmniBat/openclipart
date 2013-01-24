@@ -1,6 +1,6 @@
 <?php
 
-require_once('libs/config.php');
+include(dirname(__FILE__) . '/../../libs/config.php');
 
 $mysqli = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
 $mysqli->select_db($config['db_name']);
