@@ -158,12 +158,6 @@ $app->get('/recreate-tags', function() use($app){
   require_once('./resources/scripts/recreate_tags.php');
 });
 
-// $app->get('/new_clipart', function() use($app){
-//   $clipart = $app->popular_clipart();
-//   var_dump($clipart);
-//   return;
-// });
-
 $app->notFound(function () use ($app) {
   return $app->render('errors/404');
 });

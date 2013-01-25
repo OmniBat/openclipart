@@ -436,6 +436,18 @@ class OCAL extends System{
       $this->db->query($query);
     }
     
+    function top_artists(){
+      // just users by all time downloads, for now
+      $query = "SELECT username, COUNT(downloads) as downloads
+        FROM openclipart_users
+        INNER JOIN openclipart_clipart ON openclipart_clipart.owner = openclipart_users.id
+        GROUP BY username
+        ORDER BY downloads
+        DESC LIMIT 8";
+      $artists = $this->db->get_array($query);
+      return $artists;
+    }
+    
     function tags_by_downloads(){
       $query = "SELECT name, COUNT(downloads) as downloads 
         FROM openclipart_clipart_tags 

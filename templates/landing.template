@@ -45,38 +45,12 @@
     <div class="span6 section">
       <h3 class="section">Top Artists this month</h3>
       <table class="common-table table table-hover">
-        <tr>
-          <td><a href="#">Rick</a></td>
-          <td>16</td>
-        </tr>
-        <tr>
-          <td><a href="#">Elena</a></td>
-          <td>14</td>
-        </tr>
-        <tr>
-          <td><a href="#">Mark</a></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td><a href="#">Twoism</a></td>
-          <td>8</td>
-        </tr>
-        <tr>
-          <td><a href="#">Melli</a></td>
-          <td>7</td>
-        </tr>
-        <tr>
-          <td><a href="#">Zigizigi</a></td>
-          <td>6</td>
-        </tr>
-        <tr>
-          <td><a href="#">Renbo88</a></td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td><a href="#">Tanja</a></td>
-          <td>1</td>
-        </tr>
+        {% for artist in top_artists %}
+          <tr>
+            <td><a href="/profile/{{artist.username}}">{{artist.username}}</a></td>
+            <td>{{artist.downloads}}</td>
+          </tr>
+        {% endfor %}
       </table>
     </div>
 
