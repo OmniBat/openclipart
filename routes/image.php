@@ -1,5 +1,7 @@
 <?php
-$app->get("/image/:width/:user/:filename", function($width, $user, $file) use($app) {
+
+
+$serve_image_func = function($width, $user, $file) use($app) {
 
     $width = intval($width);
     $dir = $app->config->root_directory;
@@ -20,6 +22,7 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
     }
     */
     $max_res = $app->config->bitmap_resolution_limit;
+    
     if ($width > $max_res) {
         $response->status(400);
         // TODO: Generate Error Image
@@ -108,5 +111,10 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
             }
         }
     }
+};
+
+$app->get("/image/:width/:file", function($width, $file) use($app) {
+  $serve_image_func($width, '', $file);
 });
+$app->get("/image/:width/:user/:file", $serve_image_func);
 ?>
