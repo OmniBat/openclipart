@@ -159,11 +159,6 @@ $app->get('/recreate-tags', function() use($app){
   require_once('./resources/scripts/recreate_tags.php');
 });
 
-$app->get('/add-tag/:clipid/:tag', function($clipid, $tag) use($app){
-  $app->set_clipart_tags($clipid, array($tag));
-  return $app->halt(200);
-});
-
 $app->notFound(function () use ($app) {
   return $app->render('errors/404');
 });
