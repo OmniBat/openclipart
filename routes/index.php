@@ -2,22 +2,23 @@
 
 $app->get("/", function() use($app){
     // tags
-    $query = "SELECT count(openclipart_tags.id) as tag_count 
+    $query = "SELECT COUNT(openclipart_tags.id) AS tag_count 
         FROM openclipart_clipart_tags 
         INNER JOIN openclipart_tags ON openclipart_tags.id = tag 
         GROUP BY tag 
         ORDER BY tag_count 
         DESC LIMIT 1";
     $max = $app->db->get_value($query);
+    
     $query = "SELECT openclipart_tags.name, count(openclipart_tags.id) as tag_count 
         FROM openclipart_clipart_tags 
         INNER JOIN openclipart_tags ON openclipart_tags.id = tag 
         GROUP BY tag 
         ORDER BY tag_count 
-        DESC LIMIT " . $app->config->tag_limit;
+        DESC LIMIT 30";
     $result = array();
-    $rows = $app->db->get_array($query);
-    shuffle($rows);
+    $tags = $app->db->get_array($query);
+    shuffle($tags);
     $normalize = size('20', $max);
     
     $last_week = "(SELECT WEEK(max(date)) FROM openclipart_favorites) = " 
@@ -33,7 +34,7 @@ $app->get("/", function() use($app){
                 'name' => $row['name']
                 , 'size' => $normalize($row['tag_count'])
             );
-        }, $rows)
+        }, $tags)
     ));
 });
 

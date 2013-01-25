@@ -82,8 +82,9 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
             }
             
             $output_dir = dirname($png);
+            
             // make sure the directory exists
-            exec("mkdir -p $output_dir");
+            @mkdir($output_dir,0777, true);
             
             $newwidth = escapeshellarg($newwidth);
             $newheight = escapeshellarg($newheight);

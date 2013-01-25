@@ -55,7 +55,6 @@ $twig = new Twig_Environment($loader);
 
 $app = new OCAL(array(
     'db_prefix' => 'openclipart',
-    'tag_limit' => 30,
     'top_artist_last_month_limit' => 10,
     'home_page_thumbs_limit' => 9,
     'home_page_collections_limit' => 5,
@@ -158,6 +157,11 @@ $app->post('/pull', function() use($app){
 
 $app->get('/recreate-tags', function() use($app){
   require_once('./resources/scripts/recreate_tags.php');
+});
+
+$app->get('/add-tag/:clipid/:tag', function($clipid, $tag) use($app){
+  $app->set_clipart_tags($clipid, array($tag));
+  return $app->halt(200);
 });
 
 $app->notFound(function () use ($app) {

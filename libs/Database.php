@@ -87,6 +87,10 @@ class Database {
       return $result;
     }
     
+    function insert_id(){
+      return $this->conn->insert_id;
+    }
+    
     function get_column($query) {
         $result = array();
         $ret = $this->query($query);

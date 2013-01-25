@@ -7,6 +7,7 @@ var upload_item_template = require('./templates/upload-item.js');
 $(function(){
   
   var $form = $('form.image-upload');
+  var $upload_items = $('.upload-items',$form);
   var num = 0;
   
   $form.on('submit', function(e){
@@ -37,21 +38,25 @@ $(function(){
           $('.progress').hide();
           $file_input = $('input.file-upload',$form);
           $file_input.replaceWith( $file_input.val('').clone( true ) );
-          var $upload_items = $('.upload-items',$form);
           var num = $upload_items.children().length;
           $upload_items.empty();
           $('.message-center').append(
             '<div class="alert alert-success">'
-            + '<strong> Success! </strong> Upload complete.'
+              + '<strong> Success! </strong> Upload complete.'
             + '</div>')
           setTimeout(function(){
             $('.message-center').remove();
-          },2000);
+          },5000);
         }
         , error: function(e){
           // error handler
-          console.log(e);
           $('.progress').hide();
+          $('.message-center').append(
+            '<div class="alert alert-error">'
+              + '<strong> Error </strong> Sorry, looks like something went wrong. Try that again and if you still see this error, feel free to report this isue.'
+            + '</div>')
+          $upload_items.empty();
+          console.log(e);
         }
         // Form data
         , data: new FormData($form[0])
@@ -70,7 +75,7 @@ $(function(){
   });
   
   $('input.file-upload', $form).on('change', function(){
-    $('.upload-items',$form).empty();
+    $upload_items.empty();
     num = readFiles(this.files);
     if(num > 0 ) $('.btn-upload').removeClass('disabled');
     else $('.btn-upload').addClass('disabled');
@@ -103,7 +108,7 @@ $(function(){
       //   console.log($input.attr('name'))
       // });
       
-      $('.upload-items', $form).append($item);
+      $upload_items.append($item);
       $('.thumb-container',$item).append($img);
     })
     $img.attr('src', src);
