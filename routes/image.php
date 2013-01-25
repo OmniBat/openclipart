@@ -113,8 +113,8 @@ $serve_image_func = function($width, $user, $file) use($app) {
     }
 };
 
-$app->get("/image/:width/:file", function($width, $file) use($app) {
-  $serve_image_func($width, '', $file);
+$app->get("/image/:width/:file", function($width, $file) use($app, $serve_image_func) {
+  call_user_func($serve_image_func,$width, '', $file);
 });
 $app->get("/image/:width/:user/:file", $serve_image_func);
 ?>
