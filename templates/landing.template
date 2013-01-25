@@ -4,7 +4,6 @@
     <div class="span10">
       <div class="slogan">
         <p>create, share + remix free clip art.<a class="btn-ocal btn btn-primary btn-danger btn-large" href="/upload">upload&nbsp;your&nbsp;art.</a></p>
-
       </div>
     </div>
     <div class="span2">
@@ -15,9 +14,7 @@
       </div>
     </div>
   </div>
-
-
-  <!-- Example row of columns -->
+  <!-- Example -->
   <div class="row popular-new">
     <div class="span6 section">
       <h3>Popular Clip Art</h3>
@@ -43,13 +40,11 @@
     </div>
     </div>
   </div>
-
-
-
+  
   <div class="row">
     <div class="span6 section">
       <h3 class="section">Top Artists this month</h3>
-      <table class="table table-hover">
+      <table class="common-table table table-hover">
         <tr>
           <td><a href="#">Rick</a></td>
           <td>16</td>
@@ -86,7 +81,7 @@
     </div>
 
     <div class="span6 section">
-      <h3>Popular Tags</h3>
+      <h3 class="section">Popular Tags</h3>
       <div class="tags center">
         {% for tag in tags %}
           <a href="/tags/{{tag.name}}" class="btn btn-inverse">{{tag.name}}</a>
@@ -97,7 +92,7 @@
 
   <div class="row">
     <div class="span12 section news">
-      <h3>Lastest News</h3>
+      <h3 class="section">Latest News</h3>
       <div class="row">
         <div class="span2"><span>2012-11-02</span></div>
         <div class="span9"><p><a href="#">We are rewriting OCAL</a></p></div>

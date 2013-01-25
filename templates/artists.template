@@ -1,0 +1,44 @@
+{% extends 'main.template' %}
+{% block content %}
+  <div class="page-artists">
+    <div class="row">
+      <div class="span12 section">
+        <h3>Top Artists this month</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <table class="artists table table-striped">
+          <thead>
+            <tr>
+              <th class="span6"> artist </th>
+              <th class="span2"> 
+                {%if orderby == 'uploads' %} 
+                  {% if desc %}
+                    <div class="icon-chevron-up"></div>
+                  {% endif %}
+                  {% if not desc %}
+                    <div class="icon-chevron-down"></div>
+                  {% endif %}
+                {% endif %} 
+                <a href="?orderby=uploads{{ desc ? "" : "&desc" }}">uploads</a> </th>
+              <th class="span2"> remixes </th>
+              <th class="span2"> achievements </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in artists %}
+            <tr>
+              <td> <img class="profile-pic" src="http://placehold.it/75x75"> <h4> {{user.username}} <small> joined {{user.creation_date | date(timezone="Europe/Paris", 'Y')}} </small></h4> </td>
+              <td> {{user.uploads}} </td>
+              <td> ?? </td>
+              <td> ??% </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% include 'components/pagination.template' %}
+{% endblock %}

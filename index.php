@@ -55,7 +55,6 @@ $twig = new Twig_Environment($loader);
 
 $app = new OCAL(array(
     'db_prefix' => 'openclipart',
-    'tag_limit' => 30,
     'top_artist_last_month_limit' => 10,
     'home_page_thumbs_limit' => 9,
     'home_page_collections_limit' => 5,
@@ -178,6 +177,8 @@ require_once('routes/download.php');
 require_once('routes/image.php');
 require_once('routes/search.php');
 require_once('routes/tags.php');
+require_once('routes/artists.php');
+require_once('routes/participate.php');
 
 $app->run();
 

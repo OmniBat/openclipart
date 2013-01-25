@@ -28,7 +28,7 @@
 <div class="row">
   <div class="span6 section">
     <h3 class="section">Achievements (12/98)</h3>
-    <table class="table table-hover achievements-table">
+    <table class="common-table table table-hover achievements-table">
       <tr>
         <td><div class="achievement">tag a clipart that you didn't upload</div></td>
       </tr>
@@ -70,7 +70,7 @@
   
   <div class="span6 section">
     <h3 class="section">Stats</h3>
-    <table class="table table-hover">
+    <table class="common-table table table-hover">
       <tr>
         <td>Joined</td>
         <td>{{profile.creation_date}}</td>
@@ -119,6 +119,16 @@
       {% for clipart in cliparts %}
         {% include 'clipart/item.template' %}
       {% endfor %}
+    </div>
+    <div class="row">
+      <div class="span12 center">
+        {% if cliparts|length == 0 %}
+          <p>
+            You haven't uploaded any clipart. 
+            <a class="btn-ocal btn btn-primary btn-danger btn-large" href="/upload"> upload some art. </a>
+          </p>
+        {% endif %}
+      </div>
     </div>
   </div>
   

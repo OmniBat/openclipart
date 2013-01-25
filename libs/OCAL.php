@@ -246,6 +246,7 @@ class OCAL extends System{
       $title =        $e($clipart['title']);
       $description =  $e($clipart['description']);
       $owner =        $e($owner);
+      $author =       $e($clipart['author']);
       $filesize =     $e($clipart['filesize']);
       
       $query = "INSERT INTO openclipart_clipart ( 
@@ -254,6 +255,7 @@ class OCAL extends System{
                   , description
                   , owner
                   , filesize
+                  , original_author
                   , created
                   , modified
                 ) VALUES (
@@ -262,12 +264,19 @@ class OCAL extends System{
                   , '$description'
                   , $owner
                   , $filesize
+                  , '$author'
                   , NOW()
                   , NOW()
                 )";
       $ret = $this->db->query($query);
       $username = $this->username_from_id($owner);
       $path = $this->clipart_path( $username, $clipart['filename'] );
+      var_dump($clipart['tmp_name']);
+      var_dump($path);
+      var_dump('file exists: ' . file_exists($clipart['tmp_name']));
+      
+      //mkdirp 
+      @mkdir(dirname($path),0777, true);
       $move_result = move_uploaded_file( $clipart['tmp_name'],  $path);
     }
     
@@ -307,6 +316,45 @@ class OCAL extends System{
         $cliparts[$index]['filename_png'] = $this->clipart_filename_png($clipart['filename']);
       }
       return $cliparts;
+    }
+    
+    function set_clipart_tags($clipid, $tags){
+      
+      $clipid = $this->db->escape($clipid);
+      
+      // ensure that these tags exists in `openclipart_tags`
+      
+      $query = "INSERT IGNORE INTO openclipart_tags(name) 
+                VALUES ";
+      $size = sizeof($tags);
+      foreach($tags as $i => $tag){
+        $tag = $this->db->escape($tag);
+        $query .= " ('$tag') ";
+        if( $i + 1 < $size) $query .= ", \n";
+      }
+      $this->db->query($query);
+      
+      // get the tag ids from the tag strings
+      $query = "SELECT id FROM openclipart_tags WHERE ";
+      foreach($tags as $i => $tag){
+        $tag = $this->db->escape($tag);
+        $query .= " name = '$tag' ";
+        if( $i + 1 < $size ) $query .= " OR ";
+      }
+      
+      $tag_ids = $this->db->get_array($query);
+      
+      // add these (clipid, tagid) combinations
+      $query = "INSERT IGNORE INTO openclipart_clipart_tags(clipart, tag)
+                VALUES ";
+      
+      $size = sizeof($tag_ids);
+      foreach($tag_ids as $i => $tag){
+        $tag_id = $tag['id'];
+        $query .= " ('$clipid', '$tag_id') ";
+        if( $i + 1 < $size ) $query .= ", \n ";
+      }
+      $this->db->query($query);
     }
     
     function tag_counts($tags) {

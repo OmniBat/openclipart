@@ -18,6 +18,7 @@
 @import "pages/landing.less";
 @import "pages/detail.less";
 @import "pages/upload.less";
+@import "pages/artists.less";
 @import "components/login-popup.less";
 @import "media/max-979px.less";
 @import "media/max-767px.less";
@@ -151,7 +152,7 @@ h3 {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ececec', endColorstr='#ececec',GradientType=1 ); /* IE6-9 */
 }
 
-table{
+table.common-table{
   td {
     border-right: 3px solid white;
     border-bottom: 3px solid white;
@@ -171,10 +172,10 @@ table{
   a{
     color: black;
   }
-}
-.table{
-  th, td{
-    border-top: none;
+  .table{
+    th, td{
+      border-top: none;
+    }
   }
 }
 
