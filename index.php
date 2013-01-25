@@ -56,7 +56,6 @@ $twig = new Twig_Environment($loader);
 $app = new OCAL(array(
     'db_prefix' => 'openclipart',
     'top_artist_last_month_limit' => 10,
-    'home_page_thumbs_limit' => 9,
     'home_page_collections_limit' => 5,
     'home_page_news_limit' => 3,
     'token_expiration' => 1, // number of hours for token expiration (token send via email)
@@ -158,6 +157,12 @@ $app->post('/pull', function() use($app){
 $app->get('/recreate-tags', function() use($app){
   require_once('./resources/scripts/recreate_tags.php');
 });
+
+// $app->get('/new_clipart', function() use($app){
+//   $clipart = $app->popular_clipart();
+//   var_dump($clipart);
+//   return;
+// });
 
 $app->notFound(function () use ($app) {
   return $app->render('errors/404');

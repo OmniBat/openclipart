@@ -69,57 +69,76 @@ class OCAL extends System{
         }
     }
     
+    function and_not_nsfw(){
+      return " AND openclipart_clipart.id 
+      NOT IN (
+        SELECT clipart 
+        FROM openclipart_clipart_tags 
+        INNER JOIN openclipart_tags ON tag = openclipart_tags.id 
+        WHERE name = 'nsfw'
+      ) ";
+    }
+    
     // ---------------------------------------------------------------------------------
     function list_clipart($where, $order_by) {
-        if ($this->nsfw()) {
-            $nsfw = "AND openclipart_clipart.id not in (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = openclipart_tags.id WHERE name = 'nsfw')";
-        } else {
-            $nsfw = '';
-        }
-        if ($this->is_logged()) {
-            $fav_check = $this->config->userid . ' in '.
-                '(SELECT user FROM openclipart_favorites'.
-                ' WHERE openclipart_clipart.id = clipart)';
-        } else {
-            $fav_check = '0';
-        }
-        if ($where != '' && $where != null) {
-            $where = "AND $where";
-        }
-        $query = "SELECT openclipart_clipart.id, 
-                    title, 
-                    filename, 
-                    link, 
-                    created, 
-                    username, 
-                    (
-                      SELECT count(DISTINCT user) 
-                      FROM openclipart_favorites 
-                      WHERE clipart = openclipart_clipart.id
-                    ) as num_favorites, 
-                    (
-                      SELECT max(date) 
-                      FROM openclipart_favorites 
-                      WHERE clipart = openclipart_clipart.id
-                    ) as last_date, 
-                    created, 
-                    date, 
-                    $fav_check as user_fav, 
-                    downloads 
-                  FROM openclipart_clipart 
-                  INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id 
-                  INNER JOIN openclipart_users ON openclipart_users.id = owner 
-                  WHERE openclipart_clipart.id NOT 
-                    IN (
-                      SELECT clipart 
-                      FROM openclipart_clipart_tags 
-                      INNER JOIN openclipart_tags ON openclipart_tags.id = tag 
-                      WHERE clipart = openclipart_clipart.id 
-                      AND openclipart_tags.name = 'pd_issue'
-                    ) $nsfw $where 
-                  GROUP BY openclipart_clipart.id 
-                  ORDER BY $order_by 
-                  DESC LIMIT " . $this->config->home_page_thumbs_limit;
+        
+        if ($this->nsfw())
+            $nsfw = " AND openclipart_clipart.id 
+            NOT IN (
+              SELECT clipart 
+              FROM openclipart_clipart_tags 
+              INNER JOIN openclipart_tags ON tag = openclipart_tags.id 
+              WHERE name = 'nsfw'
+            ) ";
+        else $nsfw = '';
+        
+        $userid = $this->config->userid;
+        
+        if ($this->is_logged())
+            $fav_check =  " $userid IN (
+              SELECT user 
+              FROM openclipart_favorites 
+              WHERE openclipart_clipart.id = clipart
+            )";
+        else $fav_check = '0';
+        
+        if ( $where !== '' && $where !== null) $where = "AND $where";
+        
+        $query = "SELECT 
+          openclipart_clipart.id
+          , title
+          , filename
+          , link
+          , created
+          , username
+          , (
+            SELECT count(DISTINCT user) 
+            FROM openclipart_favorites 
+            WHERE clipart = openclipart_clipart.id
+          ) as num_favorites
+          , (
+            SELECT max(date) 
+            FROM openclipart_favorites 
+            WHERE clipart = openclipart_clipart.id
+          ) as last_date
+          , date
+          , $fav_check as user_fav
+          , downloads 
+        FROM openclipart_clipart 
+        INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id 
+        INNER JOIN openclipart_users ON openclipart_users.id = owner 
+        WHERE openclipart_clipart.id NOT 
+          IN (
+            SELECT clipart 
+            FROM openclipart_clipart_tags 
+            INNER JOIN openclipart_tags ON openclipart_tags.id = tag 
+            WHERE clipart = openclipart_clipart.id 
+            AND openclipart_tags.name = 'pd_issue'
+          ) $nsfw $where 
+        GROUP BY openclipart_clipart.id 
+        ORDER BY $order_by 
+        DESC LIMIT 9";
+        
         $clipart_list = array();
         foreach ($this->db->get_array($query) as $row) {
             $filename_png = preg_replace("/.svg$/",
@@ -183,6 +202,66 @@ class OCAL extends System{
                 WHERE owner = openclipart_users.id 
                 AND openclipart_users.username = '$username'";
       return $this->db->get_value($query);
+    }
+    
+    function new_clipart($nsfw = false, $limit = 9){
+      
+      if(!$nsfw) $and_nsfw = $this->and_not_nsfw();
+      else $and_nsfw = '';
+      
+     $query = "SELECT 
+        openclipart_clipart.id as id
+        , title
+        , filename
+        , link
+        , created
+        , username
+        FROM openclipart_clipart
+        INNER JOIN openclipart_users
+        WHERE owner = openclipart_users.id
+        $and_nsfw
+        ORDER BY created
+        DESC
+        LIMIT $limit";
+      
+      $cliparts = $this->db->get_array($query);
+      return $this->add_filename($cliparts);
+    }
+    
+    function popular_clipart($nsfw = false, $limit = 9){
+      
+      if(!$nsfw) $and_nsfw = $this->and_not_nsfw();
+      else $and_nsfw = '';
+      
+      $query = "SELECT
+        openclipart_clipart.id as id
+        , title
+        , filename
+        , link
+        , created
+        , username
+        , (
+          -- count the favorites younger than one week
+          SELECT COUNT(*) 
+          FROM openclipart_favorites 
+          WHERE clipart = openclipart_clipart.id
+          AND date > NOW() - INTERVAL 1 WEEK
+        ) as num_favorites_this_week
+        -- total count of favorites
+        , (
+          SELECT COUNT(*) 
+          FROM openclipart_favorites
+          WHERE clipart = openclipart_clipart.id
+        ) as num_favorites
+        FROM openclipart_clipart
+        INNER JOIN openclipart_users
+        WHERE owner = openclipart_users.id
+        $and_nsfw
+        ORDER BY num_favorites_this_week
+        DESC
+        LIMIT $limit";
+      $cliparts = $this->db->get_array($query);
+      return $this->add_filename($cliparts);
     }
     
     function user_clipart($username, $page, $results_per_page){
@@ -355,6 +434,19 @@ class OCAL extends System{
         if( $i + 1 < $size ) $query .= ", \n ";
       }
       $this->db->query($query);
+    }
+    
+    function tags_by_downloads(){
+      $query = "SELECT name, COUNT(downloads) as downloads 
+        FROM openclipart_clipart_tags 
+        INNER JOIN openclipart_tags ON openclipart_tags.id = openclipart_clipart_tags.tag
+        LEFT JOIN openclipart_clipart ON openclipart_clipart.id = openclipart_clipart_tags.clipart
+        GROUP BY name
+        ORDER BY downloads
+        DESC LIMIT 30";
+      
+      $tags = $this->db->get_array($query);
+      return $tags;
     }
     
     function tag_counts($tags) {
