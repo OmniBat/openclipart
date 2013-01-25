@@ -6,9 +6,4 @@ $app->get("/tags/:tag", function($tag) use($app) {
   ));
 });
 
-$app->get('/add-tag/:clipid/:tag', function($clipid, $tag) use($app){
-  $app->set_clipart_tags($clipid, array($tag));
-  return $app->halt(200);
-});
-
 ?>
