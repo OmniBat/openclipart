@@ -1,4 +1,14 @@
 <?php
+
+$app->get("/clipart/:id/info", function($id) use($app){
+  $id = intval($id);
+  $query = "SELECT * FROM openclipart_clipart
+    WHERE id = $id";
+  $clipart = $app->db->get_row($query);
+  if(empty($clipart)) return $app->status(404);
+  var_dump($clipart);
+});
+
 $app->get("/clipart/:id", function($id) use ($app) {
     $id = intval($id);
     /*

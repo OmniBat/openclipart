@@ -26,7 +26,7 @@ $app->get("/image/:width/:user/:filename", function($width, $user, $file) use($a
         echo "Resolution couldn't be higher then $max_res px! Please download SVG and " .
             "produce the bitmap locally.";
     } else if ( !file_exists($svg) || filesize($svg) == 0 ){
-      return $app->notFound();
+      return $app->status(404);
     } else {
         $file = $app->db->escape($file);
         $user = $app->db->escape($user);
