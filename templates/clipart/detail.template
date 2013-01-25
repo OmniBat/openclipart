@@ -25,7 +25,7 @@
           <a class="btn btn-danger btn-large btn-ocal" href="/download/svg/{{username}}/{{filename}}">download</a>
         </div>
         <div class="edit-menu">
-          <a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl={{file-url}}">edit</a>
+          <a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl=http://dev.openclipart.org/download/svg/{{username}}/{{filename}}">edit</a>
           <a href="#">remix</a>
           <a href="#">export</a>
         </div>
