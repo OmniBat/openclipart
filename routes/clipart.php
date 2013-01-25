@@ -43,6 +43,11 @@ $app->get("/clipart/:id", function($id) use ($app) {
       $svg = $app->config->root_directory . $app->config->example_svg;
     }
     
+    if(!file_exists($svg)){
+      error_log("missing expected svg at $svg");
+      return $app->notFound();
+    }
+    
     // COLLECTIONS
     $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";
     $collections = $app->db->get_array($query);
