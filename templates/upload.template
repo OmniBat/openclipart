@@ -9,7 +9,7 @@
     <h3>Upload Clip Art</h3>
     <div class="row">
       <div class="span12 section">
-        <h3>
+        <h3 class="section">
           <div class="step-container">
             <div class="step">1</div>
             <div class="check-green"></div>
@@ -49,7 +49,7 @@
     </div>
     <div class="row">
       <div class="span12 section">
-        <h3>
+        <h3 class="section">
           <div class="step-container">
             <div class="step">2</div>
             {% if user %}
@@ -73,7 +73,7 @@
     </div>
     <div class="row">
       <div class="span12 section">
-        <h3>
+        <h3 class="section">
           <div class="step-container"><div class="step">3</div></div>
           upload
         </h3>
