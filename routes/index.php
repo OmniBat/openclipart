@@ -9,7 +9,7 @@ $app->get("/", function() use($app){
             LEFT JOIN openclipart_clipart ON openclipart_clipart.id = openclipart_clipart_tags.clipart
             GROUP BY name
             ORDER BY downloads
-            DESC";
+            DESC LIMIT 30";
   
   $tags = $app->db->get_array($query);
   
