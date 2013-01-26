@@ -7,3 +7,8 @@ This is reimplementaion of [Open Clipart Library](http://openclipart.org/) web s
 # Installation
 
 NOTE: When clone you need to clone all submodules as well so use --recursive option
+
+TODO:
+  [] nsfw checkbox in file upload
+  [] export size options
+  [] refactor file storage folder structure

@@ -104,7 +104,7 @@ $serve_image_func = function($width, $user, $file) use($app) {
             if(!exec($cmd)) error_log('error running command: $cmd');
             
             if(!file_exists($png)){
-              $app->pass();
+              $app->status(404);
             }else{
               $response->header('Content-Type', 'image/png');
               echo file_get_contents($png);

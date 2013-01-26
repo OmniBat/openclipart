@@ -1,48 +1,29 @@
 <?php
 
 $app->get("/download/svg/:user/:filename", function($user, $filename) use($app) {
-
-    // TODO: code should look like this: classes User and Clipart System Operate on Users
-    //       OCALUser extend User and OCAL overwrite method that get user, so it return
-    //       OCALUser instead of User (the later will have methods to operate on Clipart)
-    /*
-    $user = $app->user_by_name($username);
-    if (!$user) {
-        $app->notFound();
-    } else {
-        $clipart = $user->clipart_by_name($filename);
-        if (!$clipart || $clipart->size() == 0) {
-            $app->notFound();
-        } else {
-
-        }
-    }
-    */
-    if(isset($app->config->svg_debug) && $app->config->svg_debug){
-      $user = 'rejon';
-      $filename = 'rejon_Supergirl.svg';
-    }
-    $clipart = new Clipart($user, $filename);
-    if(!$clipart->exists() || $clipart->size() == 0){
-        // old OCAL have some 0 size files
-        $app->notFound();
+  if(isset($app->config->svg_debug) && $app->config->svg_debug){
+    $user = 'rejon';
+    $filename = 'rejon_Supergirl.svg';
+  }
+  $clipart = new Clipart($user, $filename);
+  if(!$clipart->exists() || $clipart->size() == 0){
+    // old OCAL have some 0 size files
+    $app->notFound();
+  }else{
+    
+    $response = $app->response()->header('Content-Type', 'application/octet-stream');
+    if($app->track()) $clipart->inc_download();
+    $nsfw_image = $app->config->nsfw_image;
+    
+    if($app->nsfw() && $clipart->nsfw()){
+      $filename = clipart_path($nsfw_image['user'], $nsfw_image['filename']);
+    }else if($clipart->have_pd_issue()){
+      $filename = clipart_path($nsfw_image['user'], $nsfw_image['filename']);
     }else{
-        
-        $response = $app->response()->header('Content-Type', 'application/octet-stream');
-        
-        if($app->track()) $clipart->inc_download();
-        
-        $nsfw_image = $app->config->nsfw_image;
-        
-        if($app->nsfw() && $clipart->nsfw()){
-          $filename = clipart_path($nsfw_image['user'], $nsfw_image['filename']);
-        }else if($clipart->have_pd_issue()){
-          $filename = clipart_path($nsfw_image['user'], $nsfw_image['filename']);
-        }else{
-          $filename = $clipart->full_path();
-        }
-        echo file_get_contents($filename);
+      $filename = $clipart->full_path();
     }
+    echo file_get_contents($filename);
+  }
 });
 
 $app->get("/download/collection/:name", function($name) use($app){

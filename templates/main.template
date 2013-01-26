@@ -14,16 +14,23 @@
     <title>Open Clip Art Library</title>
     
     <!-- styles -->
-    <link href="/css/main.css" rel="stylesheet">
+    <!-- its always a good idea to bump the version number on the css so 
+    browsers know to clear their cached version -->
+    <link href="/css/main.css?v=1" rel="stylesheet">
     <!--<link href="http://api.picatcha.com/static/client/picatcha.css" type="text/css" rel="stylesheet"/>-->
     
     <!-- js -->
     <script type="text/javascript" src="/js/modernizr.js"></script>
+    <!-- its always a good idea to bump the version number of the js browsers 
+    know to clear their cached version -->
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript">
       require('openclipart/index.js');
     </script>
     <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <!-- page specific javascript but this should ALMOST ever be needed. 
+    try to put most JS code into component then compile to /js/main.js using 
+    `make js` -->
     {% block js %}{% endblock %}
   </head>
   <body>
@@ -75,9 +82,7 @@
       </div>
     </div>
     
-    
     <div class="container">
-      
       <div class="row ocal-ad-banner">
         <div class="span12">
           <div class="row">
@@ -92,7 +97,6 @@
           </div>
         </div>
       </div>
-      
       <div class="row"> 
         <div class="span12">
           <ul class="ocal-main-menu">
@@ -106,12 +110,16 @@
         </div>
       </div>
     </div>
+    
     <div class="shadow"></div>
+    
     <div class="stripe"></div>
+    
     <div class="glow"></div>
+    
+    <!-- container -->
     <div class="container after-stripe {{ editable ? 'editable' }} {{ userid ? 'logged' }} {{class ? class ~ '-template' }}">
       <div class="triangle"></div>
-      
         {% if system_warnings %}
         <ul>
           {% for warning in system_warnings %}
@@ -123,7 +131,7 @@
         {% block content %}{% endblock %}
         {{body}}
       </div>
-
+      <!-- footer -->
       <footer>
         <div class="row">
           <div class="span3">
@@ -162,6 +170,7 @@
           </div>
         </div>
       </footer>
-    </div> <!-- /container -->
+      <!-- end footer -->
+    </div> <!-- end container -->
   </body>
 </html>

@@ -181,7 +181,6 @@ table.common-table{
 
 .row-split {
   /*background: -moz-linear-gradient(left, rgba(0,0,0,0) 0px, rgba(0,0,0,0.15) 1px, rgba(0,0,0,0) 1px);*/
-
   background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0px, rgba(0,0,0,0) 1px); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0px,rgba(0,0,0,0)), color-stop(1px,rgba(0,0,0,0))); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0px,rgba(0,0,0,0) 1px); /* Chrome10+,Safari5.1+ */
@@ -191,4 +190,16 @@ table.common-table{
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
 
   background-position: 490px 0;
+}
+
+
+.center{
+  &.nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    *zoom:1; /* hasLayout ie7 trigger */
+    vertical-align: top;
+    text-align: left;
+  }
 }
