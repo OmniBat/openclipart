@@ -2,50 +2,49 @@
 {% block content %}
 <div class="page-clipart-edit">
   <div class="row">
-    <div class="span12">
-    <h2> Edit Clipart Details </h2>
-    <form class="form-horizontal" method="POST">
-      <input type="hidden" name="id" value="{{clipart.id}}">
-      <!-- title -->
-      <div class="control-group {{ errors.title ? 'error' }}">
-        <label class="control-label" for="title">Title</label>
-        <div class="controls">
-          <input name="title" type="text" id="title" placeholder="Clipart title" value="{{clipart.title}}">
+    <div class="span1"></div>
+    <div class="span5 center">
+      <h2> Edit Clipart Details </h2>
+      <img src="/image/280/{{username}}/{{filename_png}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
+    </div>
+    <div class="span5">
+      <form class="form-horizontal" method="POST">
+        <input type="hidden" name="id" value="{{clipart.id}}">
+        <!-- title -->
+        <div class="{{ errors.title ? 'error' }}">
+          <label class="" for="title">Title</label>
+          <input class="input-block-level" name="title" type="text" id="title" placeholder="Clipart title" value="{{clipart.title}}">
           <span class="help-inline">{{errors.title}}</span>
         </div>
-      </div>
-      <!-- author -->
-      <div class="control-group {{ errors.author ? 'error' }}">
-        <label class="control-label" for="author">Author</label>
-        <div class="controls">
-          <input name="author" type="text" id="author" placeholder="Author" value="{{clipart.author}}">
+        <!-- author -->
+        <div class="{{ errors.author ? 'error' }}">
+          <label class="" for="author">Author</label>
+          <input class="input-block-level" name="author" type="text" id="author" placeholder="Author" value="{{clipart.author}}">
           <span class="help-inline">{{errors.author}}</span>
         </div>
-      </div>
-      <!-- description -->
-      <div class="control-group {{ errors.description ? 'error' }}">
-        <label class="control-label" for="description">Description</label>
-        <div class="controls">
-          <textarea name="description" id="description" placeholder="Description" value="{{clipart.description}}"></textarea>
+        <!-- description -->
+        <div class="{{ errors.description ? 'error' }}">
+          <label class="" for="description">Description</label>
+          <textarea class="input-block-level" rows="4" name="description" id="description" placeholder="Description" value="{{clipart.description}}"></textarea>
           <span class="help-inline">{{errors.description}}</span>
         </div>
-      </div>
-      <!-- author -->
-      <div class="control-group {{ errors.tags ? 'error' }}">
-        <label class="control-label" for="tags">Tags</label>
-        <div class="controls">
-          <input name="tags" type="text" id="tags" placeholder="Tags" value="{{tags}}">
+        <!-- author -->
+        <div class="{{ errors.tags ? 'error' }}">
+          <label class="" for="tags">Tags</label>
+          <input class="input-block-level" name="tags" type="text" id="tags" placeholder="Tags" value="{{tags}}">
           <span class="help-inline">{{errors.tags}}</span>
         </div>
-      </div>
-      <!-- submit -->
-      <div class="control-group">
-        <div class="controls">
+        <label class="checkbox pull-right">
+             <input type="checkbox"> NSFW
+        </label>
+        <div class="clear"></div>
+        <!-- submit -->
+        <div class="control-group">
           <button type="submit" class="btn btn-primary">Update</button>
           <a href="{{back}}" class="btn"> Cancel </a>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}

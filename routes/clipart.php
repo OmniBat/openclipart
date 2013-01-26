@@ -89,6 +89,8 @@ $app->get("/clipart/:id/edit", function($id) use($app){
   $owner = $app->config->userid;
   $query = "SELECT * FROM openclipart_clipart WHERE owner = $owner AND id = $id";
   
+  $username = $app->username_from_id($owner);
+  
   $clipart = $app->db->get_array($query);
   if(!sizeof($clipart)) return $app->notFound();
   $clipart = $clipart[0];
@@ -96,7 +98,9 @@ $app->get("/clipart/:id/edit", function($id) use($app){
   $app->render("/clipart/edit", array(
     'back' => "/clipart/$id"
     , 'clipart' => $clipart
+    , 'filename_png' => $app->clipart_filename_png($clipart['filename'])
     , 'tags' => implode(', ', $app->get_clipart_tags($id))
+    , 'username' => $username
   ));
 });
 
