@@ -84,6 +84,9 @@ $app->get("/clipart/:id", function($id) use ($app) {
     )));
 });
 
+
+
+
 $app->get("/clipart/:id/edit", function($id) use($app){
   $id = intval($id);
   $owner = $app->config->userid;
@@ -94,15 +97,24 @@ $app->get("/clipart/:id/edit", function($id) use($app){
   $clipart = $app->db->get_array($query);
   if(!sizeof($clipart)) return $app->notFound();
   $clipart = $clipart[0];
-  
+  $tags = $app->get_clipart_tags($id);
+  $nsfw = in_array('nsfw',$tags);
+  foreach($tags as $key => $tag){
+    if($tag === 'nsfw') unset($tags[$key]);
+  }
   $app->render("/clipart/edit", array(
     'back' => "/clipart/$id"
     , 'clipart' => $clipart
     , 'filename_png' => $app->clipart_filename_png($clipart['filename'])
-    , 'tags' => implode(', ', $app->get_clipart_tags($id))
+    , 'tags' => implode(', ', $tags)
     , 'username' => $username
+    , 'nsfw' => $nsfw
   ));
 });
+
+
+
+
 
 $app->post("/clipart/:id/edit", function($id) use($app){
   $id = intval($id);
@@ -131,7 +143,9 @@ $app->post("/clipart/:id/edit", function($id) use($app){
   $app->db->query($query);
   
   // TODO: handle update error
-  $app->set_clipart_tags( $id, $app->split_tags($tags) );
+  $tags = $app->split_tags($tags);
+  if(isset($_POST['nsfw'])) array_push($tags, 'nsfw');
+  $app->set_clipart_tags( $id, $tags );
   
   return $app->redirect("/clipart/" . $id );
   

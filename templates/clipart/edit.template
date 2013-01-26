@@ -35,7 +35,7 @@
           <span class="help-inline">{{errors.tags}}</span>
         </div>
         <label class="checkbox pull-right">
-             <input type="checkbox"> NSFW
+             <input name="nsfw" type="checkbox" {{nsfw ? 'checked="checked"'}}> NSFW
         </label>
         <div class="clear"></div>
         <!-- submit -->

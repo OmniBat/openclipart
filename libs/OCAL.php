@@ -402,49 +402,61 @@ class OCAL extends System{
     // (ie., ['tag1','tag2','tag3','tag4'])
     function split_tags($tag_str){
       $tags = preg_split("/[\s]*[,][\s]*/", $tag_str);
-      return array_map(function($tag){
-        return preg_replace("/[^a-zA-Z0-9]/", "", $tag);
-      }, $tags);
-      
+      foreach($tags as $key => $tag){
+        $tag = $tags[$key] = preg_replace("/[^a-zA-Z0-9]/", "", $tag);
+        if($tag === "") unset($tags[$key]);
+      }
+      return $tags;
     }
     
     function set_clipart_tags($clipid, $tags){
       
-      $clipid = $this->db->escape($clipid);
+      $clipid = intval($clipid);
+      $tag_ids = array();
       
       // ensure that these tags exists in `openclipart_tags`
       
-      $query = "INSERT IGNORE INTO openclipart_tags(name) 
-                VALUES ";
-      $size = sizeof($tags);
-      foreach($tags as $i => $tag){
-        $tag = $this->db->escape($tag);
-        $query .= " ('$tag') ";
-        if( $i + 1 < $size) $query .= ", \n";
+      if(sizeof($tags)){
+        $query = "INSERT IGNORE INTO openclipart_tags(name) 
+                  VALUES ";
+        $size = sizeof($tags);
+        foreach($tags as $i => $tag){
+          $tag = $this->db->escape($tag);
+          $query .= " ('$tag') ";
+          if( $i + 1 < $size) $query .= ", \n";
+        }
+        $this->db->query($query);
+      
+        // get the tag ids from the tag strings
+        $query = "SELECT id FROM openclipart_tags WHERE ";
+        foreach($tags as $i => $tag){
+          $tag = $this->db->escape($tag);
+          $query .= " name = '$tag' ";
+          if( $i + 1 < $size ) $query .= " OR ";
+        }
+      
+        $tag_ids = $this->db->get_array($query);
       }
+      
+      // remove old tags for this clipart
+      $query = "DELETE IGNORE FROM openclipart_clipart_tags 
+                WHERE clipart = $clipid";
+      
       $this->db->query($query);
       
-      // get the tag ids from the tag strings
-      $query = "SELECT id FROM openclipart_tags WHERE ";
-      foreach($tags as $i => $tag){
-        $tag = $this->db->escape($tag);
-        $query .= " name = '$tag' ";
-        if( $i + 1 < $size ) $query .= " OR ";
+      if($tag_ids){
+        // add these (clipartid, tagid) combinations
+        $query = " INSERT IGNORE INTO openclipart_clipart_tags(clipart, tag)
+                  VALUES ";
+      
+        $size = sizeof($tag_ids);
+        foreach($tag_ids as $i => $tag){
+          $tag_id = $tag['id'];
+          $query .= " ('$clipid', '$tag_id') ";
+          if( $i + 1 < $size ) $query .= ", \n ";
+        }
+        $this->db->query($query);
       }
-      
-      $tag_ids = $this->db->get_array($query);
-      
-      // add these (clipid, tagid) combinations
-      $query = "INSERT IGNORE INTO openclipart_clipart_tags(clipart, tag)
-                VALUES ";
-      
-      $size = sizeof($tag_ids);
-      foreach($tag_ids as $i => $tag){
-        $tag_id = $tag['id'];
-        $query .= " ('$clipid', '$tag_id') ";
-        if( $i + 1 < $size ) $query .= ", \n ";
-      }
-      $this->db->query($query);
     }
     
     function get_clipart_tags($clipartid){
