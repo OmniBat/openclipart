@@ -1,8 +1,7 @@
 <?php
 
 
-$serve_image_func = function($width, $user, $file) use($app) {
-
+$serve_image_func = function($width, $user, $file, $download = false) use($app) {
     $width = intval($width);
     $dir = $app->config->root_directory;
     $svg_filename = preg_replace("/.png$/", '.svg', $file);
@@ -56,9 +55,12 @@ $serve_image_func = function($width, $user, $file) use($app) {
 
 
         if (file_exists($png)) {
-            $response->header('Content-Type', 'image/png');
-            echo file_get_contents($png);
-        } else {
+          if($download){
+            $response->header('Content-Disposition: attachment; filename=' . basename($png));
+            $response->header('Content-Type', 'application/octet-stream');
+          }else $response->header('Content-Type', 'image/png');
+          echo file_get_contents($png);
+        }else{
             // Scaling FROM AIKI
             $newvalue = $width;
             $svgfile = file_get_contents($svg);
@@ -106,15 +108,37 @@ $serve_image_func = function($width, $user, $file) use($app) {
             if(!file_exists($png)){
               $app->status(404);
             }else{
-              $response->header('Content-Type', 'image/png');
+              if($download){
+                $response->header('Content-Disposition: attachment; filename=' . basename($png));
+                $response->header('Content-Type', 'application/octet-stream');
+              }else $response->header('Content-Type', 'image/png');
               echo file_get_contents($png);
             }
         }
     }
 };
 
+// NON-DOWNLOAD //
+
+// no username provided
 $app->get("/image/:width/:file", function($width, $file) use($app, $serve_image_func) {
   call_user_func($serve_image_func,$width, '', $file);
 });
+
+// username provided
 $app->get("/image/:width/:user/:file", $serve_image_func);
+
+
+// DOWNLOAD //
+
+// no username provided
+$app->get("/image/download/:width/:filename", function($width, $filename) use($app, $serve_image_func){
+  call_user_func($serve_image_func,$width, '', $file, true);
+});
+
+// username provided
+$app->get("/image/download/:width/:username/:filename", function($width, $username, $filename) use($app, $serve_image_func){
+  call_user_func($serve_image_func, $width, $username, $filename, true);
+});
+
 ?>

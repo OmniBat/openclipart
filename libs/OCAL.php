@@ -397,6 +397,17 @@ class OCAL extends System{
       return $cliparts;
     }
     
+    // takes a string (ie., ' tag1,    tag2,tag3, tag4')
+    // and splits it put into an array of tags 
+    // (ie., ['tag1','tag2','tag3','tag4'])
+    function split_tags($tag_str){
+      $tags = preg_split("/[\s]*[,][\s]*/", $tag_str);
+      return array_map(function($tag){
+        return preg_replace("/[^a-zA-Z0-9]/", "", $tag);
+      }, $tags);
+      
+    }
+    
     function set_clipart_tags($clipid, $tags){
       
       $clipid = $this->db->escape($clipid);
@@ -434,6 +445,14 @@ class OCAL extends System{
         if( $i + 1 < $size ) $query .= ", \n ";
       }
       $this->db->query($query);
+    }
+    
+    function get_clipart_tags($clipartid){
+      $clipartid = $this->db->escape($clipartid);
+      $query = "SELECT name FROM openclipart_clipart_tags 
+        INNER JOIN openclipart_tags ON tag = id WHERE clipart = $clipartid";
+      $tags = $this->db->get_column($query);
+      return $tags;
     }
     
     function top_artists(){

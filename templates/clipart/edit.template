@@ -1,0 +1,51 @@
+{% extends 'main.template' %}
+{% block content %}
+<div class="page-clipart-edit">
+  <div class="row">
+    <div class="span12">
+    <h2> Edit Clipart Details </h2>
+    <form class="form-horizontal" method="POST">
+      <input type="hidden" name="id" value="{{clipart.id}}">
+      <!-- title -->
+      <div class="control-group {{ errors.title ? 'error' }}">
+        <label class="control-label" for="title">Title</label>
+        <div class="controls">
+          <input name="title" type="text" id="title" placeholder="Clipart title" value="{{clipart.title}}">
+          <span class="help-inline">{{errors.title}}</span>
+        </div>
+      </div>
+      <!-- author -->
+      <div class="control-group {{ errors.author ? 'error' }}">
+        <label class="control-label" for="author">Author</label>
+        <div class="controls">
+          <input name="author" type="text" id="author" placeholder="Author" value="{{clipart.author}}">
+          <span class="help-inline">{{errors.author}}</span>
+        </div>
+      </div>
+      <!-- description -->
+      <div class="control-group {{ errors.description ? 'error' }}">
+        <label class="control-label" for="description">Description</label>
+        <div class="controls">
+          <textarea name="description" id="description" placeholder="Description" value="{{clipart.description}}"></textarea>
+          <span class="help-inline">{{errors.description}}</span>
+        </div>
+      </div>
+      <!-- author -->
+      <div class="control-group {{ errors.tags ? 'error' }}">
+        <label class="control-label" for="tags">Tags</label>
+        <div class="controls">
+          <input name="tags" type="text" id="tags" placeholder="Tags" value="{{tags}}">
+          <span class="help-inline">{{errors.tags}}</span>
+        </div>
+      </div>
+      <!-- submit -->
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-primary">Update</button>
+          <a href="{{back}}" class="btn"> Cancel </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

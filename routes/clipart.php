@@ -2,14 +2,7 @@
 
 $app->get("/clipart/:id", function($id) use ($app) {
     $id = intval($id);
-    /*
-    $query = "SELECT openclipart_clipart.id, title, filename, link, created, 
-            username, count(DISTINCT user) as favs, created, downloads, description 
-        FROM openclipart_clipart 
-        INNER JOIN openclipart_users ON owner = openclipart_users.id 
-        INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id 
-        WHERE openclipart_clipart.id = $id";
-    */
+    
     $query = "SELECT openclipart_clipart.id, title, filename, link, created, 
         username, created, downloads, description 
         FROM openclipart_clipart 
@@ -90,4 +83,54 @@ $app->get("/clipart/:id", function($id) use ($app) {
         'nsfw' => in_array('nsfw', $tags)
     )));
 });
+
+$app->get("/clipart/:id/edit", function($id) use($app){
+  $id = intval($id);
+  $owner = $app->config->userid;
+  $query = "SELECT * FROM openclipart_clipart WHERE owner = $owner AND id = $id";
+  
+  $clipart = $app->db->get_array($query);
+  if(!sizeof($clipart)) return $app->notFound();
+  $clipart = $clipart[0];
+  
+  $app->render("/clipart/edit", array(
+    'back' => "/clipart/$id"
+    , 'clipart' => $clipart
+    , 'tags' => implode(', ', $app->get_clipart_tags($id))
+  ));
+});
+
+$app->post("/clipart/:id/edit", function($id) use($app){
+  $id = intval($id);
+  $title = $_POST['title'];
+  $author = $_POST['author'];
+  $description = $_POST['description'];
+  $tags = $_POST['tags'];
+  
+  $e = function($str) use($app){
+      return $app->db->escape($str);
+  };
+  
+  $title = $e($title);
+  $author = $e($author);
+  $description = $e($description);
+  $tags = $e($tags);
+  $owner = intval($app->config->userid);
+  
+  $query = "UPDATE openclipart_clipart SET 
+      title = '$title'
+      , original_author = '$author'
+      , description = '$description'
+      WHERE id = $id AND owner = $owner";
+  
+  // TODO: handle update error
+  $app->db->query($query);
+  
+  // TODO: handle update error
+  $app->set_clipart_tags( $id, $app->split_tags($tags) );
+  
+  return $app->redirect("/clipart/" . $id );
+  
+});
+
 ?>

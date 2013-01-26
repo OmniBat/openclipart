@@ -26,6 +26,10 @@ $app->get("/download/svg/:user/:filename", function($user, $filename) use($app) 
   }
 });
 
+$app->get("/download/:size/:user/:filename", function($size, $user, $filename) use($app){
+  
+});
+
 $app->get("/download/collection/:name", function($name) use($app){
     // TODO:
     // name exists

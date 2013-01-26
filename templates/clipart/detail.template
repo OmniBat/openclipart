@@ -43,10 +43,9 @@
               </a>
             <ul class="dropdown-menu">
               <!-- links -->
-              <li><a tabindex="-1" href="#">100px</a></li>
-              <li><a tabindex="-1" href="#">200px</a></li>
-              <li><a tabindex="-1" href="#">500px</a></li>
-              <li><a tabindex="-1" href="#">custom</a></li>
+              <li><a tabindex="-1" href="/image/download/100/{{username}}/{{filename_png}}">100px</a></li>
+              <li><a tabindex="-1" href="/image/download/200/{{username}}/{{filename_png}}">200px</a></li>
+              <li><a tabindex="-1" href="/image/download/500/{{username}}/{{filename_png}}">500px</a></li>
             </ul>
           </li>
         </ul>
@@ -65,6 +64,11 @@
       </div>
     </div>
     <div class="span6">
+      {% if editable %}
+        <div class="edit-menu pull-right">
+          <a href="/clipart/{{id}}/edit">edit your clipart</a>
+        </div>
+      {% endif %}
       <h5>Tags</h5>
         <div class="tags">
           {% for tag in tags %}

@@ -22,14 +22,8 @@ $app->post("/upload", function() use($app){
       , 'tmp_name' => $files['tmp_name'][$ind]
       , 'type' => $files['type'][$ind]
     ));
-    error_log('before insert id');
     $clipid = $app->db->insert_id();
-    error_log('after insert id');
-    $tags = preg_split("/[\s]*[,][\s]*/", $_POST['tags'][$ind]);
-    $tags = array_map(function($tag){
-      return preg_replace("/[^a-zA-Z0-9]/", "", $tag);
-    }, $tags);
-    var_dump($tags);
+    $tags = $app->split_tags($_POST['tags'][$ind]);
     $app->set_clipart_tags($clipid, $tags);
   }
 });
