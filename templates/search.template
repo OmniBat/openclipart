@@ -2,7 +2,7 @@
 {% block content %}
   <div class="row">
     <div class="span12 search-headline">
-      <h3>Search results for '{{terms}}' <span>
+      <h3 class="center">Search results for '{{terms}}' </h3>
       <!-- <button class="btn btn-danger btn-ocal" type="button">download "term".zip</button></span></h3> -->
     </div>
     <div class="span12 center">
@@ -22,16 +22,17 @@
           </ul>
         </div>
       </div>-->
-      {% include 'components/pagination.template' %}
     </div>
   </div><!--end row--> 
   <div class="row">
     <div class="span12">
+      {% include 'components/pagination.template' %}
       <ul class="thumbnails">
         {% for clipart in clipart_list %}
           {% include 'clipart/item.template' %}
         {% endfor %}
       </ul>
+      {% include 'components/pagination.template' %}
     </div>
     <div class="span12 center ad-span">
       <img src="img/shutterstock.png" />
