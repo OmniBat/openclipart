@@ -9,6 +9,7 @@ $app->get('/artists/:page', function($page) use($app){
   
   $results_per_page = 5; // results per page
   $desc = false;
+  
   $orderby = '';
   if(isset($_GET['orderby'])){
     if($_GET['orderby'] === 'uploads'){

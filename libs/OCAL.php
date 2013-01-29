@@ -401,7 +401,7 @@ class OCAL extends System{
     // and splits it put into an array of tags 
     // (ie., ['tag1','tag2','tag3','tag4'])
     function split_tags($tag_str){
-      $tags = preg_split("/[\s]*[,][\s]*/", $tag_str);
+      $tags = preg_split("/[\s]*([,]|[\s]+)[\s]*/", $tag_str);
       foreach($tags as $key => $tag){
         $tag = $tags[$key] = preg_replace("/[^a-zA-Z0-9]/", "", $tag);
         if($tag === "") unset($tags[$key]);

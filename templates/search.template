@@ -1,94 +1,72 @@
 {% extends 'main.template' %}
 {% block content %}
-<div class="row">
-  <div class="span12 search-headline">
-    <h3>Search results for "term" <span><button class="btn btn-danger btn-ocal" type="button">download "term".zip</button></span></h3>
-  </div>
-  <div class="span12 center">
-    <div class="search-navigation">
-      <span>sort by</span>
-      <div class="btn-group">
-        <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#">popularity</span></a><a href="#"><div class="sort-ascending"></div></a>
-        <ul class="dropdown-menu">
-          <li><a href="#" class="age">age </a></li>
-          <li><a href="#" class="downloads">downloads </a></li>
-          <li><a href="#" class="red">red</a></li>
-          <li><a href="#" class="yellow">yellow</a></li>
-          <li><a href="#" class="blue">blue</a></li>
-          <li><a href="#" class="green">green</a></li>
-          <li><a href="#" class="white">white</a></li>
-          <li><a href="#" class="black">black</a></li>
-        </ul>
-      </div>
+  <div class="row">
+    <div class="span12 search-headline">
+      <h3>Search results for '{{terms}}' <span>
+      <!-- <button class="btn btn-danger btn-ocal" type="button">download "term".zip</button></span></h3> -->
     </div>
-    <div class="pagination pagination-centered">
-      <ul>
-        <li><a href="#">«</a></li>
-        <li><a href="#">1</a></li>
-        <li class="hidable"><a href="#">2</a></li>
-        <li class="disabeled"> ... </li>
-        <li class="hidable"><a href="#">23</a></li>
-        <li><a href="#">24</a></li>
-        <li class="active"><a href="#">25</a></li>
-        <li><a href="#">26</a></li>
-        <li class="hidable"><a href="#">27</a></li>
-        <li class="disabeled"> ... </li>
-        <li class="hidable"><a href="#">122</a></li>
-        <li><a href="#">123</a></li>
-        <li><a href="#">»</a></li>
+    <div class="span12 center">
+      <!--<div class="search-navigation">
+        <span>sort by</span>
+        <div class="btn-group">
+          <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#">popularity</span></a><a href="#"><div class="sort-ascending"></div></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" class="age">age </a></li>
+            <li><a href="#" class="downloads">downloads </a></li>
+            <li><a href="#" class="red">red</a></li>
+            <li><a href="#" class="yellow">yellow</a></li>
+            <li><a href="#" class="blue">blue</a></li>
+            <li><a href="#" class="green">green</a></li>
+            <li><a href="#" class="white">white</a></li>
+            <li><a href="#" class="black">black</a></li>
+          </ul>
+        </div>
+      </div>-->
+      {% include 'components/pagination.template' %}
+    </div>
+  </div><!--end row--> 
+  <div class="row">
+    <div class="span12">
+      <ul class="thumbnails">
+        {% for clipart in clipart_list %}
+          {% include 'clipart/item.template' %}
+        {% endfor %}
       </ul>
     </div>
-  </div>
-</div><!--end row--> 
-<div class="row">
-  <div class="span12">
-    <ul class="thumbnails">
-      {% for clip in clipart_list %}
-      <li class="span2">
-        <a href="/clipart/{{clip.id}}/{{clip.link}}{{clip.forward_query}}" class="thumbnail" title="{{clip.title}}">
-          <div class="image-center">
-            <img src="/image/100/{{clip.username}}/{{clip.filename_png}}{{clip.forward_query}}">
-          </div>
-          <h5>{{clip.title}}</h5>
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div class="span12 center ad-span">
-    <img src="img/shutterstock.png" />
-  </div>
-</div>
-<div class="row">
- <div class="span12 section">
-    <h3>Similar Search Tags</h3>
-    <div class="tags center">
-      <button class="btn btn-inverse">dog</button>
-      <button class="btn btn-inverse">juice</button>
-      <button class="btn btn-inverse">house</button>
-      <button class="btn btn-inverse">red</button>
-      <button class="btn btn-inverse">people</button>
-      <button class="btn btn-inverse">sun</button>
-      <button class="btn btn-inverse">sports</button>
-      <button class="btn btn-inverse">automobile</button>
-      <button class="btn btn-inverse">motorbike</button>
-      <button class="btn btn-inverse">headphones</button>
-      <button class="btn btn-inverse">airplane</button>
-      <button class="btn btn-inverse">spider</button>
-      <button class="btn btn-inverse">halloween</button>
-      <button class="btn btn-inverse">orange</button>
-      <button class="btn btn-inverse">motorbike</button>
-      <button class="btn btn-inverse">lizard</button>
-      <button class="btn btn-inverse">lemonade</button>
-      <button class="btn btn-inverse">headphones</button>
-      <button class="btn btn-inverse">spider</button>
-      <button class="btn btn-inverse">halloween</button>
+    <div class="span12 center ad-span">
+      <img src="img/shutterstock.png" />
     </div>
   </div>
-</div>
-<div class="footer-ad">
-  <a href="#">
-    <img src="img/adsense_185679_adformat-link_728x15_en.png" alt="" />
-  </a>
-</div>
+  <!--<div class="row">
+   <div class="span12 section">
+      <h3>Similar Search Tags</h3>
+      <div class="tags center">
+        <button class="btn btn-inverse">dog</button>
+        <button class="btn btn-inverse">juice</button>
+        <button class="btn btn-inverse">house</button>
+        <button class="btn btn-inverse">red</button>
+        <button class="btn btn-inverse">people</button>
+        <button class="btn btn-inverse">sun</button>
+        <button class="btn btn-inverse">sports</button>
+        <button class="btn btn-inverse">automobile</button>
+        <button class="btn btn-inverse">motorbike</button>
+        <button class="btn btn-inverse">headphones</button>
+        <button class="btn btn-inverse">airplane</button>
+        <button class="btn btn-inverse">spider</button>
+        <button class="btn btn-inverse">halloween</button>
+        <button class="btn btn-inverse">orange</button>
+        <button class="btn btn-inverse">motorbike</button>
+        <button class="btn btn-inverse">lizard</button>
+        <button class="btn btn-inverse">lemonade</button>
+        <button class="btn btn-inverse">headphones</button>
+        <button class="btn btn-inverse">spider</button>
+        <button class="btn btn-inverse">halloween</button>
+      </div>
+    </div>
+  </div>-->
+  <div class="footer-ad">
+    <a href="#">
+      <img src="img/adsense_185679_adformat-link_728x15_en.png" alt="" />
+    </a>
+  </div>
 {% endblock %}
