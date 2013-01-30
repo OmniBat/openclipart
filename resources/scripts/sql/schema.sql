@@ -1,9 +1,30 @@
 
-SET default_storage_engine=MYISAM;
+SET default_storage_engine = InnoDB;
 
-USE OCAL;
+USE ocal;
 
--- FILES
+-- USERS
+CREATE TABLE IF NOT EXISTS openclipart_users(
+  id integer NOT NULL auto_increment, 
+  username varchar(255) UNIQUE, 
+  password varchar(60), 
+  full_name varchar(255), 
+  country varchar(255), 
+  email varchar(255), 
+  avatar integer,
+  homepage varchar(255), 
+  twitter varchar(255),
+  creation_date datetime, 
+  about TEXT,
+  notify boolean, 
+  nsfw_filter boolean, 
+  token varchar(40), 
+  token_expiration datetime default null, 
+  PRIMARY KEY(id)
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+
+
 CREATE TABLE IF NOT EXISTS openclipart_clipart(
   id integer NOT NULL auto_increment, 
   filename varchar(255), 
@@ -18,32 +39,13 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart(
   hidden boolean default 0, 
   created datetime, 
   modified datetime, 
-  PRIMARY KEY(id), 
+  PRIMARY KEY(id),
   FOREIGN KEY(owner) REFERENCES openclipart_users(id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
+ALTER TABLE openclipart_users ADD FOREIGN KEY (avatar) REFERENCES openclipart_clipart(id);
 
--- USERS
-CREATE TABLE IF NOT EXISTS openclipart_users(
-  id integer NOT NULL auto_increment, 
-  username varchar(255) UNIQUE, 
-  password varchar(60), 
-  full_name varchar(255), 
-  country varchar(255), 
-  email varchar(255), 
-  avatar integer, 
-  homepage varchar(255), 
-  twitter varchar(255),
-  creation_date datetime, 
-  about TEXT,
-  notify boolean, 
-  nsfw_filter boolean, 
-  token varchar(40), 
-  token_expiration datetime default null, 
-  PRIMARY KEY(id), 
-  FOREIGN KEY(avatar) REFERENCES openclipart_clipart(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
 -- REMIXES
@@ -71,7 +73,7 @@ CREATE TABLE IF NOT EXISTS openclipart_favorites(
 CREATE TABLE IF NOT EXISTS openclipart_comments(
   id INTEGER NOT NULL auto_increment, 
   clipart INTEGER NOT NULL, 
-  user integer NOT NULL, 
+  user integer, 
   comment text, 
   date datetime, 
   PRIMARY KEY(id), 
@@ -91,7 +93,7 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart_issues(
   closed boolean, 
   PRIMARY KEY(id), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
-  FOREIGN KEY(user) REFERENCES openclipart_user(id)
+  FOREIGN KEY(user) REFERENCES openclipart_users(id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- TAGS
@@ -126,8 +128,9 @@ CREATE TABLE IF NOT EXISTS openclipart_tags_collection_tag(
   collection INTEGER NOT NULL, 
   added DATETIME, 
   PRIMARY KEY(tag, collection), 
-  FOREIGN KEY(tag) REFERENCES openclipart_tags(id), 
-  FOREIGN KEY(collection) REFERENCES tag_collection(id)
+  FOREIGN KEY(tag) REFERENCES openclipart_tags(id)
+  -- TODO: tag collections
+  -- FOREIGN KEY(collection) REFERENCES tag_collection(id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- GROUPS

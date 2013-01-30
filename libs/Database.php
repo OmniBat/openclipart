@@ -41,6 +41,7 @@ class Database {
     }
     
     function query($query) {
+      error_log($query);
         $ret = $this->conn->query($query);
         if (!$ret) {
             throw new DatabaseException($this->conn->error);

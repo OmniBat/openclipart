@@ -47,6 +47,6 @@ foreach ($clipart_list as $clipart) {
         break;
     }
     $total2 += $mysqli->affected_rows;
-    echo "[$total1] " . $created_tags . "/" . count($tags) . " [$total2]\n";
+    //echo "[$total1] " . $created_tags . "/" . count($tags) . " [$total2]\n";
 }
 
