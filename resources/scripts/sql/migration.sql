@@ -1,6 +1,5 @@
 -- DATABASE CREATION FILE (WITH MIGRATION CODE FROM OLD AIKI+CCHOST DATABASE)
 
-SET default_storage_engine = InnoDB;
 SET character_set_server = utf8;
 SET character_set_database = utf8;
 SET character_set_results = utf8;
@@ -8,7 +7,6 @@ SET character_set_connection = utf8;
 SET collation_database = utf8_general_ci;
 SET collation_server = utf8_general_ci;
 
-USE ocal;
 
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE openclipart_users;

@@ -1,8 +1,4 @@
 
-SET default_storage_engine = InnoDB;
-
-USE ocal;
-
 -- USERS
 CREATE TABLE IF NOT EXISTS openclipart_users(
   id integer NOT NULL auto_increment, 
