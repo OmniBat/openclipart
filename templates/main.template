@@ -44,7 +44,7 @@
           
           <form class="form-search ocal-search" action="/search" method="GET">
             <div class="input-append">
-              <input id="search-i" name="query" type="text" class="span2 search-query" placeholder="Search">
+              <input id="search-i" name="terms" type="text" class="span2 search-query" placeholder="Search">
               <button id="s-button" type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
             </div>
           </form>

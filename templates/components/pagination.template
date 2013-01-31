@@ -2,12 +2,12 @@
   <ul class="pager">
     {% if pagination.current > 0 %}
       <li class="previous">
-        <a href="{{pagination.current-1}}">&larr; Prev</a>
+        <a href="{{pagination.current-1}}{{pagination.query ? '?' ~ pagination.query }}">&larr; Prev</a>
       </li>
     {% endif %}
     {% if pagination.current < pagination.pages %}
       <li class="next">
-        <a href="{{pagination.current+1}}">Next &rarr;</a>
+        <a href="{{pagination.current+1}}{{pagination.query ? '?' ~ pagination.query }}">Next &rarr;</a>
       </li>
     {% endif %}
   </ul>

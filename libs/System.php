@@ -388,9 +388,9 @@ class System extends Slim {
         $this->error = $handler;
     }
     
-    function redirect($loc, $qs = array(), $code = 302){
-        header("Location: $loc?" . http_build_query($qs), true, $code);
-        exit();
+    function redirect($url, $qs = array(), $status = 302){
+      if(!empty($qs)) $url .= '?' . http_build_query($qs);
+      parent::redirect($url, $status);
     }
     
     // ---------------------------------------------------------------------------------

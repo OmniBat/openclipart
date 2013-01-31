@@ -2,12 +2,13 @@
 
 $app->get('/search', function() use($app) {
   // redirect to page zero
-  $app->redirect('/search/0?query=' . $_GET['query']);
+  var_dump($_GET);
+  $app->redirect('/search/0', $_GET);
 });
 
 $app->get("/search/:page", function($page) use($app) {
     
-    if(!isset($_GET['query'])) return $app->notFound();
+    if(!isset($_GET['terms'])) return $app->notFound();
     
     
     // pagination
@@ -17,7 +18,7 @@ $app->get("/search/:page", function($page) use($app) {
     
     $terms = array_map(function($term) use($app) {
       return $app->db->escape($term);
-    }, $app->split_tags($_GET['query']));
+    }, $app->split_tags($_GET['terms']));
     
     $terms = implode("', '", $terms);
     $escaped_terms = $app->db->escape($terms);
@@ -68,13 +69,15 @@ $app->get("/search/:page", function($page) use($app) {
     $app->add_filename($cliparts);
     $total = $app->db->get_value("SELECT FOUND_ROWS()");
     
-    
+    $query = http_build_query($_GET);
+    var_dump($query);
     return $app->render('search', array(
       'terms' => $terms
       , 'clipart_list' => $cliparts
       , 'pagination' => array(
         'pages' => round( $total / $results_per_page, 0, PHP_ROUND_HALF_UP)
         , 'current' => $page
+        , 'query' =>  $query
       )
     ));
 });
