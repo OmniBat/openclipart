@@ -58,7 +58,7 @@
       <h3 class="section">Popular Tags</h3>
       <div class="tags center">
         {% for tag in tags %}
-          <a href="/tags/{{tag.name}}" class="btn btn-inverse">{{tag.name}}</a>
+          <a href="/search?terms={{tag.name}}" class="btn btn-inverse">{{tag.name}}</a>
         {% endfor %}
       </div>
     </div>

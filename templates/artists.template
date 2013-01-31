@@ -28,12 +28,31 @@
           </thead>
           <tbody>
             {% for user in artists %}
-            <tr>
-              <td> <img class="profile-pic" src="http://placehold.it/75x75"> <h4> {{user.username}} <small> joined {{user.creation_date | date(timezone="Europe/Paris", 'Y')}} </small></h4> </td>
-              <td> {{user.uploads}} </td>
-              <td> ?? </td>
-              <td> ??% </td>
-            </tr>
+              <tr>
+                <td>
+                  <a href="/profile/{{user.username}}">
+                    <img class="profile-pic" src="http://placehold.it/75x75"> 
+                    <h4> {{user.username}} 
+                      <small> joined {{user.creation_date | date(timezone="Europe/Paris", 'Y')}} </small>
+                    </h4>
+                  </a>
+                </td>
+                <td>
+                  <a href="/profile/{{user.username}}">
+                  {{user.uploads}}
+                  </a>
+                </td>
+                <td>
+                  <a href="/profile/{{user.username}}">
+                    ?? 
+                  </a>
+                </td>
+                <td> 
+                  <a href="/profile/{{user.username}}">
+                    ??% 
+                  </a>
+                </td>
+              </tr>
             {% endfor %}
           </tbody>
         </table>
