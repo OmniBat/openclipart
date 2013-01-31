@@ -2,7 +2,6 @@
 
 $app->get('/search', function() use($app) {
   // redirect to page zero
-  var_dump($_GET);
   $app->redirect('/search/0', $_GET);
 });
 
@@ -70,7 +69,6 @@ $app->get("/search/:page", function($page) use($app) {
     $total = $app->db->get_value("SELECT FOUND_ROWS()");
     
     $query = http_build_query($_GET);
-    var_dump($query);
     return $app->render('search', array(
       'terms' => $terms
       , 'clipart_list' => $cliparts

@@ -350,9 +350,6 @@ class OCAL extends System{
       $ret = $this->db->query($query);
       $username = $this->username_from_id($owner);
       $path = $this->clipart_path( $username, $clipart['filename'] );
-      var_dump($clipart['tmp_name']);
-      var_dump($path);
-      var_dump('file exists: ' . file_exists($clipart['tmp_name']));
       
       //mkdirp 
       @mkdir(dirname($path),0777, true);
