@@ -41,7 +41,12 @@ class Database {
     }
     
     function query($query) {
+      $time_start = microtime(true);
+      error_log("query: $query");
       $ret = $this->conn->query($query);
+      $time_end = microtime(true);
+      $time = $time_end - $time_start;
+      error_log("time: $time");
       if (!$ret) throw new DatabaseException($this->conn->error);
       return $ret;
     }
