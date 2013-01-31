@@ -158,6 +158,12 @@ $app->get('/recreate-tags', function() use($app){
   require_once('./resources/scripts/recreate_tags.php');
 });
 
+$app->get('/comments/:clipart', function($id) use($app){
+  $comments = $app->get_clipart_comments($id);
+  var_dump($comments);
+  return $comments;
+});
+
 $app->notFound(function () use ($app) {
   return $app->render('errors/404');
 });

@@ -505,4 +505,26 @@ class OCAL extends System{
             DESC";
         return $db->get_array($query);
     }
+    
+    function get_clipart_comments($id){
+      $id = intval($id);
+      $query = "SELECT openclipart_comments.id as id, username, user, clipart, comment, date FROM openclipart_comments INNER JOIN openclipart_users ON openclipart_users.id = openclipart_comments.user WHERE clipart = $id";
+      return $this->db->get_array($query);
+    }
+    
+    function add_clipart_comment($clipart, $id, $text){
+      $id = intval($id);
+      $clipart = intval($clipart);
+      $text = $this->db->escape($text);
+      $query = "INSERT INTO openclipart_comments (clipart, user, comment, date) VALUES($clipart, $id, '$text', NOW() )";
+      return $this->db->query($query);
+    }
+    
+    function remove_clipart_comment($clipart, $user, $comment){
+      $clipart = intval($clipart);
+      $user = intval($user);
+      $comment = intval($comment);
+      $query = "DELETE FROM openclipart_comments WHERE clipart = $clipart AND user = $user AND id = $comment";
+      return $this->db->query($query);
+    }
 }

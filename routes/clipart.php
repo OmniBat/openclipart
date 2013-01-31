@@ -25,8 +25,8 @@ $app->get("/clipart/:id", function($id) use ($app) {
     $best_term = $tag_rank[0]['name'];
     
     // COMMENTS
-    $query = "select openclipart_comments.id, username, comment, date, openclipart_clipart.filename as avatar from openclipart_comments inner join openclipart_users on user = openclipart_users.id LEFT OUTER JOIN openclipart_clipart ON avatar = openclipart_clipart.id where clipart = $id";
-    $comments = $app->db->get_array($query);
+    
+    $comments = $app->get_clipart_comments($id);
     
     if(!isset($app->config->svg_debug) || !$app->config->svg_debug){
       $svg = $app->clipart_path($row['username'], $row['filename']);
@@ -65,15 +65,7 @@ $app->get("/clipart/:id", function($id) use ($app) {
                 'system' => in_array($tag, $system_tags)
             );
         }, $tags)
-        , 'comments' => array_map(function($comment) {
-            $avatar = preg_replace('/.svg$/', '.png', $comment['avatar']);
-            $comment['avatar'] = $avatar;
-            // owner of the comment
-            if (isset($app->username) && $coment['username'] == $app->username) {
-                $comment['editable'] = true;
-            }
-            return $comment;
-        }, $comments)
+        , 'comments' => $comments
         , 'file_size' => human_size(filesize($svg))
         , 'collection_count' => count($collections)
         , 'collections' => array_map(function($row) {
@@ -81,6 +73,7 @@ $app->get("/clipart/:id", function($id) use ($app) {
             return $row;
         }, $collections),
         'nsfw' => in_array('nsfw', $tags)
+        , 'comment_count' => sizeof($comments)
     )));
 });
 
@@ -150,5 +143,17 @@ $app->post("/clipart/:id/edit", function($id) use($app){
   return $app->redirect("/clipart/" . $id );
   
 });
+
+$app->post("/clipart/:id/comments", function($clipart) use($app){
+  if(!isset($_POST['text']) || !$app->is_logged()) return $app->notFound();
+  $app->add_clipart_comment($clipart, $app->config->userid, $_POST['text']);
+  $app->redirect("/clipart/$id");
+});
+
+$app->get("/clipart/:id/comments/:comment/delete", function($clipart, $comment) use($app){
+  if(!$app->is_logged()) return $app->notFound();
+  $app->remove_clipart_comment($clipart, $app->config->userid, $comment);
+  $app->redirect("/clipart/$clipart");
+})
 
 ?>

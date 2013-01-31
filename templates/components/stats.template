@@ -1,0 +1,38 @@
+<table class="common-table table table-hover">
+  <tr>
+    <td>Joined</td>
+    <td>{{profile.creation_date}}</td>
+  </tr>
+  <tr>
+    <td>Role</td>
+    <td>???</td>
+  </tr>
+  <tr>
+    <td>time since last upload</td>
+    <td>???</td>
+  </tr>
+  <tr>
+    <td>Uploads</td>
+    <td>???</td>
+  </tr>
+  <tr>
+    <td>Remixes</td>
+    <td>???</td>
+  </tr>
+  <tr>
+    <td>Remixed</td>
+    <td>???</td>
+  </tr>
+  <tr>
+    <td>Comments</td>
+    <td>???</td>
+  </tr>
+  <tr>
+    <td>Total likes</td>
+    <td>???</td>
+  </tr>
+  <tr>
+    <td>Tags</td>
+    <td>???</td>
+  </tr>
+</table>

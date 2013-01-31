@@ -153,49 +153,7 @@
 
   <div class="row">
     <div class="span12 section">
-      <h3 class="section">Comments</h3>
-      <div class="media"><!--start comment-->
-        <a class="pull-left" href="#">
-          <img class="media-object" src="http://placehold.it/75x75">
-        </a>
-        <div class="media-body">
-          <h4 class="media-heading">User name <small>2012-06-03</small></h4>
-          <p>This is really a nice clipart. I used it for the birthday cards of my brother. thanks! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</p>
-          <div class="pull-right edit-menu">
-            <a href="#">edit</a>
-            <a href="#">hide</a>
-            <a href="#">delete</a>
-          </div>
-        </div>
-      </div><!--end comment-->
-      <div class="media"><!--start comment-->
-        <a class="pull-left" href="#">
-          <img class="media-object" src="http://placehold.it/75x75">
-        </a>
-        <div class="media-body">
-          <h4 class="media-heading">User name <small>2012-06-03</small></h4>
-          <p>This is really a nice clipart. I used it for the birthday cards of my brother. thanks! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</p>
-          <div class="pull-right edit-menu">
-            <a href="#">edit</a>
-            <a href="#">hide</a>
-            <a href="#">delete</a>
-          </div>
-        </div>
-      </div><!--end comment-->
-      <div class="media"><!--start comment-->
-        <a class="pull-left" href="#">
-          <img class="media-object" src="http://placehold.it/75x75">
-        </a>
-        <div class="media-body">
-          <h4 class="media-heading">User name <small>2012-06-03</small></h4>
-          <p>This is really a nice clipart. I used it for the birthday cards of my brother. thanks! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</p>
-          <div class="pull-right edit-menu">
-            <a href="#">edit</a>
-            <a href="#">hide</a>
-            <a href="#">delete</a>
-          </div>
-        </div>
-      </div><!--end comment-->
+      {% include 'components/comments.template' %}
     </div>
   </div><!--end row-->
       

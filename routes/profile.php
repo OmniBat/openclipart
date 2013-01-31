@@ -7,6 +7,7 @@ function get_profile($username){
     $results = $app->db->get_array($query);
     if(!sizeof($results)) return NULL;
     $profile = $results[0];
+    // TODO: use twig filter in template instead
     $profile['creation_date'] = date('Y.n.j', strtotime($profile['creation_date']) );
     return $profile;
 }
