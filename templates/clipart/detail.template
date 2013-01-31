@@ -150,9 +150,15 @@
       </div><!--end row--> 
     </div>
   </div>
-
+  <br>
   <div class="row">
     <div class="span12 section">
+      <h3 class="section">Comments</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span2"></div>
+    <div class="span8">
       {% include 'components/comments.template' %}
     </div>
   </div><!--end row-->

@@ -147,7 +147,7 @@ $app->post("/clipart/:id/edit", function($id) use($app){
 $app->post("/clipart/:id/comments", function($clipart) use($app){
   if(!isset($_POST['text']) || !$app->is_logged()) return $app->notFound();
   $app->add_clipart_comment($clipart, $app->config->userid, $_POST['text']);
-  $app->redirect("/clipart/$id");
+  $app->redirect("/clipart/$clipart");
 });
 
 $app->get("/clipart/:id/comments/:comment/delete", function($clipart, $comment) use($app){

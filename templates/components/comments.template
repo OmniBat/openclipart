@@ -1,18 +1,19 @@
-<h3 class="section">Comments</h3>
-<form method="POST" action="/clipart/{{id}}/comments">
-  <div class="media comment">
-    <a class="pull-left" href="#">
-      <img class="media-object" src="http://placehold.it/75x75">
-    </a>
-    <div class="media-body">
-      <h4 class="media-heading"><a href="/profile/{{user.username}}">{{user.username}}</a> <small>{{comment.date | date('Y-m-d')}}</small></h4>
-      <textarea name="text" rows="3"></textarea>
-      <div class="controls controls-row">
-        <button class="btn btn-primary" type="submit">Post</button>
+{% if user %}
+  <form method="POST" action="/clipart/{{id}}/comments">
+    <div class="media comment">
+      <div class="form-actions">
+        <a class="pull-left" href="#">
+          <img class="media-object" src="http://placehold.it/75x75">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading"><a href="/profile/{{user.username}}">{{user.username}}</a> <small>{{comment.date | date('Y-m-d')}}</small></h4>
+          <textarea name="text" rows="3" placeholder="add a comment..."></textarea>
+          <button class="btn btn-primary" type="submit">Post</button>
+        </div>
       </div>
     </div>
-  </div>
-</form>
+  </form>
+{% endif %}
 {% for comment in comments|reverse %}
   <div class="media comment">
     <a class="pull-left" href="#">
