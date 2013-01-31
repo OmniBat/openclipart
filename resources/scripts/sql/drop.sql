@@ -1,7 +1,3 @@
-SET default_storage_engine = InnoDB;
-
-CREATE DATABASE IF NOT EXISTS ocal;
-USE ocal;
 
 
 DROP TABLE IF EXISTS openclipart_users;
