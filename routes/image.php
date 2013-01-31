@@ -94,13 +94,13 @@ $serve_image_func = function($width, $user, $file, $download = false) use($app) 
             $newwidth = escapeshellarg($newwidth);
             $newheight = escapeshellarg($newheight);
             $svg = escapeshellarg($svg);
-            $png = escapeshellarg($png);
+            $png_escaped = escapeshellarg($png);
             if( isset($app->config->svg_converter) && $app->config->svg_converter === "svg2png"){
               // used for local development using MAMP on OS X with svg2png installed via `brew install svg2png`
               // the DYLD_LIBRARY_PATH bit is to prevent svg2png from linking against MAMPs outdated libs
-              $cmd = "DYLD_LIBRARY_PATH=\"\" /usr/local/bin/svg2png -w $newwidth -h $newheight $svg $png";
+              $cmd = "DYLD_LIBRARY_PATH=\"\" /usr/local/bin/svg2png -w $newwidth -h $newheight $svg $png_escaped";
             }else{
-              $cmd = "rsvg --width $newwidth --height $newheight $svg $png";
+              $cmd = "rsvg --width $newwidth --height $newheight $svg $png_escaped";
             }
             
             if(!exec($cmd)) error_log('error running command: $cmd');
