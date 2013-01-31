@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS openclipart_users(
   token varchar(40), 
   token_expiration datetime default null, 
   PRIMARY KEY(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart(
   modified datetime, 
   PRIMARY KEY(id),
   FOREIGN KEY(owner) REFERENCES openclipart_users(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 
 ALTER TABLE openclipart_users ADD FOREIGN KEY (avatar) REFERENCES openclipart_clipart(id);
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS openclipart_remixes(
   PRIMARY KEY(clipart, original), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(original) REFERENCES openclipart_clipart(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 -- FAVORITES
 
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS openclipart_favorites(
   PRIMARY KEY(clipart, user), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 -- COMMENTS
 
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS openclipart_comments(
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 -- ISSUES
 
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart_issues(
   PRIMARY KEY(id), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 -- TAGS
 
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS openclipart_tags(
   id integer NOT NULL auto_increment,
   name varchar(255) UNIQUE, 
   PRIMARY KEY(id)
-)  CHARACTER SET utf8 COLLATE utf8_general_ci;
+)  CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS openclipart_clipart_tags(
   clipart integer NOT NULL, 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart_tags(
   PRIMARY KEY(clipart, tag), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(tag) REFERENCES openclipart_tags(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 -- TAG COLLECTIONS
 
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS openclipart_tags_collection(
   created DATETIME, 
   last_archive_date DATETIME DEFAULT NULL, 
   PRIMARY KEY(id), FOREIGN KEY(creator) REFERENCES openclipart_users(id)
-)  CHARACTER SET utf8 COLLATE utf8_general_ci;
+)  CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS openclipart_tags_collection_tag(
   tag INTEGER NOT NULL, 
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS openclipart_tags_collection_tag(
   FOREIGN KEY(tag) REFERENCES openclipart_tags(id)
   -- TODO: tag collections
   -- FOREIGN KEY(collection) REFERENCES tag_collection(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 -- GROUPS
 
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS openclipart_groups(
   id integer NOT NULL auto_increment, 
   name varchar(255) UNIQUE, 
   PRIMARY KEY(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS openclipart_user_groups(
   user_group INTEGER NOT NULL, 
@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS openclipart_user_groups(
   PRIMARY KEY(user_group, user), 
   FOREIGN KEY(user_group) REFERENCES openclipart_groups(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 
 -- CLIPART in USE [NEW]
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS openclipart_file_usage(
   primary key(id), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 -- LINKS
 
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS openclipart_links(
   user INTEGER NOT NULL, 
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 -- MESSAGES
 
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS openclipart_messages(
   FOREIGN KEY(sender) REFERENCES openclipart_users(id), 
   FOREIGN KEY(receiver) REFERENCES openclipart_users(id), 
   FOREIGN KEY(reply_to) REFERENCES openclipart_messages(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 
 -- CONTESTS
@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS openclipart_contests(
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id), 
   FOREIGN KEY(image) REFERENCES openclipart_clipart(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 -- COLLECTIONS
 
@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS openclipart_collections(
   user INTEGER NOT NULL, 
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS
 openclipart_collection_clipart(
@@ -226,7 +226,7 @@ openclipart_collection_clipart(
   PRIMARY KEY(clipart, collection), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(collection) REFERENCES openclipart_collections(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 -- LOGS
 
@@ -234,7 +234,7 @@ CREATE TABLE IF NOT EXISTS openclipart_log_type(
   id INTEGER NOT NULL auto_increment,
   name VARCHAR(100) UNIQUE, 
   PRIMARY KEY(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS openclipart_logs(
   id INTEGER NOT NULL auto_increment, 
@@ -244,14 +244,14 @@ CREATE TABLE IF NOT EXISTS openclipart_logs(
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id), 
   FOREIGN KEY(type) REFERENCES openclipart_log_type(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS openclipart_log_meta_type(
   id INTEGER NOT NULL auto_increment, 
   name VARCHAR(100), 
   PRIMARY KEY(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS openclipart_log_meta(
   log INTEGER NOT NULL, 
@@ -260,7 +260,7 @@ CREATE TABLE IF NOT EXISTS openclipart_log_meta(
   PRIMARY KEY(log, type), 
   FOREIGN KEY(log) REFERENCES openclipart_logs(id), 
   FOREIGN KEY(type) REFERENCES openclipart_log_meta_type(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
 -- NEWS
 
@@ -273,4 +273,4 @@ CREATE TABLE IF NOT EXISTS openclipart_news(
   content TEXT, 
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
