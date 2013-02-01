@@ -138,8 +138,24 @@
       <div class="content">
         {% block content %}{% endblock %}
         {{body}}
+
+        <div class="footer-ad">
+          <script type="text/javascript"><!--
+          google_ad_client = "ca-pub-0352842915813820";
+          /* OCAL - Horizontal Large */
+          google_ad_slot = "3504509640";
+          google_ad_width = 728;
+          google_ad_height = 15;
+          //-->
+          </script>
+          <script type="text/javascript"
+          src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+          </script>
+        </div>
+
       </div>
       <!-- footer -->
+
       <footer>
         <div class="row">
           <div class="span3">

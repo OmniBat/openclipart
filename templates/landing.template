@@ -80,9 +80,4 @@
     </div>
   </div>
 
-  <div class="footer-ad">
-    <a href="#">
-      <img src="img/adsense_185679_adformat-link_728x15_en.png" alt="" />
-    </a>
-  </div>
 {% endblock %}
