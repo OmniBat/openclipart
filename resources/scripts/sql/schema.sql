@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS openclipart_comments(
   clipart INTEGER NOT NULL, 
   user integer, 
   comment text, 
-  date datetime, 
+  date datetime NOT NULL DEFAULT NOW(), 
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id)

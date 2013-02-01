@@ -27,87 +27,13 @@
 
 <div class="row">
   <div class="span6 section">
-    <h3 class="section">Achievements (12/98)</h3>
-    <table class="common-table table table-hover achievements-table">
-      <tr>
-        <td><div class="achievement">tag a clipart that you didn't upload</div></td>
-      </tr>
-      <tr>
-        <td><div class="achievement">tag 10 cliparts you didn't upload</div></td>
-      </tr>
-      <tr>
-        <td><div class="achievement">upload and tag a clipart</div></td>
-      </tr>
-      <tr>
-        <td><div class="achievement">upload and tag 10 cliparts</div></td>
-      </tr>
-      <tr>
-        <td><div class="achievement">upload and tag 100 cliparts</div></td>
-      </tr>
-      <tr>
-        <td><div class="achievement">tag 1000 cliparts total</div></td>
-      </tr>
-      <tr>
-        <td><div class="achievement">be the author of a clipart of the week</div></td>
-      </tr>
-      <tr>
-        <td><div class="achievement">be the author of a aclipart of the month</div></td>
-      </tr>
-      <tr>
-        <td><div class="achievement">have 100 downloads of all your cliparts</div></td>
-      </tr>
-      <tr>
-        <td><div class="achievement">have 1000 downloads of all your cliparts</div></td>
-      </tr>
-      <tr>
-        <td><div class="achievement">have 10 downloads for one single clipart</div></td>
-      </tr>
-      <tr>
-        <td><div class="achievement">have 100 downloads for one single</div></td>
-      </tr>
-    </table>
+    <h3 class="section">Achievements (??/??)</h3>
+    {% include 'components/achievements.template' %}
   </div>
   
   <div class="span6 section">
     <h3 class="section">Stats</h3>
-    <table class="common-table table table-hover">
-      <tr>
-        <td>Joined</td>
-        <td>{{profile.creation_date}}</td>
-      </tr>
-      <tr>
-        <td>Role</td>
-        <td>librerian</td>
-      </tr>
-      <tr>
-        <td>time since last upload</td>
-        <td>16 days</td>
-      </tr>
-      <tr>
-        <td>Uploads</td>
-        <td>128</td>
-      </tr>
-      <tr>
-        <td>Remixes</td>
-        <td>24</td>
-      </tr>
-      <tr>
-        <td>Remixed</td>
-        <td>11</td>
-      </tr>
-      <tr>
-        <td>Comments</td>
-        <td>32</td>
-      </tr>
-      <tr>
-        <td>Total likes</td>
-        <td>160</td>
-      </tr>
-      <tr>
-        <td>Tags</td>
-        <td>604</td>
-      </tr>
-    </table>
+    {% include 'components/stats.template' %}
   </div>
 
 </div>
