@@ -7,8 +7,14 @@ function get_profile($username){
     $results = $app->db->get_array($query);
     if(!sizeof($results)) return NULL;
     $profile = $results[0];
+    $id = $profile['id'];
     // TODO: use twig filter in template instead
     $profile['creation_date'] = date('Y.n.j', strtotime($profile['creation_date']) );
+    $profile['roles'] = $app->get_user_roles($profile['id']);
+    $profile['last_modified'] = $app->get_user_last_modified_clipart($id);
+    $profile['uploads'] = $app->get_user_uploads($id);
+    $profile['num_comments'] = $app->get_user_num_comments($id);
+    $profile['num_tags'] = $app->get_user_tags($id);
     return $profile;
 }
 

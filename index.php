@@ -118,6 +118,10 @@ $app->hook('slim.before', function() use($app){
   if($app->user()){
     $app->view()->appendData(array(
       'user' => $app->user()
+      , 'is_admin' => $app->is('admin')
+      , 'is_librarian' => $app->is('librarian')
+      , 'is_banned' => $app->is('banned')
+      , 'is_designer' => $app->is('designer')
     ));
   }
 });
@@ -183,6 +187,7 @@ require_once('routes/image.php');
 require_once('routes/search.php');
 require_once('routes/artists.php');
 require_once('routes/participate.php');
+require_once('routes/news.php');
 
 $app->run();
 

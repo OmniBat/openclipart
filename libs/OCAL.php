@@ -194,6 +194,51 @@ class OCAL extends System{
         }
     }
     
+    function get_user_last_modified_clipart($id){
+      $id = intval($id);
+      $query = "SELECT modified 
+        FROM openclipart_clipart 
+        WHERE owner = $id
+        ORDER BY modified DESC
+        LIMIT 1";
+      return $this->db->get_value($query);
+    }
+    
+    function get_user_uploads($id){
+      $id = intval($id);
+      $query = "SELECT COUNT(*)
+        FROM openclipart_clipart
+        WHERE owner = $id";
+      return $this->db->get_value($query);
+    }
+    
+    function get_user_roles($id){
+      $id = intval($id);
+      $query = "SELECT openclipart_groups.id as id, openclipart_groups.name as name 
+        FROM openclipart_users 
+        INNER JOIN openclipart_user_groups ON user = openclipart_users.id
+        INNER JOIN openclipart_groups ON user_group = openclipart_groups.id
+        WHERE openclipart_users.id = $id";
+      return $this->db->get_array($query);
+    }
+    
+    function get_user_num_comments($id){
+      $id = intval($id);
+      $query = "SELECT COUNT(*) 
+        FROM openclipart_comments 
+        WHERE user = $id";
+      return $this->db->get_value($query);
+    }
+    
+    function get_user_tags($id){
+      $id = intval($id);
+      $query = "SELECT COUNT(*) 
+        FROM openclipart_clipart 
+        INNER JOIN openclipart_clipart_tags ON clipart = id 
+        WHERE owner = $id";
+      return $this->db->get_value($query);
+    }
+    
     function num_user_clipart($username){
       $username = $this->db->escape($username);
       $query = "SELECT COUNT(*) 
@@ -526,5 +571,10 @@ class OCAL extends System{
       $comment = intval($comment);
       $query = "DELETE FROM openclipart_comments WHERE clipart = $clipart AND user = $user AND id = $comment";
       return $this->db->query($query);
+    }
+    
+    function get_news(){
+      $query = "SELECT * FROM openclipart_news ORDER BY date DESC LIMIT 40";
+      return $this->db->get_array($query);
     }
 }

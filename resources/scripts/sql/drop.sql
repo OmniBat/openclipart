@@ -1,5 +1,5 @@
 
-
+SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS openclipart_users;
 DROP TABLE IF EXISTS openclipart_clipart;
 DROP TABLE IF EXISTS openclipart_remixes;
@@ -23,3 +23,4 @@ DROP TABLE IF EXISTS openclipart_logs;
 DROP TABLE IF EXISTS openclipart_log_meta_type;
 DROP TABLE IF EXISTS openclipart_log_meta;
 DROP TABLE IF EXISTS openclipart_news;
+SET FOREIGN_KEY_CHECKS = 1;
