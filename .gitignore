@@ -9,3 +9,4 @@ TRASH
 /vendor
 composer.phar
 .DS_Store
+public/css/main.css
