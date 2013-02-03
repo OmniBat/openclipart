@@ -87,18 +87,18 @@
   
   <div class="span6 section">
     <h3 class="section" id="share-remix">how to share & remix</h3>
-      <p><strong>Sharing</strong> starts with creating your own account. Once logged in you can start uploading your own work and even other peoples work - as long as it adheres to the ✳Sharism Sharing Agreement. Please do have a look at the submission guidelines to ensure your contribution stays valuable in our library. The upload process is quick and easy:</p>
+      <p><strong>Sharing</strong> starts with creating your <a href="/login">own account</a>. Once logged in you can start <a href="/upload">uploading</a> your own work and even other peoples work - as long as it adheres to the <a href="http://sharism.org/agreement/">✳Sharism Sharing Agreement</a>. Please do have a look at the submission guidelines to ensure your contribution stays valuable in our library. The upload process is quick and easy:</p>
       <ol>
-        <li>log in</li>
-        <li>visit the upload form</li>
-        <li>read the ✳Sharism Sharing Agreement</li>
+        <li><a href="/login">log in</a></li>
+        <li>visit the <a href="/upload">form</a></li>
+        <li>read the <a href="http://sharism.org/agreement/">✳Sharism Sharing Agreement</a></li>
         <li>enter title, description, tags and author information</li>
-        <li>press "upload"</li>
+        <li>press the "upload" button</li>
       </ol>
       <p><strong>Remixing</strong> is actually just another way of sharing. The only difference is: you start uploading right at another clip art page. Look for the "remix" button under the big detail image, it will lead you to an upload page that registers your new work as a remix of that ckip art.
       </p>
 
-      <p>If you need technical help remixing any of out clip art have a look at this basic Inkscape tutorial.</p>
+      <p>If you need technical help remixing any of out clip art have a look at this <a href="http://inkscape.org/doc/basic/tutorial-basic.html">basic Inkscape tutorial</a>.</p>
   </div>
   
 </div>
@@ -107,7 +107,7 @@
   
   <div class="span6 section">
     <h3 class="section" id="become-librerian">how to become a librerian</h3>
-      <p><strong>Librerians</strong> are always needed to maintain our vast collection of clip art. In order to become one you first need to get a regular account. After that all it takes to become a librerian is to get in touch with us on #IRC or on our mailinglist. Typical activities of a librerian are:</p>
+      <p><strong>Librerians</strong> are always needed to maintain our vast collection of clip art. In order to become one you first need to get a regular account. After that all it takes to become a librerian is to get in touch with us on <a href="http://webchat.freenode.net/?channels=openclipart">#IRC</a> or on our <a href="http://lists.freedesktop.org/mailman/listinfo/clipart">mailinglist</a>. Typical activities of a librerian are:</p>
       
       <ul>
         <li>rectifying incomple submissions</li>
@@ -121,7 +121,7 @@
   
   <div class="span6 section">
     <h3 class="section" id="become-developer">how to become a developer</h3>
-     <p><strong>Development</strong> of the project is hosted at github. If you're familiar with git just go ahead and dive into the repository. Open Clip Art Library is written in PHP, HTML/CSS, JavaScript  and uses slim, moustache, less & bootstrap. Ask on our mailinglist or in our chatroom for write access.  We're always happy to welcome new contributors!</p>
+     <p><strong>Development</strong> of the project is hosted at <a href="https://github.com/openclipart/openclipart/">github</a>. If you're familiar with git just go ahead and dive into the repository. Open Clip Art Library is written in PHP, HTML/CSS, JavaScript  and uses <a href="http://www.slimframework.com/">slim</a>, <a href="http://mustache.github.com/">moustache</a>, <a href="http://lesscss.org/">less</a> & <a href="http://twitter.github.com/bootstrap">bootstrap</a>. Ask on our mailinglist or in our chatroom for write access.  We're always happy to welcome new contributors!</p>
   </div>
   
 </div>
