@@ -4,16 +4,21 @@
     <td>{{profile.creation_date}}</td>
   </tr>
   <tr>
-    <td>Role</td>
-    <td>???</td>
+    <td>Roles</td>
+    <td>
+      {% for i in range(0, profile.roles|length ) %}
+        {{profile.roles[i].name}}
+        {{ i + 1 < profile.roles| length ? ', ' }}
+      {% endfor %}
+    </td>
   </tr>
   <tr>
     <td>time since last upload</td>
-    <td>???</td>
+    <td>{{profile.last_modified ? profile.last_modified : 'never'}}</td>
   </tr>
   <tr>
     <td>Uploads</td>
-    <td>???</td>
+    <td>{{profile.uploads ? profile.uploads : 'none'}}</td>
   </tr>
   <tr>
     <td>Remixes</td>
@@ -25,7 +30,7 @@
   </tr>
   <tr>
     <td>Comments</td>
-    <td>???</td>
+    <td>{{profile.num_comments}}</td>
   </tr>
   <tr>
     <td>Total likes</td>
@@ -33,6 +38,6 @@
   </tr>
   <tr>
     <td>Tags</td>
-    <td>???</td>
+    <td>{{profile.num_tags}}</td>
   </tr>
 </table>

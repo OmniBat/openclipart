@@ -60,7 +60,6 @@ class System extends Slim {
     public $config;
     public $db;
     public $GET;
-    private $db_prefix;
     // TODO: rename `$user` just `$user`
     private $user;
     public $validate;
@@ -80,7 +79,6 @@ class System extends Slim {
                       , $settings['db_pass']
                       , $settings['db_name']);
         $this->groups = array();
-        $this->db_prefix = $settings['db_prefix'];
         $this->user = array();
         $this->validate = $validate;
         // restore from session
@@ -288,20 +286,20 @@ class System extends Slim {
             throw new Exception("where argument to __authorize private "
               . "method can't be null or empty");
         }
-        $table = $this->db_prefix . '_users';
-        $query = "SELECT * FROM $table WHERE $where";
+        $query = "SELECT * FROM openclipart_users WHERE $where";
         $db_user = $this->db->get_assoc($query);
-        if (empty($db_user)) {
+        if (empty($db_user))
             throw new AuthorizationException("Where '$where' is invalid");
-        }
         $this->user = $db_user;
         $this->groups = $this->fetch_groups(intval($this->id));
     }
     
     // ---------------------------------------------------------------------------------
-    // TODO: move to User
-    private function fetch_groups($user) {
-        $query = "SELECT name FROM openclipart_user_groups INNER JOIN openclipart_groups ON id = user_group WHERE user = " . $user;
+    private function fetch_groups($id) {
+        $query = "SELECT name 
+          FROM openclipart_user_groups 
+          INNER JOIN openclipart_groups ON id = user_group 
+          WHERE user = $id";
         return $this->db->get_column($query);
     }
     

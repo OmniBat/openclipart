@@ -1,0 +1,30 @@
+{% extends 'main.template' %}
+{% block content %}
+<div class="row">
+  <div class="span12 section">
+    <h3 class="section">News</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Title</th>
+          <th>Link</th>
+          <th>edit</th>
+          <th>remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in news %}
+          <tr>
+            <td>{{item.date}}</td>
+            <td>{{item.title}}</td>
+            <td> link </td>
+            <td><a class="btn" href="#">edit</a></td>
+            <td><a class="btn btn-danger" href="#">remove</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
