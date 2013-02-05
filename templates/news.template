@@ -18,7 +18,7 @@
           <tr>
             <td>{{item.date}}</td>
             <td>{{item.title}}</td>
-            <td> link </td>
+            <td><a class="btn" href="{{item.link}}" target="_blank"> link </a> </td>
             <td><a class="btn" href="#">edit</a></td>
             <td><a class="btn btn-danger" href="#">remove</a></td>
           </tr>
