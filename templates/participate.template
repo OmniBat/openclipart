@@ -7,4 +7,124 @@
     <p> Some text. </p>
   </div>
 </div>
+
+<div class="row">
+  
+  <div class="span3 section">
+    <h3 class="section">use & advocate</h3>
+    <ul>
+      <li>browse and use all the clipart for whatever you want</li>
+      <li>speak to others about us or use social media like twitter and facebook.</li>
+    </ul>
+    <a class="pull-right" href="#use-advocate">how?</a>
+  </div>
+  
+  <div class="span3 section">
+    <h3 class="section">share & remix</h3>
+    <ul>
+      <li><a href="/login">create an account</a></li>
+      <li>go to our <a href="/upload">upload form</a> and start sharing</li>
+      <li><a href="/remix">remix</a> other clip art</li>
+    </ul>
+    <a class="pull-right" href="#share-remix">how?</a>
+  </div>
+
+  <div class="span3 section">
+    <h3 class="section">become a librerian</h3>
+    <ul>
+      <li>help to maintain the project</li>
+      <li>add tags & descriptions</li>
+      <li>find broken uploads</li>
+      <li>check for guideline violations</li>
+    </ul>
+    <a class="pull-right" href="#become-librerian">how?</a>
+  </div>
+  
+  <div class="span3 section">
+    <h3 class="section">become a developer</h3>
+    <ul>
+      <li>have a look at our code over at <a href="https://github.com/openclipart/openclipart">github</a></li>
+      <li>help us reaching <a href="https://github.com/openclipart/openclipart/issues/milestones">our milestones</a></li>
+      <li>user <a href="/api">our API</a></li>
+    </ul>
+    <a class="pull-right" href="#become-developer">how?</a>
+  </div>
+  
+</div>
+
+<div class="row">
+  <div class="span12 section">
+    <h3 class="section">donate</h3>
+    <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS">Donate to support Hosting & Maintenance</a></p>
+  </div>
+</div>
+
+<div class="row">
+  
+  <div class="span6 section">
+    <h3 class="section" id="use-advocate">how to use & advocate</h3>
+      
+    <p><strong>Using</strong> our library is simple: search for a keyword, pick any promising thumbnail from the results and click it to visit its clip art page. There you can download the clip art or do lots of other things:
+    </p>
+    
+    <ul>
+      <li>click on  tags  to browse related content</li>
+      <li>export pixel-based clip art</li>
+      <li>discover remixed clipart</li>
+    </ul> 
+
+    <p>if you're logged in with your account you can even</p>
+    
+    <ul>
+      <li>vote up your favorite clip art</li>
+      <li>leave comments on clip art pages</li>
+      <li>upload your own clip art and much more...</li>
+    </p>
+
+    <p><strong>Advocating</strong> should be familiar to you already. Approach people however you're used to and tell them about the Open Clip Art Library; whether in person, on the phone, via mail or through social media services. Or maybe even write a blogpost? Give Open Clip Art Library the attention it deserves.
+    </p>
+  </div>
+  
+  <div class="span6 section">
+    <h3 class="section" id="share-remix">how to share & remix</h3>
+      <p><strong>Sharing</strong> starts with creating your <a href="/login">own account</a>. Once logged in you can start <a href="/upload">uploading</a> your own work and even other peoples work - as long as it adheres to the <a href="http://sharism.org/agreement/">✳Sharism Sharing Agreement</a>. Please do have a look at the submission guidelines to ensure your contribution stays valuable in our library. The upload process is quick and easy:</p>
+      <ol>
+        <li><a href="/login">log in</a></li>
+        <li>visit the <a href="/upload">form</a></li>
+        <li>read the <a href="http://sharism.org/agreement/">✳Sharism Sharing Agreement</a></li>
+        <li>enter title, description, tags and author information</li>
+        <li>press the "upload" button</li>
+      </ol>
+      <p><strong>Remixing</strong> is actually just another way of sharing. The only difference is: you start uploading right at another clip art page. Look for the "remix" button under the big detail image, it will lead you to an upload page that registers your new work as a remix of that ckip art.
+      </p>
+
+      <p>If you need technical help remixing any of out clip art have a look at this <a href="http://inkscape.org/doc/basic/tutorial-basic.html">basic Inkscape tutorial</a>.</p>
+  </div>
+  
+</div>
+
+<div class="row">
+  
+  <div class="span6 section">
+    <h3 class="section" id="become-librerian">how to become a librerian</h3>
+      <p><strong>Librerians</strong> are always needed to maintain our vast collection of clip art. In order to become one you first need to get a regular account. After that all it takes to become a librerian is to get in touch with us on <a href="http://webchat.freenode.net/?channels=openclipart">#IRC</a> or on our <a href="http://lists.freedesktop.org/mailman/listinfo/clipart">mailinglist</a>. Typical activities of a librerian are:</p>
+      
+      <ul>
+        <li>rectifying incomple submissions</li>
+        <li>adding/removing metadata</li>
+        <li>removing infringing content</li>
+        <li>submitting bug reports to developers</li>
+      </ul> 
+      
+     <p><strong>Hint:</strong>strong> if you have been granted the librerian status try submitting 1 bug report, 1 feature request and correct 1 clip art. If you run into any kind of problem jump into our chatroom. People in there are nice and will help :)</p>
+  </div>
+  
+  <div class="span6 section">
+    <h3 class="section" id="become-developer">how to become a developer</h3>
+     <p><strong>Development</strong> of the project is hosted at <a href="https://github.com/openclipart/openclipart/">github</a>. If you're familiar with git just go ahead and dive into the repository. Open Clip Art Library is written in PHP, HTML/CSS, JavaScript  and uses <a href="http://www.slimframework.com/">slim</a>, <a href="http://mustache.github.com/">moustache</a>, <a href="http://lesscss.org/">less</a> & <a href="http://twitter.github.com/bootstrap">bootstrap</a>. Ask on our mailinglist or in our chatroom for write access.  We're always happy to welcome new contributors!</p>
+  </div>
+  
+</div>
+
+
 {% endblock %}
