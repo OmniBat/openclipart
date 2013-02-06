@@ -11,7 +11,7 @@
   
   <div class="span3 section">
     <h3 class="section">use & advocate</h3>
-    <ul>
+    <ul class="use-advocate list-image">
       <li>browse and use all the clipart for whatever you want</li>
       <li>speak to others about us or use social media like twitter and facebook.</li>
     </ul>
@@ -20,7 +20,7 @@
   
   <div class="span3 section">
     <h3 class="section">share & remix</h3>
-    <ul>
+    <ul class="share-remix list-image">
       <li><a href="/login">create an account</a></li>
       <li>go to our <a href="/upload">upload form</a> and start sharing</li>
       <li><a href="/remix">remix</a> other clip art</li>
@@ -30,7 +30,7 @@
 
   <div class="span3 section">
     <h3 class="section">become a librerian</h3>
-    <ul>
+    <ul class="become-librerian list-image">
       <li>help to maintain the project</li>
       <li>add tags & descriptions</li>
       <li>find broken uploads</li>
@@ -41,7 +41,7 @@
   
   <div class="span3 section">
     <h3 class="section">become a developer</h3>
-    <ul>
+    <ul class="become-developer list-image">
       <li>have a look at our code over at <a href="https://github.com/openclipart/openclipart">github</a></li>
       <li>help us reaching <a href="https://github.com/openclipart/openclipart/issues/milestones">our milestones</a></li>
       <li>user <a href="/api">our API</a></li>
