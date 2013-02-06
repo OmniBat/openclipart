@@ -2,9 +2,8 @@
 {% block content %}
 <div class="row">
   <div class="span12 section">
-    <h3 class="section">Participate</h3>
-    <h4> How to participate </h4>
-    <p> Some text. </p>
+    <h3>Participate</h3>
+    <p>there are plenty of ways to participate in our truly free  clip art library:</p>
   </div>
 </div>
 
