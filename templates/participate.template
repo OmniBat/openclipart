@@ -78,7 +78,7 @@
       <li>vote up your favorite clip art</li>
       <li>leave comments on clip art pages</li>
       <li>upload your own clip art and much more...</li>
-    </p>
+    </ul>
 
     <p><em>Advocating</em> should be familiar to you already. Approach people however you're used to and tell them about the Open Clip Art Library; whether in person, on the phone, via mail or through social media services. Or maybe even write a blogpost? Give Open Clip Art Library the attention it deserves.
     </p>
@@ -106,7 +106,7 @@
   
   <div class="span6 section">
     <h3 class="section" id="become-librerian">how to become a librerian</h3>
-      <p><strong>Librerians</strong> are always needed to maintain our vast collection of clip art. In order to become one you first need to get a regular account. After that all it takes to become a librerian is to get in touch with us on <a href="http://webchat.freenode.net/?channels=openclipart">#IRC</a> or on our <a href="http://lists.freedesktop.org/mailman/listinfo/clipart">mailinglist</a>. Typical activities of a librerian are:</p>
+      <p><em>Librerians</em> are always needed to maintain our vast collection of clip art. In order to become one you first need to get a regular account. After that all it takes to become a librerian is to get in touch with us on <a href="http://webchat.freenode.net/?channels=openclipart">#IRC</a> or on our <a href="http://lists.freedesktop.org/mailman/listinfo/clipart">mailinglist</a>. Typical activities of a librerian are:</p>
       
       <ul>
         <li>rectifying incomple submissions</li>
@@ -115,12 +115,12 @@
         <li>submitting bug reports to developers</li>
       </ul> 
       
-     <p><strong>Hint:</strong> if you have been granted the librerian status try submitting 1 bug report, 1 feature request and correct 1 clip art. If you run into any kind of problem jump into our chatroom. People in there are nice and will help :)</p>
+     <p><em>Hint:</em> if you have been granted the librerian status try submitting 1 bug report, 1 feature request and correct 1 clip art. If you run into any kind of problem jump into our chatroom. People in there are nice and will help :)</p>
   </div>
   
   <div class="span6 section">
     <h3 class="section" id="become-developer">how to become a developer</h3>
-     <p><strong>Development</strong> of the project is hosted at <a href="https://github.com/openclipart/openclipart/">github</a>. If you're familiar with git just go ahead and dive into the repository. Open Clip Art Library is written in PHP, HTML/CSS, JavaScript  and uses <a href="http://www.slimframework.com/">slim</a>, <a href="http://mustache.github.com/">moustache</a>, <a href="http://lesscss.org/">less</a> & <a href="http://twitter.github.com/bootstrap">bootstrap</a>. Ask on our mailinglist or in our chatroom for write access.  We're always happy to welcome new contributors!</p>
+     <p><em>Development</em> of the project is hosted at <a href="https://github.com/openclipart/openclipart/">github</a>. If you're familiar with git just go ahead and dive into the repository. Open Clip Art Library is written in PHP, HTML/CSS, JavaScript  and uses <a href="http://www.slimframework.com/">slim</a>, <a href="http://mustache.github.com/">moustache</a>, <a href="http://lesscss.org/">less</a> & <a href="http://twitter.github.com/bootstrap">bootstrap</a>. Ask on our mailinglist or in our chatroom for write access.  We're always happy to welcome new contributors!</p>
   </div>
   
 </div>
