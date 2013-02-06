@@ -17,7 +17,7 @@
   <!-- Example -->
   <div class="row popular-new">
     <div class="span6 section">
-      <h3>Popular Clip Art</h3>
+      <h3 class="section">Popular Clip Art</h3>
       <ul class="thumbnails">
         {% for clipart in clipart_list %}
           {% include 'clipart/item.template' %}
@@ -29,7 +29,7 @@
     </div>
 
     <div class="span6 section">
-      <h3>New Clip Art</h3>
+      <h3 class="section">New Clip Art</h3>
       <ul class="thumbnails">
         {% for clipart in new_clipart %}
           {% include 'clipart/item.template' %}
