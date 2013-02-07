@@ -10,7 +10,7 @@
   <div class="row">
     
     <div class="span6 section">
-      <h3>Join Us!</h3>
+      <h3 class="span6 section">Join Us!</h3>
       <p>There are several ways to contribute to this project:</p>
       <ul>
         <li><a href="/participate#use-advocate">Just use and advocate our project</a></li>
@@ -21,7 +21,7 @@
     </div>
   
     <div class="span6 section">
-      <h3>Live Chat</h3>
+      <h3 class="section">Live Chat</h3>
       <p>If you want to talk to someone urgently, please use their name to get their attention, as we are very busy people and are not actively monitoring the chat, even if we are logged in. Using their name will make their window flash for attention.</p>
       <iframe id="webclient" src="http://webchat.freenode.net/?channels=openclipart" width="100%" height="600"></iframe>
     </div>

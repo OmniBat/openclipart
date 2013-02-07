@@ -111,7 +111,6 @@
         <div class="span12">
           <ul class="ocal-main-menu">
             <li><a href="/">Home</a></li>
-            <li><a href="/collections">Collections</a></li>
             <li><a href="/artists">Artists</a></li>
             <li><a href="/participate">Participate</a></li>
             <li><a href="/upload">Upload</a></li>
@@ -163,7 +162,7 @@
           <div class="span3">
             <h4>Clip Art ✳ Sharism</h4>
             <ul>
-              <li><p>Clip Art Released by Artists under <a href="http://sharism.org/agreement/">✳ Sharism Sharing Agreement</a>.</p></li>
+              <li><p>Clip Art released by Artists under <a href="http://sharism.org/agreement/">✳ Sharism Sharing Agreement</a>.</p></li>
               <li><a href="http://openclipart.org/policies">Policies</a></li>
               <li><a href="http://openclipart.org/dmca">DMCA</a></li>
             </ul>
