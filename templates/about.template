@@ -1,16 +1,27 @@
 {% extends 'main.template' %}
 {% block content %}
 <div class="grid_16 alpha omega content text">
-  <h3>ABOUT THE OPEN CLIP ART LIBRARY</h3>
-
-  <p>This project aims to create an archive of clip art that can be used for free for any use.
-  All graphics submitted to the project should be waived of all rights, including copyright, according to the <a href="http://sharism.org/agreement/">✳ Sharism Sharing Agreement</a>.</p>
-  <p>If you'd like to help out, please join the mailing list. Also, browse the archives to review the project's history.</p>
-
   <div class="row">
     
+    <div class="span6 section">  
+  
+      <h3>ABOUT THE OPEN CLIP ART LIBRARY</h3>
+
+      <p>This project aims to create an archive of clip art that can be used for free for any use. All clip art submitted to the project should be waived of all rights, including copyright, according to the <a href="http://sharism.org/agreement/">✳ Sharism Sharing Agreement</a>.</p>
+    </div>
+    
+  </div>
+  
+  <div class="row">
+
     <div class="span6 section">
-      <h3 class="span6 section">Join Us!</h3>
+      <h3 class="span6 section">Get in Touch</h3>
+      If you like to get in touch with us write a mail to <a href="mailto:everyone@openclipart.org">everyone@openclipart.org</a>!
+      Or join the <a href="http://freedesktop.org/mailman/listinfo/clipart">mailing list</a>. If you're interested in the projects history you can also browse the <a href="http://freedesktop.org/pipermail/clipart/">mailing list archive</a>. 
+    </div>
+    
+    <div class="span6 section">
+      <h3 class="span6 section">Join Us</h3>
       <p>There are several ways to contribute to this project:</p>
       <ul>
         <li><a href="/participate#use-advocate">Just use and advocate our project</a></li>
@@ -19,11 +30,13 @@
         <li><a href="/participate#become-developer">Add features and remove bugs in the code</a>
       </ul>
     </div>
-  
-    <div class="span6 section">
+   
+  </div>
+  <div class="row">
+    <div class="span12 section">
       <h3 class="section">Live Chat</h3>
       <p>If you want to talk to someone urgently, please use their name to get their attention, as we are very busy people and are not actively monitoring the chat, even if we are logged in. Using their name will make their window flash for attention.</p>
-      <iframe id="webclient" src="http://webchat.freenode.net/?channels=openclipart" width="100%" height="600"></iframe>
+      <iframe id="webclient" src="http://webchat.freenode.net/?channels=openclipart" width="99%" height="600"></iframe>
     </div>
     
   </div>
