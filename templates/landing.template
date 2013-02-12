@@ -68,14 +68,10 @@
     <div class="span12 section news">
       <h3 class="section">Latest News</h3>
       <div class="row">
-        <div class="span2"><span>2012-11-02</span></div>
-        <div class="span9"><p><a href="#">We are rewriting OCAL</a></p></div>
-        <div class="span2"><span>2012-10-11</span></div>
-        <div class="span9"><p><a href="#">LGM begins in a few days...</a></p></div>
-        <div class="span2"><span>2012-09-02</span></div>
-        <div class="span9"><p><a href="#">RElease Social Markiting: Fabricatorz 2.0, and Open Clip Art Library 3.1</a></p></div>
-        <div class="span2"><span>2012-08-22</span></div>
-        <div class="span9"><p><a href="#">We are rewriting OCAL</a></p></div>
+        {% for item in news %}
+          <div class="span2"><span>{{item.date | date('Y.n.j')}}</span></div>
+          <div class="span9"><p><a href="{{ item.link ? item.link : '/news/' ~ item.id }}">{{ item.title }}</a></p></div>
+        {% endfor %}
       </div>
     </div>
   </div>

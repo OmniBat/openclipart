@@ -30,6 +30,7 @@ class Database {
     function __construct($host, $user, $pass, $db) {
         $this->conn = new mysqli($host, $user, $pass);
         $this->conn->select_db($db);
+        $this->conn->set_charset("utf8");
         if ($this->conn->connect_errno) {
             throw new DatabaseException("Connect failed: " .
                                         $this->conn->connect_error);

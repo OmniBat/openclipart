@@ -1,0 +1,32 @@
+{% extends 'main.template' %}
+{% block content %}
+<form class="form-horizontal" method="POST">
+  <div class="control-group {{ errors.title ? 'error' }}">
+    <label class="control-label" for="title">Title</label>
+    <div class="controls">
+      <input class="input-block-level" name="title" type="text" id="title" placeholder="Title" value="{{ news.title }}">
+      <span class="help-inline">{{ errors.title }}</span>
+    </div>
+  </div>
+  <div class="control-group {{ errors.link ? 'error' }}">
+    <label class="control-label" for="link">Link</label>
+    <div class="controls">
+      <input class="input-block-level" name="link" type="text" id="link" placeholder="Link" value="{{ news.link }}">
+      <span class="help-inline">{{ errors.link }}</span>
+    </div>
+  </div>
+  <div class="control-group {{ errors.content ? 'error' }}">
+    <label class="control-label" for="content">Content</label>
+    <div class="controls">
+      <textarea name="content" class="input-block-level" rows="10">{{ news.content }}</textarea>
+      <span class="help-inline">{{ errors.content }}</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <a class="btn" href="/news/edit">Cancel</a>
+    </div>
+  </div>
+</form>
+{% endblock %}

@@ -140,10 +140,6 @@ $app->get("/why-the-ads", function() use($app){
     return $app->render('why-the-ads');
 });
 
-$app->get('/test', function() use($app){
-    return $app->render('test');
-});
-
 $app->post('/pull', function() use($app){
   $ip = $_SERVER['REMOTE_ADDR'];
   if( 
@@ -168,8 +164,15 @@ $app->get('/comments/:clipart', function($id) use($app){
   return $comments;
 });
 
-$app->notFound(function () use ($app) {
+$app->notFound(function() use($app){
   return $app->render('errors/404');
+});
+
+$app->get('/test', function() use($app){
+  $news = $app->get_news(4);
+  $app->contentType("text/html; charset=utf-8");
+  echo $news['content'];
+  return;
 });
 
 require_once('routes/errors.php');
