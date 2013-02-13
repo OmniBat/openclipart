@@ -184,6 +184,7 @@ require_once('routes/search.php');
 require_once('routes/artists.php');
 require_once('routes/participate.php');
 require_once('routes/news.php');
+require_once('routes/migration-redirects.php');
 
 $app->run();
 
