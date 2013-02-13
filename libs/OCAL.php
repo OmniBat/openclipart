@@ -405,6 +405,23 @@ class OCAL extends System{
       return preg_replace("/.svg$/",".png", $filename);
     }
     
+    function set_remix($clipart, $original){
+      $clipart = intval($clipart);
+      $original = intval($original);
+      $query = "INSERT INTO openclipart_remixes(clipart, original) VALUES ($clipart, $original)";
+      return $this->db->query($query);
+    }
+    
+    function get_clipart($id){
+      $id = intval($id);
+      $query = "SELECT openclipart_clipart.id, title, filename, link, created, 
+          username, created, downloads, description 
+          FROM openclipart_clipart 
+          INNER JOIN openclipart_users ON owner = openclipart_users.id 
+          WHERE openclipart_clipart.id = $id";
+      return $this->db->get_row($query);
+    }
+    
     function clipart_by_tag($tag){
       
       $tag = $this->db->escape($tag);

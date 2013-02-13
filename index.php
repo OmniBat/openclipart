@@ -168,13 +168,6 @@ $app->notFound(function() use($app){
   return $app->render('errors/404');
 });
 
-$app->get('/test', function() use($app){
-  $news = $app->get_news(4);
-  $app->contentType("text/html; charset=utf-8");
-  echo $news['content'];
-  return;
-});
-
 require_once('routes/errors.php');
 require_once('routes/index.php');
 require_once('routes/upload.php');

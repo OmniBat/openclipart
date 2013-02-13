@@ -23,9 +23,6 @@
           {% include 'clipart/item.template' %}
         {% endfor %}
       </ul>
-      <div class="center ad-span">
-        <img src="img/adsense_185665_adformat-text_234x60_en.png">
-      </div>
     </div>
 
     <div class="span6 section">
@@ -35,9 +32,6 @@
           {% include 'clipart/item.template' %}
         {% endfor %}
       </ul>
-    <div class="center ad-span">
-      <img src="img/adsense_185665_adformat-text_234x60_en.png">
-    </div>
     </div>
   </div>
   
