@@ -2,17 +2,11 @@
 
 $app->get("/clipart/:id", function($id) use ($app) {
     $id = intval($id);
-    
-    $query = "SELECT openclipart_clipart.id, title, filename, link, created, 
-        username, created, downloads, description 
-        FROM openclipart_clipart 
-        INNER JOIN openclipart_users ON owner = openclipart_users.id 
-        WHERE openclipart_clipart.id = $id";
-    $row = $app->db->get_row($query);
-    if (empty($row)) return $app->notFound();
+    $clipart = $app->get_clipart($id);
+    if(empty($clipart)) return $app->notFound();
     $editable = false;
     if (isset($app->username)) {
-        if ($app->username == $row['username'] || $app->is('librarian')) {
+        if ($app->username == $clipart['username'] || $app->is('librarian')) {
             $editable = true;
         }
     }
@@ -29,7 +23,7 @@ $app->get("/clipart/:id", function($id) use ($app) {
     $comments = $app->get_clipart_comments($id);
     
     if(!isset($app->config->svg_debug) || !$app->config->svg_debug){
-      $svg = $app->clipart_path($row['username'], $row['filename']);
+      $svg = $app->clipart_path($clipart['username'], $clipart['filename']);
     }else{
       // use this file for dev/debugging so we dont have to always download
       // the entire set of svgs for testing locally
@@ -54,9 +48,9 @@ $app->get("/clipart/:id", function($id) use ($app) {
     
     $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
     
-    return $app->render('clipart/detail', array_merge($row, array(
+    return $app->render('clipart/detail', array_merge($clipart, array(
         'editable' => $editable
-        , 'filename_png' => preg_replace('/.svg$/', '.png', $row['filename'])
+        , 'filename_png' => preg_replace('/.svg$/', '.png', $clipart['filename'])
         , 'remixes' => $remixes
         , 'remix_count' => count($remixes)
         , 'tags' => array_map(function($tag) use($system_tags) {
@@ -68,9 +62,9 @@ $app->get("/clipart/:id", function($id) use ($app) {
         , 'comments' => $comments
         , 'file_size' => human_size(filesize($svg))
         , 'collection_count' => count($collections)
-        , 'collections' => array_map(function($row) {
-            $row['human_date'] = human_date($row['date']);
-            return $row;
+        , 'collections' => array_map(function($clipart) {
+            $clipart['human_date'] = human_date($clipart['date']);
+            return $clipart;
         }, $collections),
         'nsfw' => in_array('nsfw', $tags)
         , 'comment_count' => sizeof($comments)
@@ -83,7 +77,8 @@ $app->get("/clipart/:id", function($id) use ($app) {
 $app->get("/clipart/:id/edit", function($id) use($app){
   $id = intval($id);
   $owner = $app->config->userid;
-  $query = "SELECT * FROM openclipart_clipart WHERE owner = $owner AND id = $id";
+  $query = "SELECT * FROM openclipart_clipart WHERE id = $id";
+  if(!$app->is('librarian')) $query .= " AND owner = $owner";
   
   $username = $app->username_from_id($owner);
   

@@ -37,37 +37,5 @@
     <div class="span12 center ad-span">
       <img src="img/shutterstock.png" />
     </div>
-  </div>
-  <!--<div class="row">
-   <div class="span12 section">
-      <h3>Similar Search Tags</h3>
-      <div class="tags center">
-        <button class="btn btn-inverse">dog</button>
-        <button class="btn btn-inverse">juice</button>
-        <button class="btn btn-inverse">house</button>
-        <button class="btn btn-inverse">red</button>
-        <button class="btn btn-inverse">people</button>
-        <button class="btn btn-inverse">sun</button>
-        <button class="btn btn-inverse">sports</button>
-        <button class="btn btn-inverse">automobile</button>
-        <button class="btn btn-inverse">motorbike</button>
-        <button class="btn btn-inverse">headphones</button>
-        <button class="btn btn-inverse">airplane</button>
-        <button class="btn btn-inverse">spider</button>
-        <button class="btn btn-inverse">halloween</button>
-        <button class="btn btn-inverse">orange</button>
-        <button class="btn btn-inverse">motorbike</button>
-        <button class="btn btn-inverse">lizard</button>
-        <button class="btn btn-inverse">lemonade</button>
-        <button class="btn btn-inverse">headphones</button>
-        <button class="btn btn-inverse">spider</button>
-        <button class="btn btn-inverse">halloween</button>
-      </div>
-    </div>
-  </div>-->
-  <div class="footer-ad">
-    <a href="#">
-      <img src="img/adsense_185679_adformat-link_728x15_en.png" alt="" />
-    </a>
-  </div>
+  </div><!-- end row -->
 {% endblock %}

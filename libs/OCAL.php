@@ -405,6 +405,23 @@ class OCAL extends System{
       return preg_replace("/.svg$/",".png", $filename);
     }
     
+    function set_remix($clipart, $original){
+      $clipart = intval($clipart);
+      $original = intval($original);
+      $query = "INSERT INTO openclipart_remixes(clipart, original) VALUES ($clipart, $original)";
+      return $this->db->query($query);
+    }
+    
+    function get_clipart($id){
+      $id = intval($id);
+      $query = "SELECT openclipart_clipart.id, title, filename, link, created, 
+          username, created, downloads, description 
+          FROM openclipart_clipart 
+          INNER JOIN openclipart_users ON owner = openclipart_users.id 
+          WHERE openclipart_clipart.id = $id";
+      return $this->db->get_row($query);
+    }
+    
     function clipart_by_tag($tag){
       
       $tag = $this->db->escape($tag);
@@ -573,8 +590,42 @@ class OCAL extends System{
       return $this->db->query($query);
     }
     
-    function get_news(){
-      $query = "SELECT * FROM openclipart_news ORDER BY date DESC LIMIT 40";
-      return $this->db->get_array($query);
+    function get_news($id = null, $limit = 40){
+      if(empty($id)){
+        $query = "SELECT * FROM openclipart_news ORDER BY date DESC LIMIT $limit";
+        return $this->db->get_array($query);
+      }else{
+        $id = intval($id);
+        $ret = $this->db->get_array("SELECT * 
+          FROM openclipart_news 
+          WHERE id = $id");
+        if(!empty($ret)) return $ret[0];
+      }
+    }
+    
+    function edit_news($id, $item){
+      $title = $this->db->escape($item['title']);
+      $link = $this->db->escape($item['link']);
+      $content = $this->db->escape($item['content']);
+      $id = intval($id);
+      
+      $query = "UPDATE openclipart_news
+        SET title = '$title'
+          , link = '$link'
+          , content = '$content' 
+        WHERE id = $id";
+      return $this->db->query($query);
+    }
+    
+    function add_news($item){
+      $link = $this->db->escape($item['link']);
+      $title = $this->db->escape($item['title']);
+      $query = "INSERT INTO openclipart_news (link, title, date) VALUES ('$link', '$title', NOW() )";
+      return $this->db->query($query);
+    }
+    
+    function remove_news($id){
+      $id = intval($id);
+      return $this->db->query("DELETE FROM openclipart_news WHERE id = $id");
     }
 }

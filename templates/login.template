@@ -1,35 +1,39 @@
 {% extends 'main.template' %}
 {% block content %}
-<div id="login-form" class="grid_16">
-  <h3>Login</h3>
-  <p>(*Fields are case sensitive)</p>
-  {% if error %}
-    <p class="error">{{error}}</p>
-  {% endif %}
-  {% if alert_success %}
-    <div class="alert alert-success">
-      <button type="button" class="close" data-dismiss="alert-success">&times;</button>
-      {{alert_success}}
+<div class="row">
+  <div class="span10 offset2">
+    <div id="login-form" class="grid_16">
+      <h3>Login</h3>
+      <p>(*Fields are case sensitive)</p>
+      {% if error %}
+        <p class="error">{{error}}</p>
+      {% endif %}
+      {% if alert_success %}
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert-success">&times;</button>
+          {{alert_success}}
+        </div>
+      {% endif %}
+      <form action="/login{{redirect ? '?redirect=' ~ redirect }}" method="POST">
+        <div class="field">
+          <label for="login">Login:</label>
+          <input type="text" id="login" name="login" value="{{login}}"/>
+        </div>
+        <div class="field">
+          <label for="password">Passoword:</label>
+          <input id="password" type="password" name="password"/>
+        </div>
+        <div>
+          <button type="submit" name="submit" class="btn">Sign in</button>
+        </div>
+        <div id="action-links" style="margin-top:20px">
+          <a href="/forget-password">Lost Password?</a>
+          |
+          <a href="/register{{redirect ? '?redirect=' ~ redirect}}">Register</a>
+        </div>
+      </form>
+      {{debug}}
     </div>
-  {% endif %}
-  <form action="/login{{redirect ? '?redirect=' ~ redirect }}" method="POST">
-    <div class="field">
-      <label for="login">Login:</label>
-      <input type="text" id="login" name="login" value="{{login}}"/>
-    </div>
-    <div class="field">
-      <label for="password">Passoword:</label>
-      <input id="password" type="password" name="password"/>
-    </div>
-    <div>
-      <button type="submit" name="submit" class="btn">Sign in</button>
-    </div>
-    <div id="action-links" style="margin-top:20px">
-      <a href="/forget-password">Lost Password?</a>
-      |
-      <a href="/register{{redirect ? '?redirect=' ~ redirect}}">Register</a>
-    </div>
-  </form>
-  {{debug}}
+  </div>
 </div>
 {% endblock %}

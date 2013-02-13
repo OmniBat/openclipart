@@ -1,0 +1,5 @@
+{% extends 'main.template' %}
+{% block content %}
+<h1> {{ news.title }} </h1>
+<p> {{ news.content | raw }} </p>
+{% endblock %}

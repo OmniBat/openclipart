@@ -3,6 +3,7 @@
 <div class="row">
   <div class="span12 section">
     <h3 class="section">News</h3>
+    <a class="btn" href="/news/add"> add a news item </a>
     <table class="table">
       <thead>
         <tr>
@@ -16,11 +17,11 @@
       <tbody>
         {% for item in news %}
           <tr>
-            <td>{{item.date}}</td>
+            <td>{{item.date | date('Y.n.j')}}</td>
             <td>{{item.title}}</td>
-            <td><a class="btn" href="{{item.link}}" target="_blank"> link </a> </td>
-            <td><a class="btn" href="#">edit</a></td>
-            <td><a class="btn btn-danger" href="#">remove</a></td>
+            <td><a class="btn" href="{{item.link}}" target="_blank"> link </a></td>
+            <td><a class="btn" href="/news/{{item.id}}/edit">edit</a></td>
+            <td><a class="btn btn-danger" href="/news/{{item.id}}/remove">remove</a></td>
           </tr>
         {% endfor %}
       </tbody>

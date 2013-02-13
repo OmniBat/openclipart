@@ -140,10 +140,6 @@ $app->get("/why-the-ads", function() use($app){
     return $app->render('why-the-ads');
 });
 
-$app->get('/test', function() use($app){
-    return $app->render('test');
-});
-
 $app->post('/pull', function() use($app){
   $ip = $_SERVER['REMOTE_ADDR'];
   if( 
@@ -168,7 +164,7 @@ $app->get('/comments/:clipart', function($id) use($app){
   return $comments;
 });
 
-$app->notFound(function () use ($app) {
+$app->notFound(function() use($app){
   return $app->render('errors/404');
 });
 

@@ -6,7 +6,11 @@
 {% endblock %}
 {% block content %}
   <div class="page-upload">
-    <h3>Upload Clip Art</h3>
+    {% if is_remix %}
+      <h3> Remix Clip Art</h3>
+    {% else %}
+      <h3>Upload Clip Art</h3>
+    {% endif %}
     <div class="row">
       <div class="span12 section">
         <h3 class="section">
@@ -60,10 +64,10 @@
         </h3>
         <div class="login-info">
           {% if not user %}
-            <p>You're not logged in yet.</p>
-            <a href="/login?redirect=%2Fupload">login now</a>
-            <br />
-            <br />
+            <div class="span6 offset3">
+              <div class="alert alert-error"><strong>Oh snap!</strong> You're not logged in yet</div>
+              <a class="btn-ocal btn btn-primary btn-danger btn-large" href="/login?redirect={{uri|e('url')}}">login now</a>
+            </div>
           {% endif %}
           {% if user %}
             <p> You're logged in! </p>
@@ -77,6 +81,28 @@
           <div class="step-container"><div class="step">3</div></div>
           upload
         </h3>
+      </div>
+    </div>
+    <div class="row">
+      {% if is_remix %}
+        <div class="span12 remix-banner">
+          <div class="row">
+            <div class="span2 offset3 thumb">
+              <img src="/image/100/{{clipart.username}}/{{clipart.filename_png}}">
+            </div>
+            <div class="span4">
+              <h4> Remixing: </h4>
+              <p> Uploaded clip-art will be a remix of <a href="/clipart/{{clipart.id}}">{{clipart.title}}</a> by <a href="/profile/{{clipart.username}}">{{clipart.username}}</a> </p>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      {% endif %}
+      <div class="clear"></div>
+      </br>
+    </div>
+    <div class="row">
+      <div class="span12">
         {% if user %}
           <div class="row">
             <div class="span3"></div>
@@ -97,7 +123,8 @@
           </div>
           <div class="row">
             <div class="span12">
-              <form class="image-upload" method="POST" enctype="multipart/form-data">
+              <form class="image-upload" method="POST" action="/upload" enctype="multipart/form-data">
+                <input type="hidden" name="original" value="{{clipart.id}}">
                 <div class="upload-items"></div>
                 <div class="upload-controls">
                   <a class="file-select" href="#">browse *.svg</a>

@@ -32,7 +32,7 @@
             </a>
           </li>
           <li>
-            <a href="#">remix</a>
+            <a href="/upload/remix/{{id}}">remix</a>
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle"
@@ -139,7 +139,7 @@
           <td>remixes:</td><td>{{remix_count}}</td>
         </tr>
         <tr>
-          <td>license:</td><td><a href="http://sharism.org/agreement/">public domain</a></td>
+          <td>license:</td><td><a href="http://sharism.org/agreement/" target="_blank">public domain</a></td>
         </tr>
       </table>
     </div>
@@ -170,11 +170,5 @@
       {% include 'components/comments.template' %}
     </div>
   </div><!--end row-->
-      
-  <div class="footer-ad">
-    <a href="#">
-      <img src="/img/adsense_185679_adformat-link_728x15_en.png" alt="" />
-    </a>
-  </div>
 </div>
 {% endblock %}

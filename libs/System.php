@@ -20,6 +20,7 @@
  */
 
 require_once('Slim/Slim/Slim.php');
+require_once('obj.php');
 use \Slim\Slim as Slim;
 Slim::registerAutoloader();
 require_once('Database.php');
@@ -179,6 +180,15 @@ class System extends Slim {
             'cipher_mode' => MCRYPT_MODE_CBC
         )));
         */
+      
+      // helper middleware
+      $self = $this;
+      if(!isset($this->ware)) $this->ware = new Obj;
+      $this->ware->is = function($group) use($self){
+        return function() use($self, $group){
+          if(!$self->is($group)) return $self->notFound();
+        };
+      };
     }
     function validate($fields){
       $cb = $this->validate;

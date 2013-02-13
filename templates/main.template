@@ -155,8 +155,6 @@
         </div>
 
       </div>
-      <!-- footer -->
-
       <footer>
         <div class="row">
           <div class="span3">
@@ -195,7 +193,6 @@
           </div>
         </div>
       </footer>
-      <!-- end footer -->
     </div> <!-- end container -->
   </body>
 </html>
