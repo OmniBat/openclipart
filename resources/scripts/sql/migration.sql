@@ -142,7 +142,9 @@ SELECT topic_id
 
 INSERT INTO openclipart_tags(name) VALUES('nsfw');
 
-INSERT IGNORE INTO openclipart_clipart_tags SELECT id, (SELECT id FROM openclipart_tags WHERE name = 'nsfw') FROM ocal_files where nsfw = 1;
+-- add the nsfw tag
+INSERT IGNORE INTO openclipart_clipart_tags 
+  SELECT id, (SELECT id FROM openclipart_tags WHERE name = 'nsfw') FROM ocal_files WHERE nsfw = 1;
 
 
 -- GROUPS
