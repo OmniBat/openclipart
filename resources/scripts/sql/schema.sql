@@ -203,27 +203,6 @@ CREATE TABLE IF NOT EXISTS openclipart_contests(
   FOREIGN KEY(image) REFERENCES openclipart_clipart(id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
--- COLLECTIONS
-
-CREATE TABLE IF NOT EXISTS openclipart_collections(
-  id INTEGER NOT NULL auto_increment, 
-  name VARCHAR(255) DEFAULT NULL, 
-  title VARCHAR(255), 
-  date DATETIME, 
-  user INTEGER NOT NULL, 
-  PRIMARY KEY(id), 
-  FOREIGN KEY(user) REFERENCES openclipart_users(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
-
-CREATE TABLE IF NOT EXISTS
-openclipart_collection_clipart(
-  clipart INTEGER NOT NULL, 
-  collection INTEGER NOT NULL, 
-  PRIMARY KEY(clipart, collection), 
-  FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
-  FOREIGN KEY(collection) REFERENCES openclipart_collections(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
-
 -- LOGS
 
 CREATE TABLE IF NOT EXISTS openclipart_log_type(

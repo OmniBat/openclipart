@@ -164,6 +164,13 @@ $app->get('/comments/:clipart', function($id) use($app){
   return $comments;
 });
 
+$app->get('/test', function() use($app){
+  $tags = $app->db->get_column("SELECT name FROM openclipart_tags");
+  if(sizeof($tags)) echo implode("\n<br>", $tags);
+  else echo "no tags!";
+  var_dump($tags);
+});
+
 $app->notFound(function() use($app){
   return $app->render('errors/404');
 });

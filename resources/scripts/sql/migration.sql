@@ -23,8 +23,6 @@ TRUNCATE openclipart_file_usage;
 TRUNCATE openclipart_links;
 TRUNCATE openclipart_messages;
 TRUNCATE openclipart_contests;
-TRUNCATE openclipart_collections;
-TRUNCATE openclipart_collection_clipart;
 TRUNCATE openclipart_log_type;
 TRUNCATE openclipart_logs;
 TRUNCATE openclipart_log_meta_type;
@@ -193,25 +191,6 @@ INSERT INTO openclipart_contests (user, name, title, content, create_date, deadl
   , contest_deadline 
   FROM cc_tbl_contests
   INNER JOIN openclipart_users ON openclipart_users.id = contest_user;
-
--- COLLECTIONS
-
-INSERT INTO openclipart_collections 
-  SELECT set_list_titles.id
-  , ''
-  , set_title
-  , date_added
-  , openclipart_users.id
-  FROM set_list_titles
-  INNER JOIN openclipart_users ON openclipart_users.username = set_list_titles.username;
-
-INSERT INTO openclipart_collection_clipart 
-  SELECT DISTINCT 
-  image_id
-  , set_list_id 
-  FROM set_list_contents
-  INNER JOIN openclipart_clipart ON openclipart_clipart.id = set_list_contents.image_id
-  INNER JOIN openclipart_collections ON openclipart_collections.id = set_list_contents.set_list_id;
 
 -- LOGS
 
