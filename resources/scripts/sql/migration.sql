@@ -14,7 +14,6 @@ TRUNCATE openclipart_clipart;
 TRUNCATE openclipart_remixes;
 TRUNCATE openclipart_favorites;
 TRUNCATE openclipart_comments;
-TRUNCATE openclipart_clipart_issues;
 TRUNCATE openclipart_tags;
 TRUNCATE openclipart_clipart_tags;
 TRUNCATE openclipart_groups;

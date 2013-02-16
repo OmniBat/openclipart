@@ -76,10 +76,6 @@ $app->get("/clipart/:id", function($id) use ($app) {
       return $app->notFound();
     }
     
-    // COLLECTIONS
-    $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";
-    $collections = $app->db->get_array($query);
-    
     // REMIXES
     $query = "SELECT openclipart_clipart.id, filename, title, link, username FROM openclipart_remixes INNER JOIN openclipart_clipart ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON owner = openclipart_users.id WHERE original = $id";
     $remixes = array_map(function($remix) {
@@ -102,12 +98,7 @@ $app->get("/clipart/:id", function($id) use ($app) {
         }, $tags)
         , 'comments' => $comments
         , 'file_size' => human_size(filesize($svg))
-        , 'collection_count' => count($collections)
-        , 'collections' => array_map(function($clipart) {
-            $clipart['human_date'] = human_date($clipart['date']);
-            return $clipart;
-        }, $collections),
-        'nsfw' => in_array('nsfw', $tags)
+        , 'nsfw' => in_array('nsfw', $tags)
         , 'comment_count' => sizeof($comments)
     )));
 });
