@@ -249,32 +249,53 @@ class OCAL extends System{
       return $this->db->get_value($query);
     }
     
-    function new_clipart($nsfw = false, $limit = 9){
+    function num_clipart($nsfw = false){
+      $join_username_clipart = $this->join_username_clipart();
+      return $this->db->get_value("SELECT COUNT(*) FROM $join_username_clipart");
+    }
+    
+    function join_username_clipart(){
+      return "openclipart_clipart
+        INNER JOIN openclipart_users
+        WHERE owner = openclipart_users.id";
+    }
+    
+    function new_clipart($nsfw = false, $start = null, $num = null){
+      // optional args...
+      if(empty($start)) $start = 9; //default number of results
+      if(empty($num)){
+        $num = $start;
+        $start = 0;
+      }
+      
+      $join_username_clipart = $this->join_username_clipart();
       
       if(!$nsfw) $and_nsfw = $this->and_not_nsfw();
       else $and_nsfw = '';
       
-     $query = "SELECT 
+      $query = "SELECT 
         openclipart_clipart.id as id
         , title
         , filename
         , link
         , created
         , username
-        FROM openclipart_clipart
-        INNER JOIN openclipart_users
-        WHERE owner = openclipart_users.id
+        FROM $join_username_clipart
         $and_nsfw
         ORDER BY created
         DESC
-        LIMIT $limit";
+        LIMIT $start, $num";
       
       $cliparts = $this->db->get_array($query);
       return $this->add_filename($cliparts);
     }
     
-    function popular_clipart($nsfw = false, $limit = 9){
-      
+    function popular_clipart($nsfw = false, $start = null, $num = null){
+      if(empty($start)) $start = 9; //default number of results
+      if(empty($num)){
+        $num = $start;
+        $start = 0;
+      }
       if(!$nsfw) $and_nsfw = $this->and_not_nsfw();
       else $and_nsfw = '';
       
@@ -304,7 +325,7 @@ class OCAL extends System{
         $and_nsfw
         ORDER BY num_favorites_this_week
         DESC
-        LIMIT $limit";
+        LIMIT $start, $num";
       $cliparts = $this->db->get_array($query);
       return $this->add_filename($cliparts);
     }

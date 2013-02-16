@@ -1,5 +1,24 @@
 <?php
 
+$app->get("/clipart/latest", function() use($app){
+  $app->redirect("/clipart/latest/0");
+});
+
+$app->get("/clipart/latest/:page", function($page) use($app){
+  $results_per_page = 20; // results per page
+  $total = $app->num_clipart();
+  $cliparts = $app->new_clipart(false, $page, $results_per_page);
+  return $app->render("clipart/list", array(
+    'cliparts' => $cliparts
+    , 'pagination' => array(
+      'pages' => round( $total / $results_per_page, 0, PHP_ROUND_HALF_UP)
+      , 'current' => $page
+    )
+  ));
+});
+
+
+
 $app->get("/clipart/:id", function($id) use ($app) {
     $id = intval($id);
     $clipart = $app->get_clipart($id);
@@ -149,6 +168,6 @@ $app->get("/clipart/:id/comments/:comment/delete", function($clipart, $comment) 
   if(!$app->is_logged()) return $app->notFound();
   $app->remove_clipart_comment($clipart, $app->config->userid, $comment);
   $app->redirect("/clipart/$clipart");
-})
+});
 
 ?>

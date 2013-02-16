@@ -37,6 +37,13 @@ $app->get("/profile/:username", function($username) use($app) {
     ));
 });
 
+$app->get("/profile/edit", function() use($app){
+  $user = $app->user();
+  if(!$user) return $app->notFound();
+  $username = $user['username'];
+  return $app->redirect("/profile/$username/edit");
+});
+
 $app->get("/profile/:username/edit", function($username) use($app){
     $profile = get_profile($username);
     $user = $app->user();
