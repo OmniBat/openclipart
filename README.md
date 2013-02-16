@@ -6,8 +6,10 @@ This is reimplementaion of [Open Clipart Library](http://openclipart.org/) web s
 
 # Installation
 
-NOTE: When clone you need to clone all submodules as well so use --recursive option
+    git clone --recursive git://github.com/openclipart/openclipart.git
+    sudo apt-get install node-less node-uglify
 
-TODO:
-nsfw checkbox in file upload
-refactor file storage folder structure
+# TODO
+
+* NSFW(Not Safe For Work) checkbox in file upload
+* Refactor file storage folder structure
