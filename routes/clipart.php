@@ -7,7 +7,9 @@ $app->get("/clipart/latest", function() use($app){
 $app->get("/clipart/latest/:page", function($page) use($app){
   $results_per_page = 24; // results per page
   $total = $app->num_clipart();
-  $cliparts = $app->new_clipart(false, $page, $results_per_page);
+  
+  $start = $page * $results_per_page;
+  $cliparts = $app->new_clipart(false, $start, $results_per_page);
   return $app->render("clipart/list", array(
     'cliparts' => $cliparts
     , 'title' => 'Latest Clipart'
@@ -25,7 +27,8 @@ $app->get("/clipart/popular", function() use($app){
 $app->get("/clipart/popular/:page", function($page) use($app){
   $results_per_page = 24; // results per page
   $total = $app->num_clipart();
-  $cliparts = $app->popular_clipart(false, $page, $results_per_page);
+  $start = $page * $results_per_page;
+  $cliparts = $app->popular_clipart(false, $start, $results_per_page);
   return $app->render("clipart/list", array(
     'cliparts' => $cliparts
     , 'title' => 'Clipart By Popularity'
