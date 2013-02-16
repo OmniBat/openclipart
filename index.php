@@ -168,6 +168,10 @@ $app->get("/policies", function() use($app){
   $app->render("policies");
 });
 
+$app->get("/dmca", function() use($app){
+  $app->render("dmca");
+});
+
 $app->notFound(function() use($app){
   return $app->render('errors/404');
 });
