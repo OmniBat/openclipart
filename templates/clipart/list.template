@@ -1,6 +1,6 @@
 {% extends 'main.template' %}
 {% block content %}
-  <h2 class="center"> Latest Clipart </h2>
+  <h2 class="center"> {{title}} </h2>
   {% include 'components/pagination.template' %}
   <div class="row thumbnails">
     {% for clipart in cliparts %}

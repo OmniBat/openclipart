@@ -32,5 +32,25 @@ $app->get("/browse", function() use($app){
 });
 
 
+$app->get("/bydate", function() use($app){
+  return $app->redirect("/clipart/latest", null, 301);
+});
+
+$app->get("/byhits", function() use($app){
+  return $app->redirect("/clipart/popular", null, 301);
+});
+
+$app->get("/multiupload", function() use($app){
+  return $app->redirect("/upload", null, 301);
+});
+
+$app->get("/news", function() use($app){
+  return $app->redirect("/", null, 301);
+});
+
+$app->get("/packages", function() use($app){
+  return $app->redirect("/", null, 301);
+});
+
 
 ?>

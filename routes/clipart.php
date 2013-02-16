@@ -5,11 +5,30 @@ $app->get("/clipart/latest", function() use($app){
 });
 
 $app->get("/clipart/latest/:page", function($page) use($app){
-  $results_per_page = 20; // results per page
+  $results_per_page = 24; // results per page
   $total = $app->num_clipart();
   $cliparts = $app->new_clipart(false, $page, $results_per_page);
   return $app->render("clipart/list", array(
     'cliparts' => $cliparts
+    , 'title' => 'Latest Clipart'
+    , 'pagination' => array(
+      'pages' => round( $total / $results_per_page, 0, PHP_ROUND_HALF_UP)
+      , 'current' => $page
+    )
+  ));
+});
+
+$app->get("/clipart/popular", function() use($app){
+  $app->redirect("/clipart/popular/0");
+});
+
+$app->get("/clipart/popular/:page", function($page) use($app){
+  $results_per_page = 24; // results per page
+  $total = $app->num_clipart();
+  $cliparts = $app->popular_clipart(false, $page, $results_per_page);
+  return $app->render("clipart/list", array(
+    'cliparts' => $cliparts
+    , 'title' => 'Clipart By Popularity'
     , 'pagination' => array(
       'pages' => round( $total / $results_per_page, 0, PHP_ROUND_HALF_UP)
       , 'current' => $page
