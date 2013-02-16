@@ -1,12 +1,15 @@
 \#*\#
 *~
 .\#*
-TRASH
 \.\#
+
 /config.json
+/public/css/main.css
 /public/people
 /public/image
 /vendor
 composer.phar
+
+TRASH
 .DS_Store
-public/css/main.css
+todo.txt

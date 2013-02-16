@@ -1,60 +1,49 @@
-
 -- LESS to CSS just run
 make css
 
--- if you want to search all the CSS for a particular element use grep
+-- If you want to search all the CSS for a particular element use grep
 grep "my-element" -IRn styles
 
 -- TAG CLOUD
 SELECT openclipart_tags.name, count(openclipart_tags.id) as tag_count FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON openclipart_tags.id = tag GROUP BY tag ORDER BY tag_count DESC LIMIT 10;
 
--- list of artists
+-- List of artists
 select count(*) from (select userid, count(ocal_files.id) from ocal_files inner join aiki_users on user_name = username group by userid) as artists;
 
 -- DELETE USLESS tags
-
 DELETE openclipart_tags, openclipart_clipart_tags From openclipart_clipart_tags INNER JOIN openclipart_tags on tag = openclipart_tags.id WHERE openclipart_tags.name in ('public domain', 'svg', 'clip art', 'media', 'image', 'png', 'externalsource');
 
--- full query from most_popular (content) -> clipart_list
+-- Full query from most_popular (content) -> clipart_list
 $query = "SELECT openclipart_clipart.id, title, filename, link, created, user_name, count(DISTINCT user) as num_favorites, created, date, 0 as user_fav FROM openclipart_clipart INNER JOIN openclipart_favorites ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON openclipart_users.id = owner WHERE openclipart_clipart.id NOT IN (SELECT clipart FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON openclipart_tags.id = tag WHERE clipart = openclipart_clipart.id AND openclipart_tags.name = 'pd_issue') AND (SELECT WEEK(max(date)) FROM openclipart_favorites) = WEEK(date) AND YEAR(NOW()) = YEAR(date) GROUP BY openclipart_clipart.id ORDER BY num_favorites DESC LIMIT " . $app->config->home_page_thumbs_limit;
 
 
-Tokens and Security
-
+-- Tokens and Security
 http://security.stackexchange.com/questions/19044/instant-access-to-application-using-token-in-url/19081#19081
 
-------------------------------------
+-- SQL
 select set_title from ocal_logs inner join set_list_titles on set_id = set_list_titles.id where created_by = 'jcubic';
 
 ocal_logs 
 
-log_type = 1 - message
-
-log_type = 2 - comment
-
-log_type = 7 - add to collection
+log_type
+ 1 - message
+ 2 - comment
+ 7 - add to collection
 
 select count(*) from ocal_logs where 
-
 
 SELECT * FROM TableA
 LEFT OUTER JOIN TableB
 ON TableA.name = TableB.name
 WHERE TableB.id IS null
 
------------------------------------------------------------------------------------
-
-
-
-// TODO: rpc permission system / Slick RPC library
+-- TODO: rpc permission system / Slick RPC library
 /*
-
 class Foo extends LibrarianPermission {
-
 }
-
 */
 
-Gravatar: http://pl.gravatar.com/openclipartlibrary
+-- Gravatar
+http://pl.gravatar.com/openclipartlibrary
 everyone@openclipart.org
 p: 0xName

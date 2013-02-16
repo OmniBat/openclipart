@@ -164,6 +164,14 @@ $app->get('/comments/:clipart', function($id) use($app){
   return $comments;
 });
 
+$app->get("/policies", function() use($app){
+  $app->render("policies");
+});
+
+$app->get("/dmca", function() use($app){
+  $app->render("dmca");
+});
+
 $app->notFound(function() use($app){
   return $app->render('errors/404');
 });

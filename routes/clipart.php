@@ -1,5 +1,46 @@
 <?php
 
+$app->get("/clipart/latest", function() use($app){
+  $app->redirect("/clipart/latest/0");
+});
+
+$app->get("/clipart/latest/:page", function($page) use($app){
+  $results_per_page = 24; // results per page
+  $total = $app->num_clipart();
+  
+  $start = $page * $results_per_page;
+  $cliparts = $app->new_clipart(false, $start, $results_per_page);
+  return $app->render("clipart/list", array(
+    'cliparts' => $cliparts
+    , 'title' => 'Latest Clipart'
+    , 'pagination' => array(
+      'pages' => round( $total / $results_per_page, 0, PHP_ROUND_HALF_UP)
+      , 'current' => $page
+    )
+  ));
+});
+
+$app->get("/clipart/popular", function() use($app){
+  $app->redirect("/clipart/popular/0");
+});
+
+$app->get("/clipart/popular/:page", function($page) use($app){
+  $results_per_page = 24; // results per page
+  $total = $app->num_clipart();
+  $start = $page * $results_per_page;
+  $cliparts = $app->popular_clipart(false, $start, $results_per_page);
+  return $app->render("clipart/list", array(
+    'cliparts' => $cliparts
+    , 'title' => 'Clipart By Popularity'
+    , 'pagination' => array(
+      'pages' => round( $total / $results_per_page, 0, PHP_ROUND_HALF_UP)
+      , 'current' => $page
+    )
+  ));
+});
+
+
+
 $app->get("/clipart/:id", function($id) use ($app) {
     $id = intval($id);
     $clipart = $app->get_clipart($id);
@@ -35,10 +76,6 @@ $app->get("/clipart/:id", function($id) use ($app) {
       return $app->notFound();
     }
     
-    // COLLECTIONS
-    $query = "SELECT * FROM openclipart_collections INNER JOIN openclipart_users ON user = openclipart_users.id INNER JOIN openclipart_collection_clipart ON collection = openclipart_collections.id WHERE clipart = $id";
-    $collections = $app->db->get_array($query);
-    
     // REMIXES
     $query = "SELECT openclipart_clipart.id, filename, title, link, username FROM openclipart_remixes INNER JOIN openclipart_clipart ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON owner = openclipart_users.id WHERE original = $id";
     $remixes = array_map(function($remix) {
@@ -61,12 +98,7 @@ $app->get("/clipart/:id", function($id) use ($app) {
         }, $tags)
         , 'comments' => $comments
         , 'file_size' => human_size(filesize($svg))
-        , 'collection_count' => count($collections)
-        , 'collections' => array_map(function($clipart) {
-            $clipart['human_date'] = human_date($clipart['date']);
-            return $clipart;
-        }, $collections),
-        'nsfw' => in_array('nsfw', $tags)
+        , 'nsfw' => in_array('nsfw', $tags)
         , 'comment_count' => sizeof($comments)
     )));
 });
@@ -149,6 +181,6 @@ $app->get("/clipart/:id/comments/:comment/delete", function($clipart, $comment) 
   if(!$app->is_logged()) return $app->notFound();
   $app->remove_clipart_comment($clipart, $app->config->userid, $comment);
   $app->redirect("/clipart/$clipart");
-})
+});
 
 ?>

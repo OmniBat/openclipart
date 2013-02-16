@@ -37,6 +37,13 @@ $app->get("/profile/:username", function($username) use($app) {
     ));
 });
 
+$app->get("/profile/edit", function() use($app){
+  $user = $app->user();
+  if(!$user) return $app->notFound();
+  $username = $user['username'];
+  return $app->redirect("/profile/$username/edit");
+});
+
 $app->get("/profile/:username/edit", function($username) use($app){
     $profile = get_profile($username);
     $user = $app->user();
@@ -111,7 +118,7 @@ $app->get("/profile/:username/clipart", function($username) use($app){
   return $app->redirect("/profile/$username/clipart/0");
 });
 $app->get("/profile/:username/clipart/:page", function($username, $page) use($app){
-  $results_per_page = 20; // results per page
+  $results_per_page = 24; // results per page
   $total = $app->num_user_clipart($username);
   $cliparts = $app->user_clipart($username, $page, $results_per_page);
   return $app->render("profile/clipart", array(

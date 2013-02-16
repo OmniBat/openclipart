@@ -14,7 +14,7 @@
     <div class="user-links">
       <div><a target="_blank" href="{{profile.homepage}}">Homepage</a></div>
       <div><a target="_blank" href="http://twitter.com/{{profile.twitter}}">twitter</a></div>
-      <div><a href="#">send message</a></div>
+      <!--<div><a href="#">send message</a></div>-->
     </div>
     {% if is_owner %}
       <div class="edit-menu pull-right">
@@ -27,8 +27,7 @@
 
 <div class="row">
   <div class="span6 section">
-    <h3 class="section">Achievements (??/??)</h3>
-    {% include 'components/achievements.template' %}
+    <h3 class="section">Achievements</h3>
   </div>
   
   <div class="span6 section">

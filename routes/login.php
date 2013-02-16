@@ -1,6 +1,7 @@
 <?php
 $app->map('/login', function() use ($app) {
     $error = null;
+    if($app->is_logged()) return $app->redirect("/profile");
     if (isset($_POST['login']) && isset($_POST['password'])) {
         $redirect = isset($app->GET->redirect) ? $app->GET->redirect : $app->config->root;
         // TODO: redirect don't work
