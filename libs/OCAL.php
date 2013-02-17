@@ -38,12 +38,9 @@ class OCAL extends System{
     }
     
     function nsfw() {
-        return $this->config->get('nsfw', true);
-        if ($this->is_logged()) {
-            return $this->config->get('nsfw', $this->nfsw);
-        } else {
-            return true;
-        }
+      if(isset($this->config->nsfw)) return $this->config->nsfw;
+      else if(isset($this->nsfw)) return $this->nsfw;
+      return false;
     }
     
     function favorite($clipart) {

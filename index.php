@@ -61,20 +61,6 @@ $app = new OCAL(array(
     'token_expiration' => 1, // number of hours for token expiration (token send via email)
     'bitmap_resolution_limit' => 3840, // number from old javascript
     'google_analytics' => false,
-    // permission to functions in
-    'permissions' => array(
-        // JSON-RPC permissions
-        'rpc' => array(
-            'Admin' => array('admin')
-        ),
-        'access' => array(
-            'disguise' => array('admin', 'developer'),
-            'add_to_group' => array('admin'),
-        ),
-        // disguise fun is silent by default - executed in System constructor
-        'silent' => array(),
-        'disabled' => array()
-    ),
     'show_facebook' => false,
     'debug' => true,
     // user     disguise as this user
