@@ -22,8 +22,8 @@
                   {% endif %}
                 {% endif %} 
                 <a href="?orderby=uploads{{ desc ? "" : "&desc" }}">uploads</a> </th>
-              <th class="span2"> remixes </th>
-              <th class="span2"> achievements </th>
+              <!--<th class="span2"> remixes </th>
+              <th class="span2"> achievements </th>-->
             </tr>
           </thead>
           <tbody>
@@ -42,7 +42,7 @@
                   {{user.uploads}}
                   </a>
                 </td>
-                <td>
+                <!--<td>
                   <a href="/profile/{{user.username}}">
                     ?? 
                   </a>
@@ -51,7 +51,7 @@
                   <a href="/profile/{{user.username}}">
                     ??% 
                   </a>
-                </td>
+                </td>-->
               </tr>
             {% endfor %}
           </tbody>

@@ -8,6 +8,7 @@ $app->post("/upload", function() use($app){
   if(!$app->is_logged()) return $app->redirect('/');
   $files = $_FILES['files'];
   $userid = $app->config->userid;
+  $is_remix = !empty($_POST['original']);
   foreach($files['name'] as $ind => $filename){
     error_log('creating clipart');
     $app->clipart_create($userid, array(
@@ -23,7 +24,7 @@ $app->post("/upload", function() use($app){
     $tags = $app->split_tags($_POST['tags'][$ind]);
     $app->set_clipart_tags($clipid, $tags);
     
-    $app->set_remix($clipid, $_POST['original']);
+    if($is_remix) $app->set_remix($clipid, $_POST['original']);
   }
 });
 

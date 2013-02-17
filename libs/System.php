@@ -24,8 +24,6 @@ require_once('obj.php');
 use \Slim\Slim as Slim;
 Slim::registerAutoloader();
 require_once('Database.php');
-require_once('ArrayObjectFacade.php');
-require_once('Restrict.php');
 require_once('utils.php');
 require_once('json-rpc/json-rpc.php');
 require_once ('validators.php');
@@ -124,30 +122,8 @@ class System extends Slim {
             $settings = array_merge($settings, normalized_get_array());
         }
         $this->config_array = $settings;
-        $this->config = new ArrayObjectFacade($settings);
-        $this->GET = new ArrayObjectFacade(normalized_get_array());
-        if (isset($this->config->permissions)) {
-            // restrict access to functions
-            $silent = array('disguise');
-            if (isset($this->config->permissions['silent'])) {
-                $silent = array_merge($silent,
-                                      $this->config->permissions['silent']);
-            }
-            $this->functions = new Restrict(new SystemFunctions($this),
-                                            $this->config->permissions['access'],
-                                            $this->groups,
-                                            $silent);
-        }
-        // act as user
-        if (isset($this->config->user)) {
-            $this->disguise($this->config->user);
-        }
-        // setup JSON-RPC route
-        function json_error_string($code, $msg) {
-            return json_encode(array(
-                "error" => array("code" => $code, "message" => $msg)
-            ));
-        }
+        $this->config = (object) $settings;
+        $this->GET = (object) normalized_get_array();
         $root_dir = $this->config->root_directory;
         $app = $this;
         $this->post('/rpc/:name', function($name) use ($root_dir, $app) {
@@ -378,7 +354,8 @@ class System extends Slim {
     
     // ---------------------------------------------------------------------------------
     function track() {
-        return $this->GET->get('track', true);
+      if(isset($this->GET->track)) return $this->GET->track;
+      else return true;
     }
     
     // ---------------------------------------------------------------------------------
