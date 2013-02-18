@@ -228,9 +228,6 @@ class OCAL extends System{
       $clipartid = intval($clipartid);
       $query = "UPDATE openclipart_users SET avatar = $clipartid WHERE username = '$username'";
       $this->db->query($query);
-      var_dump("user set avatar");
-      var_dump($this->get_user_by_name($username));
-      exit();
     }
     
     function get_user_num_comments($id){
