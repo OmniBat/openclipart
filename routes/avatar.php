@@ -6,7 +6,7 @@ $app->get("/user/avatar/update/:id", function($clipartid) use($app){
   $userid = $user['id'];
   $username = $app->username_from_id($userid);
   $app->user_set_avatar($username, $clipartid);
-  @unlink($app->config->root_directory . "/avatar/$userid.png");
+  @unlink($app->config->root_directory . "/avatars/$userid.png");
   $app->redirect("/profile/$username", null, 307);
 });
 
