@@ -54,8 +54,8 @@
 <div class="row">
   <div class="span12 section">
     <h3 class="section">donate</h3>
-    <p><a class="paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS"><img src="/img/donation-paypal.png" /></a></p>
-    <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS">Donate to support Hosting & Maintenance</a></p>
+    <p class="center"><a class="paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS"><img src="/img/donation-paypal.png" /></a></p>
+    <p class="center"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FSUSWMQXL8AKS">Donate to support Hosting & Maintenance</a></p>
   </div>
 </div>
 
