@@ -20,7 +20,7 @@ $app->get("/avatars/:id", function($id) use($app){
   if(!$clipart) $app->notFound("no clipart found");
   $svg_filename = preg_replace("/.png$/", '.svg', $clipart['filename'] );
   $dir = $app->config->root_directory;
-  $username = $app->username_from_id($clipart['id']);
+  $username = $app->username_from_id($clipart['owner']);
   if(!isset($app->config->svg_debug) || !$app->config->svg_debug)
     $svg = $dir . "/people/$username/" . $svg_filename;
   else $svg = $dir . $app->config->example_svg;
