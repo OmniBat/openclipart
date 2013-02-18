@@ -307,13 +307,10 @@ class System extends Slim {
     
     // ---------------------------------------------------------------------------------
     function __get($name) {
-        //throw new Exception("Name $name not found");
-        if (array_key_exists($name, $this->user)) {
-            return $this->user[$name];
-        } else {
-            throw new Exception("'" . get_class($this) . "' have no $name " 
-                . "property ");
-        }
+      //throw new Exception("Name $name not found");
+      if (array_key_exists($name, $this->user)) return $this->user[$name];
+      else throw new Exception("'" . get_class($this) 
+        . "' have no $name property");
     }
     
     // ---------------------------------------------------------------------------------
@@ -376,14 +373,5 @@ class System extends Slim {
     function redirect($url, $qs = array(), $status = 302){
       if(!empty($qs)) $url .= '?' . http_build_query($qs);
       parent::redirect($url, $status);
-    }
-    
-    // ---------------------------------------------------------------------------------
-    function __call($method, $argv) {
-        if (have_method($this->functions, $method)) {
-            return call_user_func_array(array($this->functions, $method), $argv);
-        } else {
-            throw new BadMethodCallException("There is no such method '$method'");
-        }
     }
 }

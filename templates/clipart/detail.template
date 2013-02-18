@@ -31,6 +31,11 @@
               edit
             </a>
           </li>
+          {% if user %}
+            <li>
+              <a href="/user/avatar/update/{{id}}">use as avatar</a>
+            </li>
+          {% endif %}
           <li>
             <a href="/upload/remix/{{id}}">remix</a>
           </li>

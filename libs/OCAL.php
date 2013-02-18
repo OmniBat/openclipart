@@ -21,6 +21,7 @@
 
 require_once('System.php');
 require_once('config.php');
+require_once('Svg.php');
 
 // Main class extend System to OCAL specific functions
 class OCAL extends System{
@@ -28,9 +29,12 @@ class OCAL extends System{
     private $shutterstock_api_url = "http://api.shutterstock.com/images/search.json?all=0&page_number=1&category_id=29";
     private $shutterstock_api_login = "openclipart";
     private $shutterstock_api_key = "75f6916e802d2969ce255ad03f0316a817535922";
-
+    
+    public $svg;
+    
     function __construct($settings){
         global $config;
+        $this->svg = new Svg();
         $protocol = (isset($_SERVER['HTTPS'])) ? 'https' : 'http';
         $config['root'] = $protocol . '://' . $_SERVER['HTTP_HOST'];
         $config['root_directory'] = $_SERVER['DOCUMENT_ROOT'] . '/public';
@@ -219,6 +223,16 @@ class OCAL extends System{
       return $this->db->get_array($query);
     }
     
+    function user_set_avatar($username, $clipartid){
+      $username = $this->db->escape($username);
+      $clipartid = intval($clipartid);
+      $query = "UPDATE openclipart_users SET avatar = $clipartid WHERE username = '$username'";
+      $this->db->query($query);
+      var_dump("user set avatar");
+      var_dump($this->get_user_by_name($username));
+      exit();
+    }
+    
     function get_user_num_comments($id){
       $id = intval($id);
       $query = "SELECT COUNT(*) 
@@ -234,6 +248,16 @@ class OCAL extends System{
         INNER JOIN openclipart_clipart_tags ON clipart = id 
         WHERE owner = $id";
       return $this->db->get_value($query);
+    }
+    
+    function get_user($id){
+      $query = "SELECT * FROM openclipart_users WHERE id = $id";
+      return $this->db->get_row($query);
+    }
+    function get_user_by_name($username){
+      $username = $this->db->escape($username);
+      $query = "SELECT * FROM openclipart_users WHERE username = '$username'";
+      return $this->db->get_row($query);
     }
     
     function num_user_clipart($username){

@@ -11,22 +11,13 @@ $serve_image_func = function($width, $user, $file, $download = false) use($app) 
     else $svg = $dir . $app->config->example_svg;
     $response = $app->response();
     
-    /*
-    //speed up loading - problem: nsfw can change and this may display old generated image
-    $maybe_nsfw = preg_replace('/.png$/', '-nsfw.png', $png);
-    if (file_exists($maybe_nsfw)) {
-        return file_get_contents($maybe_nsfw);
-    } else if (file_exists($png)) {
-        return file_get_contents($png);
-    }
-    */
     $max_res = $app->config->bitmap_resolution_limit;
     
     if ($width > $max_res) {
         $response->status(400);
         // TODO: Generate Error Image
-        echo "Resolution couldn't be higher then $max_res px! Please download SVG and " .
-            "produce the bitmap locally.";
+        echo "Resolution couldn't be higher then $max_res px! Please "
+          . "download SVG and produce the bitmap locally.";
     } else if ( !file_exists($svg) || filesize($svg) == 0 ){
       return $app->status(404);
     } else {
@@ -38,8 +29,8 @@ $serve_image_func = function($width, $user, $file, $download = false) use($app) 
           ON owner = openclipart_users.id 
           INNER JOIN openclipart_clipart_tags ON clipart = openclipart_clipart.id 
           INNER JOIN openclipart_tags ON tag = openclipart_tags.id 
-          WHERE filename = '$file' 
-            AND username = '$user' 
+          WHERE filename = '$file'
+            AND username = '$user'
             AND name = 'nsfw'";
         if ($app->nsfw() && $app->db->get_value($query) != 0) {
             $user = $app->config->nsfw_image['user'];
@@ -52,8 +43,6 @@ $serve_image_func = function($width, $user, $file, $download = false) use($app) 
               $svg = $dir . $app->config->example_svg;
             }
         }
-
-
         if (file_exists($png)) {
           if($download){
             $response->header('Content-Disposition: attachment; filename=' . basename($png));
@@ -61,50 +50,8 @@ $serve_image_func = function($width, $user, $file, $download = false) use($app) 
           }else $response->header('Content-Type', 'image/png');
           echo file_get_contents($png);
         }else{
-            // Scaling FROM AIKI
-            $newvalue = $width;
-            $svgfile = file_get_contents($svg);
-            $header = get_string_between($svgfile, "<svg", ">");
-            $or_width = get_string_between($header, 'width="', '"');
-            $width = str_replace("px", "", $or_width );
-            $width = str_replace("pt", "", $width );
-            $width  = intval($width);
-
-            $or_height = get_string_between($header, 'height="', '"');
-            $height  = str_replace("px", "", $or_height);
-            $height  = str_replace("pt", "", $height);
-            $height = intval($height);
-
-            if($width < $height){
-              $newheight = $newvalue;
-              $newwidth = round(($newvalue * $width) / $height);
-            }elseif($width == $height){
-              $newheight = $newvalue;
-              $newwidth = $newvalue;
-            }else{
-              $newwidth = $newvalue;
-              $newheight = round(($newvalue * $height) / $width);
-            }
-            
-            $output_dir = dirname($png);
-            
-            // make sure the directory exists
-            @mkdir($output_dir,0777, true);
-            
-            $newwidth = escapeshellarg($newwidth);
-            $newheight = escapeshellarg($newheight);
-            $svg = escapeshellarg($svg);
-            $png_escaped = escapeshellarg($png);
-            if( isset($app->config->svg_converter) && $app->config->svg_converter === "svg2png"){
-              // used for local development using MAMP on OS X with svg2png installed via `brew install svg2png`
-              // the DYLD_LIBRARY_PATH bit is to prevent svg2png from linking against MAMPs outdated libs
-              $cmd = "DYLD_LIBRARY_PATH=\"\" /usr/local/bin/svg2png -w $newwidth -h $newheight $svg $png_escaped";
-            }else{
-              $cmd = "rsvg --width $newwidth --height $newheight $svg $png_escaped";
-            }
-            
-            if(!exec($cmd)) error_log('error running command: $cmd');
-            
+            $height = $width;
+            $app->svg->raster($svg, $width, $height, $png);
             if(!file_exists($png)){
               $app->status(404);
             }else{
