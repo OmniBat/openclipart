@@ -22,7 +22,7 @@ $app->get("/avatars/:id", function($id) use($app){
   $svg_filename = preg_replace("/.png$/", '.svg', $clipart['filename'] );
   $dir = $app->config->root_directory;
   if(!isset($app->config->svg_debug) || !$app->config->svg_debug)
-    $svg = $dir . "/people/$user/" . $svg_filename;
+    $svg = $dir . "/people/$username/" . $svg_filename;
   else $svg = $dir . $app->config->example_svg;
   $app->svg->raster($svg, 75, 75, $dir . "/avatars/$userid.png");
   $app->response()->header('Content-Type', 'image/png');
