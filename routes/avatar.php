@@ -15,12 +15,12 @@ $app->get("/avatars/:id", function($id) use($app){
   $id = $m[1];
   $user = $app->get_user($id);
   if(!$user) return $app->notFound();
-  $username = $user['username'];
   $userid = $user['id'];
   $clipart = $app->get_clipart($user['avatar']);
   if(!$clipart) $app->notFound("no clipart found");
   $svg_filename = preg_replace("/.png$/", '.svg', $clipart['filename'] );
   $dir = $app->config->root_directory;
+  $username = username_from_id($clipart['id']);
   if(!isset($app->config->svg_debug) || !$app->config->svg_debug)
     $svg = $dir . "/people/$username/" . $svg_filename;
   else $svg = $dir . $app->config->example_svg;
