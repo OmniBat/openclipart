@@ -2,7 +2,8 @@
 
 $app->get("/user/avatar/update/:id", function($clipartid) use($app){
   if( !$app->is_logged()) return $app->notFound();
-  $userid = $app->user()['id'];
+  $user = $app->user();
+  $userid = $user['id'];
   $username = $app->username_from_id($userid);
   $app->user_set_avatar($username, $clipartid);
   @unlink($app->config->root_directory . "/avatar/$userid.png");
