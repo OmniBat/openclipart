@@ -31,7 +31,11 @@
               <tr>
                 <td>
                   <a href="/profile/{{user.username}}">
-                    <img class="profile-pic" src="http://placehold.it/75x75"> 
+                    {% if user.avatar != 0 %}
+                      <img class="profile-pic" src="/avatars/{{user.id}}.png">
+                    {% else %}
+                      <img class="profile-pic" src="/img/avatar-default.png">
+                    {% endif %}
                     <h4> {{user.username}} 
                       <small> joined {{user.creation_date | date(timezone="Europe/Paris", 'Y')}} </small>
                     </h4>

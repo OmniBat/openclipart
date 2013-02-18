@@ -4,9 +4,9 @@
       <div class="form-actions">
         <a class="pull-left" href="/profile/{{user.username}}">
           {% if user.avatar != 0 %}
-            <img class="media-object" src="/img/avatar-default.png">
-          {% else %}
             <img class="media-object" src="/avatars/{{user.id}}.png">
+          {% else %}
+            <img class="media-object" src="/img/avatar-default.png">
           {% endif %}
         </a>
         <div class="media-body">
