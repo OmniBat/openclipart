@@ -16,7 +16,7 @@
     <!-- styles -->
     <!-- its always a good idea to bump the version number on the css so 
     browsers know to clear their cached version -->
-    <link href="/css/main.css?v=1" rel="stylesheet">
+    <link href="/css/main.css?v=2" rel="stylesheet">
     <!--<link href="http://api.picatcha.com/static/client/picatcha.css" type="text/css" rel="stylesheet"/>-->
     
     <!-- js -->
