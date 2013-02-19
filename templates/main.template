@@ -160,7 +160,7 @@
           <div class="span3">
             <h4>Clip Art ✳ Sharism</h4>
             <ul>
-              <li><p>Clip Art released by Artists under <a href="http://sharism.org/agreement/">✳ Sharism Sharing Agreement</a>.</p></li>
+              <li><p>Clip Art released by Artists under <a href="http://sharism.org/agreement/">✳&nbsp;Sharism Sharing Agreement</a>.</p></li>
               <li><a href="/policies">Policies</a></li>
               <li><a href="/dmca">DMCA</a></li>
             </ul>
@@ -169,7 +169,7 @@
             <h4>Participate</h4>
             <ul>
               <li><a href="http://github.com/openclipart/openclipart/issues">Features / Issues</a></li>
-              <li><a href="https://github.com/openclipart/openclipart">Source Code</a></li>
+              <li><a href="https://github.com/openclipart/openclipart">Source Code <i class="github"></i></a></li>
               <li><a href="http://openclipart.org/docs/api">API</a></li>
               <li><a href="#">Donate</a></li>
             </ul>
