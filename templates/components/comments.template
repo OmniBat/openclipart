@@ -4,7 +4,8 @@
       <div class="form-actions">
         <a class="pull-left" href="/profile/{{user.username}}">
           {% if user.avatar != 0 %}
-            <img class="media-object" src="/avatars/{{user.id}}.png">
+            <!-- the extra clipart query paramater is only meat to clear the browser cache when the users avatar changes -->
+            <img class="media-object" src="/avatars/{{user.id}}.png?clipart={{user.avatar}}">
           {% else %}
             <img class="media-object" src="/img/avatar-default.png">
           {% endif %}
