@@ -81,11 +81,6 @@
       </div>
     </div>
     <div class="span6">
-      {% if editable %}
-        <div class="edit-menu pull-right">
-          <a href="/clipart/{{id}}/edit">edit your clipart</a>
-        </div>
-      {% endif %}
       <h5>Tags</h5>
         <div class="tags">
           {% for tag in tags %}
@@ -152,6 +147,13 @@
         </tr>
       </table>
     </div>
+   {% if editable %}
+    <div class="span6">
+      <div class="edit-menu pull-right">
+        <a href="/clipart/{{id}}/edit">edit your clipart</a>
+      </div>
+    </div>
+    {% endif %}
   </div><!--end row-->
   
   <div class="row"> 

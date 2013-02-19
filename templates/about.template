@@ -37,7 +37,7 @@
   
   <div class="span12 section">
     <h3 class="section">Live Chat</h3>
-    <p><em>NOTE:</em> #openclipart is not heavy active channel, so if you ask a question, please wait a while for an answer. Using someones name they will be notified even if their are not using IRC. Also they can be in different time zone so you can get the answer after few hours but you will not get any if you leave too soon.</p>
+    <p><em class="note">Note:</em> #openclipart is not heavy active channel, so if you ask a question, please wait a while for an answer. Using someones name they will be notified even if their are not using IRC. Also they can be in different time zone so you can get the answer after few hours but you will not get any if you leave too soon.</p>
     <iframe id="webclient" src="http://webchat.freenode.net/?channels=openclipart" width="99%" height="600"></iframe>
   </div>
   
