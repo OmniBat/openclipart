@@ -4,7 +4,11 @@
   <div class="row">
     <div class="span6">
       <h3>
-        {{title}} 
+        {% if title %}
+          {{title}}
+        {% else %}
+          [No Title]
+        {% endif %}
         <span class="vote-star">
           <a href="#" class="active">{{favs}}</a>
         </span>

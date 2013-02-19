@@ -63,7 +63,7 @@
                     <li><a href="/profile">profile</a></li>
                     <!--<li><a href="#">messages</a></li>-->
                     <li><a href="/profile/{{user.username}}/clipart">clipart</a></li>
-                    <li><a href="#">page</a></li>
+                    <!--<li><a href="#">page</a></li>-->
                     {% if is_admin %}
                       <li><a href="/news/edit">news</a></li>
                     {% endif %}

@@ -4,7 +4,6 @@
       <div class="form-actions">
         <a class="pull-left" href="/profile/{{user.username}}">
           {% if user.avatar != 0 %}
-            <!-- the extra clipart query paramater is only meat to clear the browser cache when the users avatar changes -->
             <img class="media-object" src="/avatars/{{user.id}}.png?clipart={{user.avatar}}">
           {% else %}
             <img class="media-object" src="/img/avatar-default.png">
@@ -21,15 +20,18 @@
 {% endif %}
 {% for comment in comments|reverse %}
   <div class="media comment">
-    <a class="pull-left" href="#">
-      <img class="media-object" src="http://placehold.it/75x75">
+    <a class="pull-left" href="/profile/{{user.username}}">
+      {% if user.avatar != 0 %}
+        <img class="media-object" src="/avatars/{{user.id}}.png?clipart={{user.avatar}}">
+      {% else %}
+        <img class="media-object" src="/img/avatar-default.png">
+      {% endif %}
     </a>
     <div class="body">
       <h4 class="media-heading"><a href="/profile/{{comment.username}}">{{comment.username}}</a> <small>{{comment.date | date('Y-m-d')}}</small></h4>
       <p>{{comment.comment}}</p>
       <div class="pull-right edit-menu">
         {% if user.id == comment.user %}
-        <a href="#">edit</a>
           <a href="/clipart/{{id}}/comments/{{comment.id}}/delete">delete</a>
         {% endif %}
       </div>

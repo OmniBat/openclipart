@@ -5,29 +5,30 @@ class Svg{
     // Scaling FROM AIKI
     global $app;
     
-    //$newvalue = $width;
+    $newvalue = $width;
     $svgfile = file_get_contents($svg);
-    // $header = get_string_between($svgfile, "<svg", ">");
-    // $or_width = get_string_between($header, 'width="', '"');
-    // $width = str_replace("px", "", $or_width );
-    // $width = str_replace("pt", "", $width );
-    // $width  = intval($width);
-    // 
-    // $or_height = get_string_between($header, 'height="', '"');
-    // $height  = str_replace("px", "", $or_height);
-    // $height  = str_replace("pt", "", $height);
-    // $height = intval($height);
-    // 
-    // if($width < $height){
-    //   $width = round(($newvalue * $width) / $height);
-    //   $height = $newvalue;
-    // }elseif($width == $height){
-    //   $height = $newvalue;
-    //   $width = $newvalue;
-    // }else{
-    //   $height = round(($newvalue * $height) / $width);
-    //   $width = $newvalue;
-    // }
+    
+    $header = get_string_between($svgfile, "<svg", ">");
+    $or_width = get_string_between($header, 'width="', '"');
+    $width = str_replace("px", "", $or_width );
+    $width = str_replace("pt", "", $width );
+    $width  = intval($width);
+    
+    $or_height = get_string_between($header, 'height="', '"');
+    $height  = str_replace("px", "", $or_height);
+    $height  = str_replace("pt", "", $height);
+    $height = intval($height);
+    
+    if($width < $height){
+      $width = round(($newvalue * $width) / $height);
+      $height = $newvalue;
+    }elseif($width == $height){
+      $height = $newvalue;
+      $width = $newvalue;
+    }else{
+      $height = round(($newvalue * $height) / $width);
+      $width = $newvalue;
+    }
     
     $output_dir = dirname($output);
     

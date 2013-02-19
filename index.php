@@ -158,6 +158,11 @@ $app->get("/dmca", function() use($app){
   $app->render("dmca");
 });
 
+// $app->get("/phpinfo", function() use($app){
+//   echo phpinfo();
+// });
+
+
 $app->notFound(function() use($app){
   return $app->render('errors/404');
 });
