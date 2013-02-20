@@ -1,0 +1,13 @@
+{
+	"db_user" : "username"
+	, "db_pass" : "password"
+	, "db_name" : "db_name"
+	, "db_host" : "localhost"
+	, "picatcha" : {
+	  "private_key" : ""
+	  , "enabled" : false
+	}
+	, "svg_debug" : false
+	, "svg_converter" : "svg2png"
+	, "example_svg" : "/people/rejon/rejon_Supergirl.svg"
+}
