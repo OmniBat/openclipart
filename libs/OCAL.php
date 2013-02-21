@@ -443,7 +443,7 @@ class OCAL extends System{
     function clipart_filename_png($filename){
       return preg_replace("/.svg$/",".png", $filename);
     }
-    
+     
     function set_remix($clipart, $original){
       $clipart = intval($clipart);
       $original = intval($original);
@@ -458,14 +458,31 @@ class OCAL extends System{
     }
     function get_clipart($id){
       $id = intval($id);
-      $query = "SELECT openclipart_clipart.id, title, filename, link, created, 
+      $query = "SELECT openclipart_clipart.id, title, filename, link, created,
           username, created, downloads, description 
           FROM openclipart_clipart 
           INNER JOIN openclipart_users ON owner = openclipart_users.id 
           WHERE openclipart_clipart.id = $id";
       return $this->db->get_row($query);
     }
-    
+    function user_num_remixes($id){
+      $id= intval($id);
+      $query = "SELECT COUNT(*) 
+        FROM openclipart_remixes 
+        INNER JOIN openclipart_clipart 
+          ON openclipart_clipart.id = original 
+        WHERE openclipart_clipart.owner = $id";
+      return $this->db->get_value($query);
+    }
+    function user_num_remixed($id){
+      $id = intval($id);
+      $query = "SELECT COUNT(*)
+        FROM openclipart_remixes
+        INNER JOIN openclipart_clipart
+          ON openclipart_clipart.id = clipart
+        WHERE openclipart_clipart.owner = $id";
+      return $this->db->get_value($query);
+    }
     function clipart_by_tag($tag){
       
       $tag = $this->db->escape($tag);

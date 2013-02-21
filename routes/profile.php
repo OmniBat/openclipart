@@ -30,10 +30,12 @@ $app->get("/profile/:username", function($username) use($app) {
     if(!$profile) return $app->pass();
     if(isset($app->config->userid)) $userid = $app->config->userid;
     else $userid = -1;
-    return $app->render('profile/profile', array(
+    return $app->render('profile/show', array(
         'profile' => $profile
         , 'is_owner' => $profile['id'] == $userid
         , 'cliparts' => $app->user_recent_clipart($username, 12)
+        , 'remixes' => $app->user_num_remixes($profile['id'])
+        , 'remixed' => $app->user_num_remixed($profile['id'])
     ));
 });
 

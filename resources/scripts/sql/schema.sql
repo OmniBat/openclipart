@@ -47,8 +47,8 @@ ALTER TABLE openclipart_users ADD FOREIGN KEY (avatar) REFERENCES openclipart_cl
 
 -- REMIXES
 CREATE TABLE IF NOT EXISTS openclipart_remixes(
-  clipart integer NOT NULL, 
-  original integer NOT NULL, 
+  clipart INTEGER NOT NULL, 
+  original INTEGER NOT NULL, 
   PRIMARY KEY(clipart, original), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id), 
   FOREIGN KEY(original) REFERENCES openclipart_clipart(id)
@@ -68,11 +68,11 @@ CREATE TABLE IF NOT EXISTS openclipart_favorites(
 -- COMMENTS
 
 CREATE TABLE IF NOT EXISTS openclipart_comments(
-  id INTEGER NOT NULL auto_increment, 
+  id INTEGER NOT NULL AUTO_INCREMENT,
   clipart INTEGER NOT NULL, 
-  user integer, 
-  comment text, 
-  date datetime NOT NULL, 
+  user INTEGER, 
+  comment TEXT, 
+  date DATETIME NOT NULL, 
   PRIMARY KEY(id), 
   FOREIGN KEY(user) REFERENCES openclipart_users(id), 
   FOREIGN KEY(clipart) REFERENCES openclipart_clipart(id)

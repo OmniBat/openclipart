@@ -22,11 +22,11 @@
   </tr>
   <tr>
     <td>Remixes</td>
-    <td>???</td>
+    <td>{{remixes}}</td>
   </tr>
   <tr>
     <td>Remixed</td>
-    <td>???</td>
+    <td>{{remixed}}</td>
   </tr>
   <tr>
     <td>Comments</td>
