@@ -1,7 +1,7 @@
 <table class="common-table table table-hover">
   <tr>
     <td>Joined</td>
-    <td>{{profile.creation_date}}</td>
+    <td>{{profile.creation_date | date('Y.n.j')}}</td>
   </tr>
   <tr>
     <td>Roles</td>
@@ -14,7 +14,7 @@
   </tr>
   <tr>
     <td>time since last upload</td>
-    <td>{{profile.last_modified ? profile.last_modified : 'never'}}</td>
+    <td>{{profile.last_modified ? profile.last_modified | date('Y.n.j') : 'never'}}</td>
   </tr>
   <tr>
     <td>Uploads</td>

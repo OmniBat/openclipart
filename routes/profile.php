@@ -9,7 +9,6 @@ function get_profile($username){
     $profile = $results[0];
     $id = $profile['id'];
     // TODO: use twig filter in template instead
-    $profile['creation_date'] = date('Y.n.j', strtotime($profile['creation_date']) );
     $profile['roles'] = $app->get_user_roles($profile['id']);
     $profile['last_modified'] = $app->get_user_last_modified_clipart($id);
     $profile['uploads'] = $app->get_user_uploads($id);
