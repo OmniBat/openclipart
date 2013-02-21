@@ -34,7 +34,7 @@
           <input class="input-block-level" name="tags" type="text" id="tags" placeholder="Tags" value="{{tags}}">
           <span class="help-inline">{{errors.tags}}</span>
         </div>
-        <label class="checkbox pull-right">
+        <label class="checkbox pull-left">
              <input name="nsfw" type="checkbox" {{nsfw ? 'checked="checked"'}}> NSFW
         </label>
         <div class="clear"></div>
@@ -42,6 +42,7 @@
         <div class="control-group">
           <button type="submit" class="btn btn-primary">Update</button>
           <a href="{{back}}" class="btn"> Cancel </a>
+          <a class="btn btn-primary btn-danger pull-right" href="/clipart/{{clipart.id}}/remove">Delete</a>
         </div>
       </form>
     </div>

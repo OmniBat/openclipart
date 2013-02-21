@@ -450,7 +450,12 @@ class OCAL extends System{
       $query = "INSERT INTO openclipart_remixes(clipart, original) VALUES ($clipart, $original)";
       return $this->db->query($query);
     }
-    
+    function delete_clipart($id, $owner){
+      $id = intval($id);
+      $owner = intval($owner);
+      $query = "UPDATE openclipart_clipart SET deleted = true WHERE id = $id AND $owner = $owner";
+      $this->db->query($query);
+    }
     function get_clipart($id){
       $id = intval($id);
       $query = "SELECT openclipart_clipart.id, title, filename, link, created, 

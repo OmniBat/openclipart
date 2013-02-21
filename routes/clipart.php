@@ -108,7 +108,9 @@ $app->get("/clipart/:id", function($id) use ($app) {
 
 $app->get("/clipart/:id/edit", function($id) use($app){
   $id = intval($id);
-  $owner = $app->config->userid;
+  if(!$app->is_logged()) return $app->notFound();
+  $user = $app->user();
+  $owner = $user['id'];
   $query = "SELECT * FROM openclipart_clipart WHERE id = $id";
   if(!$app->is('librarian')) $query .= " AND owner = $owner";
   
@@ -131,9 +133,6 @@ $app->get("/clipart/:id/edit", function($id) use($app){
     , 'nsfw' => $nsfw
   ));
 });
-
-
-
 
 
 $app->post("/clipart/:id/edit", function($id) use($app){
@@ -166,9 +165,17 @@ $app->post("/clipart/:id/edit", function($id) use($app){
   $tags = $app->split_tags($tags);
   if(isset($_POST['nsfw'])) array_push($tags, 'nsfw');
   $app->set_clipart_tags( $id, $tags );
-  
+
   return $app->redirect("/clipart/" . $id );
-  
+});
+
+$app->get("/clipart/:id/:delete", function($id) use($app){
+  if(!$app->is_logged()) return $app->notFound();
+  $user = $app->user();
+  $owner = $user['id'];
+  $username = $user['username'];
+  $app->delete_clipart($id, $owner);
+  $app->redirect("/profile/$username");
 });
 
 $app->post("/clipart/:id/comments", function($clipart) use($app){

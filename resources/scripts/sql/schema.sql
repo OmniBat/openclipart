@@ -22,19 +22,20 @@ CREATE TABLE IF NOT EXISTS openclipart_users(
 
 
 CREATE TABLE IF NOT EXISTS openclipart_clipart(
-  id integer NOT NULL auto_increment, 
-  filename varchar(255), 
-  title varchar(255), 
-  link varchar(255), 
+  id INTEGER NOT NULL AUTO_INCREMENT,
+  filename VARCHAR(255), 
+  title VARCHAR(255), 
+  link VARCHAR(255), 
   description TEXT, 
-  owner integer NOT NULL, 
+  owner INTEGER NOT NULL, 
   original_author VARCHAR(255) DEFAULT NULL, 
-  sha1 varchar(40), 
+  sha1 VARCHAR(40), 
   filesize INTEGER, 
   downloads INTEGER NOT NULL, 
-  hidden boolean default 0, 
-  created datetime, 
-  modified datetime, 
+  hidden BOOLEAN DEFAULT 0, 
+  created DATETIME, 
+  modified DATETIME,
+  deleted BOOLEAN, 
   PRIMARY KEY(id),
   FOREIGN KEY(owner) REFERENCES openclipart_users(id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;

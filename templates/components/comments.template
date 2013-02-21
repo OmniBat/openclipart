@@ -20,9 +20,9 @@
 {% endif %}
 {% for comment in comments|reverse %}
   <div class="media comment">
-    <a class="pull-left" href="/profile/{{user.username}}">
+    <a class="pull-left" href="/profile/{{comment.username}}">
       {% if user.avatar != 0 %}
-        <img class="media-object" src="/avatars/{{user.id}}.png?clipart={{user.avatar}}">
+        <img class="media-object" src="/avatars/{{comment.user}}.png">
       {% else %}
         <img class="media-object" src="/img/avatar-default.png">
       {% endif %}

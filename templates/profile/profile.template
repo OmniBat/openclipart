@@ -3,8 +3,8 @@
 <div class="row">
   <div class="span6">
     <h3>{{profile.username}}<span class="vote-star achievements"><a href="#" class="active">7</a></span></h3>
-    {% if user.avatar != 0 %}
-      <img class="media-object" src="/avatars/{{user.id}}.png?clipart={{user.avatar}}">
+    {% if profile.avatar != 0 %}
+      <img class="media-object" src="/avatars/{{profile.id}}.png?clipart={{profile.avatar}}">
     {% else %}
       <img class="media-object" src="/img/avatar-default.png">
     {% endif %}
