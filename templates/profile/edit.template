@@ -10,18 +10,26 @@
       <span class="help-inline">{{errors.full_name}}</span>
     </div>
   </div>
-  <div class="control-group {{ errors.username ? 'error' }}">
-    <label class="control-label" for="inputUsername">Username</label>
-    <div class="controls">
-      <input name="username" type="text" id="inputUsername" placeholder="username" value="{{profile.username}}">
-      <span class="help-inline">{{errors.username}}</span>
-    </div>
-  </div>
   <div class="control-group {{ errors.email ? 'error' }}">
     <label class="control-label" for="inputEmail">Email</label>
     <div class="controls">
       <input name="email" type="text" id="inputEmail" placeholder="email" value="{{profile.email}}">
       <span class="help-inline">{{errors.email}}</span>
+    </div>
+  </div>
+  <div class="control-group {{ errors.password ? 'error' }}">
+    <label class="control-label" for="inputPassword">Password</label>
+    <div class="controls">
+      <input name="password" type="password" id="inputPassword" placeholder="password" value="">
+      <span class="help-inline">{{errors.password}}</span>
+    </div>
+  </div>
+  <div class="control-group {{ errors.password_again ? 'error' }}">
+    <label class="control-label" for="inputPasswordAgain">Password</label>
+    <div class="controls">
+      <input name="password_again" type="password" id="inputPasswordAgain"
+      placeholder="password again" value="">
+      <span class="help-inline">{{errors.password_again}}</span>
     </div>
   </div>
   <div class="control-group {{ errors.homepage ? 'error' }}">

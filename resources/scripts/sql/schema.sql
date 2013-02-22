@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS openclipart_users(
   password varchar(60), 
   full_name varchar(255), 
   country varchar(255), 
-  email varchar(255), 
+  email varchar(255) UNIQUE,
   avatar integer,
   homepage varchar(255), 
   twitter varchar(255),

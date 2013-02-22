@@ -1,7 +1,5 @@
 <?php
 $app->map('/register', function() use ($app) {
-    // TODO: try catch that show json on ajax and throw exception so it will be cached
-    //       by main error handler
     
     if(isset($app->config->picatcha['enabled']))
       $use_picatcha = $app->config->picatcha['enabled'];
@@ -23,7 +21,6 @@ $app->map('/register', function() use ($app) {
     $email = $_POST['email'];
     $full_name = $_POST['full_name'];
     
-    
     $response = function($msg, $success) use($app, $email, $username, $use_picatcha){
         if($success){
             $url = $app->config->root . "/login";
@@ -37,14 +34,8 @@ $app->map('/register', function() use ($app) {
                 $success = false;
             }
         }
-        // respond AJAX request
-        if($app->request()->isAjax())
-            return json_encode(array('message' => $msg, 'status' => $success));
-        
-        // success response
         if($success)
             return $app->redirect('/login', array('alert-success' => $msg));
-        // failure response
         else return $app->render('register', array(
             'error' => $msg
             // so users don't need to type it twice
@@ -53,19 +44,25 @@ $app->map('/register', function() use ($app) {
             , 'use_picatcha' => $use_picatcha
         ));
     };
-    
-    
-    if ( strip_tags($username) !== $username 
+    // Falidation
+    if( strip_tags($username) !== $username 
         || preg_match('/^[0-9A-Za-z_]+$/', $username ) === 0
     ) return $response('Sorry, but the username is invalid (you can use only '
         . 'letters, numbers and underscore)', false);
     
+    if($app->user_username_exists($username))
+       return $response('Sorry, but that username is already taken', false);
+    
+    if( strlen($password) < 6 )
+      return $response('Passwords must be at least 6 characters long', false);
+
     if(!filter_var($email, FILTER_VALIDATE_EMAIL))
         return $response('Sorry, but that email is invalid', false);
     
+    if($app->user_email_exists($email)) 
+       return $response('Sorry, but that email address is already in use',false);
+    
     if($app->user_exist($username))
-        // TODO: check if email exists - don't allow for two accounts with the 
-        // same email
         return $response("Sorry, but the username \"$username\" already exists", false);
     
     if($use_picatcha && !isset($_POST['picatcha']['r']))

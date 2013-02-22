@@ -23,13 +23,15 @@ $validators = array(
     // homepage can be empty
     if($str !== '') return $validators['url']($str);
   }
+  , 'password' => function($str){
+    return ( $str !== '' && strlen($str) >= 6 );
+  }
 );
 
 
 $validate = function($fields) use($validators){
   return array_filter(array_map(function($field) use($validators){
     foreach( $field as $key => $val ){
-      echo "key: $key, val: $val\n<br/>";
       return $validators[$val]($key);
     }
   },$fields));

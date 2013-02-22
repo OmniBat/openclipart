@@ -51,7 +51,6 @@ Class SystemFunctions {
         $this->system->__authorize("id = " . intval($id));
     }
 }
-
 class System extends Slim {
     public $groups;
     private $original_config;
@@ -62,8 +61,10 @@ class System extends Slim {
     // TODO: rename `$user` just `$user`
     private $user;
     public $validate;
+    public $validators;
     function __construct($settings) {
         global $validate;
+        global $validators;
         Slim::__construct(array('debug' => false));
         session_start();
         if (gettype($settings) !== 'array') {
@@ -80,6 +81,7 @@ class System extends Slim {
         $this->groups = array();
         $this->user = array();
         $this->validate = $validate;
+        $this->validators = $validators;
         // restore from session
         if (isset($_SESSION['userid'])) {
             try {
@@ -98,7 +100,7 @@ class System extends Slim {
             $token = $this->db->escape($_GET['token']);
             try {
                 $this->__authorize("token = '$token' and token_expiration > now()");
-                $_SESSION['userid'] = $this->id;
+                $_SESSION['userid'] = $this->user['id'];
                 // TODO clear token
             } catch (AuthorizationException $e) {
                 $settings['system_warnings'][] = 'Invalid Token';
@@ -178,23 +180,25 @@ class System extends Slim {
         $query = "SELECT count(*) FROM openclipart_users WHERE username = '$username'";
         return $this->db->get_value($query);
     }
-
+    function hash_pw($password){
+      return md5(md5($password));
+    }
     // ---------------------------------------------------------------------------------
     function login($username, $password) {
         $username = $this->db->escape($username);
         $password = $this->db->escape($password);
-        $where = "username = '$username'";// AND password = md5(md5('$password'))";
+        $where = "username = '$username'";
         try {
             $this->__authorize($where);
         } catch (AuthorizationException $e) {
             $this->user = array();
             throw new LoginException("Invalid Username");
         }
-        if ($this->password != md5(md5($password))) {
+        if ($this->user['password'] != $this->hash_pw($password)) {
             $this->user = array();
             throw new LoginException("Invalid Password");
         }
-        $_SESSION['userid'] = $this->id;
+        $_SESSION['userid'] = $this->user['id'];
     }
 
     // ---------------------------------------------------------------------------------
@@ -233,13 +237,23 @@ class System extends Slim {
             return false;
         }
     }
-    
+    function user_username_exists($username){
+      $username = $this->db->escape($username);
+      $query = "SELECT id FROM openclipart_users WHERE username = '$username' LIMIT 1";
+      return 0 !== count($this->db->get_array($query));
+    }
+    function user_email_exists($email){
+      $email = $this->db->escape($email);
+      $query = "SELECT id FROM openclipart_users WHERE email = '$email' LIMIT 1";
+      return 0 !== sizeof($this->db->get_array($query));
+    }
     // ---------------------------------------------------------------------------------
     function register($username, $password, $email, $full_name) {
         $username = $this->db->escape($username);
-        $password = $this->db->escape($password);
         $email = $this->db->escape($email);
         $full_name = $this->db->escape($full_name);
+        $password = $this->db->escape($password);
+        $password = $this->hash_pw($password);
         return $this->db->query("INSERT INTO 
             openclipart_users(
                 username
@@ -249,7 +263,7 @@ class System extends Slim {
                 , full_name
             ) VALUES(
                 '$username'
-                , md5(md5('$password'))
+                , '$password'
                 , '$email'
                 , now()
                 , '$full_name'
@@ -274,10 +288,10 @@ class System extends Slim {
         }
         $query = "SELECT * FROM openclipart_users WHERE $where";
         $db_user = $this->db->get_assoc($query);
-        if (empty($db_user))
+        if(empty($db_user))
             throw new AuthorizationException("Where '$where' is invalid");
         $this->user = $db_user;
-        $this->groups = $this->fetch_groups(intval($this->id));
+        $this->groups = $this->fetch_groups(intval($this->user['id']));
     }
     
     // ---------------------------------------------------------------------------------
@@ -299,18 +313,6 @@ class System extends Slim {
         } else {
             return array();
         }
-    }
-    
-    function __isset($name) {
-        return array_key_exists($name, $this->user);
-    }
-    
-    // ---------------------------------------------------------------------------------
-    function __get($name) {
-      //throw new Exception("Name $name not found");
-      if (array_key_exists($name, $this->user)) return $this->user[$name];
-      else throw new Exception("'" . get_class($this) 
-        . "' have no $name property");
     }
     
     // ---------------------------------------------------------------------------------
@@ -357,7 +359,7 @@ class System extends Slim {
     
     // ---------------------------------------------------------------------------------
     function is_logged() {
-        return isset($this->config->userid) && is_numeric($this->config->userid);
+      return isset($this->user['id']) && intval($this->user['id']) > -1;
     }
     
     // ---------------------------------------------------------------------------------
