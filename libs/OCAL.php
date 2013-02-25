@@ -46,28 +46,32 @@ class OCAL extends System{
       else if(isset($this->nsfw)) return $this->nsfw;
       return false;
     }
-    
-    function favorite($clipart) {
-        if (!$this->is_logged()) {
-            throw new Exception("You can't favorite a clipart if you are not logged in");
-        } else {
-            $clipart = intval($clipart);
-            $id = $this->config->userid;
-            $query = "INSERT INTO openclipart_favorites VALUES($clipart, $id, NOW())";
-            return $this->db->query($query);
-        }
+    function is_clipart_favorite($clipart, $userid){
+      $clipart = intval($clipart);
+      $userid = intval($userid);
+      $query = "SELECT * 
+        FROM openclipart_favorites
+        WHERE clipart = $clipart AND user = $userid";
+      return 0 !== $this->db->get_value($query);
+    }
+    function favorite($clipart, $userid){
+      $clipart = intval($clipart);
+      $userid = intval($userid);
+      $query = "INSERT INTO 
+        openclipart_favorites 
+        VALUES($clipart, $userid, NOW()
+      )";
+      return $this->db->query($query);
     }
     
-    // ---------------------------------------------------------------------------------
-    function unfavorite($clipart) {
-        if (!$this->is_logged()) {
-            throw new Exception("You can't favorite a clipart if you are not logged in");
-        } else {
-            $clipart = intval($clipart);
-            $id = $this->config->userid;
-            $query = "DELETE FROM openclipart_favorites WHERE clipart = '$clipart' AND user = '$id'";
-            return $this->db->query($query);
-        }
+    function unfavorite($clipart, $userid) {
+      $clipart = intval($clipart);
+      $userid = intval($userid);
+      $query = "DELETE FROM 
+        openclipart_favorites 
+        WHERE clipart = $clipart 
+        AND user = $id";
+      return $this->db->query($query);
     }
     
     function and_not_nsfw(){

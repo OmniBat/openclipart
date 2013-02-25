@@ -10,7 +10,12 @@
           [No Title]
         {% endif %}
         <span class="vote-star">
-          <a href="#" class="active">{{favs}}</a>
+          {% if user %}
+          <a href="/clipart/1/favorite/add?userid={{user.id}}"
+            class="{{ is_user_favorite ? 'active' }}">{{favs}}</a>
+          {% else %}
+            <a href="#">{{favs}}</a>
+          {% endif %}
         </span>
         <small>
           by 

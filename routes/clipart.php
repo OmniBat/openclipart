@@ -46,23 +46,22 @@ $app->get("/clipart/:id", function($id) use ($app) {
     $clipart = $app->get_clipart($id);
     if(empty($clipart)) return $app->notFound();
     $editable = false;
+    $user = $app->user();
+    // librarians can edit any clipart
     if (isset($app->username)) {
         if ($app->username == $clipart['username'] || $app->is('librarian')) {
             $editable = true;
         }
     }
-    
+
     // TAGS
     $query = "SELECT name FROM openclipart_clipart_tags INNER JOIN openclipart_tags ON tag = id WHERE clipart = $id";
     $tags = $app->db->get_column($query);
-    
     $tag_rank = $app->tag_counts($tags);
     $best_term = $tag_rank[0]['name'];
     
     // COMMENTS
-    
     $comments = $app->get_clipart_comments($id);
-    
     if(!isset($app->config->svg_debug) || !$app->config->svg_debug){
       $svg = $app->clipart_path($clipart['username'], $clipart['filename']);
     }else{
@@ -77,29 +76,39 @@ $app->get("/clipart/:id", function($id) use ($app) {
     }
     
     // REMIXES
-    $query = "SELECT openclipart_clipart.id, filename, title, link, username FROM openclipart_remixes INNER JOIN openclipart_clipart ON clipart = openclipart_clipart.id INNER JOIN openclipart_users ON owner = openclipart_users.id WHERE original = $id";
+    $query = "SELECT 
+        openclipart_clipart.id
+        , filename
+        , title
+        , link
+        , username 
+      FROM openclipart_remixes 
+      INNER JOIN openclipart_clipart ON clipart = openclipart_clipart.id 
+      INNER JOIN openclipart_users ON owner = openclipart_users.id 
+      WHERE original = $id";
     $remixes = array_map(function($remix) {
         $remix['filename'] = preg_replace("/\.svg$/", ".png", $remix['filename']);
         return $remix;
     }, $app->db->get_array($query));
-    
-    $system_tags = array('nsfw', 'clipart_issue', 'pd_issue');
-    
     return $app->render('clipart/detail', array_merge($clipart, array(
         'editable' => $editable
         , 'filename_png' => preg_replace('/.svg$/', '.png', $clipart['filename'])
         , 'remixes' => $remixes
         , 'remix_count' => count($remixes)
-        , 'tags' => array_map(function($tag) use($system_tags) {
+        , 'tags' => array_map(function($tag) {
             return array(
                 'name' => $tag,
-                'system' => in_array($tag, $system_tags)
+                'system' => in_array(
+                  $tag
+                  , array('nsfw','clipart_issue','pd_issue')
+                )
             );
         }, $tags)
         , 'comments' => $comments
         , 'file_size' => human_size(filesize($svg))
         , 'nsfw' => in_array('nsfw', $tags)
         , 'comment_count' => sizeof($comments)
+        , 'is_user_favorite' => $user && $app->is_clipart_favorite($id,$user['id'])
     )));
 });
 
@@ -188,6 +197,10 @@ $app->get("/clipart/:id/comments/:comment/delete", function($clipart, $comment) 
   if(!$app->is_logged()) return $app->notFound();
   $app->remove_clipart_comment($clipart, $app->config->userid, $comment);
   $app->redirect("/clipart/$clipart");
+});
+
+$app->get("/clipart/:clipartid/favorite/add", function($clipartid) use($app){
+  // TODO:
 });
 
 ?>
