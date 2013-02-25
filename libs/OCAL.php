@@ -49,10 +49,10 @@ class OCAL extends System{
     function is_clipart_favorite($clipart, $userid){
       $clipart = intval($clipart);
       $userid = intval($userid);
-      $query = "SELECT * 
+      $query = "SELECT COUNT(*)
         FROM openclipart_favorites
         WHERE clipart = $clipart AND user = $userid";
-      return 0 !== $this->db->get_value($query);
+      return $this->db->get_value($query);
     }
     function favorite($clipart, $userid){
       $clipart = intval($clipart);
@@ -70,8 +70,15 @@ class OCAL extends System{
       $query = "DELETE FROM 
         openclipart_favorites 
         WHERE clipart = $clipart 
-        AND user = $id";
+        AND user = $userid";
       return $this->db->query($query);
+    }
+    function user_num_favorites($userid){
+      $userid = intval($userid);
+      $query = "SELECT COUNT(*) 
+        FROM openclipart_favorites
+        WHERE user = $userid";
+      return $this->db->get_value($query);
     }
     
     function and_not_nsfw(){

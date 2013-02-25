@@ -35,6 +35,7 @@ $app->get("/profile/:username", function($username) use($app) {
         , 'cliparts' => $app->user_recent_clipart($username, 12)
         , 'remixes' => $app->user_num_remixes($profile['id'])
         , 'remixed' => $app->user_num_remixed($profile['id'])
+        , 'favorites' => $app->user_num_favorites($profile['id'])
     ));
 });
 

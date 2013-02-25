@@ -2,7 +2,12 @@
 {% block content %}
 <div class="row">
   <div class="span6">
-    <h3>{{profile.username}}<span class="vote-star achievements"><a href="#" class="active">7</a></span></h3>
+    <h3>
+      {{profile.username}}
+      <span class="vote-star achievements">
+        <a href="#" class="active">{{favorites}}</a>
+      </span>
+    </h3>
     {% if profile.avatar != 0 %}
       <img class="media-object" src="/avatars/{{profile.id}}.png?clipart={{profile.avatar}}">
     {% else %}

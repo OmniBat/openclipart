@@ -74,7 +74,6 @@ $app->get("/clipart/:id", function($id) use ($app) {
       error_log("missing expected svg at $svg");
       return $app->notFound();
     }
-    
     // REMIXES
     $query = "SELECT 
         openclipart_clipart.id
@@ -108,7 +107,7 @@ $app->get("/clipart/:id", function($id) use ($app) {
         , 'file_size' => human_size(filesize($svg))
         , 'nsfw' => in_array('nsfw', $tags)
         , 'comment_count' => sizeof($comments)
-        , 'is_user_favorite' => $user && $app->is_clipart_favorite($id,$user['id'])
+        , 'is_user_favorite' => $app->is_clipart_favorite($id,$user['id'])
     )));
 });
 
@@ -199,8 +198,12 @@ $app->get("/clipart/:id/comments/:comment/delete", function($clipart, $comment) 
   $app->redirect("/clipart/$clipart");
 });
 
-$app->get("/clipart/:clipartid/favorite/add", function($clipartid) use($app){
-  // TODO:
+$app->get("/clipart/:clipartid/favorite/:verb", function($clipart, $verb) use($app){
+  if(!$app->is_logged()) return $app->redirect('/login');
+  $user = $app->user();
+  if($verb === 'add') $app->favorite($clipart, $user['id']);
+  else $app->unfavorite($clipart, $user['id']);
+  return $app->redirect("/clipart/$clipart");
 });
 
 ?>
