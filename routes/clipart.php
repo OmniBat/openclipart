@@ -107,7 +107,7 @@ $app->get("/clipart/:id", function($id) use ($app) {
         , 'file_size' => human_size(filesize($svg))
         , 'nsfw' => in_array('nsfw', $tags)
         , 'comment_count' => sizeof($comments)
-        , 'is_user_favorite' => $app->is_clipart_favorite($id,$user['id'])
+        , 'is_user_favorite' => $user && $app->is_clipart_favorite($id,$user['id'])
     )));
 });
 
