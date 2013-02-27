@@ -1,4 +1,4 @@
-# Openclipart
+
 
 This is reimplementaion of [Open Clipart Library](http://openclipart.org/) web site (using [Slim](http://www.slimframework.com/) and [Twig](http://twig.sensiolabs.org/))
 
