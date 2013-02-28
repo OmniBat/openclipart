@@ -9,7 +9,7 @@ $mysqli->select_db($config['db_name']);
 
 function str_to_tags($str){
   global $mysqli;
-  $tags = preg_split("/([\s,\-]+)/", $str);
+  $tags = preg_split("/[\s,\-]+/", $str);
   $tags = array_map(function($tag) use($mysqli){
     $tag = trim($mysqli->real_escape_string($tag));
     $tag = preg_replace("/[^a-zA-Z0-9]/","", $tag); // remove all non character entities

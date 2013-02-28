@@ -9,7 +9,7 @@
 	url = git://github.com/codeguy/Slim.git
 [submodule "libs/json-rpc"]
 	path = libs/json-rpc
-	url = git@github.com:openclipart/json-rpc.git
+	url = git://github.com/openclipart/json-rpc.git
 [submodule "libs/bootstrap"]
 	path = libs/bootstrap
 	url = https://github.com/twitter/bootstrap.git

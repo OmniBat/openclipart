@@ -1,0 +1,134 @@
+www.openclipart.org - single host
+
+Debian Squeeze
+
+/etc/apache2/sites-enabled/openclipart.org
+
+ DocumentRoot: /srv/www/openclipart.org/htdocs/
+ Logs: /srv/www/openclipart.org/lobs/
+ Include: /srv/www/openclipart.org/conf/openclipart.org.apache.conf
+
+ssl certs from startssl.com
+ /etc/ssl/private/openclipart.org.crt
+ /etc/ssl/private/openclipart.org.key
+
+mysql database
+ user: openclipart
+ database: openclipart
+
+In addition to github.com/openclipart/openclipart.git, the following
+repos are used:
+    git@git.fabricatorz.com:openclipart.org
+    git@git.fabricatorz.com:openclipart-private
+    git@git.fabricatorz.com:openclipart-public
+    git@git.fabricatorz.com:fabricatorz-bin-www
+    https://github.com/aikiframework/json.git
+    https://github.com/jcubic/json-rpc.git
+    git://github.com/rubys/venus.git
+
+People and uploaded files in /srv/www/htdocs/people
+find . -type f -print0 | xargs -0 stat --format '%y %n'
+
+ 3875 people
+ 48364 svg files (not including 234 old(?) .svgz files)
+  2006: 1966
+  2007: 4922
+  2008: 5247
+  2009: 4705
+  2010: 12434
+  2011: 11538
+  2012: 6295
+  2013: 1039 (until 2013-02-27)
+ 1159 jpg files
+ 637349 png files
+
+Modified /etc files:
+ 2013-02-26 23:59:39 ./ssh/sshd_config
+ 2013-02-25 03:29:28 ./.etckeeper
+ 2013-02-25 03:29:26 ./ld.so.cache
+ 2013-02-25 03:29:26 ./init.d/.depend.stop
+ 2013-02-25 03:29:26 ./init.d/.depend.start
+ 2013-02-25 03:29:26 ./init.d/.depend.boot
+- 2013-02-16 - updated ssl cert
+ 2013-02-16 20:29:26 ./ssl/private/openclipart.org.key
+ 2013-02-16 20:29:26 ./ssl/private/openclipart.org.crt
+ 2013-02-16 20:27:28 ./aliases.db
+ 2013-02-16 20:27:26 ./aliases
+ 2013-02-14 05:00:00 ./debian_version
+ 2013-02-05 08:30:08 ./shadow
+ 2013-02-05 07:34:13 ./group
+ 2013-02-05 07:33:37 ./passwd
+ 2013-01-16 02:58:20 ./gshadow
+ 2013-01-13 06:39:40 ./logwatch/conf/logwatch.conf
+ 2013-01-09 19:26:22 ./default/varnish
+ 2013-01-09 19:21:05 ./varnish/fabricatorz.vcl
+ 2012-11-18 13:55:14 ./network/run/ifstate
+ 2012-11-18 13:55:12 ./mtab
+ 2012-11-18 13:50:41 ./inittab
+ 2012-11-18 13:50:41 ./fstab
+ 2012-11-02 03:10:38 ./timezone
+ 2012-11-02 03:10:38 ./localtime
+ 2012-10-01 18:52:55 ./locale.gen
+ 2012-10-01 18:51:05 ./apt/trusted.gpg
+ 2012-10-01 18:51:05 ./apt/trustdb.gpg
+ 2012-09-24 19:09:08 ./mailcap
+ 2012-09-24 19:08:59 ./papersize
+ 2012-08-21 18:59:56 ./default/varnishlog
+ 2012-08-20 06:52:53 ./init.d/varnishncsa
+ 2012-08-20 06:52:53 ./default/varnishncsa
+ 2012-07-27 18:42:56 ./sudoers
+ 2012-07-23 05:24:52 ./postfix/virtual.db
+ 2012-07-23 05:24:50 ./postfix/virtual
+ 2012-06-15 11:06:48 ./postfix/main.cf
+ 2012-05-29 13:01:51 ./mysql/my.cnf
+ 2012-05-24 11:22:17 ./php5/conf.d/xhprof.ini
+ 2012-05-15 13:40:28 ./cron.d/sphinxsearch
+ 2012-05-08 06:41:41 ./pear/pear.conf
+ 2012-04-06 17:18:17 ./fail2ban/action.d/sendmail-buffered.conf
+ 2012-04-06 17:18:17 ./fail2ban/action.d/mynetwatchman.conf
+ 2012-04-06 17:18:17 ./fail2ban/action.d/mail-buffered.conf
+ 2012-04-06 17:18:17 ./fail2ban/action.d/dshield.conf
+ 2012-04-01 03:13:44 ./apache2/sites-available/default-ssl
+ 2012-04-01 03:13:44 ./apache2/sites-available/default.dpkg-dist
+ 2012-03-24 16:16:34 ./network/if-up.d/mountnfs
+ 2012-03-24 16:09:56 ./init.d/skeleton
+ 2012-03-24 16:09:56 ./init.d/rcS
+ 2012-03-24 16:09:56 ./init.d/rc
+ 2012-03-23 07:58:43 ./php5/apache2/php.ini
+ 2012-03-15 18:47:46 ./sphinxsearch/sphinx.conf
+ 2012-02-28 00:13:24 ./resolv.conf
+ 2012-01-31 19:21:04 ./default/varnishlog.dpkg-old
+ 2012-01-31 19:02:07 ./apache2/apache2.conf
+ 2012-01-31 06:09:43 ./php5/cli/php.ini
+ 2012-01-04 13:38:35 ./apache2/sites-available/openclipart.org
+ 2011-12-16 17:53:58 ./default/sphinxsearch
+ 2011-12-16 17:53:11 ./hosts
+ 2011-12-16 13:50:04 ./logrotate.d/apache2
+ 2011-12-16 13:26:07 ./network/interfaces
+ 2011-12-16 13:20:05 ./X11/Xwrapper.config
+ 2011-12-16 13:20:05 ./defoma/config/x-ttcidfont-conf.conf
+ 2011-12-16 13:20:00 ./defoma/fontconfig.subst-rule
+ 2011-12-16 13:19:14 ./php5/conf.d/apc.ini
+ 2011-12-16 13:02:04 ./default/varnish.dpkg-old
+ 2011-12-16 13:01:45 ./logrotate.d/varnish
+ 2011-12-16 12:57:44 ./shells
+ 2011-12-16 12:42:40 ./apache2/sites-available/default
+ 2011-12-16 12:42:09 ./apache2/ports.conf
+ 2011-12-16 12:40:48 ./varnish/secret
+ 2011-12-16 12:40:16 ./apt/sources.list.d/varnish.list
+ 2011-12-16 12:39:11 ./hostname
+ 2011-12-16 12:38:54 ./cron.d/apticron
+ 2011-12-16 12:38:53 ./apticron/apticron.conf
+ 2011-12-16 12:38:50 ./postfix/master.cf
+ 2011-12-16 12:38:50 ./postfix/dynamicmaps.cf
+ 2011-12-16 12:38:50 ./mailname
+ 2011-12-16 12:38:49 ./ssl/private/ssl-cert-snakeoil.key
+ 2011-12-16 12:38:49 ./ssl/certs/ssl-cert-snakeoil.pem
+ 2011-12-16 12:38:45 ./apache2/httpd.conf
+ 2011-12-16 12:38:16 ./mysql/debian.cnf
+ 2011-12-16 12:35:42 ./ssh/ssh_host_dsa_key.pub
+ 2011-12-16 12:35:42 ./ssh/ssh_host_dsa_key
+ 2011-12-16 12:35:41 ./ssh/ssh_host_rsa_key.pub
+ 2011-12-16 12:35:41 ./ssh/ssh_host_rsa_key
+ 2011-12-16 12:35:41 ./ssh/ssh_host_key.pub
+ 2011-12-16 12:35:41 ./ssh/ssh_host_key
