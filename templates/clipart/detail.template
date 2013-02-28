@@ -71,23 +71,6 @@
           <a href="#"><div class="pinterest"></div></a>
           <a href="#"><div class="more"></div></a>
         </div>
-          
-        <!--
-        <div class="detail-ad">
-        <script type="text/javascript"><!--
-        google_ad_client = "ca-pub-0352842915813820";
-        /* OCAL - Small Square */
-        google_ad_slot = "8592938214";
-        google_ad_width = 200;
-        google_ad_height = 200;
-        //-->
-
-        <!--
-        </script>
-        <script type="text/javascript"
-        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-        </script>
-        -->
       
       </div>
       {% if remix_count %}
@@ -134,7 +117,21 @@
     </div>
 
     <div class="span6 ad">
-      <a href=""><img src="/img/adsense_185666_adformat-display_200x200_en.jpg"></a>
+
+        <div class="detail-ad">
+        <script type="text/javascript"><!--
+        google_ad_client = "ca-pub-0352842915813820";
+        /* OCAL - Small Square */
+        google_ad_slot = "8592938214";
+        google_ad_width = 200;
+        google_ad_height = 200;
+        //-->
+
+        </script>
+        <script type="text/javascript"
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+      
     </div>
 
     <div class="span6">
