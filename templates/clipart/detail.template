@@ -1,173 +1,191 @@
 {% extends 'main.template' %}
 {% block content %}
 <div class="page-detail">
+  
   <div class="row">
-    <div class="span6">
-      <h3>
-        {% if title %}
-          {{title}}
-        {% else %}
-          [No Title]
-        {% endif %}
-        <span class="vote-star">
-          {% if user %}
-          <a href="/clipart/1/favorite/{{ is_user_favorite ? 'remove' : 'add'
-            }}"
-            class="{{ is_user_favorite ? 'active' }}">{{favs}}</a>
-          {% else %}
-            <a href="#">{{favs}}</a>
-          {% endif %}
-        </span>
-        <small>
-          by 
-          <a href="/profile/{{username}}">{{username}}</a>
-        </small>
-      </h3>
-      <div>
-        <a href="/download/svg/{{username}}/{{filename}}">
-          <div class="detail-image">
-            <div class="checker"></div>
-            <img src="/image/280/{{username}}/{{filename_png}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
+    
+    <div class="span6"> {{! Image-LEFT }}
+      <div class="row">
+        <div class="span6"> {{! Image-headline }}
+          <h3>
+            {% if title %}
+              {{title}}
+            {% else %}
+              [No Title]
+            {% endif %}
+            <span class="vote-star">
+              {% if user %}
+              <a href="/clipart/1/favorite/{{ is_user_favorite ? 'remove' : 'add'
+                }}"
+                class="{{ is_user_favorite ? 'active' }}">{{favs}}</a>
+              {% else %}
+                <a href="#">{{favs}}</a>
+              {% endif %}
+            </span>
+            <small>
+              by 
+              <a href="/profile/{{username}}">{{username}}</a>
+            </small>
+          </h3>
+        </div>
+        
+        <div class="span6"> {{! Image-picture }}
+          <div>
+            <a href="/download/svg/{{username}}/{{filename}}">
+              <div class="detail-image">
+                <div class="checker"></div>
+                <img src="/image/280/{{username}}/{{filename_png}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
+              </div>
+            </a>
           </div>
-        </a>
-      </div>
-      <div class="center"> 
-        <div>
-          <a class="btn btn-danger btn-large btn-ocal" href="/download/svg/{{username}}/{{filename}}">download</a>
         </div>
-        <ul class="center edit-menu nav nav-pills">
-          <li>
-            <a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl=http://dev.openclipart.org/people/{{username}}/{{filename}}">
-              edit
-            </a>
-          </li>
-          {% if user %}
+        
+        <div class="span6 center"> {{! Image-context }}
+          <div>
+            <a class="btn btn-danger btn-large btn-ocal" href="/download/svg/{{username}}/{{filename}}">download</a>
+          </div>
+          <ul class="center edit-menu nav nav-pills">
             <li>
-              <a href="/user/avatar/update/{{id}}">use as avatar</a>
-            </li>
-          {% endif %}
-          <li>
-            <a href="/upload/remix/{{id}}">remix</a>
-          </li>
-          <li class="dropdown">
-            <a class="dropdown-toggle"
-               data-toggle="dropdown"
-               href="#">
-                export
-                <b class="caret"></b>
+              <a href="http://www.flamingtext.com/imagebot/editor?ref=ocal&svgurl=http://dev.openclipart.org/people/{{username}}/{{filename}}">
+                edit
               </a>
-            <ul class="dropdown-menu">
-              <!-- links -->
-              <li><a tabindex="-1" href="/image/download/100/{{username}}/{{filename_png}}">100px</a></li>
-              <li><a tabindex="-1" href="/image/download/200/{{username}}/{{filename_png}}">200px</a></li>
-              <li><a tabindex="-1" href="/image/download/500/{{username}}/{{filename_png}}">500px</a></li>
-            </ul>
-          </li>
-        </ul>
-        <div class="download-like-links">
-          <a href="#"><div class="facebook"></div></a>
-          <a href="#"><div class="twitter"></div></a>
-          <a href="#"><div class="googleplus"></div></a>
-          <a href="#"><div class="pinterest"></div></a>
-          <a href="#"><div class="more"></div></a>
+            </li>
+            {% if user %}
+              <li>
+                <a href="/user/avatar/update/{{id}}">use as avatar</a>
+              </li>
+            {% endif %}
+            <li>
+              <a href="/upload/remix/{{id}}">remix</a>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle"
+                 data-toggle="dropdown"
+                 href="#">
+                  export
+                  <b class="caret"></b>
+                </a>
+              <ul class="dropdown-menu">
+                <!-- links -->
+                <li><a tabindex="-1" href="/image/download/100/{{username}}/{{filename_png}}">100px</a></li>
+                <li><a tabindex="-1" href="/image/download/200/{{username}}/{{filename_png}}">200px</a></li>
+                <li><a tabindex="-1" href="/image/download/500/{{username}}/{{filename_png}}">500px</a></li>
+              </ul>
+            </li>
+          </ul>
+          <div class="download-like-links">
+            <a href="#"><div class="facebook"></div></a>
+            <a href="#"><div class="twitter"></div></a>
+            <a href="#"><div class="googleplus"></div></a>
+            <a href="#"><div class="pinterest"></div></a>
+            <a href="#"><div class="more"></div></a>
+          </div>
         </div>
-      
-      </div>
-      {% if remix_count %}
-      <div>
-        <h5>Remixes</h5>
-        <div class="remixes">
-        {% for remix in remixes %}
-          <a href="/clipart/{{remix.id}}/{{remix.link}}"><img src="/image/75/{{remix.username}}/{{remix.filename}}" /></a>
-        {% endfor %}
+        
+        {% if remix_count %}
+        <div class="span6"> {{! Image-remixes }}
+          <div>
+            <h5>Remixes</h5>
+            <div class="remixes">
+            {% for remix in remixes %}
+              <a href="/clipart/{{remix.id}}/{{remix.link}}"><img src="/image/75/{{remix.username}}/{{remix.filename}}" /></a>
+            {% endfor %}
+            </div>
+          </div>
         </div>
-      </div>
-      {% endif %}
-    </div>
-    <div class="span6">
-      <h5>Tags</h5>
-        <div class="tags">
-          {% for tag in tags %}
-            <a class="tag {{ system ? 'system' }}" href="/search?terms={{tag.name}}">
-              <button class="btn btn-inverse">{{tag.name}}</button>
-            </a>
-          {% endfor %}
-        </div>
-    </div>
-    {% if collections %}
-    <div class="span6">
-      <h5>Collections</h5>
-        <div class="tags collections">
-          {% for tag in collections %}
-            <a class="tag{{ tag ? 'system' }}" href="/collection/{{tag.username}}/{{tag.id}}/{{tag.name}}">
-              <button class="btn btn-inverse">{{tag.title}}</button>
-            </a>
-          {% endfor %}
-        </div>
-    </div>
-    {% endif %}
-    <div class="span6">
-      <h5>Description</h5>
-      <p>
-        {{description}}
-        {% if not description %}
-          No description given
         {% endif %}
-      </p>
-    </div>
-
-    <div class="span6 ad">
-
-        <div class="detail-ad">
-        <script type="text/javascript"><!--
-        google_ad_client = "ca-pub-0352842915813820";
-        /* OCAL - Small Square */
-        google_ad_slot = "8592938214";
-        google_ad_width = 200;
-        google_ad_height = 200;
-        //-->
-
-        </script>
-        <script type="text/javascript"
-        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-        </script>
-      
-    </div>
-
-    <div class="span6">
-      <h5>Details</h5>
-      <table cellspacing="0" class="table table-condensed table-striped">
-        <tr>
-          <td>uploader:</td><td>{{username}}</td>
-        </tr>
-        <tr>
-          <td>created:</td><td>{{created}}</td>
-        </tr>
-        <tr>
-          <td>downloads:</td><td>{{downloads}}</td>
-        </tr>
-        <tr>
-          <td>comments:</td><td>{{comment_count}}</td>
-        </tr>
-        <tr>
-          <td>filesize:</td><td>{{file_size}}</td>
-        </tr>
-        <tr>
-          <td>remixes:</td><td>{{remix_count}}</td>
-        </tr>
-        <tr>
-          <td>license:</td><td><a href="http://sharism.org/agreement/" target="_blank">public domain</a></td>
-        </tr>
-      </table>
-    </div>
-
-   {% if editable %}
-    <div class="span6">
-      <div class="edit-menu pull-right">
-        <a href="/clipart/{{id}}/edit">edit your clipart</a>
       </div>
     </div>
-    {% endif %}
+    
+    <div class="span6"> {{! Image-RIGHT }}
+      <div class="row">
+        <div class="span6"> {{! Image-tags }}
+          <h5>Tags</h5>
+            <div class="tags">
+              {% for tag in tags %}
+                <a class="tag {{ system ? 'system' }}" href="/search?terms={{tag.name}}">
+                  <button class="btn btn-inverse">{{tag.name}}</button>
+                </a>
+              {% endfor %}
+            </div>
+        </div>
+        
+        {% if collections %}
+        <div class="span6"> {{! Image-collections }}
+          <h5>Collections</h5>
+            <div class="tags collections">
+              {% for tag in collections %}
+                <a class="tag{{ tag ? 'system' }}" href="/collection/{{tag.username}}/{{tag.id}}/{{tag.name}}">
+                  <button class="btn btn-inverse">{{tag.title}}</button>
+                </a>
+              {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="span6"> {{! Image-description }}
+          <h5>Description</h5>
+          <p>
+            {{description}}
+            {% if not description %}
+              No description given
+            {% endif %}
+          </p>
+        </div>
+
+        <div class="span6 detail-ad"> {{! Image-AD }}
+
+          <script type="text/javascript"><!--
+          google_ad_client = "ca-pub-0352842915813820";
+          /* OCAL - Small Square */
+          google_ad_slot = "8592938214";
+          google_ad_width = 200;
+          google_ad_height = 200;
+          //-->
+          </script>
+          
+          <script type="text/javascript"
+          src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+          </script>
+
+        </div>
+
+        <div class="span6"> {{! Image-details }}
+          <h5>Details</h5>
+          <table cellspacing="0" class="table table-condensed table-striped">
+            <tr>
+              <td>uploader:</td><td>{{username}}</td>
+            </tr>
+            <tr>
+              <td>created:</td><td>{{created}}</td>
+            </tr>
+            <tr>
+              <td>downloads:</td><td>{{downloads}}</td>
+            </tr>
+            <tr>
+              <td>comments:</td><td>{{comment_count}}</td>
+            </tr>
+            <tr>
+              <td>filesize:</td><td>{{file_size}}</td>
+            </tr>
+            <tr>
+              <td>remixes:</td><td>{{remix_count}}</td>
+            </tr>
+            <tr>
+              <td>license:</td><td><a href="http://sharism.org/agreement/" target="_blank">public domain</a></td>
+            </tr>
+          </table>
+        </div>
+
+       {% if editable %}
+        <div class="span6"> {{! Image-menu }}
+          <div class="edit-menu pull-right">
+            <a href="/clipart/{{id}}/edit">edit your clipart</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
     
   </div><!--end row-->
   
