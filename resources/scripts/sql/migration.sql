@@ -16,7 +16,6 @@ TRUNCATE openclipart_favorites;
 TRUNCATE openclipart_comments;
 TRUNCATE openclipart_tags;
 TRUNCATE openclipart_clipart_tags;
-TRUNCATE openclipart_groups;
 TRUNCATE openclipart_user_groups;
 TRUNCATE openclipart_file_usage;
 TRUNCATE openclipart_links;
@@ -38,6 +37,8 @@ CREATE TABLE tmp_aiki_users LIKE aiki_users;
 ALTER TABLE tmp_aiki_users ADD UNIQUE (email);
 ALTER TABLE tmp_aiki_users ADD UNIQUE (username);
 
+-- create a new table called `tmp_aiki_users` and remove all duplicate users from
+-- it
 INSERT INTO tmp_aiki_users SELECT * FROM aiki_users 
     ON DUPLICATE KEY UPDATE 
       avatar = IFNULL(tmp_aiki_users.avatar, VALUES(avatar))
@@ -46,9 +47,12 @@ INSERT INTO tmp_aiki_users SELECT * FROM aiki_users
       , username = IFNULL(tmp_aiki_users.username, VALUES(username))
       , email = IFNULL(tmp_aiki_users.email, VALUES(email));
 
+-- make sure every user is has a group that exists. if a user doesnt have a
+-- valid group, set his group to the default group
+UPDATE tmp_aiki_users
+ SET usergroup = 3 WHERE usergroup NOT BETWEEN 1 AND 6 OR usergroup IS NULL;
 
--- copy non duplicate aiki_users
--- i commented this out for now because it was throwing errors during import -- vicapow
+-- copy non duplicate tmp_aiki_users
 INSERT INTO openclipart_users(
   id, 
   username, 
@@ -157,8 +161,10 @@ INSERT IGNORE INTO openclipart_clipart_tags
 INSERT INTO openclipart_groups 
   VALUES(1, 'admin')
   , (2, 'librarian')
-  , (3, 'banned')
-  , (4, 'designer');
+  , (3, 'guest') -- this is the most common usergroup in aiki_users - @vicapow
+  , (4, 'banned')
+  , (5, 'normal') 
+  , (6, 'employees');
 
 -- LINKS
 
@@ -345,4 +351,12 @@ INSERT INTO openclipart_news(link, title, date, content)
   , content 
   FROM apps_planet_posts;
 
+
+INSERT INTO openclipart_user_groups(user_group, user)
+  SELECT usergroup
+  , userid
+  FROM tmp_aiki_users;
+
+-- remove the temporary copy of aiki_users we made and modified for the
+-- migration to work smoothly and non-destructively
 DROP TABLE tmp_aiki_users;

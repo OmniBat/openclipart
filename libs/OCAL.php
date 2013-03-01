@@ -597,7 +597,17 @@ class OCAL extends System{
       $tags = $this->db->get_column($query);
       return $tags;
     }
-    
+    function get_users_by_group($group, $limit = 20){
+      $group = $this->db->escape($group);
+      $limit = intval($limit);
+      $query = "SELECT * 
+        FROM openclipart_users 
+        INNER JOIN openclipart_user_groups ON user = id
+        INNER JOIN openclipart_groups ON openclipart_groups.id = user_group
+        WHERE openclipart_groups.name = '$group'";
+      if($limit !== 0) $query .= " LIMIT $limit";
+      return $this->db->get_array($query);
+    }
     function top_artists(){
       // just users by all time downloads, for now
       $query = "SELECT username, COUNT(downloads) as downloads

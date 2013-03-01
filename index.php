@@ -140,8 +140,13 @@ $app->post('/pull', function() use($app){
   }else return $app->halt(401,'It appears this request to update the repo did not originate from Github.');
 });
 
+// TODO: these routes should be removed in production
 $app->get('/recreate-tags', function() use($app){
   require_once('./resources/scripts/recreate_tags.php');
+});
+
+$app->get('/migrate-groups', function() use($app){
+  require_once('./resources/scripts/migrate_groups.php');
 });
 
 $app->get('/comments/:clipart', function($id) use($app){

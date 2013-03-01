@@ -3,10 +3,54 @@
   <div class="page-librarians">
     <div class="row">
       <div class="span6 section">
-        <h3 class="section">Librarians</h3>
+        <h3 class="section">Current Librarians</h3>
+          <table class="table table-users table-striped">
+            <thead>
+              <tr>
+                <td>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in librarians %}
+                <tr>
+                  <td>
+                    <a class="pull-left" href="/profile/{{user.username}}">
+                      {% include 'components/avatar.template' %}
+                      <h4> {{user.username}} 
+                        <small> joined {{user.creation_date | date(timezone="Europe/Paris", 'Y')}} </small>
+                      </h4>
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
       </div>
       <div class="span6 section">
-        <h3 class="section">Developers</h3>
+        <h3 class="section">Current Developers</h3>
+        <table class="table table-users table-striped">
+          <thead>
+            <tr>
+              <td>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in developers %}
+              <tr>
+                <td>
+                  <a class="pull-left" href="/profile/{{user.username}}">
+                    {% include 'components/avatar.template' %}
+                    <h4> {{user.username}} 
+                      <small> joined {{user.creation_date | date(timezone="Europe/Paris", 'Y')}} </small>
+                    </h4>
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
