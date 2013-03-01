@@ -4,9 +4,9 @@
   
   <div class="row">
     
-    <div class="span6"> {{! Image-LEFT }}
+    <div class="span6"> <!-- Image-LEFT -->
       <div class="row">
-        <div class="span6"> {{! Image-headline }}
+        <div class="span6"> <!-- Image-headline -->
           <h3>
             {% if title %}
               {{title}}
@@ -29,7 +29,7 @@
           </h3>
         </div>
         
-        <div class="span6"> {{! Image-picture }}
+        <div class="span6"> <!-- Image-picture -->
           <div>
             <a href="/download/svg/{{username}}/{{filename}}">
               <div class="detail-image">
@@ -40,7 +40,7 @@
           </div>
         </div>
         
-        <div class="span6 center"> {{! Image-context }}
+        <div class="span6 center"> <!-- Image-context -->
           <div>
             <a class="btn btn-danger btn-large btn-ocal" href="/download/svg/{{username}}/{{filename}}">download</a>
           </div>
@@ -83,7 +83,7 @@
         </div>
         
         {% if remix_count %}
-        <div class="span6"> {{! Image-remixes }}
+        <div class="span6"> <!-- Image-remixes -->
           <div>
             <h5>Remixes</h5>
             <div class="remixes">
@@ -97,9 +97,9 @@
       </div>
     </div>
     
-    <div class="span6"> {{! Image-RIGHT }}
+    <div class="span6"> <!-- Image-RIGHT -->
       <div class="row">
-        <div class="span6"> {{! Image-tags }}
+        <div class="span6"> <!-- Image-tags -->
           <h5>Tags</h5>
             <div class="tags">
               {% for tag in tags %}
@@ -111,7 +111,7 @@
         </div>
         
         {% if collections %}
-        <div class="span6"> {{! Image-collections }}
+        <div class="span6"> <!-- Image-collections -->
           <h5>Collections</h5>
             <div class="tags collections">
               {% for tag in collections %}
@@ -123,7 +123,7 @@
         </div>
         {% endif %}
         
-        <div class="span6"> {{! Image-description }}
+        <div class="span6"> <!-- Image-description -->
           <h5>Description</h5>
           <p>
             {{description}}
@@ -133,7 +133,7 @@
           </p>
         </div>
 
-        <div class="span6 detail-ad"> {{! Image-AD }}
+        <div class="span6 detail-ad"> <!-- Image-AD -->
 
           <script type="text/javascript"><!--
           google_ad_client = "ca-pub-0352842915813820";
@@ -150,7 +150,7 @@
 
         </div>
 
-        <div class="span6"> {{! Image-details }}
+        <div class="span6"> <!-- Image-details -->
           <h5>Details</h5>
           <table cellspacing="0" class="table table-condensed table-striped">
             <tr>
@@ -178,7 +178,7 @@
         </div>
 
        {% if editable %}
-        <div class="span6"> {{! Image-menu }}
+        <div class="span6"> <!-- Image-menu -->
           <div class="edit-menu pull-right">
             <a href="/clipart/{{id}}/edit">edit your clipart</a>
           </div>
