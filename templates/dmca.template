@@ -1,6 +1,6 @@
 {% extends 'main.template' %}
 {% block content %}
-    <h2>DMCA Notice & Takedown Procedures</h2>
+    <h3>DMCA Notice & Takedown Procedures</h3>
     <p>Thee Open Clip Art Library abides by the federal <a href="http://www.copyright.gov/legislation/dmca.pdf">Digital Millennium Copyright Act (DMCA)</a> by responding to notices of alleged infringement that comply with the DMCA and other applicable laws. As part of our response, we may remove or disable access to material residing on a site that is controlled or operated by the Open Clip Art Library (such as <a href="http://openclipart.org/">openclipart.org</a>) that is claimed to be infringing, in which case we will make a good-faith attempt to contact the person who submitted the affected material so that they may make a counter notification, also in accordance with the DMCA.</p>
 
     <p>The Open Clip Art Library does not control content hosted on third party websites, and cannot remove content from sites it does not own or control. If you are the copyright owner of content hosted on a third party site, and you have not authorized the use of your content, please contact the administrator of that website directly to have the content removed.</p>
