@@ -28,24 +28,27 @@
               <ul>
                 <li>
                   <div class="icon-copyright pull-left"></div>
-                  <strong>You</strong> created the image, can prove you have been assigned copyright over the image or have made sure the image is free
-                </iL>
+                  <strong>You</strong>
+                   <br />created the image,
+                   <br />can prove you have been assigned copyright over the image or
+                   <br />have made sure the image is free.
+                </li>
                 <li>
                   <div class="icon-trademark pull-left"></div>
-                  <strong>No Trademarks!</strong>
+                  <strong>It respects Trademarks!</strong>
                   <br />
-                  It does not contain anyone else's characters, logos, or
+                  It does not contain anyone else's characters, logos, or trademark.
                 </li>
                 <li>
                   <div class="icon-publicdomain pull-left"></div>
-                  <strong>Public Domain!</strong>
+                  <strong>It is in the Public Domain!</strong>
                   <br />
-                  You are waiving all copyright and related or neighboring rights under the CCO Public Domain Dedication.
+                  You are waiving all copyright and related or neighboring rights under the <a href="http://sharism.org/agreement/">✳&nbsp;Sharism Sharing Agreement</a>.
                 </li>
               </ul>
             </div>
             <p> 
-              For more details, see the <strong>CC Zero Public Domain Dedication</strong> and our <strong>policies</strong> for more information.
+              For more details, see the <a href="http://sharism.org/agreement/">✳&nbsp;Sharism Sharing Agreement</a> and our <a href="/policies">policies</a> for more information.
             </p>
           </div>
         </div>
