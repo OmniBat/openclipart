@@ -37,11 +37,39 @@ CREATE TABLE tmp_aiki_users LIKE aiki_users;
 ALTER TABLE tmp_aiki_users ADD UNIQUE (email);
 ALTER TABLE tmp_aiki_users ADD UNIQUE (username);
 
--- create a new table called `tmp_aiki_users` and remove all duplicate users from
--- it
-INSERT INTO tmp_aiki_users SELECT * FROM aiki_users 
+-- create a new table called `tmp_aiki_users` and remove all duplicate users 
+-- from it
+INSERT INTO tmp_aiki_users SELECT 
+    userid
+    , username
+    , full_name
+    , country
+    , sex
+    , job
+    , password
+    , usergroup
+    , email
+    , ocal_files.id as avatar
+    , homepage
+    , first_ip
+    , first_login
+    , last_login
+    , last_ip
+    , user_permissions
+    , maillist
+    , logins_number
+    , randkey
+    , is_active
+    , num_uploads
+    , nouploads
+    , exclude_tags
+    , nsfwfilter
+    , notify
+    , last_edit
+    FROM aiki_users
+    LEFT JOIN ocal_files ON aiki_users.avatar = ocal_files.filename
     ON DUPLICATE KEY UPDATE 
-      avatar = IFNULL(tmp_aiki_users.avatar, VALUES(avatar))
+      avatar = IFNULL(ocal_files.id, VALUES(avatar))
       , userid = LEAST(tmp_aiki_users.userid, VALUES(userid))
       , homepage = IFNULL(tmp_aiki_users.homepage, VALUES(homepage))
       , username = IFNULL(tmp_aiki_users.username, VALUES(username))
