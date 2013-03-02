@@ -31,10 +31,10 @@
   <div class="span3 section">
     <h3 class="section">become a librerian</h3>
     <ul class="become-librerian list-image">
-      <li>help to maintain the project</li>
       <li>add tags & descriptions</li>
-      <li>find broken uploads</li>
       <li>check for guideline violations</li>
+      <li>find broken uploads</li>
+      <li>help to maintain the project</li>
     </ul>
     <a class="pull-right" href="#become-librerian">how?</a>
   </div>
