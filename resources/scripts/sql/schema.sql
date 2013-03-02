@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart(
   FOREIGN KEY(owner) REFERENCES openclipart_users(id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
+ALTER TABLE  openclipart_clipart ADD INDEX ( filename );
 
 ALTER TABLE openclipart_users ADD FOREIGN KEY (avatar) REFERENCES openclipart_clipart(id);
 

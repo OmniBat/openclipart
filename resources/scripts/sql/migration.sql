@@ -39,37 +39,10 @@ ALTER TABLE tmp_aiki_users ADD UNIQUE (username);
 
 -- create a new table called `tmp_aiki_users` and remove all duplicate users 
 -- from it
-INSERT INTO tmp_aiki_users SELECT 
-    userid
-    , username
-    , full_name
-    , country
-    , sex
-    , job
-    , password
-    , usergroup
-    , email
-    , ocal_files.id as avatar
-    , homepage
-    , first_ip
-    , first_login
-    , last_login
-    , last_ip
-    , user_permissions
-    , maillist
-    , logins_number
-    , randkey
-    , is_active
-    , num_uploads
-    , nouploads
-    , exclude_tags
-    , nsfwfilter
-    , notify
-    , last_edit
+INSERT INTO tmp_aiki_users SELECT *
     FROM aiki_users
-    LEFT JOIN ocal_files ON aiki_users.avatar = ocal_files.filename
     ON DUPLICATE KEY UPDATE 
-      avatar = IFNULL(ocal_files.id, VALUES(avatar))
+      avatar = IFNULL(tmp_aiki_users.avatar, VALUES(avatar))
       , userid = LEAST(tmp_aiki_users.userid, VALUES(userid))
       , homepage = IFNULL(tmp_aiki_users.homepage, VALUES(homepage))
       , username = IFNULL(tmp_aiki_users.username, VALUES(username))
@@ -78,9 +51,13 @@ INSERT INTO tmp_aiki_users SELECT
 -- make sure every user is has a group that exists. if a user doesnt have a
 -- valid group, set his group to the default group
 UPDATE tmp_aiki_users
- SET usergroup = 3 WHERE usergroup NOT BETWEEN 1 AND 6 OR usergroup IS NULL;
+  SET usergroup = 3 
+  WHERE usergroup NOT BETWEEN 1 AND 6 OR usergroup IS NULL;
 
 -- copy non duplicate tmp_aiki_users
+-- we need to disable the foreign key constrain or else we wont be able to
+-- assign the avatar clipart ids (which dont yet exist.)
+SET FOREIGN_KEY_CHECKS = 0;
 INSERT INTO openclipart_users(
   id, 
   username, 
@@ -99,16 +76,16 @@ INSERT INTO openclipart_users(
          full_name, 
          country, 
          email, 
-         clip.id as avatar, 
+         ocal_files.id as avatar, 
          homepage, 
          first_login, 
          notify, 
          nsfwfilter 
   FROM tmp_aiki_users users 
-    LEFT OUTER JOIN openclipart_clipart clip 
-      ON clip.owner = users.userid 
-      AND RIGHT (users.avatar, 3) = 'svg' 
-      AND clip.filename = users.avatar;
+  LEFT OUTER JOIN ocal_files ON ocal_files.filename = users.avatar
+  AND ocal_files.user_name = users.username;
+SET FOREIGN_KEY_CHECKS = 1;
+
 
 INSERT INTO openclipart_clipart(
   id, 
@@ -132,6 +109,7 @@ INSERT INTO openclipart_clipart(
   upload_date 
 FROM ocal_files 
 LEFT JOIN tmp_aiki_users users ON users.username = ocal_files.user_name;
+
 
 -- REMIXES
 
@@ -387,4 +365,4 @@ INSERT INTO openclipart_user_groups(user_group, user)
 
 -- remove the temporary copy of aiki_users we made and modified for the
 -- migration to work smoothly and non-destructively
-DROP TABLE tmp_aiki_users;
+-- DROP TABLE tmp_aiki_users;
