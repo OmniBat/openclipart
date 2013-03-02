@@ -1,0 +1,5 @@
+{% if user.avatar != 0 %}
+  <img class="profile-pic" src="/avatars/{{user.id}}.png?clipart={{user.avatar}}">
+{% else %}
+  <img class="profile-pic" src="/img/avatar-default.png">
+{% endif %}

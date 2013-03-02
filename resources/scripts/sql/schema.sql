@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS openclipart_clipart(
   title VARCHAR(255), 
   link VARCHAR(255), 
   description TEXT, 
-  owner INTEGER NOT NULL, 
+  owner INTEGER, 
   original_author VARCHAR(255) DEFAULT NULL, 
   sha1 VARCHAR(40), 
   filesize INTEGER, 
@@ -176,23 +176,27 @@ CREATE TABLE IF NOT EXISTS openclipart_log_type(
   PRIMARY KEY(id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
+-- logs
+-- (id, user ~> users.id, date, type -> log_type)
 CREATE TABLE IF NOT EXISTS openclipart_logs(
   id INTEGER NOT NULL auto_increment, 
   user INTEGER NOT NULL, 
   date DATETIME, 
   type INTEGER NOT NULL, 
   PRIMARY KEY(id), 
-  FOREIGN KEY(user) REFERENCES openclipart_users(id), 
   FOREIGN KEY(type) REFERENCES openclipart_log_type(id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
-
+-- log types
+-- (id, name)
 CREATE TABLE IF NOT EXISTS openclipart_log_meta_type(
   id INTEGER NOT NULL auto_increment
   , name VARCHAR(100)
   , PRIMARY KEY(id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB;
 
+-- log meta
+-- (log -> logs.id, type -> log_meta_type, value )
 CREATE TABLE IF NOT EXISTS openclipart_log_meta(
   log INTEGER NOT NULL
   , type INTEGER NOT NULL

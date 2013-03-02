@@ -16,7 +16,6 @@ TRUNCATE openclipart_favorites;
 TRUNCATE openclipart_comments;
 TRUNCATE openclipart_tags;
 TRUNCATE openclipart_clipart_tags;
-TRUNCATE openclipart_groups;
 TRUNCATE openclipart_user_groups;
 TRUNCATE openclipart_file_usage;
 TRUNCATE openclipart_links;
@@ -28,8 +27,60 @@ TRUNCATE openclipart_log_meta_type;
 TRUNCATE openclipart_log_meta;
 SET FOREIGN_KEY_CHECKS = 1;
 
--- copy non duplicate aiki_users
--- i commented this out for now because it was throwing errors during import -- vicapow
+
+
+-- create temporary table, tmp_aiki_users, which is a copy of aiki_users, with
+-- duplicate keys (email, username) removed
+DROP TABLE IF EXISTS tmp_aiki_users;
+CREATE TABLE tmp_aiki_users LIKE aiki_users;
+
+ALTER TABLE tmp_aiki_users ADD UNIQUE (email);
+ALTER TABLE tmp_aiki_users ADD UNIQUE (username);
+
+-- create a new table called `tmp_aiki_users` and remove all duplicate users 
+-- from it
+INSERT INTO tmp_aiki_users SELECT 
+    userid
+    , username
+    , full_name
+    , country
+    , sex
+    , job
+    , password
+    , usergroup
+    , email
+    , ocal_files.id as avatar
+    , homepage
+    , first_ip
+    , first_login
+    , last_login
+    , last_ip
+    , user_permissions
+    , maillist
+    , logins_number
+    , randkey
+    , is_active
+    , num_uploads
+    , nouploads
+    , exclude_tags
+    , nsfwfilter
+    , notify
+    , last_edit
+    FROM aiki_users
+    LEFT JOIN ocal_files ON aiki_users.avatar = ocal_files.filename
+    ON DUPLICATE KEY UPDATE 
+      avatar = IFNULL(ocal_files.id, VALUES(avatar))
+      , userid = LEAST(tmp_aiki_users.userid, VALUES(userid))
+      , homepage = IFNULL(tmp_aiki_users.homepage, VALUES(homepage))
+      , username = IFNULL(tmp_aiki_users.username, VALUES(username))
+      , email = IFNULL(tmp_aiki_users.email, VALUES(email));
+
+-- make sure every user is has a group that exists. if a user doesnt have a
+-- valid group, set his group to the default group
+UPDATE tmp_aiki_users
+ SET usergroup = 3 WHERE usergroup NOT BETWEEN 1 AND 6 OR usergroup IS NULL;
+
+-- copy non duplicate tmp_aiki_users
 INSERT INTO openclipart_users(
   id, 
   username, 
@@ -42,7 +93,7 @@ INSERT INTO openclipart_users(
   creation_date, 
   notify, 
   nsfw_filter
-) SELECT minids.userid, 
+) SELECT userid, 
          username, 
          password, 
          full_name, 
@@ -53,12 +104,7 @@ INSERT INTO openclipart_users(
          first_login, 
          notify, 
          nsfwfilter 
-  FROM aiki_users users 
-    -- use only the min user id, incase there are two usrs with the same username
-    INNER JOIN ( SELECT MIN(userid) as userid 
-       FROM aiki_users 
-       GROUP by username ) minids 
-     ON minids.userid = users.userid 
+  FROM tmp_aiki_users users 
     LEFT OUTER JOIN openclipart_clipart clip 
       ON clip.owner = users.userid 
       AND RIGHT (users.avatar, 3) = 'svg' 
@@ -85,13 +131,7 @@ INSERT INTO openclipart_clipart(
   not upload_published, 
   upload_date 
 FROM ocal_files 
-LEFT JOIN aiki_users users ON users.username = ocal_files.user_name 
-INNER JOIN (
-  SELECT MIN(userid) as userid 
-  FROM aiki_users 
-  GROUP by username
-) minids ON minids.userid = users.userid;
-
+LEFT JOIN tmp_aiki_users users ON users.username = ocal_files.user_name;
 
 -- REMIXES
 
@@ -149,8 +189,10 @@ INSERT IGNORE INTO openclipart_clipart_tags
 INSERT INTO openclipart_groups 
   VALUES(1, 'admin')
   , (2, 'librarian')
-  , (3, 'banned')
-  , (4, 'designer');
+  , (3, 'guest') -- this is the most common usergroup in aiki_users - @vicapow
+  , (4, 'banned')
+  , (5, 'normal') 
+  , (6, 'employees');
 
 -- LINKS
 
@@ -164,11 +206,11 @@ INSERT INTO openclipart_links(title, url, user)
 INSERT INTO openclipart_messages(id, sender, receiver, date, title, content) 
   SELECT ocal_msgs.id
   , ( SELECT min(userid) 
-      FROM aiki_users 
+      FROM tmp_aiki_users 
       WHERE username = written_by
   )
   , ( SELECT min(userid) 
-      FROM aiki_users 
+      FROM tmp_aiki_users 
       WHERE username = written_to
   )
   , written_on
@@ -246,7 +288,7 @@ INSERT INTO openclipart_logs
   SELECT id
   , (
     SELECT min(userid) 
-    FROM aiki_users 
+    FROM tmp_aiki_users 
     WHERE username = created_by
   )
   , created_at
@@ -262,7 +304,7 @@ INSERT INTO openclipart_log_meta
   WHERE log_type = 2;
 
 
--- logs
+-- LOGS
 
 INSERT INTO openclipart_logs 
   SELECT ocal_logs.id
@@ -270,7 +312,8 @@ INSERT INTO openclipart_logs
   , created_at
   , 17 
   FROM ocal_logs 
-  INNER JOIN openclipart_users ON openclipart_users.username = ocal_logs.created_by
+  LEFT JOIN openclipart_users 
+    ON openclipart_users.username = ocal_logs.created_by
   WHERE log_type = 3;
 
 INSERT INTO openclipart_logs 
@@ -279,14 +322,8 @@ INSERT INTO openclipart_logs
   , created_at
   , 11 
   FROM ocal_logs 
-  INNER JOIN openclipart_users ON openclipart_users.username = ocal_logs.created_by
-  WHERE log_type = 5;
-
-INSERT INTO openclipart_log_meta 
-  SELECT id
-  , 3
-  , set_id 
-  FROM ocal_logs 
+  LEFT JOIN openclipart_users 
+    ON openclipart_users.username = ocal_logs.created_by
   WHERE log_type = 5;
 
 INSERT INTO openclipart_logs 
@@ -296,18 +333,9 @@ INSERT INTO openclipart_logs
   , created_at
   , 13 
   FROM ocal_logs 
-  INNER JOIN openclipart_users ON openclipart_users.username = ocal_logs.created_by
+  LEFT JOIN openclipart_users 
+    ON openclipart_users.username = ocal_logs.created_by
   WHERE log_type = 6;
-
-INSERT INTO openclipart_log_meta 
-  SELECT ocal_logs.id
-  , 5
-  , set_content_id 
-  FROM ocal_logs 
-  INNER JOIN openclipart_logs ON ocal_logs.id = openclipart_logs.id
-  WHERE log_type = 6;
-
--- favorites
 
 INSERT INTO openclipart_logs 
   SELECT ocal_logs.id
@@ -315,8 +343,25 @@ INSERT INTO openclipart_logs
   , created_at
   , 9 
   FROM ocal_logs 
-  INNER JOIN openclipart_users ON openclipart_users.username = ocal_logs.created_by
+  LEFT JOIN openclipart_users 
+    ON openclipart_users.username = ocal_logs.created_by
   WHERE log_type = 7;
+
+-- LOG META
+
+INSERT INTO openclipart_log_meta 
+  SELECT id
+  , 3
+  , set_id 
+  FROM ocal_logs 
+  WHERE log_type = 5;
+
+INSERT INTO openclipart_log_meta 
+  SELECT ocal_logs.id
+  , 5
+  , set_content_id 
+  FROM ocal_logs 
+  WHERE log_type = 6;
 
 INSERT INTO openclipart_log_meta 
   SELECT id
@@ -334,3 +379,12 @@ INSERT INTO openclipart_news(link, title, date, content)
   , content 
   FROM apps_planet_posts;
 
+
+INSERT INTO openclipart_user_groups(user_group, user)
+  SELECT usergroup
+  , userid
+  FROM tmp_aiki_users;
+
+-- remove the temporary copy of aiki_users we made and modified for the
+-- migration to work smoothly and non-destructively
+DROP TABLE tmp_aiki_users;

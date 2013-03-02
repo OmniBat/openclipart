@@ -2,13 +2,7 @@
   <form method="POST" action="/clipart/{{id}}/comments">
     <div class="media comment">
       <div class="form-actions">
-        <a class="pull-left" href="/profile/{{user.username}}">
-          {% if user.avatar != 0 %}
-            <img class="media-object" src="/avatars/{{user.id}}.png?clipart={{user.avatar}}">
-          {% else %}
-            <img class="media-object" src="/img/avatar-default.png">
-          {% endif %}
-        </a>
+        {% include 'components/avatar.template' %}
         <div class="media-body">
           <h4 class="media-heading"><a href="/profile/{{user.username}}">{{user.username}}</a> <small>{{comment.date | date('Y-m-d')}}</small></h4>
           <textarea name="text" rows="3" placeholder="add a comment..."></textarea>

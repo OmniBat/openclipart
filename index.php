@@ -97,6 +97,7 @@ $app = new OCAL(array(
         , 'filename' => 'openclipart-logo-grey'
     ),
 ));
+
 $app->view(new View());
 
 $app->hook('slim.before', function() use($app){
@@ -140,14 +141,9 @@ $app->post('/pull', function() use($app){
   }else return $app->halt(401,'It appears this request to update the repo did not originate from Github.');
 });
 
+// TODO: this route should be removed in production after migration
 $app->get('/recreate-tags', function() use($app){
   require_once('./resources/scripts/recreate_tags.php');
-});
-
-$app->get('/comments/:clipart', function($id) use($app){
-  $comments = $app->get_clipart_comments($id);
-  var_dump($comments);
-  return $comments;
 });
 
 $app->get("/policies", function() use($app){
@@ -185,6 +181,7 @@ require_once('routes/artists.php');
 require_once('routes/participate.php');
 require_once('routes/news.php');
 require_once('routes/librarians.php');
+// support old site style URLs
 require_once('routes/migration-redirects.php');
 
 $app->run();
