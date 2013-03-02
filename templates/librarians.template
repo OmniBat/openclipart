@@ -1,6 +1,41 @@
 {% extends 'main.template' %}
 {% block content %}
   <div class="page-librarians">
+   <div class="row">
+     <div class="span12">
+     <h3>Librarians</h3>
+      <p> 
+        Welcome to the public friendly pages for and about the librarians of
+        Open Clip Art Library. A librarian is a person who helps out with more
+        than just uploading clipart. A librarian will often be checking to see
+        if clipart follows the <a href="/guidelines">Open Clipart
+          Guidelines</a>, uploading old clipart that missed it in previous
+        releases, cleaning up tag lists, changing clipart titles, changing
+        descriptions if necessary, changing the visibility of violating clipart,
+        bug-finding, bug-reporting, general bugginess, checking clipart
+        background metadata, proofreading the information on the site, removing
+        clipart comments that are not appropriate (i.e. attacking the author).
+        The Librarians occasionally need coffee, but run well on a hamster
+        wheel. No cliparts were harmed in the making of this page.
+      </p>
+      <p>
+        If you would like to become a librarian (available to registered users
+        only) you will need to ask an Ocal admin to make you a librarian. All we
+        really need is to have a conversation with you to find out where you
+        will best fit, and what you want to do. You can use the <a
+          href="http://lists.freedesktop.org/mailman/listinfo/clipart"> mailing
+          list</a>, or ask an OCAL admin (existing librarian or developer). IRC
+        is also a good place to find us : <a
+          href="http://webchat.freenode.net/?randomnick=1&channels=openclipart">#openclipart</a>
+        on freenode.
+      </p>
+      <p>
+        (If worst comes to worst, and you are unable to contact anyone, or
+        nothing has happened after a week from first contact, send chovynz an
+        email at google mail.) 
+      </p>
+    </div>
+   </div>
     <div class="row">
       <div class="span6 section">
         <h3 class="section">Current Librarians</h3>
