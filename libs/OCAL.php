@@ -600,8 +600,22 @@ class OCAL extends System{
     function get_users_by_group($group, $limit = 20){
       $group = $this->db->escape($group);
       $limit = intval($limit);
-      $query = "SELECT * 
-        FROM openclipart_users 
+      $query = "SELECT
+        users.id as id
+        , username
+        , full_name
+        , country
+        , email
+        , avatar
+        , homepage
+        , twitter
+        , creation_date
+        , about
+        , notify
+        , nsfw_filter
+        , token
+        , token_expiration 
+        FROM openclipart_users users 
         INNER JOIN openclipart_user_groups ON user = id
         INNER JOIN openclipart_groups ON openclipart_groups.id = user_group
         WHERE openclipart_groups.name = '$group'";
