@@ -28,7 +28,7 @@
     </div>
 
     <div class="row">
-      <div class="span12 section">
+      <div class="span12">
         
         <h4>File Requirements</h4>
         <ul>
@@ -37,12 +37,12 @@
         </ul>
       </div>
       
-      <div class="span6 section">
+      <div class="span6">
         Contains pixel image.
         <img src="img/pixel.png" />
       </div>
 
-      <div class="span6 section">
+      <div class="span6">
         Contains no pixel image.
         <img src="img/pixel-none.png" />
       </div> 
@@ -58,17 +58,19 @@
    
     <div class="row">
       
-      <h4>File Cleanup</h4>
+      <div class="span12">
+        <h4>File Cleanup</h4>
+      </div>
       
       <div class="span4">
         <img src="img/cleanup-crop1.png" />
       </div>
 
-      <div class="span4">
+      <div class="span2">
         <img src="img/cleanup-crop2.png" />
       </div>
       
-      <div class="span4">
+      <div class="span2">
         <img src="img/cleanup-crop3.png" />
       </div> 
       
@@ -84,11 +86,11 @@
     </div>
     
     <div class="row">
-      <div class="span12 section">
+      <div class="span12">
         
         <h4>Upload form</h4>
-        <p><strong>Tags:</strong>Do keep in mind that tags are the primary way how images are found, sorted, filtered and processed; Add tags that are objective descriptions of the image content. Think about words you would use to find the image. Avoid subjective, judgmental or local descriptions. An image of an apple might be tagged like this: apple, fruit, red, food, healthy, sweet</p>
-        <p><strong>NSWF:</strong>Do mark your image as NSFW (Not Safe for Work) if some people might find it objectionable.</p>
+        <p><strong>Tags:</strong> Do keep in mind that tags are the primary way how images are found, sorted, filtered and processed; Add tags that are objective descriptions of the image content. Think about words you would use to find the image. Avoid subjective, judgmental or local descriptions. An image of an apple might be tagged like this: apple, fruit, red, food, healthy, sweet</p>
+        <p><strong>NSWF:</strong> Do mark your image as NSFW (Not Safe for Work) if some people might find it objectionable.</p>
         
       </div>
     </div>
