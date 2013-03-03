@@ -123,6 +123,10 @@ $app->get("/participate", function() use($app){
     return $app->render('participate');
 });
 
+$app->get("/guidelines", function() use($app){
+    return $app->render('guidelines');
+});
+
 $app->get("/why-the-ads", function() use($app){
     return $app->render('why-the-ads');
 });
