@@ -15,21 +15,28 @@
     <h3 class="section">Requirements</h3>
     
     <div class="row"> 
+      
       <div class="span12">
-        
         <h4>Legal Requirements</h4>
+      </div>
+      
+      <div class="span6">
         <ul>
           <li>We accept most submissions. If they turn out to be illegal in some countries we may apply keywords for possible filtering.</li>
           <li>Files should be dedicated to the Public Domain.</li>
+        </ul>
+      </div>
+      
+      <div class="span6">
+        <ul>
           <li><strong>DO NOT</strong> submit any trademarked or copyrighted graphics. These images will not be included in the repository unless explicitly placed into the public domain. Most logos are not in the public domain so do not include them even as part of an image (swoosh on clothing, brand name on a car, etc.)</li>
           <li>You are free to upload images you found to be in the Public Domain or licensed under CC0. If you do, provide source documentation such as original source and year of publication in the description field in the upload form.</li>
         </ul>
-        
       </div>
     </div>
 
     <div class="row">
-      <div class="span12">
+      <div class="span6">
         
         <h4>File Requirements</h4>
         <ul>
@@ -37,7 +44,7 @@
           <li>Files may NOT contain pixel images (bitmap images). If you are unsure about your image make a test: zoom in very, very, very close to any part of your image. If you start to see pixels please don't upload the image. Alternatively you can <a href="https://www.youtube.com/results?search_query=image+trace+inkscape&page=&utm_source=opensearch">trace your image</a> converting it to an image without pixels.</li>
         </ul>
       </div>
-      
+
       <div class="span3">
         Contains pixel image.
         <img src="img/pixel.png" />
@@ -85,10 +92,15 @@
         </div>
       </div> 
       
-      <div class="span12">
+      <div class="span6">
         <ul>
           <li>Crop the display area tightly around the image as shown above.</li>
           <li>Don't sign your work or add titles as part of the graphic. This reduces the usefulness of the clip art since people will have to manually remove it. Add title and author information in the fields of the upload form.</li>
+        </ul>
+      </div>
+      
+      <div class="span6">
+        <ul>
           <li>Make sure all text has been converted into paths. Not everyone has installed the fonts you used. To convert text to paths in Inkscape, select the text and hit '''Ctrl + Shift + C''' (or go to "Path" menu and chose "Object to Path").</li>
           <li>Optionally you can add metadata to your file like: licence, author, description, tags, ...</li>
         </ul>
@@ -97,13 +109,19 @@
     </div>
     
     <div class="row">
+      
       <div class="span12">
-        
         <h4>Upload form</h4>
-        <p><strong>Tags:</strong> Do keep in mind that tags are the primary way how images are found, sorted, filtered and processed; Add tags that are objective descriptions of the image content. Think about words you would use to find the image. Avoid subjective, judgmental or local descriptions. An image of an apple might be tagged like this: apple, fruit, red, food, healthy, sweet</p>
-        <p><strong>NSWF:</strong> Do mark your image as NSFW (Not Safe for Work) if some people might find it objectionable.</p>
-        
       </div>
+      
+      <div class="span6">
+        <p><strong>Tags:</strong> Do keep in mind that tags are the primary way how images are found, sorted, filtered and processed; Add tags that are objective descriptions of the image content. Think about words you would use to find the image. Avoid subjective, judgmental or local descriptions. An image of an apple might be tagged like this: apple, fruit, red, food, healthy, sweet</p>
+      </div>
+      
+      <div class="span12">
+        <p><strong>NSWF:</strong> Do mark your image as NSFW (Not Safe for Work) if some people might find it objectionable.</p>
+      </div>
+      
     </div>
     
   </div>
