@@ -65,20 +65,30 @@
       
       <div class="span4">
         <img src="img/cleanup-crop1.png" />
+        <div class="caption">
+          <p>Clip art boundaries sometimes do not fit tightly around the actual boundary of the image.</p>
+        </div>
       </div>
 
       <div class="span4">
         <img src="img/cleanup-crop2.png" />
+        <div class="caption">
+          <p>To resize the document boundary in <a href="http://inkscape.org">Inkscape</a> press <strong>CTRL+A</strong> to select all elements. Then open the document properties window with <strong>CTRL+SHIFT+D</strong>, unfold <em>"Resize page to content..."</em> and click <em>"Resize page to drawing or selection"</em>.</p>
+        </div>
       </div>
       
       <div class="span4">
         <img src="img/cleanup-crop3.png" />
+        <div class="caption">
+          <p>The document now fits tightly around all elements of the drawing.</p>
+          <p><strong>NOTE:</strong> certain effects like blur will increase the image size! Manually adjusting the boundary may be necessary. Add extra space around the image where appropriate.</p>
+        </div>
       </div> 
       
       <div class="span12">
         <ul>
-          <li>Crop the display area tightly around the image as shown in the three images above. To crop clipart in Inkscape select everything in your document, press '''Ctrl + Shift + D''', unfold "Resize page to content..." and click "Resize page to drawing or selection". But remember: certain effects like blur will increase the image size! Manually adjusting the boundary may be necessary. Add extra space around the image where appropriate.</li>
-          <li>Don't signing your work or add titles as part of the graphic. This reduces the usefulness of the clip art since people will have to manually remove it. Add title and author information in the fields of the upload form.</li>
+          <li>Crop the display area tightly around the image as shown above.</li>
+          <li>Don't sign your work or add titles as part of the graphic. This reduces the usefulness of the clip art since people will have to manually remove it. Add title and author information in the fields of the upload form.</li>
           <li>Make sure all text has been converted into paths. Not everyone has installed the fonts you used. To convert text to paths in Inkscape, select the text and hit '''Ctrl + Shift + C''' (or go to "Path" menu and chose "Object to Path").</li>
           <li>Optionally you can add metadata to your file like: licence, author, description, tags, ...</li>
         </ul>
