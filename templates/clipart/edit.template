@@ -2,12 +2,17 @@
 {% block content %}
 <div class="page-clipart-edit">
   <div class="row">
-    <div class="span1"></div>
-    <div class="span5 center">
-      <h2> Edit Clipart Details </h2>
+    <div class="span12">
+      <h3>Edit Clipart Details</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span6">
       <img src="/rendered-images/280/{{clipart.id}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
     </div>
-    <div class="span5">
+    
+    <div class="span6">
       <form class="form-horizontal" method="POST">
         <input type="hidden" name="id" value="{{clipart.id}}">
         <!-- title -->
@@ -40,9 +45,9 @@
         <div class="clear"></div>
         <!-- submit -->
         <div class="control-group">
-          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="submit" class="btn">Update</button>
           <a href="{{back}}" class="btn"> Cancel </a>
-          <a class="btn btn-primary btn-danger pull-right" href="/clipart/{{clipart.id}}/remove">Delete</a>
+          <a class="btn btn-ocal btn-danger pull-right" href="/clipart/{{clipart.id}}/remove">Delete</a>
         </div>
       </form>
     </div>
