@@ -3,12 +3,12 @@
 <div class="page-clipart-edit">
   <div class="row">
     <div class="span12">
-      <h3>Edit Clipart Details</h3>
+      <h3>Edit {{title}</h3>
     </div>
   </div>
 
   <div class="row">
-    <div class="span6">
+    <div class="span6 center">
       <img src="/rendered-images/280/{{clipart.id}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
     </div>
     
@@ -45,9 +45,9 @@
         <div class="clear"></div>
         <!-- submit -->
         <div class="control-group">
-          <button type="submit" class="btn">Update</button>
-          <a href="{{back}}" class="btn"> Cancel </a>
-          <a class="btn btn-ocal btn-danger pull-right" href="/clipart/{{clipart.id}}/remove">Delete</a>
+          <a class="btn btn-ocal btn-danger" href="/clipart/{{clipart.id}}/remove">Delete</a>
+          <a href="{{back}}" class="btn pull-right"> Cancel </a>
+          <button type="submit" class="btn btn-ocal btn-danger pull-right">Update</button>
         </div>
       </form>
     </div>
