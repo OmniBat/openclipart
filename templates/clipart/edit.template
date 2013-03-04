@@ -3,7 +3,7 @@
 <div class="page-clipart-edit">
   <div class="row">
     <div class="span12">
-      <h3>Edit {{title}</h3>
+      <h3>Edit {{title}}</h3>
     </div>
   </div>
 
