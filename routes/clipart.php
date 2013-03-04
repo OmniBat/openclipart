@@ -48,8 +48,8 @@ $app->get("/clipart/:id", function($id) use ($app) {
     $editable = false;
     $user = $app->user();
     // librarians can edit any clipart
-    if (isset($app->username)) {
-        if ($app->username == $clipart['username'] || $app->is('librarian')) {
+    if (isset($user['username'])) {
+        if ($user['username'] == $clipart['username'] || $app->is('librarian')) {
             $editable = true;
         }
     }

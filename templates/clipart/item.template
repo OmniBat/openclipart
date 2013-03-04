@@ -1,7 +1,7 @@
 <li class="span2">
   <a href="/clipart/{{clipart.id}}/{{clipart.link}}{{clipart.forward_query}}" title="{{clipart.title}}" class="thumbnail">
     <div class="image-center">
-      <img src="/image/100/{{clipart.username ? clipart.username ~ '/' : ''}}{{clipart.filename_png}}{{clipart.forward_query}}">
+      <img src="/rendered-images/100/{{clipart.id}}">
     </div>
     <h5>{{clipart.title}}</h5>
   </a>

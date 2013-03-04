@@ -34,7 +34,7 @@
             <a href="/download/svg/{{username}}/{{filename}}">
               <div class="detail-image">
                 <div class="checker"></div>
-                <img src="/image/280/{{username}}/{{filename_png}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
+                <img src="/rendered-images/280/{{id}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
               </div>
             </a>
           </div>
@@ -67,9 +67,12 @@
                 </a>
               <ul class="dropdown-menu">
                 <!-- links -->
-                <li><a tabindex="-1" href="/image/download/100/{{username}}/{{filename_png}}">100px</a></li>
-                <li><a tabindex="-1" href="/image/download/200/{{username}}/{{filename_png}}">200px</a></li>
-                <li><a tabindex="-1" href="/image/download/500/{{username}}/{{filename_png}}">500px</a></li>
+                <li><a tabindex="-1"
+                  href="/rendered-images/download/100/{{id}}/{{id}}-{{filename_png}}">100px</a></li>
+                <li><a tabindex="-1"
+                  href="/rendered-images/download/200/{{id}}/{{id}}-{{filename_png}}">200px</a></li>
+                <li><a tabindex="-1"
+                  href="/rendered-images/download/500/{{id}}/{{id}}-{{filename_png}}">500px</a></li>
               </ul>
             </li>
           </ul>
@@ -88,7 +91,8 @@
             <h5>Remixes</h5>
             <div class="remixes">
             {% for remix in remixes %}
-              <a href="/clipart/{{remix.id}}/{{remix.link}}"><img src="/image/75/{{remix.username}}/{{remix.filename}}" /></a>
+              <a href="/clipart/{{remix.id}}/{{remix.link}}"><img
+                src="/rendered-images/75/{{remix.id}}" /></a>
             {% endfor %}
             </div>
           </div>
@@ -176,7 +180,6 @@
             </tr>
           </table>
         </div>
-
        {% if editable %}
         <div class="span6">
           <div class="edit-menu pull-right">

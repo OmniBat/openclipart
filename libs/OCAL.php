@@ -46,6 +46,20 @@ class OCAL extends System{
       else if(isset($this->nsfw)) return $this->nsfw;
       return false;
     }
+    function clipart_has_tag($id, $tag){
+      $tag = $this->db->escape($tag);
+      $id  = intval($id);
+      $query = "SELECT count(*) 
+        FROM openclipart_clipart 
+        INNER JOIN openclipart_clipart_tags ON clipart = openclipart_clipart.id 
+        INNER JOIN openclipart_tags ON tag = openclipart_tags.id 
+        WHERE openclipart_clipart.id = $id
+        AND name = '$tag'";
+     return $app->db->get_value($query) !== 0;
+    }
+    function clipart_is_nsfw($id){
+      return $this->clipart_has_tag($id, 'nsfw');
+    }
     function is_clipart_favorite($clipart, $userid){
       $clipart = intval($clipart);
       $userid = intval($userid);
@@ -475,6 +489,18 @@ class OCAL extends System{
           INNER JOIN openclipart_users ON owner = openclipart_users.id 
           WHERE openclipart_clipart.id = $id";
       return $this->db->get_row($query);
+    }
+    function get_clipart_path($id){
+      // serve the same svg in svg debug mode. this prevents having to download
+      // the entire set of svg files during development
+      if( isset($this->config->svg_debug) && $this->config->svg_debug) 
+        return $dir . $this->config->example_svg;
+      $clipart = $this->get_clipart($id);
+      if(!$clipart) return;
+      $username = $clipart['username'];
+      $filename = $clipart['filename'];
+      $dir = $this->config->root_directory;
+      return $dir . "/people/$username/$filename";
     }
     function user_num_remixes($id){
       $id= intval($id);

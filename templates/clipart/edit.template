@@ -5,7 +5,7 @@
     <div class="span1"></div>
     <div class="span5 center">
       <h2> Edit Clipart Details </h2>
-      <img src="/image/280/{{username}}/{{filename_png}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
+      <img src="/rendered-images/280/{{clipart.id}}" alt="{{title}}"  title='"{{title}}" by {{username}}'/>
     </div>
     <div class="span5">
       <form class="form-horizontal" method="POST">

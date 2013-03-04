@@ -376,4 +376,9 @@ class System extends Slim {
       if(!empty($qs)) $url .= '?' . http_build_query($qs);
       parent::redirect($url, $status);
     }
+    function end($body, $status = 200){
+      $this->status($status);
+      $res = $this->response();
+      $res->body($body);
+    }
 }

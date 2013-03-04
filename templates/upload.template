@@ -90,7 +90,7 @@
         <div class="span12 remix-banner">
           <div class="row">
             <div class="span2 offset3 thumb">
-              <img src="/image/100/{{clipart.username}}/{{clipart.filename_png}}">
+              <img src="/rendered-images/100/{{clipart.id}}">
             </div>
             <div class="span4">
               <h4> Remixing: </h4>
