@@ -1,9 +1,0 @@
-<div id="new" class="recent-img-d clearfix">
-  <h3>
-    <a href="/bydate">New Clipart</a>
-    <a href="/rss/new.xml" target="_blank">
-      <img src="/images/rss-sm.png" alt="RSS" />
-    </a>
-  </h3>
-  {{content}}
-</div>

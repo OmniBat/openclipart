@@ -1,5 +1,0 @@
-{{! this work when 'foo' is a function}}
-{{#foo}}
-  select full_name, country from openclipart_users where user_name = 'kuba'
-{{/foo}}
-

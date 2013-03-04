@@ -1,9 +1,0 @@
-<div id="top-download" class="recent-img-d clearfix">
-  <h3>
-    <a href="/byhits-last-month">This Month's Top 10 Downloads</a>
-    <a href="/rss/top.xml">
-      <img src="/images/rss-sm.png" alt="RSS" />
-    </a>
-  </h3>
-  {{content}}
-</div>

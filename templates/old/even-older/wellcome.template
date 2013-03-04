@@ -1,8 +1,0 @@
-<div id="activities">
-	<div class="boxtop"></div>
-	<div class="wrapper">
-		<div class="ocal-info" itemscope itemtype="http://data-vocabulary.org/Person">The <span itemprop="name">Open Clipart Library</span> (<span itemprop="nickname">OCAL</span>) is the <span itemprop="title">largest collaborative community</span> that creates, shares and remixes clipart. All clipart is released to the <a href="http://creativecommons.org/publicdomain/zero/1.0/">public domain</a> and may be used in any project for free with no restrictions. <span itemprop="affiliation" style="display:none">Free Vector Graphics</span><a href="https://plus.google.com/101547969555367421837?rel=author" style="display:none">Google+</a>
-        </div>
-	</div>
-	<div class="boxbottom"></div>
-</div>

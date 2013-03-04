@@ -1,6 +1,0 @@
-{{#show_facebook}}
-<iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FOpen-Clip-Art-Library%2F345650985985&width=322&colorscheme=light&show_faces=true&border_color&stream=false&header=true&height=290" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:322px; height:290px; margin-bottom:10px" allowTransparency="true"></iframe>
-{{/show_facebook}}
-{{^show_facebook}}
-<p style="text-align:center">[HIDDEN FACEBOOK BOX]</p>
-{{/show_facebook}}

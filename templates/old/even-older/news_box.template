@@ -1,9 +1,0 @@
-<div id="latest-news-box" class="sidebox">
-  <h3><a href="/news{{forward_query}}">Latest News</a></h3>
-  <ul class="wrapper">
-    {{#news}}
-      {{!TODO: link is the original page not hosted on OCAL}}
-      <li><a href="{{link}}">{{title}}</a></li>
-    {{/news}}
-  </ul>
-</div>
