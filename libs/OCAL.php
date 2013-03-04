@@ -666,7 +666,16 @@ class OCAL extends System{
     
     function get_clipart_comments($id){
       $id = intval($id);
-      $query = "SELECT openclipart_comments.id as id, username, user, clipart, comment, date FROM openclipart_comments INNER JOIN openclipart_users ON openclipart_users.id = openclipart_comments.user WHERE clipart = $id";
+      $query = "SELECT 
+        openclipart_comments.id as id
+        , username
+        , user
+        , clipart
+        , comment
+        , date FROM openclipart_comments 
+        INNER JOIN openclipart_users 
+          ON openclipart_users.id = openclipart_comments.user 
+        WHERE clipart = $id";
       return $this->db->get_array($query);
     }
     
