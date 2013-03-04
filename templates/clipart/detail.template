@@ -23,7 +23,7 @@
               {% endif %}
             </span>
             <small>
-              by 
+              by&nbsp; 
               <a href="/profile/{{username}}">{{username}}</a>
             </small>
           </h3>

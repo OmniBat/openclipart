@@ -1,6 +1,6 @@
 {% extends 'main.template' %}
 {% block content %}
-<h1> Your Profile </h1>
+<h3> Your Profile </h3>
 <form class="form-horizontal" method="POST">
   <input type="hidden" name="id" value="{{profile.id}}">
   <div class="control-group {{ errors.full_name ? 'error' }}">
