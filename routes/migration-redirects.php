@@ -52,5 +52,9 @@ $app->get("/packages", function() use($app){
   return $app->redirect("/", null, 301);
 });
 
+$app->get("/image/:size/svg_to_png/:id/:name+", function($size, $id) use($app){
+  $size = preg_replace("/px$/", "", $size);
+  $app->redirect("/rendered-images/$size/$id", null, 301);
+});
 
 ?>
