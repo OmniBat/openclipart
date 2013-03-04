@@ -127,6 +127,10 @@ $app->get("/guidelines", function() use($app){
     return $app->render('guidelines');
 });
 
+  $app->get("/guidelines-new", function() use($app){ //temporary until finished
+      return $app->render('guidelines-new');
+  });
+
 $app->get("/why-the-ads", function() use($app){
     return $app->render('why-the-ads');
 });

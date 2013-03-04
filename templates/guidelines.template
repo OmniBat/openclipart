@@ -1,80 +1,35 @@
 {% extends 'main.template' %}
 {% block content %}
+
 <div class="row">
   <div class="span12 section">
+
     <h3>File and Content Submission Guidelines</h3>
-  </div>
-</div>
 
-<div class="row"> 
-  <div class="span12 section">
-    <h3 class="section">Legal Requirements</h3>
-    <p>We accept most submissions. If they turn out to be illegal in some countries we may apply keywords for possible filtering.</p>
-    <p>Files should be dedicated to the Public Domain.</p>
-    <p><strong>DO NOT</strong> submit any trademarked or copyrighted graphics. These images will not be included in the repository unless explicitly placed into the public domain. Most logos are not in the public domain so do not include them even as part of an image (swoosh on clothing, brand name on a car, etc.)</p>
-    <p>You are free to upload images you found to be in the Public Domain or licensed under CC0. If you do, provide source documentation such as original source and year of publication in the description field in the upload form.</p>
-  </div>
-</div>
+    <h4>File Guidelines</h4> 
+    <ul>
+      <li>You can also upload files you have converted or found that are known to already be in the Public Domain or under CC0. Please provide source documentation in this case, such as the original source and the year it was published. Use the "Clip Art description field" for this information.</li>
+      <li>Please submit only SVG or SVGZ files. (WMF, PDF files or compressed ZIP, TAR.BZ2 or TAR.GZ files may be accepted in the future.)</li>
+      <li>Filenames must end in .svg</li>
+      <li><strong>Files should be dedicated to .</strong> Files should also have their <a>Metadata</a> license as Public Domain.</li>
+      <li>Make sure all fonts/type have been converted to paths/outlines.  Not everyone has the same fonts on their computer. To convert text to paths, select the text in Inkscape, and hit '''Ctrl + Shift + C''' (or go to "Path" menu and chose "Object to Path").</li>
+      <li>Do not submit files with embedded bitmap image.</li>
+      <li>DO NOT submit any trademarked or copyrighted graphics. These images will not be included in the repository unless explicitly placed into the public domain. Most logos are not in the public domain so do not include them even as part of an image (swoosh on clothing, brand name on a car, etc.)</li>
+      <li>Crop the display area tightly around the image as shown here, but remember that the cropping is based on the actual shapes - certain effects like blur will increase the image size and manually adjusting the boundary may be necessary. You may want to leave the equivalent of a few pixels around the image where appropriate.</li>
+    </ul>
+    
+    <img src="/img/Cleanup_Document_Boundry.png">
 
-<div class="row">
-  <div class="span12 section">
-    <h3 class="section">File Requirements</h3>
-    <p>Files must be in <a href="https://en.wikipedia.org/wiki/Svg">.svg format</a>. <a href="http://www.w3.org/Graphics/SVG/">SVG</a> is an open standard and can be edited & opened with many applications. We recommend <a href="http://inkscape.org/">Inkscape</a>.</p>
-    <p>Files may NOT contain pixel images (bitmap images). If you are unsure about your image make a test: zoom in very, very, very close to any part of your image. If you start to see pixels please don't upload the image. Alternatively you can <a href="https://www.youtube.com/results?search_query=image+trace+inkscape&page=&utm_source=opensearch">trace your image</a> converting it to an image without pixels.</p>
-  </div>
-  
-  <div class="span6 section">
-    Contains pixel image.
-    <img src="img/pixel.png" />
-  </div>
+    <h4>Content Guidelines</h4> 
+    <ul>
+      <li>Open Clip Art Library accepts most submissions. We do not censor the content of the submissions, but rather allow for keywords to be embedded inside the images so that others might filter based on their situation. As a corollary, the Library will not reject images that are legal in most countries just because they are illegal in a minority of countries.</li>
+      <li>Every image should have multiple keywords or tags used to describe the content submitted. Keywords are the primary way that images are sorted, filtered, and processed.</li>
+      <li>Keywords/tags provided in an image should try to be objective descriptions of the content they represent. Think of the words you would use to find the image you are submitting. Try to stay away from placing subjective or judgmental words ("objectionable, evil, bad") that may be limited to particular regions, or subcultures.</li>
+      <li>There is a "NSFW" Not Safe for Work option on the submission form for any images that some people might find objectionable.</li>
+      <li>Refrain from signing your work or adding titles as part of the graphic. These reduce the usefulness of the clip art, and in most cases, people will need to edit this out to use your submission. You can enter this information in the svg metadata as well as in the appropriate fields when you upload your submission.</li>
+    </ul>
 
-  <div class="span6 section">
-    Contains no pixel image.
-    <img src="img/pixel-none.png" />
-  </div> 
-</div>
-
-
-<div class="row">
-  
-  <div class="span12 section">
-    <h3 class="section">File Requirements</h3>
   </div>
-  
-  <div class="span4">
-    <img src="img/cleanup-crop1.png" />
-  </div>
-
-  <div class="span4">
-    <img src="img/cleanup-crop2.png" />
-  </div>
-  
-  <div class="span4">
-    <img src="img/cleanup-crop3.png" />
-  </div> 
-  
-  <div class="span12">
-    <p>Crop the display area tightly around the image as shown in those images. To crop clipart in Inkscape select everything in your document, press '''Ctrl + Shift + D''', unfold "Resize page to content..." and click "Resize page to drawing or selection". But remember: certain effects like blur will increase the image size! Manually adjusting the boundary may be necessary. Add extra space around the image where appropriate.</p>
-    <p>Don't signing your work or add titles as part of the graphic. This reduces the usefulness of the clip art since people will have to manually remove it. Add title and author information in the fields of the upload form.</p>
-    <p>Make sure all text has been converted into paths. Not everyone has installed the fonts you used. To convert text to paths in Inkscape, select the text and hit '''Ctrl + Shift + C''' (or go to "Path" menu and chose "Object to Path").</p>
-    <p>Optionally you can add metadata to your file like: licence, author, description, tags, ...</p>
-  </div>
-  
-</div>
-
-<div class="row">
-  
-  <div class="span12 section">
-    <h3 class="section">Upload form</h3>
-    <h4>Tags:</h4>
-    <p>Do keep in mind that tags are the primary way how images are found, sorted, filtered and processed; Add tags that are objective descriptions of the image content. Think about words you would use to find the image. Avoid subjective, judgmental or local descriptions. An image of an apple might be tagged like this: apple, fruit, red, food, healthy, sweet</p>
-    <h4>NSWF:</h4>
-    <p>Do mark your image as NSFW (Not Safe for Work) if some people might find it objectionable.</p>
-  </div>
-  
-</div>
-
-  
 </div>
 
 {% endblock %}
