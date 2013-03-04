@@ -68,7 +68,8 @@
           {% if not user %}
             <div class="span6 offset3">
               <div class="alert alert-error"><strong>Oh snap!</strong> You're not logged in yet</div>
-              <a class="btn-ocal btn btn-primary btn-danger btn-large" href="/login?redirect={{uri|e('url')}}">login now</a>
+              <a class="btn-ocal btn btn-primary btn-danger btn-large"
+                href="/login?redirect={{"/upload"|e("url")}}">login now</a>
             </div>
           {% endif %}
           {% if user %}
