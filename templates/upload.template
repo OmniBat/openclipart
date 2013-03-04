@@ -129,7 +129,7 @@
                 <input type="hidden" name="original" value="{{clipart.id}}">
                 <div class="upload-items"></div>
                 <div class="upload-controls">
-                  <a class="btn" href="#">browse *.svg</a>
+                  <a class="file-select btn" href="#">browse *.svg</a>
                   <br />
                   <input class="disabled btn-upload btn-ocal btn btn-primary btn-danger btn-large" type="submit" name="submit" value="upload">
                 </div>
