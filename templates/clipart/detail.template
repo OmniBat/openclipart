@@ -15,7 +15,7 @@
             {% endif %}
             <span class="vote-star">
               {% if user %}
-              <a href="/clipart/1/favorite/{{ is_user_favorite ? 'remove' : 'add'
+              <a href="/clipart/{{id}}/favorite/{{ is_user_favorite ? 'remove' : 'add'
                 }}"
                 class="{{ is_user_favorite ? 'active' }}">{{favs}}</a>
               {% else %}
