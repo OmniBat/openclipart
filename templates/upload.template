@@ -68,7 +68,8 @@
           {% if not user %}
             <div class="span6 offset3">
               <div class="alert alert-error"><strong>Oh snap!</strong> You're not logged in yet</div>
-              <a class="btn-ocal btn btn-primary btn-danger btn-large" href="/login?redirect={{uri|e('url')}}">login now</a>
+              <a class="btn-ocal btn btn-primary btn-danger btn-large"
+                href="/login?redirect={{"/upload"|e("url")}}">login now</a>
             </div>
           {% endif %}
           {% if user %}
@@ -90,7 +91,7 @@
         <div class="span12 remix-banner">
           <div class="row">
             <div class="span2 offset3 thumb">
-              <img src="/image/100/{{clipart.username}}/{{clipart.filename_png}}">
+              <img src="/rendered-images/100/{{clipart.id}}">
             </div>
             <div class="span4">
               <h4> Remixing: </h4>
@@ -129,7 +130,7 @@
                 <input type="hidden" name="original" value="{{clipart.id}}">
                 <div class="upload-items"></div>
                 <div class="upload-controls">
-                  <a class="btn" href="#">browse *.svg</a>
+                  <a class="file-select btn" href="#">browse *.svg</a>
                   <br />
                   <input class="disabled btn-upload btn-ocal btn btn-primary btn-danger btn-large" type="submit" name="submit" value="upload">
                 </div>
