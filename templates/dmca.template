@@ -1,5 +1,6 @@
 {% extends 'main.template' %}
 {% block content %}
+<div class="pad">
     <h3>DMCA Notice & Takedown Procedures</h3>
     <p>Thee Open Clip Art Library abides by the federal <a href="http://www.copyright.gov/legislation/dmca.pdf">Digital Millennium Copyright Act (DMCA)</a> by responding to notices of alleged infringement that comply with the DMCA and other applicable laws. As part of our response, we may remove or disable access to material residing on a site that is controlled or operated by the Open Clip Art Library (such as <a href="http://openclipart.org/">openclipart.org</a>) that is claimed to be infringing, in which case we will make a good-faith attempt to contact the person who submitted the affected material so that they may make a counter notification, also in accordance with the DMCA.</p>
 
@@ -21,7 +22,7 @@
 
     <p>By Email:</p>
     <p>Email: <a href="mailto:dmca@openclipart.org">dmca@openclipart.org</a></p>
-    <h2>Counter-Notification</h2>
+    <h3>Counter-Notification</h3>
 
     <p>If material that you have posted to a site controlled or operated by the Open Clip Art Library (such as <a href="http://openclipart.org/">openclipart.org</a>) has been taken down, you may file a counter-notification that contains the following details:</p>
     <ol>
@@ -36,4 +37,5 @@
 
     <p>Email: <a href="mailto:dmca@openclipart.org">dmca@openclipart.org</a></p>
     <p>You may be able to find examples of counter-notifications at <a href="http://www.chillingeffects.org/dmca/counter512.pdf">www.chillingeffects.org/dmca/counter512.pdf</a>.  Please note, however, that this is no substitute for legal advice and you should obtain legal advice to better understand your rights and obligations under the DMCA and applicable laws.</p>
+</div>
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends 'main.template' %}
 {% block content %}
+<div class="pad">
   <h3>Policies</h3>
   <p>This page represents the policies of the Open Clip Art Library.</p>
 
@@ -23,4 +24,5 @@
   <p><a name="othercontent"></a></p>
   <h4>Other Content</h4>
   <p>Other parts of the site may also include third party content that is licensed on different terms.  Where that use is not a fair use, the different license terms of that content are either indicated or the content is acknowledged to be Used with permission.</p>
+</div>
 {% endblock %}
