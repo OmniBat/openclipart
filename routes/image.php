@@ -12,8 +12,8 @@ $serve_image_func = function($width, $id, $filename = null) use($app) {
     return $app->end("Resolution cant be higher then $max_res px."
       . "Please download the SVG and reproduce large versions locally.",400);
   if ( !file_exists($svg) || filesize($svg) == 0 )
-    return $app->end("the clipart exists in the db but the coordisponding"
-    . "svg image could not be found at $svg",404);
+    return $app->end("the clipart exists in the db but the corresponding"
+    . " svg image could not be found at $svg",404);
   // NOTE: it should be up to the view to decide to show the nsfw overlay
   if (file_exists($png)) {
     if($filename){
