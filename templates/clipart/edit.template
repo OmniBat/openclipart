@@ -42,12 +42,12 @@
         <label class="checkbox pull-left">
              <input name="nsfw" type="checkbox" {{nsfw ? 'checked="checked"'}}> NSFW
         </label>
-        <div class="clear"></div>
+        <div class="clear"><br /><br /></div>
         <!-- submit -->
         <div class="control-group">
-          <a class="btn btn-ocal btn-danger" href="/clipart/{{clipart.id}}/remove">Delete</a>
-          <a href="{{back}}" class="btn pull-right"> Cancel </a>
-          <button type="submit" class="btn btn-ocal btn-danger pull-right">Update</button>
+          <a class="btn btn-ocal btn-danger" href="/clipart/{{clipart.id}}/remove"> Delete </a> 
+          <button type="submit" class="btn btn-ocal btn-danger pull-right"> Update </button> 
+          <a href="{{back}}" class="btn pull-right"> Cancel </a> 
         </div>
       </form>
     </div>
